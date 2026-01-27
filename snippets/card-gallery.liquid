@@ -410,7 +410,8 @@
 {% endstylesheet %}
 
 {% javascript %}
-  // Pagination dots for product card galleries
+  // Progressive pagination dots for product card galleries
+  // Shows max 5 dots that shift as you navigate (like Instagram/iOS)
   document.addEventListener('slideshow:select', (event) => {
     const slideshow = event.target;
     if (!slideshow) return;
@@ -419,8 +420,7 @@
     const cardGallery = slideshow.closest('.card-gallery');
     if (!cardGallery) return;
 
-    // Dots are now rendered as a SIBLING to card-gallery, not inside it
-    // Look for the next sibling with the dots class
+    // Dots are rendered as a SIBLING to card-gallery
     const dotsContainer = cardGallery.nextElementSibling?.classList.contains('gallery-pagination-dots')
       ? cardGallery.nextElementSibling
       : cardGallery.parentElement?.querySelector('.gallery-pagination-dots');
@@ -431,16 +431,55 @@
 
     const { index } = event.detail;
     const totalSlides = parseInt(dotsContainer.dataset.totalSlides, 10) || dots.length;
+    const maxDots = 5;
 
-    // Handle cycling for 6+ images (show max 5 dots)
-    let activeDotIndex = index;
-    if (totalSlides > 5) {
-      activeDotIndex = index % 5;
+    if (totalSlides <= maxDots) {
+      // Simple case: just highlight the active dot
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+        dot.classList.remove('dot-small', 'dot-tiny');
+      });
+    } else {
+      // Progressive dots: calculate window and sizes
+      // Keep active dot centered (position 2 of 0-4) when possible
+      const centerPos = 2;
+
+      // Calculate the window start (which slide the first dot represents)
+      let windowStart = index - centerPos;
+
+      // Clamp window to valid range
+      if (windowStart < 0) {
+        windowStart = 0;
+      } else if (windowStart > totalSlides - maxDots) {
+        windowStart = totalSlides - maxDots;
+      }
+
+      // Which position in the 5 dots is active
+      const activeDotIndex = index - windowStart;
+
+      // Update dots
+      dots.forEach((dot, i) => {
+        const slideIndex = windowStart + i;
+
+        // Set active state
+        dot.classList.toggle('active', i === activeDotIndex);
+
+        // Set size classes based on position in window
+        // Edge dots are smaller when there's more content beyond them
+        const isFirstDot = i === 0;
+        const isLastDot = i === maxDots - 1;
+        const hasMoreBefore = windowStart > 0;
+        const hasMoreAfter = windowStart + maxDots < totalSlides;
+
+        // Make edge dots smaller when there's more content
+        dot.classList.remove('dot-small', 'dot-tiny');
+        if (isFirstDot && hasMoreBefore) {
+          dot.classList.add('dot-small');
+        }
+        if (isLastDot && hasMoreAfter) {
+          dot.classList.add('dot-small');
+        }
+      });
     }
-
-    // Update active dot
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === activeDotIndex);
-    });
   });
 {% endjavascript %}

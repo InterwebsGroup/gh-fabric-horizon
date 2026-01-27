@@ -422,12 +422,23 @@
     background-color: #ffffff;
     opacity: 0.4;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, width 0.15s ease, height 0.15s ease;
   }
 
   /* Active dot - full opacity */
   .product-grid .gallery-pagination-dot.active {
     opacity: 1;
+  }
+
+  /* Progressive dots - smaller edge dots indicate more content */
+  .product-grid .gallery-pagination-dot.dot-small {
+    width: 4px;
+    height: 4px;
+    opacity: 0.3;
+  }
+
+  .product-grid .gallery-pagination-dot.dot-small.active {
+    opacity: 0.8;
   }
 
   /* Hide dots when only 1 image - check sibling card-gallery's data attribute */
