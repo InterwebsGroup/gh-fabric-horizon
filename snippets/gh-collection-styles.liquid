@@ -1,7 +1,7 @@
 {% comment %}
   Giant Hoodies Collection Page Styles
   - 4-col desktop, 2-col mobile grid
-  - 6-8px mobile gap, 16-20px desktop gap
+  - 0px mobile gap (edge-to-edge), 14px desktop gap
   - GRADIENT OVERLAY product cards (info on image)
   - 20px border radius
 {% endcomment %}
@@ -57,15 +57,15 @@
      GRID LAYOUT - CARD GAPS
      ============================================ */
 
-  /* Desktop gap - 18px for breathing room */
+  /* Desktop gap - 14px for clean structured grid */
   .product-grid {
-    --product-grid-gap: 18px 18px;
+    --product-grid-gap: 14px 14px;
   }
 
-  /* Mobile gap - 6px for tighter grid */
+  /* Mobile gap - 0px edge-to-edge for immersive browsing (gradient provides separation) */
   @media screen and (max-width: 749px) {
     .product-grid {
-      --product-grid-gap-mobile: 6px 6px;
+      --product-grid-gap-mobile: 0px 0px;
     }
   }
 
