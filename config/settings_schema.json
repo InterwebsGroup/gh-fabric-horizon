@@ -2335,7 +2335,7 @@
         "type": "text",
         "id": "announcement_flat",
         "label": "Announcement (Flat/Sale mode)",
-        "default": " ",
+        "default": "Free shipping on orders $75+",
         "info": "Leave blank to hide. Fill in for sales."
       },
       {
