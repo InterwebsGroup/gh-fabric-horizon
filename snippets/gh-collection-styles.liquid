@@ -55,17 +55,18 @@
 
   /* ============================================
      GRID LAYOUT - CARD GAPS
+     Override inline styles from product-grid.liquid section settings
      ============================================ */
 
   /* Desktop gap - 14px for clean structured grid */
   .product-grid {
-    --product-grid-gap: 14px 14px;
+    --product-grid-gap: 14px 14px !important;
   }
 
   /* Mobile gap - 0px edge-to-edge for immersive browsing (gradient provides separation) */
   @media screen and (max-width: 749px) {
     .product-grid {
-      --product-grid-gap-mobile: 0px 0px;
+      --product-grid-gap: 0px 0px !important;
     }
   }
 
