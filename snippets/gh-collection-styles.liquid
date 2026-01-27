@@ -46,11 +46,12 @@
     left: 0;
     right: 0;
     z-index: 2;
-    padding: 40px 16px 16px;
+    padding: 50px 16px 16px;
     background: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.75) 0%,
-      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.7) 30%,
+      rgba(0, 0, 0, 0.4) 60%,
       rgba(0, 0, 0, 0) 100%
     );
     border-radius: 0 0 20px 20px;
@@ -69,13 +70,13 @@
      TEXT ON GRADIENT - WHITE FOR CONTRAST
      ============================================ */
 
-  /* Title - white text */
+  /* Title - white text, bold with strong shadow for readability */
   .product-grid product-title,
   .product-grid product-title a {
     color: #ffffff !important;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 2px 6px rgba(0, 0, 0, 0.4);
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   /* Current price - white, bold */
@@ -158,6 +159,7 @@
     .product-grid product-title,
     .product-grid product-title a {
       font-size: 0.8rem;
+      font-weight: 700;
     }
 
     .product-grid product-price .price {
