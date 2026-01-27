@@ -202,13 +202,6 @@
         attributes: slideshow_attributes
       %}
     </a>
-    {%- if show_dots -%}
-      <div class="gallery-pagination-dots" ref="paginationDots" data-total-slides="{{ visible_media_count }}">
-        {%- for i in (1..dots_count) -%}
-          <span class="gallery-pagination-dot{% if forloop.first %} active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
   {% elsif product != blank and product.media.size == 0 %}
     <product-title class="product-card-gallery__title-placeholder">
       <a
@@ -238,6 +231,18 @@
   {%- endif -%}
   {{ children }}
 </div>
+
+{%- comment -%}
+  Pagination dots are rendered OUTSIDE card-gallery so they can have independent z-index
+  stacking, allowing them to appear above the gradient overlay while the gallery stays below.
+{%- endcomment -%}
+{%- if show_dots -%}
+  <div class="gallery-pagination-dots" ref="paginationDots" data-total-slides="{{ visible_media_count }}">
+    {%- for i in (1..dots_count) -%}
+      <span class="gallery-pagination-dot{% if forloop.first %} active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
+    {%- endfor -%}
+  </div>
+{%- endif -%}
 
 {% stylesheet %}
   .card-gallery {

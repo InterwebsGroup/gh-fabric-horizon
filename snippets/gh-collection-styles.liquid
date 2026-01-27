@@ -179,24 +179,22 @@
   }
 
   /* Image gallery - fills card, rounded corners */
-  /* z-index: 2 ensures the gallery (and its contents like pagination dots)
-     stays above the gradient overlay (z-index: 1) even when transform is applied on hover */
+  /* No z-index so it stays below the gradient overlay */
   .product-grid .card-gallery {
     position: relative;
-    z-index: 2;
     aspect-ratio: 4 / 5;
     border-radius: 20px;
     overflow: hidden;
   }
 
   /* Info overlay - positioned at bottom of image */
-  /* z-index: 1 keeps gradient BELOW card-gallery (z-index: 2) which contains dots */
+  /* z-index: 2 puts gradient and title/price ABOVE the images */
   .product-grid .product-card__content > .group-block {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: 2;
     padding: 50px 16px 28px;
     background: linear-gradient(
       to top,
@@ -371,6 +369,11 @@
     .product-grid .product-card__content > .group-block {
       border-radius: 0;
     }
+
+    /* Adjust dots position for mobile (smaller gradient area) */
+    .product-grid .gallery-pagination-dots {
+      bottom: 38px;
+    }
   }
 
   /* ============================================
@@ -395,22 +398,24 @@
 
   /* ============================================
      PAGINATION DOTS FOR PRODUCT CARD GALLERY
+     Dots are rendered OUTSIDE card-gallery as siblings to group-block
+     so they can have independent z-index stacking
      ============================================ */
 
-  /* Dots container - centered at bottom of image, above gradient */
-  .product-grid .card-gallery .gallery-pagination-dots {
+  /* Dots container - centered at bottom of card, above gradient */
+  .product-grid .gallery-pagination-dots {
     position: absolute;
-    bottom: 14px;
+    bottom: 42px; /* Position above the title/price area */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 6px;
-    z-index: 10;
+    z-index: 3; /* Above gradient (z-index: 2) */
     pointer-events: none;
   }
 
   /* Individual dot styling */
-  .product-grid .card-gallery .gallery-pagination-dot {
+  .product-grid .gallery-pagination-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -421,13 +426,13 @@
   }
 
   /* Active dot - full opacity */
-  .product-grid .card-gallery .gallery-pagination-dot.active {
+  .product-grid .gallery-pagination-dot.active {
     opacity: 1;
   }
 
-  /* Hide dots when only 1 image */
-  .product-grid .card-gallery[data-slide-count="1"] .gallery-pagination-dots,
-  .product-grid .card-gallery[data-slide-count="0"] .gallery-pagination-dots {
+  /* Hide dots when only 1 image - check sibling card-gallery's data attribute */
+  .product-grid .card-gallery[data-slide-count="1"] ~ .gallery-pagination-dots,
+  .product-grid .card-gallery[data-slide-count="0"] ~ .gallery-pagination-dots {
     display: none;
   }
 
