@@ -1,0 +1,266 @@
+{% comment %} Giant Hoodies Feature: TRENDY - Lifestyle photo collage {% endcomment %}
+
+<div
+  class="feature-trendy section section--full-width color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  <div class="feature-trendy__header">
+    <p class="feature-trendy__eyebrow">Wear It Everywhere</p>
+    <h2 class="feature-trendy__heading">Your Hoodie for Everything</h2>
+  </div>
+
+  <div class="feature-trendy__collage">
+    <div class="feature-trendy__item feature-trendy__item--large">
+      {% if section.settings.image_main != blank %}
+        {{ section.settings.image_main | image_url: width: 800 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie lifestyle' }}
+      {% else %}
+        <div class="feature-trendy__placeholder">
+          <span>Couch</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="feature-trendy__item">
+      {% if section.settings.image_2 != blank %}
+        {{ section.settings.image_2 | image_url: width: 500 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie at airport' }}
+      {% else %}
+        <div class="feature-trendy__placeholder">
+          <span>Airport</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="feature-trendy__item">
+      {% if section.settings.image_3 != blank %}
+        {{ section.settings.image_3 | image_url: width: 500 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie at coffee shop' }}
+      {% else %}
+        <div class="feature-trendy__placeholder">
+          <span>Coffee Shop</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="feature-trendy__item">
+      {% if section.settings.image_4 != blank %}
+        {{ section.settings.image_4 | image_url: width: 500 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie running errands' }}
+      {% else %}
+        <div class="feature-trendy__placeholder">
+          <span>Errands</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="feature-trendy__item">
+      {% if section.settings.image_5 != blank %}
+        {{ section.settings.image_5 | image_url: width: 500 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie at home' }}
+      {% else %}
+        <div class="feature-trendy__placeholder">
+          <span>Movie Night</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="feature-trendy__contexts">
+    <span class="feature-trendy__context">Couch</span>
+    <span class="feature-trendy__dot">·</span>
+    <span class="feature-trendy__context">Airport</span>
+    <span class="feature-trendy__dot">·</span>
+    <span class="feature-trendy__context">Coffee Shop</span>
+    <span class="feature-trendy__dot">·</span>
+    <span class="feature-trendy__context">Errands</span>
+    <span class="feature-trendy__dot">·</span>
+    <span class="feature-trendy__context">Work From Home</span>
+  </div>
+</div>
+
+{% stylesheet %}
+  .feature-trendy {
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .feature-trendy__header {
+    max-width: 600px;
+    margin: 0 auto 48px;
+  }
+
+  .feature-trendy__eyebrow {
+    font-family: var(--gh-font-body);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gh-terracotta);
+    margin-bottom: 16px;
+  }
+
+  .feature-trendy__heading {
+    font-family: var(--gh-font-heading);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--color-foreground);
+  }
+
+  .feature-trendy__collage {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 8px;
+    max-width: 1200px;
+    margin: 0 auto 32px;
+    aspect-ratio: 2 / 1;
+  }
+
+  .feature-trendy__item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .feature-trendy__item--large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .feature-trendy__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .feature-trendy__placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--gh-sand) 0%, var(--gh-cream) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feature-trendy__placeholder span {
+    font-family: var(--gh-font-body);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gh-terracotta);
+    opacity: 0.5;
+  }
+
+  .feature-trendy__contexts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    font-family: var(--gh-font-body);
+    font-size: 1rem;
+    color: var(--color-foreground);
+    opacity: 0.6;
+  }
+
+  .feature-trendy__dot {
+    opacity: 0.3;
+  }
+
+  @media screen and (max-width: 749px) {
+    .feature-trendy__collage {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+      aspect-ratio: auto;
+    }
+
+    .feature-trendy__item--large {
+      grid-column: span 2;
+      grid-row: span 1;
+      aspect-ratio: 16 / 9;
+    }
+
+    .feature-trendy__item:not(.feature-trendy__item--large) {
+      aspect-ratio: 1;
+    }
+
+    .feature-trendy__item {
+      border-radius: 8px;
+    }
+
+    .feature-trendy__contexts {
+      font-size: 0.875rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Feature: Trendy",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Lifestyle Photos"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_main",
+      "label": "Main photo (large)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Photo 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_3",
+      "label": "Photo 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_4",
+      "label": "Photo 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_5",
+      "label": "Photo 5"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature: Trendy"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,216 @@
+{% comment %} Giant Hoodies Feature: GUARANTEE - Trust/objection killer {% endcomment %}
+
+<div
+  class="feature-guarantee section section--full-width color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  <div class="feature-guarantee__container">
+    <div class="feature-guarantee__stat">
+      <p class="feature-guarantee__stat-number">&lt; 1%</p>
+      <p class="feature-guarantee__stat-label">Return Rate</p>
+    </div>
+
+    <p class="feature-guarantee__comparison">The average apparel brand sees 21%</p>
+
+    <div class="feature-guarantee__process">
+      <div class="feature-guarantee__step">
+        <div class="feature-guarantee__step-icon">1</div>
+        <p class="feature-guarantee__step-title">Order</p>
+        <p class="feature-guarantee__step-desc">Ships same or next business day</p>
+      </div>
+      <div class="feature-guarantee__arrow">→</div>
+      <div class="feature-guarantee__step">
+        <div class="feature-guarantee__step-icon">2</div>
+        <p class="feature-guarantee__step-title">Try</p>
+        <p class="feature-guarantee__step-desc">Wrap yourself in cozy</p>
+      </div>
+      <div class="feature-guarantee__arrow">→</div>
+      <div class="feature-guarantee__step">
+        <div class="feature-guarantee__step-icon">3</div>
+        <p class="feature-guarantee__step-title">Love It</p>
+        <p class="feature-guarantee__step-desc">Or we'll make it right</p>
+      </div>
+    </div>
+
+    <div class="feature-guarantee__badge">
+      <span class="feature-guarantee__badge-text">30-Day "Best Hoodie Ever" Guarantee</span>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .feature-guarantee {
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .feature-guarantee__container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .feature-guarantee__stat {
+    margin-bottom: 16px;
+  }
+
+  .feature-guarantee__stat-number {
+    font-family: var(--gh-font-heading);
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--gh-terracotta);
+    margin: 0;
+  }
+
+  .feature-guarantee__stat-label {
+    font-family: var(--gh-font-heading);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  .feature-guarantee__comparison {
+    font-family: var(--gh-font-body);
+    font-size: 1.125rem;
+    color: var(--color-foreground);
+    opacity: 0.6;
+    margin-bottom: 48px;
+  }
+
+  .feature-guarantee__process {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .feature-guarantee__step {
+    flex: 1;
+    max-width: 200px;
+  }
+
+  .feature-guarantee__step-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--gh-terracotta);
+    color: #fff;
+    font-family: var(--gh-font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+  }
+
+  .feature-guarantee__step-title {
+    font-family: var(--gh-font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+    margin: 0 0 8px;
+  }
+
+  .feature-guarantee__step-desc {
+    font-family: var(--gh-font-body);
+    font-size: 0.9375rem;
+    color: var(--color-foreground);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .feature-guarantee__arrow {
+    font-size: 1.5rem;
+    color: var(--gh-terracotta);
+    opacity: 0.5;
+    padding-top: 12px;
+  }
+
+  .feature-guarantee__badge {
+    display: inline-block;
+    background: var(--gh-espresso);
+    color: var(--gh-cream);
+    padding: 16px 32px;
+    border-radius: 50px;
+  }
+
+  .feature-guarantee__badge-text {
+    font-family: var(--gh-font-body);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  @media screen and (max-width: 749px) {
+    .feature-guarantee__process {
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .feature-guarantee__arrow {
+      transform: rotate(90deg);
+      padding: 0;
+    }
+
+    .feature-guarantee__step {
+      max-width: 100%;
+    }
+
+    .feature-guarantee__badge {
+      padding: 12px 24px;
+    }
+
+    .feature-guarantee__badge-text {
+      font-size: 0.875rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Feature: Guarantee",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature: Guarantee"
+    }
+  ]
+}
+{% endschema %}

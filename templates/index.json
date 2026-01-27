@@ -132,7 +132,7 @@
                 "label": "Shop All Hoodies",
                 "link": "shopify://collections/giant-hoodies",
                 "open_in_new_tab": false,
-                "style_class": "button-primary",
+                "style_class": "button",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
@@ -451,45 +451,27 @@
       }
     },
     "feature_oversized": {
-      "type": "feature-block",
+      "type": "feature-oversized",
       "settings": {
-        "eyebrow": "One Size Fits Most",
-        "heading": "OVERSIZED",
-        "body": "Imagine slipping into your new favorite hoodie after a long day. Wrap yourself in a cozy hug, sink into the plush fabric, and forget about the stresses of today.",
-        "cta_text": "Shop All Hoodies",
-        "cta_link": "shopify://collections/giant-hoodies",
-        "media_position": "right",
-        "color_scheme": "scheme-2",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "color_scheme": "scheme-1",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     },
     "feature_trendy": {
-      "type": "feature-block",
+      "type": "feature-trendy",
       "settings": {
-        "eyebrow": "Trendy, Oversized is In",
-        "heading": "Show Your Style",
-        "body": "It's not just about comfort. Giant Hoodies make you feel confident and stylish, too. With a trendy oversized fit, you'll look effortlessly cool whether you're out running errands or lounging at home.",
-        "cta_text": "Shop All Hoodies",
-        "cta_link": "shopify://collections/giant-hoodies",
-        "media_position": "left",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "color_scheme": "scheme-2",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     },
     "feature_guarantee": {
-      "type": "feature-block",
+      "type": "feature-guarantee",
       "settings": {
-        "eyebrow": "30 Days, No Risk :)",
-        "heading": "Best Hoodie Ever Guarantee",
-        "body": "Get yours today. We promise you'll experience what our 225,000+ happy Hoodie Fam customers have experienced since 2020. Not happy? We'll make it right.",
-        "cta_text": "Shop All Hoodies",
-        "cta_link": "shopify://collections/giant-hoodies",
-        "media_position": "right",
-        "color_scheme": "scheme-2",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "color_scheme": "scheme-1",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     },
     "comparison_table": {
