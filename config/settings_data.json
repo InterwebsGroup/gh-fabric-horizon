@@ -96,6 +96,8 @@
     "back_in_stock_success_msg": "We'll email you when it's back!",
     "show_second_image_on_hover": false,
     "product_card_carousel": true,
+    "page_transition_enabled": false,
+    "transition_to_main_product": false,
     "color_schemes": {
       "scheme-1": {
         "settings": {

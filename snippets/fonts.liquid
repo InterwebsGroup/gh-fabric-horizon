@@ -1,48 +1,73 @@
 {% # theme-check-disable %}
 
-{% comment %} Giant Hoodies Custom Fonts - Fraunces (headings) + DM Sans (body) {% endcomment %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet">
+{% comment %}
+  Self-hosted fonts for Giant Hoodies
+  - DM Sans (body text): 400, 500, 600, 700
+  - Fraunces (headings): 400, 600
+{% endcomment %}
 
-{%- unless settings.type_body_font.system? -%}
-  <link
-    rel="preload"
-    as="font"
-    href="{{ settings.type_body_font | font_url }}"
-    type="font/woff2"
-    crossorigin
-    fetchpriority="low"
-  >
-{%- endunless -%}
-{%- unless settings.type_subheading_font.system? -%}
-  <link
-    rel="preload"
-    as="font"
-    href="{{ settings.type_subheading_font | font_url }}"
-    type="font/woff2"
-    crossorigin
-    fetchpriority="low"
-  >
-{%- endunless -%}
-{%- unless settings.type_heading_font.system? -%}
-  <link
-    rel="preload"
-    as="font"
-    href="{{ settings.type_heading_font | font_url }}"
-    type="font/woff2"
-    crossorigin
-    fetchpriority="low"
-  >
-{%- endunless -%}
-{%- unless settings.type_accent_font.system? -%}
-  <link
-    rel="preload"
-    as="font"
-    href="{{ settings.type_accent_font | font_url }}"
-    type="font/woff2"
-    crossorigin
-    fetchpriority="low"
-  >
-{%- endunless -%}
+<style>
+  /* DM Sans - Body Font */
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('{{ "dm-sans-400.woff2" | asset_url }}') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('{{ "dm-sans-500.woff2" | asset_url }}') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('{{ "dm-sans-600.woff2" | asset_url }}') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('{{ "dm-sans-700.woff2" | asset_url }}') format('woff2');
+  }
+
+  /* Fraunces - Heading Font */
+  @font-face {
+    font-family: 'Fraunces';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('{{ "fraunces-400.woff2" | asset_url }}') format('woff2');
+  }
+  @font-face {
+    font-family: 'Fraunces';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('{{ "fraunces-600.woff2" | asset_url }}') format('woff2');
+  }
+</style>
+
+{% comment %} Preload critical fonts for faster rendering {% endcomment %}
+<link
+  rel="preload"
+  as="font"
+  href="{{ 'dm-sans-400.woff2' | asset_url }}"
+  type="font/woff2"
+  crossorigin
+>
+<link
+  rel="preload"
+  as="font"
+  href="{{ 'fraunces-600.woff2' | asset_url }}"
+  type="font/woff2"
+  crossorigin
+>
+
 {% # theme-check-enable %}
