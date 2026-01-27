@@ -8,7 +8,7 @@
   <div class="press-logos__grid">
     <div class="press-logos__item">
       {% if section.settings.logo_1 != blank %}
-        {{ section.settings.logo_1 | image_url: width: 200 | image_tag: alt: 'Oprah\'s Favorite Things', class: 'press-logos__img' }}
+        {{ section.settings.logo_1 | image_url: width: 200 | image_tag: alt: "Oprah's Favorite Things", class: "press-logos__img" }}
       {% else %}
         <span class="press-logos__text">Oprah's Favorite Things</span>
       {% endif %}

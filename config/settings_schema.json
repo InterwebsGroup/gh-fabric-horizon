@@ -2335,7 +2335,7 @@
         "type": "text",
         "id": "announcement_flat",
         "label": "Announcement (Flat/Sale mode)",
-        "default": "",
+        "default": " ",
         "info": "Leave blank to hide. Fill in for sales."
       },
       {
