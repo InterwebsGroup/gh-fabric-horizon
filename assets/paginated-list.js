@@ -46,7 +46,7 @@ export default class PaginatedList extends Component {
 
     this.#fetchPage('next');
     this.#fetchPage('previous');
-    this.#observeViewMore();
+    this.#setupLoadMore();
 
     // Listen for filter updates to clear cached pages
     document.addEventListener(ThemeEvents.FilterUpdate, this.#handleFilterUpdate);
@@ -57,8 +57,59 @@ export default class PaginatedList extends Component {
     if (this.infinityScrollObserver) {
       this.infinityScrollObserver.disconnect();
     }
+
+    // Remove load more button listener
+    const { loadMoreButton } = this.refs;
+    if (loadMoreButton) {
+      loadMoreButton.removeEventListener('click', this.#handleLoadMoreClick);
+    }
+
     // Remove the filter update listener
     document.removeEventListener(ThemeEvents.FilterUpdate, this.#handleFilterUpdate);
+  }
+
+  #setupLoadMore() {
+    const { loadMoreButton, loadMoreContainer } = this.refs;
+
+    // If load more button exists, use button click mode
+    if (loadMoreButton) {
+      loadMoreButton.addEventListener('click', this.#handleLoadMoreClick);
+      this.#updateLoadMoreVisibility();
+      return;
+    }
+
+    // Fall back to intersection observer for backward compatibility
+    this.#observeViewMore();
+  }
+
+  #handleLoadMoreClick = async () => {
+    const { loadMoreButton } = this.refs;
+    if (!loadMoreButton || loadMoreButton.classList.contains('loading')) return;
+
+    loadMoreButton.classList.add('loading');
+    loadMoreButton.textContent = 'Loading...';
+
+    await this.#renderNextPage();
+
+    loadMoreButton.classList.remove('loading');
+    loadMoreButton.textContent = 'Load more products';
+
+    this.#updateLoadMoreVisibility();
+  };
+
+  #updateLoadMoreVisibility() {
+    const { loadMoreContainer, grid } = this.refs;
+    if (!loadMoreContainer || !grid) return;
+
+    const nextPage = this.#getPage('next');
+    const lastPage = Number(grid.dataset.lastPage);
+
+    // Hide if no more pages
+    if (!nextPage || nextPage.page > lastPage) {
+      loadMoreContainer.setAttribute('hidden', '');
+    } else {
+      loadMoreContainer.removeAttribute('hidden');
+    }
   }
 
   #observeViewMore() {
@@ -328,10 +379,13 @@ export default class PaginatedList extends Component {
         }
 
         // Now the DOM has been updated with the new filtered content
-        this.#observeViewMore();
+        this.#setupLoadMore();
 
         // Fetch the next page
         this.#fetchPage('next');
+
+        // Update load more button visibility
+        this.#updateLoadMoreVisibility();
       }
     });
 

@@ -63,6 +63,24 @@
   endif
 %}
 
+{%- liquid
+  # Calculate visible media count for pagination dots
+  assign visible_media_count = 0
+  if product != blank and product.media.size > 0
+    if settings.product_card_carousel
+      assign visible_media_count = product.media.size
+    elsif settings.show_second_image_on_hover
+      assign visible_media_count = product.media.size | at_most: 2
+    else
+      assign visible_media_count = 1
+    endif
+  endif
+  assign show_dots = false
+  if visible_media_count > 1 and settings.product_card_carousel
+    assign show_dots = true
+  endif
+  assign dots_count = visible_media_count | at_most: 5
+-%}
 <div
   ref="cardGallery"
   class="card-gallery card-gallery-{{ block.id }} spacing-style border-style{% if has_badges %} card-gallery--badge-{{ badge_position }}{% endif %}"
@@ -72,6 +90,7 @@
     --gallery-aspect-ratio: {{ ratio }};
   "
   data-product-id="{{ product.id }}"
+  data-slide-count="{{ visible_media_count }}"
   {% if settings.show_second_image_on_hover %}
     on:pointerenter="/previewImage"
     on:pointerleave="/resetImage"
@@ -183,6 +202,13 @@
         attributes: slideshow_attributes
       %}
     </a>
+    {%- if show_dots -%}
+      <div class="gallery-pagination-dots" ref="paginationDots" data-total-slides="{{ visible_media_count }}">
+        {%- for i in (1..dots_count) -%}
+          <span class="gallery-pagination-dot{% if forloop.first %} active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
   {% elsif product != blank and product.media.size == 0 %}
     <product-title class="product-card-gallery__title-placeholder">
       <a
@@ -377,3 +403,35 @@
     min-width: auto;
   }
 {% endstylesheet %}
+
+{% javascript %}
+  // Pagination dots for product card galleries
+  document.addEventListener('slideshow:select', (event) => {
+    const slideshow = event.target;
+    if (!slideshow) return;
+
+    // Find the parent card-gallery
+    const cardGallery = slideshow.closest('.card-gallery');
+    if (!cardGallery) return;
+
+    const dotsContainer = cardGallery.querySelector('.gallery-pagination-dots');
+    if (!dotsContainer) return;
+
+    const dots = dotsContainer.querySelectorAll('.gallery-pagination-dot');
+    if (!dots.length) return;
+
+    const { index } = event.detail;
+    const totalSlides = parseInt(dotsContainer.dataset.totalSlides, 10) || dots.length;
+
+    // Handle cycling for 6+ images (show max 5 dots)
+    let activeDotIndex = index;
+    if (totalSlides > 5) {
+      activeDotIndex = index % 5;
+    }
+
+    // Update active dot
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === activeDotIndex);
+    });
+  });
+{% endjavascript %}
