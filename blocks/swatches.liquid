@@ -8,10 +8,18 @@
     if swatch_count > 0
       assign product_has_swatches = true
     endif
+
+    # Also enable swatches for Color options without native swatch config
+    assign option_name_lower = product_option.name | downcase
+    if option_name_lower == 'color' or option_name_lower == 'colour'
+      assign product_has_swatches = true
+      assign has_color_option = true
+    endif
   endfor
 -%}
 
 {% if product_has_swatches %}
+  {% render 'swatch-colors' %}
   <product-swatches
     data-product-id="{{ closest.product.id }}"
     data-product-url="{{ closest.product.url }}"

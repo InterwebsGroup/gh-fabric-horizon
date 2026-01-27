@@ -1,0 +1,214 @@
+{% comment %}
+  Giant Hoodies Custom Swatch Colors
+  Maps color option names to hex values for product card swatches
+{% endcomment %}
+
+{% style %}
+  /* Giant Hoodies Custom Swatch Colors */
+
+  /* Base swatch styles for custom colors */
+  .swatch--custom {
+    --swatch-background: var(--custom-swatch-color, #ccc);
+  }
+
+  /* Color definitions by option value */
+  [aria-label="Graphite"] .swatch,
+  input[value="Graphite"] + .swatch { --custom-swatch-color: #4B4E53; }
+
+  [aria-label="Athletic Heather"] .swatch,
+  input[value="Athletic Heather"] + .swatch { --custom-swatch-color: #AAA1A2; }
+
+  [aria-label="Off White"] .swatch,
+  input[value="Off White"] + .swatch { --custom-swatch-color: #E5E5DB; }
+
+  [aria-label="Dark Gray"] .swatch,
+  input[value="Dark Gray"] + .swatch { --custom-swatch-color: #222127; }
+
+  [aria-label="Light Pink"] .swatch,
+  input[value="Light Pink"] + .swatch { --custom-swatch-color: #DCAFCE; }
+
+  [aria-label="Purple"] .swatch,
+  input[value="Purple"] + .swatch { --custom-swatch-color: #543964; }
+
+  [aria-label="Heather Navy"] .swatch,
+  input[value="Heather Navy"] + .swatch { --custom-swatch-color: #52647C; }
+
+  [aria-label="Slate Blue"] .swatch,
+  input[value="Slate Blue"] + .swatch { --custom-swatch-color: #2A5673; }
+
+  [aria-label="Heather Blue"] .swatch,
+  input[value="Heather Blue"] + .swatch { --custom-swatch-color: #7B95BA; }
+
+  [aria-label="Teal"] .swatch,
+  input[value="Teal"] + .swatch { --custom-swatch-color: #0DB2AE; }
+
+  [aria-label="Tan"] .swatch,
+  input[value="Tan"] + .swatch { --custom-swatch-color: #BEA994; }
+
+  [aria-label="Heather Forest"] .swatch,
+  input[value="Heather Forest"] + .swatch { --custom-swatch-color: #214C30; }
+
+  [aria-label="Gold"] .swatch,
+  input[value="Gold"] + .swatch { --custom-swatch-color: #FD9F17; }
+
+  [aria-label="Mauve"] .swatch,
+  input[value="Mauve"] + .swatch { --custom-swatch-color: #915f6d; }
+
+  [aria-label="Heather Maroon"] .swatch,
+  input[value="Heather Maroon"] + .swatch { --custom-swatch-color: #521B32; }
+
+  [aria-label="Red"] .swatch,
+  input[value="Red"] + .swatch { --custom-swatch-color: #D52E35; }
+
+  [aria-label="Peach"] .swatch,
+  input[value="Peach"] + .swatch { --custom-swatch-color: #d4a493; }
+
+  [aria-label="Brick"] .swatch,
+  input[value="Brick"] + .swatch { --custom-swatch-color: #99321f; }
+
+  [aria-label="Navy Blue"] .swatch,
+  input[value="Navy Blue"] + .swatch { --custom-swatch-color: #202A44; }
+
+  [aria-label="Aqua Blue"] .swatch,
+  input[value="Aqua Blue"] + .swatch { --custom-swatch-color: #8df7fa; }
+
+  [aria-label="Light Blue"] .swatch,
+  input[value="Light Blue"] + .swatch { --custom-swatch-color: #ADD8E6; }
+
+  [aria-label="Magenta"] .swatch,
+  input[value="Magenta"] + .swatch { --custom-swatch-color: #f07ee5; }
+
+  [aria-label="Vintage Red"] .swatch,
+  input[value="Vintage Red"] + .swatch { --custom-swatch-color: #c9636e; }
+
+  [aria-label="Solid White"] .swatch,
+  input[value="Solid White"] + .swatch { --custom-swatch-color: #f4f4f4; }
+
+  [aria-label="Cool Gray"] .swatch,
+  input[value="Cool Gray"] + .swatch { --custom-swatch-color: #c4c4c4; }
+
+  [aria-label="Pastel Green"] .swatch,
+  input[value="Pastel Green"] + .swatch { --custom-swatch-color: #abc7c0; }
+
+  [aria-label="Heather Peach"] .swatch,
+  input[value="Heather Peach"] + .swatch { --custom-swatch-color: #d7b6a4; }
+
+  [aria-label="Heather Purple"] .swatch,
+  input[value="Heather Purple"] + .swatch { --custom-swatch-color: #7b728c; }
+
+  [aria-label="Heather Storm"] .swatch,
+  input[value="Heather Storm"] + .swatch { --custom-swatch-color: #807f84; }
+
+  [aria-label="Heather Black"] .swatch,
+  input[value="Heather Black"] + .swatch { --custom-swatch-color: #000000; }
+
+  [aria-label="Heather Sunset"] .swatch,
+  input[value="Heather Sunset"] + .swatch { --custom-swatch-color: #cc9c8f; }
+
+  [aria-label="Heather Red"] .swatch,
+  input[value="Heather Red"] + .swatch { --custom-swatch-color: #ff5c5c; }
+
+  [aria-label="Poppy"] .swatch,
+  input[value="Poppy"] + .swatch { --custom-swatch-color: #E35335; }
+
+  [aria-label="Very Blue"] .swatch,
+  input[value="Very Blue"] + .swatch { --custom-swatch-color: #0072ff; }
+
+  [aria-label="Vintage White"] .swatch,
+  input[value="Vintage White"] + .swatch { --custom-swatch-color: #f5f5eb; }
+
+  [aria-label="Black and Pink"] .swatch,
+  input[value="Black and Pink"] + .swatch { --custom-swatch-color: #000000; }
+
+  [aria-label="Purple and Teal"] .swatch,
+  input[value="Purple and Teal"] + .swatch { --custom-swatch-color: #543964; }
+
+  [aria-label="Hot Pink"] .swatch,
+  input[value="Hot Pink"] + .swatch { --custom-swatch-color: #ff028d; }
+
+  [aria-label="Dusty Rose"] .swatch,
+  input[value="Dusty Rose"] + .swatch { --custom-swatch-color: #DCAFCE; }
+
+  [aria-label="Cotton Candy"] .swatch,
+  input[value="Cotton Candy"] + .swatch { --custom-swatch-color: #8ce3ff; }
+
+  [aria-label="Light Gray"] .swatch,
+  input[value="Light Gray"] + .swatch { --custom-swatch-color: #d3d5d4; }
+
+  [aria-label="Black Zip"] .swatch,
+  input[value="Black Zip"] + .swatch { --custom-swatch-color: #000000; }
+
+  [aria-label="Teal Zip"] .swatch,
+  input[value="Teal Zip"] + .swatch { --custom-swatch-color: #0DB2AE; }
+
+  [aria-label="Heather Forest Zip"] .swatch,
+  input[value="Heather Forest Zip"] + .swatch { --custom-swatch-color: #214C30; }
+
+  [aria-label="Black Dots"] .swatch,
+  input[value="Black Dots"] + .swatch { --custom-swatch-color: #000000; }
+
+  [aria-label="Mauve Dots"] .swatch,
+  input[value="Mauve Dots"] + .swatch { --custom-swatch-color: #915f6d; }
+
+  [aria-label="Very Blue Dots"] .swatch,
+  input[value="Very Blue Dots"] + .swatch { --custom-swatch-color: #0072ff; }
+
+  [aria-label="Purple Dots"] .swatch,
+  input[value="Purple Dots"] + .swatch { --custom-swatch-color: #543964; }
+
+  [aria-label="Black Hearts"] .swatch,
+  input[value="Black Hearts"] + .swatch { --custom-swatch-color: #000000; }
+
+  [aria-label="Black Stars"] .swatch,
+  input[value="Black Stars"] + .swatch { --custom-swatch-color: #000000; }
+
+  [aria-label="Black and Red"] .swatch,
+  input[value="Black and Red"] + .swatch { --custom-swatch-color: #ff0000; }
+
+  [aria-label="Lavender"] .swatch,
+  input[value="Lavender"] + .swatch { --custom-swatch-color: #DFC5FE; }
+
+  [aria-label="Vibrant Earth"] .swatch,
+  input[value="Vibrant Earth"] + .swatch { --custom-swatch-color: #96cc30; }
+
+  [aria-label="Smoke"] .swatch,
+  input[value="Smoke"] + .swatch { --custom-swatch-color: #666064; }
+
+  [aria-label="Coral Splash"] .swatch,
+  input[value="Coral Splash"] + .swatch { --custom-swatch-color: #ea7842; }
+
+  [aria-label="Winter Blue"] .swatch,
+  input[value="Winter Blue"] + .swatch { --custom-swatch-color: #84a7d8; }
+
+  [aria-label="Glacier Gray"] .swatch,
+  input[value="Glacier Gray"] + .swatch { --custom-swatch-color: #e3e3e3; }
+
+  [aria-label="Purple Rose"] .swatch,
+  input[value="Purple Rose"] + .swatch { --custom-swatch-color: #543964; }
+
+  [aria-label="Ocean"] .swatch,
+  input[value="Ocean"] + .swatch { --custom-swatch-color: #1ea8c5; }
+
+  [aria-label="Lime Cream"] .swatch,
+  input[value="Lime Cream"] + .swatch { --custom-swatch-color: #dee6aa; }
+
+  [aria-label="Tangerine Dream"] .swatch,
+  input[value="Tangerine Dream"] + .swatch { --custom-swatch-color: #FF6900; }
+
+  [aria-label="Black Dots Zip"] .swatch,
+  input[value="Black Dots Zip"] + .swatch { --custom-swatch-color: #000000; }
+
+  /* Black - common fallback */
+  [aria-label="Black"] .swatch,
+  input[value="Black"] + .swatch { --custom-swatch-color: #000000; }
+
+  /* Apply custom color when no native swatch is defined */
+  .swatch--unavailable {
+    background: var(--custom-swatch-color, #ccc) !important;
+  }
+
+  /* Ensure swatches are styled correctly */
+  .swatch {
+    background: var(--swatch-background, var(--custom-swatch-color, #ccc));
+  }
+{% endstyle %}

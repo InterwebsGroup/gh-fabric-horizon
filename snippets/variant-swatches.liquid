@@ -36,9 +36,16 @@
     {%- for product_option in product_resource.options_with_values -%}
       {%- liquid
         assign swatch_count = product_option.values | map: 'swatch' | compact | size
+
+        # Also render swatches for Color options without native swatch config
+        assign option_name_lower = product_option.name | downcase
+        assign is_color_option = false
+        if option_name_lower == 'color' or option_name_lower == 'colour'
+          assign is_color_option = true
+        endif
       -%}
 
-      {% if swatch_count == 0 %}
+      {% if swatch_count == 0 and is_color_option == false %}
         {% continue %}
       {% endif %}
 
