@@ -72,7 +72,7 @@
     "variant_button_radius": 2,
     "variant_button_width": "equal-width-buttons",
     "pricing_mode": "tiered",
-    "tier_collection_handles": "giant-hoodies,kids-giant-hoodies",
+    "tier_collection_handles": "hoodies,kids-hoodies",
     "tier_exclude_tag": "not-tier-eligible",
     "announcement_tiered": "Buy 2 hoodies, save $60. Buy 3+, save $108+. Free shipping at $75!",
     "announcement_flat": "Free shipping on orders $75+",

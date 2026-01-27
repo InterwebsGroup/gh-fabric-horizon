@@ -130,7 +130,7 @@
               "name": "Primary CTA",
               "settings": {
                 "label": "Shop All Hoodies",
-                "link": "shopify://collections/giant-hoodies",
+                "link": "shopify://collections/hoodies",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -545,14 +545,14 @@
           "type": "tile",
           "settings": {
             "title": "Giant Hoodies",
-            "link": "shopify://collections/giant-hoodies"
+            "link": "shopify://collections/hoodies"
           }
         },
         "tile_2": {
           "type": "tile",
           "settings": {
             "title": "Kids Hoodies",
-            "link": "shopify://collections/kids-giant-hoodies"
+            "link": "shopify://collections/kids-hoodies"
           }
         },
         "tile_3": {
@@ -659,7 +659,7 @@
               "name": "View All",
               "settings": {
                 "label": "View All",
-                "link": "shopify://collections/kids-giant-hoodies",
+                "link": "shopify://collections/kids-hoodies",
                 "open_in_new_tab": false,
                 "style_class": "link",
                 "width": "fit-content",
@@ -810,7 +810,7 @@
       },
       "name": "Shop Kids",
       "settings": {
-        "collection": "kids-giant-hoodies",
+        "collection": "kids-hoodies",
         "layout_type": "grid",
         "carousel_on_mobile": true,
         "max_products": 4,

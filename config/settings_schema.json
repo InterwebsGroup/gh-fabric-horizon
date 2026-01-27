@@ -2311,7 +2311,7 @@
         "type": "text",
         "id": "tier_collection_handles",
         "label": "Tier collection handles",
-        "default": "giant-hoodies,kids-giant-hoodies",
+        "default": "hoodies,kids-hoodies",
         "info": "Comma-separated collection handles for tier pricing"
       },
       {
