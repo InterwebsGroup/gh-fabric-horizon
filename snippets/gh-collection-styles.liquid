@@ -1,7 +1,7 @@
 {% comment %}
   Giant Hoodies Collection Page Styles
   - 4-col desktop, 2-col mobile grid
-  - 3px mobile gap, 20px desktop gap
+  - 6-8px mobile gap, 16-20px desktop gap
   - GRADIENT OVERLAY product cards (info on image)
   - 20px border radius
 {% endcomment %}
@@ -26,14 +26,82 @@
   }
 
   /* ============================================
-     GRID LAYOUT
+     SECTION SPACING - TIGHTER VERTICAL RHYTHM
      ============================================ */
 
-  /* Mobile gap - 8px for visual separation between varied backgrounds */
+  /* Volume pricing banner - reduce bottom margin */
+  .volume-pricing-banner-section {
+    margin-bottom: 0;
+  }
+
+  /* Collection header/title - tighter spacing */
+  .collection-wrapper {
+    --gap-style: 12px;
+  }
+
+  /* Facets/filters bar - reduce vertical padding */
+  .facets--horizontal {
+    padding-block: 12px !important;
+  }
+
+  .facets-block-wrapper {
+    margin-bottom: 8px;
+  }
+
+  /* Reduce space above product grid */
+  .main-collection-grid {
+    margin-top: 0;
+  }
+
+  /* ============================================
+     GRID LAYOUT - CARD GAPS
+     ============================================ */
+
+  /* Desktop gap - 18px for breathing room */
+  .product-grid {
+    --product-grid-gap: 18px 18px;
+  }
+
+  /* Mobile gap - 6px for tighter grid */
   @media screen and (max-width: 749px) {
     .product-grid {
-      --product-grid-gap-mobile: 8px 8px;
+      --product-grid-gap-mobile: 6px 6px;
     }
+  }
+
+  /* ============================================
+     FILTER BAR STYLING
+     ============================================ */
+
+  /* Style filter dropdowns to look more clickable */
+  .facets__list-filter-toggle,
+  .facets .disclosure__toggle,
+  .sorting .disclosure__toggle {
+    background-color: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: all 0.2s ease;
+  }
+
+  .facets__list-filter-toggle:hover,
+  .facets .disclosure__toggle:hover,
+  .sorting .disclosure__toggle:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+
+  /* "More filters" button styling */
+  .facets__overflow-list [part="more"] button {
+    background-color: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+
+  .facets__overflow-list [part="more"] button:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.2);
   }
 
   /* ============================================
@@ -148,17 +216,22 @@
      SWATCHES ON OVERLAY
      ============================================ */
 
-  /* Limit swatches container width for consistent overflow */
+  /* Desktop: Show 6-7 swatches before overflow (wider container) */
   .product-grid product-swatches {
-    max-width: 160px;
+    max-width: 200px;
   }
 
-  /* Swatch sizing - white border for visibility on dark gradient */
+  /* Swatch sizing - slightly smaller to fit more, white border for visibility */
   .product-grid .swatch {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border: 2px solid rgba(255, 255, 255, 0.6);
     border-radius: 50%;
+  }
+
+  /* Tighter gap between swatches */
+  .product-grid .variant-option--swatches overflow-list::part(list) {
+    gap: 4px;
   }
 
   .product-grid .swatch:hover {
@@ -168,7 +241,7 @@
   /* "+X" overflow count - light text */
   .product-grid .hidden-swatches__count {
     color: rgba(255, 255, 255, 0.8);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
   }
 
@@ -176,9 +249,16 @@
      MOBILE ADJUSTMENTS
      ============================================ */
   @media screen and (max-width: 749px) {
-    /* Smaller padding on mobile overlay */
+    /* Softer gradient on mobile - starts at 40%, max opacity 0.6 */
     .product-grid .product-card__content > .group-block {
-      padding: 30px 10px 10px;
+      padding: 24px 10px 10px;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.5) 25%,
+        rgba(0, 0, 0, 0.25) 40%,
+        rgba(0, 0, 0, 0) 100%
+      );
     }
 
     .product-grid .text-block[class*="product_title"],
@@ -209,12 +289,12 @@
 
     /* Smaller swatches on mobile */
     .product-grid product-swatches {
-      max-width: 120px;
+      max-width: 110px;
     }
 
     .product-grid .swatch {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       border-width: 1.5px;
     }
 
