@@ -101,11 +101,11 @@
         assign show_arrows = true
       endif
 
-      # Cap at 5 images for performance - most users won't swipe through more on collection page
+      # Render up to 8 images - first 2 eager-loaded, rest lazy-loaded as user swipes
       assign max_visible_slide_count = 1
       if settings.product_card_carousel
-        assign max_visible_slide_count = 5
-        if product.media.size < 5
+        assign max_visible_slide_count = 8
+        if product.media.size < 8
           assign max_visible_slide_count = product.media.size
         endif
       elsif settings.show_second_image_on_hover
