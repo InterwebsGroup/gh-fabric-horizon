@@ -1,0 +1,211 @@
+{% comment %} Giant Hoodies Press Logos / Social Proof Bar {% endcomment %}
+
+<div
+  class="press-logos section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  <p class="press-logos__label">As Seen On</p>
+  <div class="press-logos__grid">
+    <div class="press-logos__item">
+      {% if section.settings.logo_1 != blank %}
+        {{ section.settings.logo_1 | image_url: width: 200 | image_tag: alt: 'Oprah\'s Favorite Things', class: 'press-logos__img' }}
+      {% else %}
+        <span class="press-logos__text">Oprah's Favorite Things</span>
+      {% endif %}
+    </div>
+    <div class="press-logos__item">
+      {% if section.settings.logo_2 != blank %}
+        {{ section.settings.logo_2 | image_url: width: 200 | image_tag: alt: 'Good Morning America', class: 'press-logos__img' }}
+      {% else %}
+        <span class="press-logos__text">Good Morning America</span>
+      {% endif %}
+    </div>
+    <div class="press-logos__item">
+      {% if section.settings.logo_3 != blank %}
+        {{ section.settings.logo_3 | image_url: width: 200 | image_tag: alt: 'Forbes', class: 'press-logos__img' }}
+      {% else %}
+        <span class="press-logos__text">Forbes</span>
+      {% endif %}
+    </div>
+    <div class="press-logos__item">
+      {% if section.settings.logo_4 != blank %}
+        {{ section.settings.logo_4 | image_url: width: 200 | image_tag: alt: 'Cosmopolitan', class: 'press-logos__img' }}
+      {% else %}
+        <span class="press-logos__text">Cosmopolitan</span>
+      {% endif %}
+    </div>
+    <div class="press-logos__item">
+      {% if section.settings.logo_5 != blank %}
+        {{ section.settings.logo_5 | image_url: width: 200 | image_tag: alt: 'Kelly & Mark', class: 'press-logos__img' }}
+      {% else %}
+        <span class="press-logos__text">Kelly & Mark</span>
+      {% endif %}
+    </div>
+    <div class="press-logos__item">
+      {% if section.settings.logo_6 != blank %}
+        {{ section.settings.logo_6 | image_url: width: 200 | image_tag: alt: 'The View', class: 'press-logos__img' }}
+      {% else %}
+        <span class="press-logos__text">The View</span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .press-logos {
+    text-align: center;
+  }
+
+  .press-logos__label {
+    font-family: var(--gh-font-body);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-foreground);
+    opacity: 0.6;
+    margin-bottom: 24px;
+  }
+
+  .press-logos__grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 32px 48px;
+  }
+
+  .press-logos__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .press-logos__img {
+    max-height: 32px;
+    width: auto;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+  }
+
+  .press-logos__img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  .press-logos__text {
+    font-family: var(--gh-font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+    opacity: 0.5;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    .press-logos__grid {
+      gap: 20px 32px;
+    }
+
+    .press-logos__img {
+      max-height: 24px;
+    }
+
+    .press-logos__text {
+      font-size: 0.75rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Press Logos",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logos"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_1",
+      "label": "Logo 1 (Oprah)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_2",
+      "label": "Logo 2 (GMA)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_3",
+      "label": "Logo 3 (Forbes)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_4",
+      "label": "Logo 4 (Cosmo)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_5",
+      "label": "Logo 5 (Kelly & Mark)"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_6",
+      "label": "Logo 6 (The View)"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width", "label": "Page width" },
+        { "value": "full-width", "label": "Full width" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Press Logos"
+    }
+  ]
+}
+{% endschema %}

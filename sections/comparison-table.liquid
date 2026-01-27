@@ -1,0 +1,311 @@
+{% comment %} Giant Hoodies Comparison Table - Giant Hoodies vs Oodie {% endcomment %}
+
+<div
+  class="comparison-table section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  {% if section.settings.heading != blank %}
+    <h2 class="comparison-table__heading">{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  <div class="comparison-table__wrapper">
+    <table class="comparison-table__table">
+      <thead>
+        <tr>
+          <th class="comparison-table__feature-header">Feature</th>
+          <th class="comparison-table__brand comparison-table__brand--us">
+            <span class="comparison-table__brand-name">Giant Hoodies</span>
+          </th>
+          <th class="comparison-table__brand comparison-table__brand--them">
+            <span class="comparison-table__brand-name">Oodie</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="comparison-table__feature">Oversized, One Size Fits Most</td>
+          <td class="comparison-table__check comparison-table__check--yes">
+            <span class="comparison-table__icon comparison-table__icon--check">{% render 'icon', icon: 'check_box' %}</span>
+          </td>
+          <td class="comparison-table__check comparison-table__check--yes">
+            <span class="comparison-table__icon comparison-table__icon--check">{% render 'icon', icon: 'check_box' %}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="comparison-table__feature">Comfy & Relaxing at Home</td>
+          <td class="comparison-table__check comparison-table__check--yes">
+            <span class="comparison-table__icon comparison-table__icon--check">{% render 'icon', icon: 'check_box' %}</span>
+          </td>
+          <td class="comparison-table__check comparison-table__check--yes">
+            <span class="comparison-table__icon comparison-table__icon--check">{% render 'icon', icon: 'check_box' %}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="comparison-table__feature">Cute & Trendy in Public</td>
+          <td class="comparison-table__check comparison-table__check--yes">
+            <span class="comparison-table__icon comparison-table__icon--check">{% render 'icon', icon: 'check_box' %}</span>
+          </td>
+          <td class="comparison-table__check comparison-table__check--no">
+            <span class="comparison-table__icon comparison-table__icon--x">{% render 'icon', icon: 'x' %}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="comparison-table__feature">Printed by Hand in the USA</td>
+          <td class="comparison-table__check comparison-table__check--yes">
+            <span class="comparison-table__icon comparison-table__icon--check">{% render 'icon', icon: 'check_box' %}</span>
+          </td>
+          <td class="comparison-table__check comparison-table__check--no">
+            <span class="comparison-table__icon comparison-table__icon--x">{% render 'icon', icon: 'x' %}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="comparison-table__feature">7,000+ Design & Color Combos</td>
+          <td class="comparison-table__check comparison-table__check--yes">
+            <span class="comparison-table__icon comparison-table__icon--check">{% render 'icon', icon: 'check_box' %}</span>
+          </td>
+          <td class="comparison-table__check comparison-table__check--no">
+            <span class="comparison-table__icon comparison-table__icon--x">{% render 'icon', icon: 'x' %}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="comparison-table__feature">Customize Your Own</td>
+          <td class="comparison-table__check comparison-table__check--yes">
+            <span class="comparison-table__icon comparison-table__icon--check">{% render 'icon', icon: 'check_box' %}</span>
+          </td>
+          <td class="comparison-table__check comparison-table__check--no">
+            <span class="comparison-table__icon comparison-table__icon--x">{% render 'icon', icon: 'x' %}</span>
+          </td>
+        </tr>
+        <tr class="comparison-table__row--price">
+          <td class="comparison-table__feature">Price</td>
+          <td class="comparison-table__price comparison-table__price--us">
+            <span class="comparison-table__price-value">$55</span>
+          </td>
+          <td class="comparison-table__price comparison-table__price--them">
+            <span class="comparison-table__price-value">$129</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="comparison-table__cta">
+    <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="button button-primary">
+      {{ section.settings.cta_text | default: 'Shop All Hoodies' }}
+    </a>
+  </div>
+</div>
+
+{% stylesheet %}
+  .comparison-table {
+    text-align: center;
+  }
+
+  .comparison-table__heading {
+    font-family: var(--gh-font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    margin-bottom: 48px;
+    color: var(--color-foreground);
+  }
+
+  .comparison-table__wrapper {
+    overflow-x: auto;
+    margin-bottom: 48px;
+  }
+
+  .comparison-table__table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .comparison-table__table th,
+  .comparison-table__table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(var(--color-foreground-rgb), 0.1);
+  }
+
+  .comparison-table__table thead th {
+    font-family: var(--gh-font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-bottom: 20px;
+  }
+
+  .comparison-table__feature-header {
+    width: 50%;
+  }
+
+  .comparison-table__brand {
+    text-align: center;
+    width: 25%;
+  }
+
+  .comparison-table__brand--us .comparison-table__brand-name {
+    color: var(--gh-terracotta);
+  }
+
+  .comparison-table__feature {
+    font-family: var(--gh-font-body);
+    font-size: 1rem;
+    color: var(--color-foreground);
+  }
+
+  .comparison-table__check {
+    text-align: center;
+  }
+
+  .comparison-table__icon {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+  }
+
+  .comparison-table__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .comparison-table__icon--check {
+    color: #22c55e;
+  }
+
+  .comparison-table__icon--x {
+    color: #ef4444;
+  }
+
+  .comparison-table__row--price td {
+    border-bottom: none;
+    padding-top: 24px;
+  }
+
+  .comparison-table__price {
+    text-align: center;
+  }
+
+  .comparison-table__price-value {
+    font-family: var(--gh-font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .comparison-table__price--us .comparison-table__price-value {
+    color: var(--gh-terracotta);
+  }
+
+  .comparison-table__price--them .comparison-table__price-value {
+    color: var(--color-foreground);
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+
+  .comparison-table__cta {
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    .comparison-table__table th,
+    .comparison-table__table td {
+      padding: 12px 8px;
+      font-size: 0.875rem;
+    }
+
+    .comparison-table__feature-header {
+      width: 45%;
+    }
+
+    .comparison-table__brand {
+      width: 27.5%;
+    }
+
+    .comparison-table__icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .comparison-table__price-value {
+      font-size: 1.25rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Giant Hoodies vs. The Other Guys"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "Shop All Hoodies"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width", "label": "Page width" },
+        { "value": "full-width", "label": "Full width" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison Table"
+    }
+  ]
+}
+{% endschema %}

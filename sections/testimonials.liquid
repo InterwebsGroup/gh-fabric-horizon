@@ -1,0 +1,231 @@
+{% comment %} Giant Hoodies Testimonials Section {% endcomment %}
+
+<div
+  class="testimonials section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  <div class="testimonials__header">
+    {% if section.settings.heading != blank %}
+      <h2 class="testimonials__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.subheading != blank %}
+      <p class="testimonials__subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+  </div>
+
+  {% if section.blocks.size > 0 %}
+    <div class="testimonials__grid">
+      {% for block in section.blocks %}
+        <div class="testimonials__item" {{ block.shopify_attributes }}>
+          <blockquote class="testimonials__quote">
+            <p class="testimonials__text">"{{ block.settings.quote }}"</p>
+            {% if block.settings.author != blank %}
+              <cite class="testimonials__author">— {{ block.settings.author }}</cite>
+            {% endif %}
+          </blockquote>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .testimonials {
+    text-align: center;
+  }
+
+  .testimonials__header {
+    margin-bottom: 48px;
+  }
+
+  .testimonials__heading {
+    font-family: var(--gh-font-heading);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--color-foreground);
+  }
+
+  .testimonials__subheading {
+    font-family: var(--gh-font-body);
+    font-size: 1.125rem;
+    color: var(--color-foreground);
+    opacity: 0.8;
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .testimonials__item {
+    background: rgba(var(--color-foreground-rgb), 0.03);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+  }
+
+  .testimonials__quote {
+    margin: 0;
+  }
+
+  .testimonials__text {
+    font-family: var(--gh-font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-style: italic;
+    color: var(--color-foreground);
+    margin-bottom: 16px;
+  }
+
+  .testimonials__author {
+    font-family: var(--gh-font-body);
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gh-terracotta);
+  }
+
+  @media screen and (max-width: 989px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .testimonials__item {
+      padding: 24px 20px;
+    }
+
+    .testimonials__text {
+      font-size: 0.9375rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What the Hoodie Fam Says"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "★★★★★ 4.9 · 225,000+ happy customers"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width", "label": "Page width" },
+        { "value": "full-width", "label": "Full width" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote text",
+          "default": "It's like wearing a hug."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author name",
+          "default": "Happy Customer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "It's like wearing a hug.",
+            "author": "Grace"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "I wear mine EVERYWHERE — the gym, the gas station, the laundromat, on a plane, and I get so many compliments!",
+            "author": "Andrea"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "This is my third Giant Hoodie and I couldn't be more in love.",
+            "author": "Grace"
+          }
+        },
+        {
+          "type": "quote",
+          "settings": {
+            "quote": "Nicest company with the best support I've ever worked with!",
+            "author": "Amara"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
