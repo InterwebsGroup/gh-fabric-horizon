@@ -122,7 +122,9 @@
           if variant_images contains media.src
             assign attributes = 'variant-image'
 
-            if forloop.first == false
+            # Only hide variant images if carousel is disabled
+            # When carousel is enabled, all images should be navigable
+            if settings.product_card_carousel == false and forloop.first == false
               # hide all variant images that aren't the first one
               # BUT keep the second one visible for hover effect
               if settings.show_second_image_on_hover and forloop.index == 2
