@@ -1,18 +1,26 @@
-{% comment %} Giant Hoodies Dynamic Announcement Logic {% endcomment %}
+{% comment %} Giant Hoodies Dynamic Announcement Logic - Rotating Messages {% endcomment %}
 {% liquid
   assign show_gh_announcement = section.settings.use_gh_announcement
-  assign gh_announcement_text = ''
+  assign gh_announcement_1 = ''
+  assign gh_announcement_2 = ''
+  assign has_rotating_messages = false
 
   if show_gh_announcement
-    if settings.pricing_mode == 'tiered'
-      assign gh_announcement_text = settings.announcement_tiered
-    else
-      assign gh_announcement_text = settings.announcement_flat
+    assign gh_announcement_1 = settings.announcement_tiered
+    assign gh_announcement_2 = settings.announcement_flat
+
+    if gh_announcement_1 != blank and gh_announcement_2 != blank
+      assign has_rotating_messages = true
+    elsif gh_announcement_1 != blank
+      assign gh_announcement_2 = ''
+    elsif gh_announcement_2 != blank
+      assign gh_announcement_1 = gh_announcement_2
+      assign gh_announcement_2 = ''
     endif
   endif
 %}
 
-{% if section.blocks.size > 1 %}
+{% if section.blocks.size > 1 or has_rotating_messages %}
   <script
     src="{{ 'announcement-bar.js' | asset_url }}"
     type="module"
@@ -20,8 +28,8 @@
   ></script>
 {% endif %}
 
-{% comment %} Hide entire section if using GH announcement and text is blank {% endcomment %}
-{% if show_gh_announcement and gh_announcement_text == blank %}
+{% comment %} Hide entire section if using GH announcement and both texts are blank {% endcomment %}
+{% if show_gh_announcement and gh_announcement_1 == blank and gh_announcement_2 == blank %}
   {% comment %} Don't render anything {% endcomment %}
 {% else %}
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
@@ -35,13 +43,15 @@
     if section.blocks.size > 1 and show_gh_announcement == false
       assign autoplay = true
       assign show_arrows = true
+    elsif has_rotating_messages
+      assign autoplay = true
     endif
   %}
 
   <announcement-bar-component
     class="announcement-bar__slider"
     {% if autoplay == true %}
-      autoplay="{{ section.settings.speed }}" aria-live="polite"
+      autoplay="4" aria-live="polite"
     {% endif %}
   >
     {% if show_arrows %}
@@ -49,10 +59,15 @@
     {% endif %}
 
     <div class="announcement-bar__slides">
-      {% if show_gh_announcement and gh_announcement_text != blank %}
+      {% if show_gh_announcement and gh_announcement_1 != blank %}
         <div class="announcement-bar__slide paragraph" aria-hidden="false">
-          <p class="announcement-bar__text">{{ gh_announcement_text }}</p>
+          <p class="announcement-bar__text">{{ gh_announcement_1 }}</p>
         </div>
+        {% if gh_announcement_2 != blank %}
+          <div class="announcement-bar__slide paragraph" aria-hidden="true">
+            <p class="announcement-bar__text">{{ gh_announcement_2 }}</p>
+          </div>
+        {% endif %}
       {% else %}
         {% content_for 'blocks' %}
       {% endif %}
