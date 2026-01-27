@@ -313,7 +313,7 @@
 
     {% liquid
       assign child_count = 0
-      if block_settings.enable_filtering == false and block_settings.enable_sorting
+      if block_settings.enable_sorting
         assign child_count = child_count | plus: 1
       endif
       if block_settings.enable_grid_density
@@ -322,14 +322,15 @@
     %}
 
     <div class="facets-mobile-wrapper facets-controls-wrapper{% if child_count > 1 %} facets-mobile-wrapper--multiple-controls{% endif %}">
-      {% if block_settings.enable_filtering == false and block_settings.enable_sorting %}
+      {% comment %} Always show sort as separate dropdown on mobile {% endcomment %}
+      {% if block_settings.enable_sorting %}
         <facets-form-component
           section-id="{{ section.id }}"
-          id="FacetFiltersForm--{{ section.id }}-mobile-sorting-only"
+          id="FacetFiltersForm--{{ section.id }}-mobile-sorting"
         >
           <form
             action="{{ results_url }}"
-            id="FacetFiltersForm--{{ section.id }}-mobile-sorting-only"
+            id="FacetFiltersForm--{{ section.id }}-mobile-sorting"
             ref="facetsForm"
           >
             {% render 'sorting',
@@ -337,7 +338,7 @@
               sort_by: sort_by,
               filter_style: block_settings.filter_style,
               sort_position: 'mobile',
-              should_use_select_on_mobile: should_use_select_on_mobile,
+              should_use_select_on_mobile: true,
               section_id: section.id
             %}
           </form>
@@ -453,15 +454,18 @@
               </div>
             {% endif %}
 
+            {% comment %} Hide sorting in drawer on mobile - shown separately outside {% endcomment %}
             {% if block_settings.enable_sorting %}
-              {% render 'sorting',
-                results: results,
-                sort_by: sort_by,
-                filter_style: block_settings.filter_style,
-                suffix: 'overflow',
-                should_use_select_on_mobile: should_use_select_on_mobile,
-                section_id: section.id
-              %}
+              <div class="sorting-in-drawer-desktop-only">
+                {% render 'sorting',
+                  results: results,
+                  sort_by: sort_by,
+                  filter_style: block_settings.filter_style,
+                  suffix: 'overflow',
+                  should_use_select_on_mobile: should_use_select_on_mobile,
+                  section_id: section.id
+                %}
+              </div>
             {% endif %}
           </scroll-hint>
         </form>
@@ -1190,6 +1194,15 @@
       display: flex;
       margin-inline-start: var(--margin-xs);
       margin-inline-end: var(--margin-xs);
+    }
+  }
+
+  /* Hide sorting inside drawer on mobile - it's shown separately */
+  .sorting-in-drawer-desktop-only {
+    display: none;
+
+    @media screen and (min-width: 750px) {
+      display: block;
     }
   }
 
