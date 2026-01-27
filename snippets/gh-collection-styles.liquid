@@ -8,6 +8,24 @@
 
 {% style %}
   /* ============================================
+     GIANT HOODIES DESIGN SYSTEM - COLOR VARIABLES
+     ============================================ */
+  :root {
+    /* Brand Colors */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-terracotta: #c75d38;
+    --color-espresso: #3d3028;
+    --color-cream: #faf7f4;
+    --color-sand: #e8e0d5;
+
+    /* Semantic Colors */
+    --color-sale: #e53935;
+    --color-success: #2d5016;
+    --color-success-light: #3d6b1f;
+  }
+
+  /* ============================================
      GRID LAYOUT
      ============================================ */
 
@@ -79,8 +97,8 @@
   .product-grid product-title a,
   .product-grid product-title .text-block,
   .product-grid product-title .text-block p {
-    --color: #ffffff !important;
-    color: #ffffff !important;
+    --color: var(--color-white) !important;
+    color: var(--color-white) !important;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
     font-size: 0.95rem !important;
     font-weight: 700 !important;
@@ -88,7 +106,7 @@
 
   /* Current price - white, bold */
   .product-grid product-price .price {
-    color: #ffffff !important;
+    color: var(--color-white) !important;
     font-weight: 700;
     font-size: 1rem;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -108,8 +126,8 @@
   /* Savings badge - red background, positioned nicely */
   .product-grid product-price .price-savings {
     display: inline-block;
-    background: #e53935;
-    color: #ffffff !important;
+    background: var(--color-sale);
+    color: var(--color-white) !important;
     font-size: 0.65rem;
     font-weight: 600;
     padding: 3px 6px;
@@ -144,7 +162,7 @@
   }
 
   .product-grid .swatch:hover {
-    border-color: #ffffff;
+    border-color: var(--color-white);
   }
 
   /* "+X" overflow count - light text */
