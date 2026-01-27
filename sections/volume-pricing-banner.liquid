@@ -14,14 +14,18 @@
   </div>
 
   <style>
+    /* Make the section wrapper sticky */
+    .volume-pricing-banner-section {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
     .volume-pricing-banner {
       background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
       color: var(--color-white);
       padding: 12px 16px;
       text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
     }
 
     .volume-pricing-banner__content {
@@ -67,7 +71,7 @@
 {% schema %}
 {
   "name": "Volume Pricing Banner",
-  "tag": "section",
+  "tag": null,
   "class": "volume-pricing-banner-section",
   "enabled_on": {
     "templates": ["collection"]

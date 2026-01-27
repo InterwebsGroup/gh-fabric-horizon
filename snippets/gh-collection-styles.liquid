@@ -197,7 +197,7 @@
     left: 0;
     right: 0;
     z-index: 2;
-    padding: 50px 16px 16px;
+    padding: 50px 16px 28px;
     background: linear-gradient(
       to top,
       rgba(0, 0, 0, 0.8) 0%,
@@ -316,7 +316,7 @@
   @media screen and (max-width: 749px) {
     /* Softer gradient on mobile - starts at 40%, max opacity 0.6 */
     .product-grid .product-card__content > .group-block {
-      padding: 24px 10px 10px;
+      padding: 24px 10px 24px;
       background: linear-gradient(
         to top,
         rgba(0, 0, 0, 0.6) 0%,
@@ -397,7 +397,7 @@
      PAGINATION DOTS FOR PRODUCT CARD GALLERY
      ============================================ */
 
-  /* Dots container - centered at bottom of image, inside gradient */
+  /* Dots container - centered at bottom of image, above gradient */
   .product-grid .card-gallery .gallery-pagination-dots {
     position: absolute;
     bottom: 14px;
@@ -405,7 +405,7 @@
     transform: translateX(-50%);
     display: flex;
     gap: 6px;
-    z-index: 5;
+    z-index: 10;
     pointer-events: none;
   }
 
@@ -429,5 +429,27 @@
   .product-grid .card-gallery[data-slide-count="1"] .gallery-pagination-dots,
   .product-grid .card-gallery[data-slide-count="0"] .gallery-pagination-dots {
     display: none;
+  }
+
+  /* ============================================
+     DISABLE HOVER EFFECTS ON PRODUCT CARDS
+     ============================================ */
+
+  /* Override all card hover effects for product grid */
+  .product-grid .product-card:hover,
+  .product-grid product-card:hover {
+    transform: none !important;
+  }
+
+  .product-grid .card-gallery:hover,
+  .product-grid .product-card:hover .card-gallery {
+    transform: none !important;
+  }
+
+  /* Disable subtle zoom hover effect */
+  .card-hover-effect-subtle-zoom .product-grid .product-card:hover .card-gallery,
+  .card-hover-effect-scale .product-grid .product-card:hover,
+  .card-hover-effect-lift .product-grid .product-card:hover {
+    transform: none !important;
   }
 {% endstyle %}
