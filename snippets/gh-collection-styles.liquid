@@ -71,14 +71,15 @@
      ============================================ */
 
   /* Title - white bold with subtle text shadow */
-  /* Target all levels: custom element, link, text-block, and actual p/span */
+  /* Override inline --color CSS variable and target dynamic class names */
+  .product-grid .text-block[class*="product_title"],
+  .product-grid .text-block[class*="product_title"] p,
+  .product-grid .text-block[class*="product_title"] span,
   .product-grid product-title,
   .product-grid product-title a,
   .product-grid product-title .text-block,
-  .product-grid product-title .text-block p,
-  .product-grid product-title .text-block span,
-  .product-grid product-title p,
-  .product-grid product-title span {
+  .product-grid product-title .text-block p {
+    --color: #ffffff !important;
     color: #ffffff !important;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
     font-size: 0.95rem !important;
@@ -162,13 +163,13 @@
       padding: 30px 10px 10px;
     }
 
+    .product-grid .text-block[class*="product_title"],
+    .product-grid .text-block[class*="product_title"] p,
+    .product-grid .text-block[class*="product_title"] span,
     .product-grid product-title,
     .product-grid product-title a,
     .product-grid product-title .text-block,
-    .product-grid product-title .text-block p,
-    .product-grid product-title .text-block span,
-    .product-grid product-title p,
-    .product-grid product-title span {
+    .product-grid product-title .text-block p {
       font-size: 0.8rem !important;
       font-weight: 700 !important;
     }
