@@ -419,7 +419,11 @@
     const cardGallery = slideshow.closest('.card-gallery');
     if (!cardGallery) return;
 
-    const dotsContainer = cardGallery.querySelector('.gallery-pagination-dots');
+    // Dots are now rendered as a SIBLING to card-gallery, not inside it
+    // Look for the next sibling with the dots class
+    const dotsContainer = cardGallery.nextElementSibling?.classList.contains('gallery-pagination-dots')
+      ? cardGallery.nextElementSibling
+      : cardGallery.parentElement?.querySelector('.gallery-pagination-dots');
     if (!dotsContainer) return;
 
     const dots = dotsContainer.querySelectorAll('.gallery-pagination-dot');
