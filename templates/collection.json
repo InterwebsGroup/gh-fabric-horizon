@@ -8,6 +8,10 @@
  * ------------------------------------------------------------
  */{
   "sections": {
+    "volume-pricing-banner": {
+      "type": "volume-pricing-banner",
+      "settings": {}
+    },
     "section": {
       "type": "section",
       "blocks": {
@@ -260,6 +264,7 @@
     }
   },
   "order": [
+    "volume-pricing-banner",
     "section",
     "main-collection"
   ]

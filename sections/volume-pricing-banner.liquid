@@ -1,0 +1,85 @@
+{% comment %}
+  Volume Pricing Banner for Collection Pages
+  Displays tiered pricing message when pricing_mode is 'tiered'
+{% endcomment %}
+
+{%- if settings.pricing_mode == 'tiered' -%}
+  <div class="volume-pricing-banner">
+    <div class="volume-pricing-banner__content page-width">
+      <span class="volume-pricing-banner__icon">💰</span>
+      <span class="volume-pricing-banner__text">
+        <strong>Buy 2 hoodies, save $60.</strong>
+        <strong>Buy 3+, save $108+.</strong>
+        <span class="volume-pricing-banner__shipping">Free shipping at $75!</span>
+      </span>
+    </div>
+  </div>
+
+  <style>
+    .volume-pricing-banner {
+      background: linear-gradient(135deg, #2d5016 0%, #3d6b1f 100%);
+      color: #ffffff;
+      padding: 12px 16px;
+      text-align: center;
+    }
+
+    .volume-pricing-banner__content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .volume-pricing-banner__icon {
+      font-size: 1.25rem;
+    }
+
+    .volume-pricing-banner__text {
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .volume-pricing-banner__text strong {
+      font-weight: 600;
+    }
+
+    .volume-pricing-banner__shipping {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    @media screen and (max-width: 749px) {
+      .volume-pricing-banner {
+        padding: 10px 12px;
+      }
+
+      .volume-pricing-banner__text {
+        font-size: 0.85rem;
+        gap: 6px;
+      }
+
+      .volume-pricing-banner__icon {
+        font-size: 1rem;
+      }
+    }
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Volume Pricing Banner",
+  "tag": "section",
+  "class": "volume-pricing-banner-section",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": []
+}
+{% endschema %}
