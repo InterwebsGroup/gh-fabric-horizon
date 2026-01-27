@@ -195,7 +195,7 @@
     left: 0;
     right: 0;
     z-index: 2;
-    padding: 50px 16px 28px;
+    padding: 50px 16px 36px; /* Extra bottom padding to sit above pagination dots */
     background: linear-gradient(
       to top,
       rgba(0, 0, 0, 0.8) 0%,
@@ -314,7 +314,7 @@
   @media screen and (max-width: 749px) {
     /* Softer gradient on mobile - starts at 40%, max opacity 0.6 */
     .product-grid .product-card__content > .group-block {
-      padding: 24px 10px 24px;
+      padding: 24px 10px 32px; /* Extra bottom padding for dots */
       background: linear-gradient(
         to top,
         rgba(0, 0, 0, 0.6) 0%,
@@ -370,9 +370,9 @@
       border-radius: 0;
     }
 
-    /* Adjust dots position for mobile (smaller gradient area) */
+    /* Dots at bottom on mobile too */
     .product-grid .gallery-pagination-dots {
-      bottom: 38px;
+      bottom: 10px;
     }
   }
 
@@ -402,10 +402,10 @@
      so they can have independent z-index stacking
      ============================================ */
 
-  /* Dots container - centered at bottom of card, above gradient */
+  /* Dots container - at bottom of card, below title/price */
   .product-grid .gallery-pagination-dots {
     position: absolute;
-    bottom: 42px; /* Position above the title/price area */
+    bottom: 12px; /* At the bottom of the card */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
