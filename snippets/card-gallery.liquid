@@ -118,7 +118,12 @@
 
             if forloop.first == false
               # hide all variant images that aren't the first one
-              assign hidden = true
+              # BUT keep the second one visible for hover effect
+              if settings.show_second_image_on_hover and forloop.index == 2
+                assign hidden = false
+              else
+                assign hidden = true
+              endif
             endif
           endif
 
