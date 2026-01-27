@@ -71,12 +71,18 @@
      ============================================ */
 
   /* Title - white bold with subtle text shadow */
+  /* Target all levels: custom element, link, text-block, and actual p/span */
   .product-grid product-title,
-  .product-grid product-title a {
+  .product-grid product-title a,
+  .product-grid product-title .text-block,
+  .product-grid product-title .text-block p,
+  .product-grid product-title .text-block span,
+  .product-grid product-title p,
+  .product-grid product-title span {
     color: #ffffff !important;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-    font-size: 0.95rem;
-    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
   }
 
   /* Current price - white, bold */
@@ -157,9 +163,14 @@
     }
 
     .product-grid product-title,
-    .product-grid product-title a {
-      font-size: 0.8rem;
-      font-weight: 700;
+    .product-grid product-title a,
+    .product-grid product-title .text-block,
+    .product-grid product-title .text-block p,
+    .product-grid product-title .text-block span,
+    .product-grid product-title p,
+    .product-grid product-title span {
+      font-size: 0.8rem !important;
+      font-weight: 700 !important;
     }
 
     .product-grid product-price .price {

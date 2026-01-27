@@ -53,6 +53,13 @@
       {%- for value in filter.active_values -%}
         {%- liquid
           assign is_active = true
+
+          # Transform cat__ prefixed tags to display names
+          # e.g., cat__solid-colors → "Solid Colors"
+          assign display_label = value.label
+          if value.label contains 'cat__'
+            assign display_label = value.label | remove: 'cat__' | replace: '-', ' ' | capitalize
+          endif
         -%}
         <facet-remove-component
           class="
@@ -75,9 +82,9 @@
           {% endif %}
 
           {% if filter.type == 'boolean' or show_filter_label %}
-            {{ filter.label | escape }}: {{ value.label | escape }}
+            {{ filter.label | escape }}: {{ display_label | escape }}
           {% else %}
-            {{ value.label | escape }}
+            {{ display_label | escape }}
           {% endif %}
 
           <span class="svg-wrapper svg-wrapper--smaller">

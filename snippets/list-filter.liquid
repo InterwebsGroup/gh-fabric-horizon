@@ -201,6 +201,18 @@
           >
             {%- for value in filter.values -%}
               {% liquid
+                # Skip cat__all-products tag - it's used for internal organization only
+                if value.label == 'cat__all-products'
+                  continue
+                endif
+
+                # Transform cat__ prefixed tags to display names
+                # e.g., cat__solid-colors → "Solid Colors"
+                assign display_label = value.label
+                if value.label contains 'cat__'
+                  assign display_label = value.label | remove: 'cat__' | replace: '-', ' ' | capitalize
+                endif
+
                 assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index | replace: '.', '-' | append: '-' | append: filter_style | append: '-' | append: in_drawer
                 assign is_disabled = false
                 if value.count == 0 and value.active == false
@@ -231,7 +243,7 @@
                 {% if is_image %}
                   <fieldset
                     class="variant-option variant-option--buttons variant-option--images"
-                    aria-label="{{ value.label }}"
+                    aria-label="{{ display_label }}"
                     on:keydown="#facet-inputs-component-{{ filter.param_name | escape | replace: '.', '-' }}/handleKeyDown"
                   >
                     <div class="facets__image-wrapper">
@@ -255,7 +267,7 @@
                       type="checkbox"
                       name="{{ value.param_name }}"
                       value="{{ value.value }}"
-                      aria-label="{{ value.label }}"
+                      aria-label="{{ display_label }}"
                       id="{{ input_id }}"
                       {% if value.active %}
                         checked
@@ -270,13 +282,13 @@
                       for="{{ input_id }}"
                       tabindex="-1"
                     >
-                      {{- value.label }}
+                      {{- display_label }}
                     </label>
                   </fieldset>
                 {% elsif is_swatch %}
                   <fieldset
                     class="variant-option variant-option--buttons variant-option--swatches {% if is_disabled %}variant-option--swatches-disabled{% endif %}"
-                    aria-label="{{ value.label }}"
+                    aria-label="{{ display_label }}"
                     on:keydown="#facet-inputs-component-{{ filter.param_name | escape | replace: '.', '-' }}/handleKeyDown"
                   >
                     <label
@@ -292,7 +304,7 @@
                           type="checkbox"
                           name="{{ value.param_name }}"
                           value="{{ value.value }}"
-                          aria-label="{{ value.label }}"
+                          aria-label="{{ display_label }}"
                           id="{{ input_id }}"
                           {% if value.active %}
                             checked
@@ -320,7 +332,7 @@
                         for="{{ input_id }}"
                         tabindex="-1"
                       >
-                        {{- value.label }}
+                        {{- display_label }}
                       </label>
                     </label>
                   </fieldset>
@@ -336,7 +348,7 @@
                         value="{{ value.value }}"
                         id="{{ input_id }}"
                         class="facets__pill-input"
-                        data-label="{{ value.label }}"
+                        data-label="{{ display_label }}"
                         {% if value.active %}
                           checked
                         {% endif %}
@@ -351,7 +363,7 @@
                         for="{{ input_id }}"
                         tabindex="0"
                       >
-                        {{- value.label }}
+                        {{- display_label }}
                         {% if is_disabled %}
                           <svg
                             aria-hidden="true"
@@ -369,7 +381,7 @@
                     {% render 'checkbox',
                       name: value.param_name,
                       value: value.value,
-                      label: value.label,
+                      label: display_label,
                       checked: value.active,
                       id: input_id,
                       disabled: is_disabled,
