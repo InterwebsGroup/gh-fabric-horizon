@@ -2,57 +2,115 @@
   Giant Hoodies Collection Page Styles
   - 4-col desktop, 2-col mobile grid
   - 3px mobile gap, 20px desktop gap
-  - 16px border radius on images
+  - GRADIENT OVERLAY product cards (info on image)
+  - 20px border radius
 {% endcomment %}
 
 {% style %}
-  /* Giant Hoodies Collection Grid - Mobile gap override (3px instead of 12px cap) */
+  /* ============================================
+     GRID LAYOUT
+     ============================================ */
+
+  /* Mobile gap override (3px instead of default) */
   @media screen and (max-width: 749px) {
     .product-grid {
       --product-grid-gap-mobile: 3px 3px;
     }
   }
 
-  /* Product card border radius on images */
+  /* ============================================
+     PRODUCT CARD - GRADIENT OVERLAY STYLE
+     Per visual spec: info overlaid on image
+     ============================================ */
+
+  /* Card container - relative positioning for overlay */
+  .product-grid product-card {
+    position: relative;
+  }
+
+  .product-grid .product-card__content {
+    position: relative;
+  }
+
+  /* Image gallery - fills card, rounded corners */
   .product-grid .card-gallery {
-    border-radius: 16px;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
     overflow: hidden;
   }
 
+  /* Info overlay - positioned at bottom of image */
+  .product-grid .product-card__content > .layout-panel-flex:last-child {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: 40px 16px 16px;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    border-radius: 0 0 20px 20px;
+    pointer-events: none;
+  }
+
+  /* Make clickable elements work through overlay */
+  .product-grid .product-card__content > .layout-panel-flex:last-child a,
+  .product-grid .product-card__content > .layout-panel-flex:last-child button,
+  .product-grid .product-card__content > .layout-panel-flex:last-child input,
+  .product-grid .product-card__content > .layout-panel-flex:last-child label {
+    pointer-events: auto;
+  }
+
   /* ============================================
-     PRICE STYLING - Espresso color scheme
+     TEXT ON GRADIENT - WHITE FOR CONTRAST
      ============================================ */
 
-  /* Current price - Espresso color, bold */
-  .product-grid product-price .price {
-    color: #3d3028 !important;
-    font-weight: 700;
-    font-size: 1.125rem;
+  /* Title - white text */
+  .product-grid product-title,
+  .product-grid product-title a {
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    font-size: 0.95rem;
+    font-weight: 600;
   }
 
-  /* Compare-at price - visible strikethrough */
+  /* Current price - white, bold */
+  .product-grid product-price .price {
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 1rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Compare-at price - white with strikethrough */
   .product-grid product-price .compare-at-price {
-    color: #6b5e52 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
     opacity: 1 !important;
     text-decoration: line-through;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin-right: 8px;
     font-weight: 400;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   }
 
-  /* Savings badge - red background */
+  /* Savings badge - red background, positioned nicely */
   .product-grid product-price .price-savings {
     display: inline-block;
     background: #e53935;
     color: #ffffff !important;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 600;
-    padding: 3px 8px;
+    padding: 3px 6px;
     border-radius: 4px;
-    margin-left: 8px;
+    margin-left: 6px;
     text-transform: uppercase;
     letter-spacing: 0.02em;
     vertical-align: middle;
+    text-shadow: none;
   }
 
   /* Hide tiered pricing note - redundant with savings badge */
@@ -61,30 +119,30 @@
   }
 
   /* ============================================
-     SWATCH STYLING - Consistent display
+     SWATCHES ON OVERLAY
      ============================================ */
 
   /* Limit swatches container width for consistent overflow */
   .product-grid product-swatches {
-    max-width: 180px;
+    max-width: 160px;
   }
 
-  /* Swatch sizing and borders */
+  /* Swatch sizing - white border for visibility on dark gradient */
   .product-grid .swatch {
-    width: 24px;
-    height: 24px;
-    border: 2px solid rgba(0, 0, 0, 0.15);
+    width: 22px;
+    height: 22px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
     border-radius: 50%;
   }
 
   .product-grid .swatch:hover {
-    border-color: #3d3028;
+    border-color: #ffffff;
   }
 
-  /* "+X" overflow count styling */
+  /* "+X" overflow count - light text */
   .product-grid .hidden-swatches__count {
-    color: #6b5e52;
-    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
     font-weight: 500;
   }
 
@@ -92,42 +150,69 @@
      MOBILE ADJUSTMENTS
      ============================================ */
   @media screen and (max-width: 749px) {
-    .product-grid product-title {
-      font-size: 0.875rem;
+    /* Smaller padding on mobile overlay */
+    .product-grid .product-card__content > .layout-panel-flex:last-child {
+      padding: 30px 10px 10px;
     }
 
-    .product-grid product-price {
-      font-size: 0.875rem;
+    .product-grid product-title,
+    .product-grid product-title a {
+      font-size: 0.8rem;
     }
 
     .product-grid product-price .price {
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .product-grid product-price .compare-at-price {
-      font-size: 0.85rem;
-      margin-right: 6px;
+      font-size: 0.8rem;
+      margin-right: 4px;
     }
 
     .product-grid product-price .price-savings {
-      font-size: 0.6rem;
-      padding: 2px 5px;
-      margin-left: 5px;
+      font-size: 0.55rem;
+      padding: 2px 4px;
+      margin-left: 4px;
     }
 
     /* Smaller swatches on mobile */
     .product-grid product-swatches {
-      max-width: 140px;
+      max-width: 120px;
     }
 
     .product-grid .swatch {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
+      border-width: 1.5px;
+    }
+
+    /* Smaller border radius on mobile for tighter grid */
+    .product-grid .card-gallery {
+      border-radius: 12px;
+    }
+
+    .product-grid .product-card__content > .layout-panel-flex:last-child {
+      border-radius: 0 0 12px 12px;
     }
   }
 
-  /* Card gallery aspect ratio */
-  .product-grid .card-gallery {
-    aspect-ratio: 4 / 5;
+  /* ============================================
+     BADGE POSITIONING
+     ============================================ */
+
+  /* Quick add button - top right */
+  .product-grid .quick-add {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+  }
+
+  /* Product badges - top left */
+  .product-grid .product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
   }
 {% endstyle %}
