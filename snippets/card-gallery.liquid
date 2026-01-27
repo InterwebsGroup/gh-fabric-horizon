@@ -96,6 +96,9 @@
 
       if product.media.size > 2 and generic_media_size > 0
         assign show_arrows = true
+      elsif settings.product_card_carousel and product.media.size > 1
+        # Show arrows for carousel even if all images are variant-attached
+        assign show_arrows = true
       endif
 
       # Don't overfetch media if we don't need to
