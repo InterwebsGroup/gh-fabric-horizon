@@ -14,11 +14,11 @@
   </div>
 
   <style>
-    /* Make the section wrapper sticky */
+    /* Make the section wrapper sticky below the header */
     .volume-pricing-banner-section {
       position: sticky;
-      top: 0;
-      z-index: 100;
+      top: var(--header-height, 60px);
+      z-index: 99; /* Below header (100) but above content */
     }
 
     .volume-pricing-banner {
