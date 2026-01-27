@@ -1,4 +1,16 @@
+{% comment %} Giant Hoodies Dynamic Announcement Logic {% endcomment %}
+{% liquid
+  assign show_gh_announcement = section.settings.use_gh_announcement
+  assign gh_announcement_text = ''
 
+  if show_gh_announcement
+    if settings.pricing_mode == 'tiered'
+      assign gh_announcement_text = settings.announcement_tiered
+    else
+      assign gh_announcement_text = settings.announcement_flat
+    endif
+  endif
+%}
 
 {% if section.blocks.size > 1 %}
   <script
@@ -8,6 +20,10 @@
   ></script>
 {% endif %}
 
+{% comment %} Hide entire section if using GH announcement and text is blank {% endcomment %}
+{% if show_gh_announcement and gh_announcement_text == blank %}
+  {% comment %} Don't render anything {% endcomment %}
+{% else %}
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <aside
   class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
@@ -16,7 +32,7 @@
   {% liquid
     assign autoplay = false
     assign show_arrows = false
-    if section.blocks.size > 1
+    if section.blocks.size > 1 and show_gh_announcement == false
       assign autoplay = true
       assign show_arrows = true
     endif
@@ -33,10 +49,17 @@
     {% endif %}
 
     <div class="announcement-bar__slides">
-      {% content_for 'blocks' %}
+      {% if show_gh_announcement and gh_announcement_text != blank %}
+        <div class="announcement-bar__slide paragraph" aria-hidden="false">
+          <p class="announcement-bar__text">{{ gh_announcement_text }}</p>
+        </div>
+      {% else %}
+        {% content_for 'blocks' %}
+      {% endif %}
     </div>
   </announcement-bar-component>
 </aside>
+{% endif %}
 
 {% stylesheet %}
   .announcement-bar {
@@ -135,13 +158,29 @@
   },
   "settings": [
     {
+      "type": "header",
+      "content": "Giant Hoodies Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_gh_announcement",
+      "label": "Use pricing mode announcement",
+      "info": "Shows tiered or flat announcement from Theme Settings > Giant Hoodies",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Slideshow Settings"
+    },
+    {
       "type": "range",
       "id": "speed",
       "label": "t:settings.scroll_speed",
       "min": 2,
       "max": 10,
       "default": 5,
-      "unit": "sec"
+      "unit": "sec",
+      "info": "Only applies when using multiple announcement blocks"
     },
     {
       "type": "header",
@@ -166,7 +205,7 @@
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "default": "scheme-4",
+      "default": "scheme-3",
       "label": "t:settings.color_scheme"
     },
     {

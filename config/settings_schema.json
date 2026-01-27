@@ -2284,5 +2284,192 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Giant Hoodies Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Pricing Mode"
+      },
+      {
+        "type": "select",
+        "id": "pricing_mode",
+        "label": "Pricing Mode",
+        "options": [
+          { "value": "tiered", "label": "Tiered (volume discounts)" },
+          { "value": "flat", "label": "Flat (for sales)" }
+        ],
+        "default": "tiered",
+        "info": "Tiered: 1 for $55, 2 for $45ea, 3+ for $39ea. Flat: All hoodies $55."
+      },
+      {
+        "type": "header",
+        "content": "Tier Eligible Products"
+      },
+      {
+        "type": "text",
+        "id": "tier_collection_handles",
+        "label": "Tier collection handles",
+        "default": "giant-hoodies,kids-giant-hoodies",
+        "info": "Comma-separated collection handles for tier pricing"
+      },
+      {
+        "type": "text",
+        "id": "tier_exclude_tag",
+        "label": "Exclude tag",
+        "default": "not-tier-eligible",
+        "info": "Products with this tag are excluded from tier pricing"
+      },
+      {
+        "type": "header",
+        "content": "Announcement Bar"
+      },
+      {
+        "type": "text",
+        "id": "announcement_tiered",
+        "label": "Announcement (Tiered mode)",
+        "default": "Buy 2 hoodies, save $60. Buy 3+, save $108+. Free shipping at $75!"
+      },
+      {
+        "type": "text",
+        "id": "announcement_flat",
+        "label": "Announcement (Flat/Sale mode)",
+        "default": "",
+        "info": "Leave blank to hide. Fill in for sales."
+      },
+      {
+        "type": "header",
+        "content": "Shipping"
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold ($)",
+        "default": 75
+      },
+      {
+        "type": "text",
+        "id": "shipping_cost",
+        "label": "Shipping cost under threshold",
+        "default": "4.95"
+      },
+      {
+        "type": "header",
+        "content": "Cart Upsell Messages"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_upsell_enabled",
+        "label": "Enable cart upsell messages",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "upsell_0_hoodies",
+        "label": "0 hoodies message",
+        "default": "Add a Giant Hoodie to your cart!"
+      },
+      {
+        "type": "text",
+        "id": "upsell_1_hoodie",
+        "label": "1 hoodie message",
+        "default": "Add a 2nd hoodie — save $20 more + FREE shipping!"
+      },
+      {
+        "type": "text",
+        "id": "upsell_2_hoodies",
+        "label": "2 hoodies message",
+        "default": "Add a 3rd hoodie for just $27 more!"
+      },
+      {
+        "type": "text",
+        "id": "upsell_3_plus",
+        "label": "3+ hoodies message",
+        "default": "You're getting our best price!"
+      },
+      {
+        "type": "text",
+        "id": "upsell_flat_mode",
+        "label": "Flat mode message",
+        "default": "Sale prices applied!"
+      },
+      {
+        "type": "header",
+        "content": "Shipping Progress Messages"
+      },
+      {
+        "type": "text",
+        "id": "shipping_progress_msg",
+        "label": "Shipping progress message",
+        "default": "Add [amount] more for FREE shipping!",
+        "info": "[amount] replaced with dollars needed"
+      },
+      {
+        "type": "text",
+        "id": "shipping_free_msg",
+        "label": "Free shipping unlocked message",
+        "default": "You've unlocked FREE shipping!"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_shipping_progress_bar",
+        "label": "Show shipping progress bar",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Low Stock Warning"
+      },
+      {
+        "type": "checkbox",
+        "id": "low_stock_enabled",
+        "label": "Show low stock warnings",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "low_stock_threshold",
+        "label": "Low stock threshold",
+        "default": 10,
+        "info": "Show warning when inventory falls below this number"
+      },
+      {
+        "type": "text",
+        "id": "low_stock_message",
+        "label": "Low stock message",
+        "default": "Only [qty] left in [variant]",
+        "info": "[qty] and [variant] replaced dynamically"
+      },
+      {
+        "type": "header",
+        "content": "Back in Stock Notifications"
+      },
+      {
+        "type": "checkbox",
+        "id": "back_in_stock_enabled",
+        "label": "Show back-in-stock email signup",
+        "default": true,
+        "info": "Shows email capture on sold-out variants"
+      },
+      {
+        "type": "text",
+        "id": "back_in_stock_button_text",
+        "label": "Submit button text",
+        "default": "Notify Me"
+      },
+      {
+        "type": "text",
+        "id": "back_in_stock_placeholder",
+        "label": "Email placeholder",
+        "default": "Enter your email"
+      },
+      {
+        "type": "text",
+        "id": "back_in_stock_success_msg",
+        "label": "Success message",
+        "default": "We'll email you when it's back!"
+      }
+    ]
   }
 ]

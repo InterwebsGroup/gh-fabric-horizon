@@ -638,5 +638,39 @@
     --cart-secondary-font-family: var(--font-{{ settings.cart_price_font }}--family);
     --cart-secondary-font-style: var(--font-{{ settings.cart_price_font }}--style);
     --cart-secondary-font-weight: var(--font-{{ settings.cart_price_font }}--weight);
+
+    /* ================================
+       Giant Hoodies Brand Variables
+       ================================ */
+
+    /* Brand Colors */
+    --gh-terracotta: #c4704b;
+    --gh-terracotta-dark: #a85a3a;
+    --gh-espresso: #3d3028;
+    --gh-espresso-light: #5a4a3d;
+    --gh-cream: #faf7f4;
+    --gh-sand: #e8d5c4;
+
+    /* Brand Fonts */
+    --gh-font-heading: 'Fraunces', serif;
+    --gh-font-body: 'DM Sans', sans-serif;
+
+    /* Product Card Grid */
+    --gh-grid-gap-mobile: 3px;
+    --gh-grid-gap-desktop: 20px;
+    --gh-card-radius: 16px;
+
+    /* Button Pills */
+    --gh-button-radius: 50px;
+
+    /* Shadows */
+    --gh-shadow-soft: 0 4px 16px rgba(61, 48, 40, 0.1);
+    --gh-shadow-card: 0 2px 8px rgba(61, 48, 40, 0.08);
+
+    /* Gradients */
+    --gh-gradient-card: linear-gradient(to top, rgba(61, 48, 40, 0.7) 0%, transparent 60%);
+
+    /* Shipping Progress */
+    --gh-free-shipping-threshold: {{ settings.free_shipping_threshold | default: 75 }};
   }
 {% endstyle %}
