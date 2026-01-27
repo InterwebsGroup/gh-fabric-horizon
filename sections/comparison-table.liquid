@@ -89,11 +89,6 @@
     </table>
   </div>
 
-  <div class="comparison-table__cta">
-    <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="button button-primary">
-      {{ section.settings.cta_text | default: 'Shop All Hoodies' }}
-    </a>
-  </div>
 </div>
 
 {% stylesheet %}
@@ -204,10 +199,6 @@
     text-decoration: line-through;
   }
 
-  .comparison-table__cta {
-    text-align: center;
-  }
-
   @media screen and (max-width: 749px) {
     .comparison-table__table th,
     .comparison-table__table td {
@@ -245,17 +236,6 @@
       "id": "heading",
       "label": "Heading",
       "default": "Giant Hoodies vs. The Other Guys"
-    },
-    {
-      "type": "text",
-      "id": "cta_text",
-      "label": "Button text",
-      "default": "Shop All Hoodies"
-    },
-    {
-      "type": "url",
-      "id": "cta_link",
-      "label": "Button link"
     },
     {
       "type": "header",
