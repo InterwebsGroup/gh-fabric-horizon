@@ -26,13 +26,20 @@
         </div>
       {%- endif -%}
     </div>
-    {%  if settings.quick_add or settings.mobile_quick_add %}
-      {% render 'quick-add', product: product, section_id: section.id %}
-    {% endif %}
   {% endunless %}
 {% endcapture %}
 
 {% render 'card-gallery', children: children %}
+
+{%- comment -%}
+  Quick-add is rendered OUTSIDE card-gallery so it can have independent z-index
+  stacking, allowing it to appear above the gradient overlay.
+{%- endcomment -%}
+{% unless product == blank %}
+  {%  if settings.quick_add or settings.mobile_quick_add %}
+    {% render 'quick-add', product: product, section_id: section.id %}
+  {% endif %}
+{% endunless %}
 
 {% # Title and price for the zoomed out grid view %}
 <div class="product-grid-view-zoom-out--details">
