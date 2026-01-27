@@ -124,3 +124,22 @@
 {%- if has_volume_pricing -%}
   <small class="volume-pricing-note">{{ 'content.volume_pricing_available' | t }}</small>
 {%- endif -%}
+
+{%- comment -%} Giant Hoodies tiered pricing message for product cards {%- endcomment -%}
+{%- if is_product_card and settings.pricing_mode == 'tiered' -%}
+  {%- assign is_tier_eligible = false -%}
+  {%- assign tier_handles = settings.tier_collection_handles | split: ',' -%}
+  {%- for handle in tier_handles -%}
+    {%- assign handle_stripped = handle | strip -%}
+    {%- for collection in product_resource.collections -%}
+      {%- if collection.handle == handle_stripped -%}
+        {%- unless product_resource.tags contains settings.tier_exclude_tag -%}
+          {%- assign is_tier_eligible = true -%}
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+  {%- if is_tier_eligible -%}
+    <small class="gh-tiered-pricing-note">Buy 2+, save up to 48%</small>
+  {%- endif -%}
+{%- endif -%}

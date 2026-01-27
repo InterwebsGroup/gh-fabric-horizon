@@ -1,0 +1,128 @@
+{% comment %}
+  Giant Hoodies Collection Page Styles
+  - 4-col desktop, 2-col mobile grid
+  - 3px mobile gap, 20px desktop gap
+  - Gradient overlay product cards
+  - 16-20px border radius
+{% endcomment %}
+
+{% style %}
+  /* Giant Hoodies Collection Grid - Mobile gap override (3px instead of 12px cap) */
+  @media screen and (max-width: 749px) {
+    .product-grid {
+      --product-grid-gap-mobile: 3px 3px;
+    }
+  }
+
+  /* Product card border radius */
+  .product-grid .card-gallery,
+  .product-grid product-card .product-card__content {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  /* Gradient overlay product cards */
+  .product-grid product-card {
+    position: relative;
+  }
+
+  .product-grid .product-card__content {
+    position: relative;
+  }
+
+  /* Position the product info over the image with gradient */
+  .product-grid .product-card__content > .layout-panel-flex:last-child {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: 16px;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.5) 40%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Make clickable elements work through overlay */
+  .product-grid .product-card__content > .layout-panel-flex:last-child a,
+  .product-grid .product-card__content > .layout-panel-flex:last-child button,
+  .product-grid .product-card__content > .layout-panel-flex:last-child input,
+  .product-grid .product-card__content > .layout-panel-flex:last-child label {
+    pointer-events: auto;
+  }
+
+  /* White text on gradient */
+  .product-grid product-title,
+  .product-grid product-title a,
+  .product-grid product-price,
+  .product-grid product-price .price,
+  .product-grid product-price .compare-at-price {
+    color: #ffffff;
+  }
+
+  .product-grid product-price .compare-at-price {
+    opacity: 0.7;
+  }
+
+  /* Volume pricing note styling for cards */
+  .product-grid product-price .volume-pricing-note,
+  .product-grid .gh-tiered-pricing-note {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.75rem;
+    margin-top: 2px;
+  }
+
+  /* Swatches on overlay - white border for visibility */
+  .product-grid .swatch {
+    border: 2px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .product-grid .swatch:hover {
+    border-color: #ffffff;
+  }
+
+  /* Mobile adjustments */
+  @media screen and (max-width: 749px) {
+    .product-grid .product-card__content > .layout-panel-flex:last-child {
+      padding: 10px 12px;
+    }
+
+    .product-grid product-title {
+      font-size: 0.875rem;
+    }
+
+    .product-grid product-price {
+      font-size: 0.875rem;
+    }
+
+    /* Hide swatches on mobile to save space */
+    .product-grid product-swatches {
+      display: none;
+    }
+  }
+
+  /* Ensure card gallery fills the card for overlay positioning */
+  .product-grid .card-gallery {
+    aspect-ratio: 4 / 5;
+  }
+
+  /* Quick add button positioning */
+  .product-grid .quick-add {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+  }
+
+  /* Badge positioning on overlay cards */
+  .product-grid .product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+  }
+{% endstyle %}
