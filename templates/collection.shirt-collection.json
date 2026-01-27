@@ -8,10 +8,10 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "section": {
+    "heading_shirt": {
       "type": "section",
       "blocks": {
-        "text_tqQTNE": {
+        "title_shirt": {
           "type": "text",
           "name": "Title",
           "settings": {
@@ -39,7 +39,7 @@
         }
       },
       "block_order": [
-        "text_tqQTNE"
+        "title_shirt"
       ],
       "name": "Collection heading",
       "settings": {
@@ -70,10 +70,10 @@
         "padding-block-end": 80
       }
     },
-    "main-collection": {
+    "main-collection-shirt": {
       "type": "main-collection",
       "blocks": {
-        "filters": {
+        "filters_shirt": {
           "type": "filters",
           "static": true,
           "settings": {
@@ -96,7 +96,7 @@
           },
           "blocks": {}
         },
-        "product-card": {
+        "product-card_shirt": {
           "type": "_product-card",
           "static": true,
           "settings": {
@@ -113,7 +113,7 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_card_gallery_RaBfTi": {
+            "gallery_shirt": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
               "settings": {
@@ -129,7 +129,7 @@
               },
               "blocks": {}
             },
-            "group_edYw8H": {
+            "group_shirt": {
               "type": "_product-card-group",
               "settings": {
                 "content_direction": "column",
@@ -166,7 +166,7 @@
                 "padding-inline-end": 16
               },
               "blocks": {
-                "product_title_nAkK9K": {
+                "product_title_shirt": {
                   "type": "product-title",
                   "name": "t:names.product_title",
                   "settings": {
@@ -191,7 +191,7 @@
                   },
                   "blocks": {}
                 },
-                "price_PMxen8": {
+                "price_shirt": {
                   "type": "price",
                   "settings": {
                     "show_sale_price_first": true,
@@ -213,7 +213,7 @@
                   },
                   "blocks": {}
                 },
-                "swatches_eaTVrz": {
+                "swatches_shirt": {
                   "type": "swatches",
                   "name": "t:names.swatches",
                   "settings": {
@@ -229,15 +229,15 @@
                 }
               },
               "block_order": [
-                "product_title_nAkK9K",
-                "price_PMxen8",
-                "swatches_eaTVrz"
+                "product_title_shirt",
+                "price_shirt",
+                "swatches_shirt"
               ]
             }
           },
           "block_order": [
-            "product_card_gallery_RaBfTi",
-            "group_edYw8H"
+            "gallery_shirt",
+            "group_shirt"
           ]
         }
       },
@@ -260,7 +260,7 @@
     }
   },
   "order": [
-    "section",
-    "main-collection"
+    "heading_shirt",
+    "main-collection-shirt"
   ]
 }

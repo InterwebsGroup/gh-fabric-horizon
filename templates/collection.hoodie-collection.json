@@ -8,10 +8,10 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "section": {
+    "heading_hoodie": {
       "type": "section",
       "blocks": {
-        "text_tqQTNE": {
+        "title_hoodie": {
           "type": "text",
           "name": "Title",
           "settings": {
@@ -39,7 +39,7 @@
         }
       },
       "block_order": [
-        "text_tqQTNE"
+        "title_hoodie"
       ],
       "name": "Collection heading",
       "settings": {
@@ -70,10 +70,10 @@
         "padding-block-end": 80
       }
     },
-    "main-collection": {
+    "main-collection-hoodie": {
       "type": "main-collection",
       "blocks": {
-        "filters": {
+        "filters_hoodie": {
           "type": "filters",
           "static": true,
           "settings": {
@@ -96,7 +96,7 @@
           },
           "blocks": {}
         },
-        "product-card": {
+        "product-card_hoodie": {
           "type": "_product-card",
           "static": true,
           "settings": {
@@ -113,7 +113,7 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_card_gallery_RaBfTi": {
+            "gallery_hoodie": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
               "settings": {
@@ -129,7 +129,7 @@
               },
               "blocks": {}
             },
-            "group_edYw8H": {
+            "group_hoodie": {
               "type": "_product-card-group",
               "settings": {
                 "content_direction": "column",
@@ -166,7 +166,7 @@
                 "padding-inline-end": 16
               },
               "blocks": {
-                "product_title_nAkK9K": {
+                "product_title_hoodie": {
                   "type": "product-title",
                   "name": "t:names.product_title",
                   "settings": {
@@ -191,7 +191,7 @@
                   },
                   "blocks": {}
                 },
-                "price_PMxen8": {
+                "price_hoodie": {
                   "type": "price",
                   "settings": {
                     "show_sale_price_first": true,
@@ -213,7 +213,7 @@
                   },
                   "blocks": {}
                 },
-                "swatches_eaTVrz": {
+                "swatches_hoodie": {
                   "type": "swatches",
                   "name": "t:names.swatches",
                   "settings": {
@@ -229,15 +229,15 @@
                 }
               },
               "block_order": [
-                "product_title_nAkK9K",
-                "price_PMxen8",
-                "swatches_eaTVrz"
+                "product_title_hoodie",
+                "price_hoodie",
+                "swatches_hoodie"
               ]
             }
           },
           "block_order": [
-            "product_card_gallery_RaBfTi",
-            "group_edYw8H"
+            "gallery_hoodie",
+            "group_hoodie"
           ]
         }
       },
@@ -260,7 +260,7 @@
     }
   },
   "order": [
-    "section",
-    "main-collection"
+    "heading_hoodie",
+    "main-collection-hoodie"
   ]
 }
