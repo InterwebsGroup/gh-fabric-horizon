@@ -71,9 +71,9 @@
     font-size: 1.125rem;
   }
 
-  /* Compare-at price - struck through */
+  /* Compare-at price - struck through, full opacity for readability */
   .product-grid product-price .compare-at-price {
-    opacity: 0.85;
+    opacity: 1;
     text-decoration: line-through;
     font-size: 0.9rem;
     margin-right: 6px;
@@ -95,11 +95,15 @@
   }
 
   /* Volume pricing note styling for cards */
-  .product-grid product-price .volume-pricing-note,
-  .product-grid .gh-tiered-pricing-note {
+  .product-grid product-price .volume-pricing-note {
     color: rgba(255, 255, 255, 0.85);
     font-size: 0.75rem;
     margin-top: 2px;
+  }
+
+  /* Hide tiered pricing note - redundant with savings badge */
+  .product-grid .gh-tiered-pricing-note {
+    display: none;
   }
 
   /* Swatches on overlay - white border for visibility */
@@ -139,9 +143,10 @@
       margin-left: 4px;
     }
 
-    /* Hide swatches on mobile to save space */
-    .product-grid product-swatches {
-      display: none;
+    /* Smaller swatches on mobile */
+    .product-grid product-swatches .swatch {
+      width: 16px;
+      height: 16px;
     }
   }
 
