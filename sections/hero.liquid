@@ -755,7 +755,28 @@
     }
   }
 
-  /* Mobile: make hero buttons wider like Hollow Socks */
+  /* Hero typography and button sizing — Hollow Socks proportions */
+
+  .hero .text-block.h1 > *,
+  .hero .text-block.h2 > * {
+    font-size: clamp(2.25rem, 7vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .hero .text-block:is(.h5, .h6, .rte, .paragraph) > * {
+    font-size: clamp(0.9375rem, 2vw, 1.25rem);
+    line-height: 1.4;
+  }
+
+  .hero .button,
+  .hero .button-secondary {
+    font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
+    padding-block: 1.125rem;
+    padding-inline: 3rem;
+    letter-spacing: 0.05em;
+  }
+
   @media screen and (max-width: 749px) {
     .hero .button,
     .hero .button-secondary {
