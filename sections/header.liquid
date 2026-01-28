@@ -707,7 +707,7 @@
 
   /* When the header is transparent, add a margin to a potential header-section below it */
   .header-section:has(.header[transparent]) + .shopify-section {
-    margin-top: var(--header-height);
+    margin-top: calc(var(--header-height) - 1px);
   }
 
   /* When the header is transparent, and when there is no header-section below it, offset the first main-section with
