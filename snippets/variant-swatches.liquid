@@ -49,6 +49,11 @@
         {% continue %}
       {% endif %}
 
+      {% comment %} Don't show swatches when there's only one value (nothing to choose from) {% endcomment %}
+      {% if product_option.values.size <= 1 %}
+        {% continue %}
+      {% endif %}
+
       {%- liquid
         # Identify which option position this swatch option is
         # Use product_option.position which is the actual position among ALL options
