@@ -230,19 +230,19 @@
     %}
   {%- endif -%}
   {{ children }}
-</div>
 
-{%- comment -%}
-  Pagination dots are rendered OUTSIDE card-gallery so they can have independent z-index
-  stacking, allowing them to appear above the gradient overlay while the gallery stays below.
-{%- endcomment -%}
-{%- if show_dots -%}
-  <div class="gallery-pagination-dots" ref="paginationDots" data-total-slides="{{ visible_media_count }}">
-    {%- for i in (1..dots_count) -%}
-      <span class="gallery-pagination-dot{% if forloop.first %} active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
-    {%- endfor -%}
-  </div>
-{%- endif -%}
+  {%- comment -%}
+    Pagination dots rendered INSIDE card-gallery so they position
+    relative to the image area (not the full card with info below).
+  {%- endcomment -%}
+  {%- if show_dots -%}
+    <div class="gallery-pagination-dots" ref="paginationDots" data-total-slides="{{ visible_media_count }}">
+      {%- for i in (1..dots_count) -%}
+        <span class="gallery-pagination-dot{% if forloop.first %} active{% endif %}" data-dot-index="{{ forloop.index0 }}"></span>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
 
 {% stylesheet %}
   .card-gallery {
@@ -420,10 +420,8 @@
     const cardGallery = slideshow.closest('.card-gallery');
     if (!cardGallery) return;
 
-    // Dots are rendered as a SIBLING to card-gallery
-    const dotsContainer = cardGallery.nextElementSibling?.classList.contains('gallery-pagination-dots')
-      ? cardGallery.nextElementSibling
-      : cardGallery.parentElement?.querySelector('.gallery-pagination-dots');
+    // Dots are rendered INSIDE card-gallery
+    const dotsContainer = cardGallery.querySelector('.gallery-pagination-dots');
     if (!dotsContainer) return;
 
     const dots = dotsContainer.querySelectorAll('.gallery-pagination-dot');

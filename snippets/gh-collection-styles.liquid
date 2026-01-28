@@ -1,9 +1,9 @@
 {% comment %}
   Giant Hoodies Collection Page Styles
   - 4-col desktop, 2-col mobile grid
-  - 0px mobile gap (edge-to-edge), 14px desktop gap
-  - GRADIENT OVERLAY product cards (info on image)
-  - 20px border radius
+  - Info below image (title, price, swatches under card gallery)
+  - Pagination dots inside image
+  - 20px border radius on desktop, 0 on mobile
 {% endcomment %}
 
 {% style %}
@@ -79,10 +79,10 @@
      Desktop gap is set via template settings (10px)
      ============================================ */
 
-  /* Mobile gap - 0px edge-to-edge for immersive browsing (gradient provides separation) */
+  /* Mobile gap - vertical spacing for text area between cards */
   @media screen and (max-width: 749px) {
     .product-grid {
-      --product-grid-gap: 0px 0px !important;
+      --product-grid-gap: 16px 6px !important;
     }
   }
 
@@ -165,21 +165,21 @@
   }
 
   /* ============================================
-     PRODUCT CARD - GRADIENT OVERLAY STYLE
-     Per visual spec: info overlaid on image
+     PRODUCT CARD - INFO BELOW IMAGE
+     Title, price, swatches sit below the image
      ============================================ */
 
-  /* Card container - relative positioning for overlay */
+  /* Card container - relative positioning */
   .product-grid product-card {
     position: relative;
   }
 
   .product-grid .product-card__content {
     position: relative;
+    overflow: visible !important;
   }
 
-  /* Image gallery - fills card, rounded corners */
-  /* No z-index so it stays below the gradient overlay */
+  /* Image gallery - rounded corners, fixed aspect ratio */
   .product-grid .card-gallery {
     position: relative;
     aspect-ratio: 4 / 5;
@@ -187,39 +187,19 @@
     overflow: hidden;
   }
 
-  /* Info overlay - positioned at bottom of image */
-  /* z-index: 2 puts gradient and title/price ABOVE the images */
+  /* Info block - static flow below image */
   .product-grid .product-card__content > .group-block {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    padding: 50px 16px 36px; /* Extra bottom padding to sit above pagination dots */
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.7) 30%,
-      rgba(0, 0, 0, 0.4) 60%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    border-radius: 0 0 20px 20px;
-    pointer-events: none;
-  }
-
-  /* Make clickable elements work through overlay */
-  .product-grid .product-card__content > .group-block a,
-  .product-grid .product-card__content > .group-block button,
-  .product-grid .product-card__content > .group-block input,
-  .product-grid .product-card__content > .group-block label {
+    position: static;
+    padding: 10px 4px 0;
+    background: none;
     pointer-events: auto;
   }
 
   /* ============================================
-     TEXT ON GRADIENT - WHITE FOR CONTRAST
+     TEXT BELOW IMAGE - DARK ON LIGHT BACKGROUND
      ============================================ */
 
-  /* Title - white bold with subtle text shadow */
+  /* Title - espresso, bold */
   /* Override inline --color CSS variable and target dynamic class names */
   .product-grid .text-block[class*="product_title"],
   .product-grid .text-block[class*="product_title"] p,
@@ -228,30 +208,30 @@
   .product-grid product-title a,
   .product-grid product-title .text-block,
   .product-grid product-title .text-block p {
-    --color: var(--color-white) !important;
-    color: var(--color-white) !important;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
-    font-size: 1.05rem !important;
+    --color: var(--gh-espresso, #3d3028) !important;
+    color: var(--gh-espresso, #3d3028) !important;
+    text-shadow: none !important;
+    font-size: 0.95rem !important;
     font-weight: 700 !important;
   }
 
-  /* Current price - white, bold */
+  /* Current price - espresso, bold */
   .product-grid product-price .price {
-    color: var(--color-white) !important;
+    color: var(--gh-espresso, #3d3028) !important;
     font-weight: 700;
     font-size: 1rem;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    text-shadow: none;
   }
 
-  /* Compare-at price - white with strikethrough */
+  /* Compare-at price - espresso muted with strikethrough */
   .product-grid product-price .compare-at-price {
-    color: rgba(255, 255, 255, 0.9) !important;
-    opacity: 1 !important;
+    color: var(--gh-espresso-light, #5a4a3d) !important;
+    opacity: 0.6 !important;
     text-decoration: line-through;
     font-size: 1rem;
     margin-right: 8px;
     font-weight: 500;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    text-shadow: none;
   }
 
   /* Savings badge - red background, positioned nicely */
@@ -276,7 +256,7 @@
   }
 
   /* ============================================
-     SWATCHES ON OVERLAY
+     SWATCHES BELOW IMAGE
      ============================================ */
 
   /* Desktop: Show 6-7 swatches before overflow (wider container) */
@@ -284,11 +264,11 @@
     max-width: 200px;
   }
 
-  /* Swatch sizing - slightly smaller to fit more, white border for visibility */
+  /* Swatch sizing - espresso border for visibility on light background */
   .product-grid .swatch {
     width: 20px;
     height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(61, 48, 40, 0.25);
     border-radius: 50%;
   }
 
@@ -298,12 +278,12 @@
   }
 
   .product-grid .swatch:hover {
-    border-color: var(--color-white);
+    border-color: var(--gh-espresso, #3d3028);
   }
 
-  /* "+X" overflow count - light text */
+  /* "+X" overflow count - dark text */
   .product-grid .hidden-swatches__count {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--gh-espresso-light, #5a4a3d);
     font-size: 0.75rem;
     font-weight: 500;
   }
@@ -312,16 +292,9 @@
      MOBILE ADJUSTMENTS
      ============================================ */
   @media screen and (max-width: 749px) {
-    /* Softer gradient on mobile - starts at 40%, max opacity 0.6 */
+    /* Info block below image - tighter padding on mobile */
     .product-grid .product-card__content > .group-block {
-      padding: 24px 10px 32px; /* Extra bottom padding for dots */
-      background: linear-gradient(
-        to top,
-        rgba(0, 0, 0, 0.6) 0%,
-        rgba(0, 0, 0, 0.5) 25%,
-        rgba(0, 0, 0, 0.25) 40%,
-        rgba(0, 0, 0, 0) 100%
-      );
+      padding: 8px 6px 0;
     }
 
     .product-grid .text-block[class*="product_title"],
@@ -331,21 +304,21 @@
     .product-grid product-title a,
     .product-grid product-title .text-block,
     .product-grid product-title .text-block p {
-      font-size: 0.875rem !important;
+      font-size: 0.8rem !important;
       font-weight: 700 !important;
     }
 
     .product-grid product-price .price {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .product-grid product-price .compare-at-price {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       margin-right: 4px;
     }
 
     .product-grid product-price .price-savings {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       padding: 3px 8px;
       margin-left: 6px;
     }
@@ -361,12 +334,8 @@
       border-width: 1.5px;
     }
 
-    /* No border radius on mobile - edge-to-edge cards */
+    /* No border radius on mobile - edge-to-edge image */
     .product-grid .card-gallery {
-      border-radius: 0;
-    }
-
-    .product-grid .product-card__content > .group-block {
       border-radius: 0;
     }
 
@@ -380,11 +349,15 @@
      BADGE POSITIONING
      ============================================ */
 
-  /* Quick add button - top right, above gradient */
+  /* Quick add button - constrained to image area */
   .product-grid .quick-add {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    aspect-ratio: 4 / 5;
     z-index: 10;
   }
 
@@ -398,19 +371,18 @@
 
   /* ============================================
      PAGINATION DOTS FOR PRODUCT CARD GALLERY
-     Dots are rendered OUTSIDE card-gallery as siblings to group-block
-     so they can have independent z-index stacking
+     Dots are rendered INSIDE card-gallery
      ============================================ */
 
-  /* Dots container - at bottom of card, below title/price */
+  /* Dots container - at bottom of image area */
   .product-grid .gallery-pagination-dots {
     position: absolute;
-    bottom: 12px; /* At the bottom of the card */
+    bottom: 12px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 6px;
-    z-index: 3; /* Above gradient (z-index: 2) */
+    z-index: 1;
     pointer-events: none;
   }
 
@@ -441,9 +413,9 @@
     opacity: 0.8;
   }
 
-  /* Hide dots when only 1 image - check sibling card-gallery's data attribute */
-  .product-grid .card-gallery[data-slide-count="1"] ~ .gallery-pagination-dots,
-  .product-grid .card-gallery[data-slide-count="0"] ~ .gallery-pagination-dots {
+  /* Hide dots when only 1 image - dots are inside card-gallery */
+  .product-grid .card-gallery[data-slide-count="1"] .gallery-pagination-dots,
+  .product-grid .card-gallery[data-slide-count="0"] .gallery-pagination-dots {
     display: none;
   }
 
