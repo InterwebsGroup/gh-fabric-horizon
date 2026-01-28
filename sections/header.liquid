@@ -599,34 +599,33 @@
     }
 
     @media screen and (max-width: 749px) {
-      --header-template-columns: var(--header-mobile-bookend) var(--header-mobile-bookend) 1fr
-        var(--header-mobile-bookend) var(--header-mobile-bookend);
+      --header-template-columns: var(--header-mobile-bookend) 1fr var(--header-mobile-bookend);
 
-      grid-template-areas: 'leftA leftB center rightA rightB';
+      grid-template-areas: 'left center right';
       grid-column: span 3;
       column-gap: 0;
       align-items: center;
       padding-block: 0;
       padding-inline: 0 var(--padding-3xs);
 
+      .header__drawer {
+        grid-area: left;
+      }
+
       .header-logo {
         grid-area: center;
       }
 
-      &:not(:has(header-actions)) .search-action {
-        grid-area: leftB;
-      }
-
-      &:not(:has(.account-actions)) .search-action {
-        grid-area: rightA;
-      }
-
       .search-action {
-        grid-area: leftB;
+        display: none;
+      }
+
+      .account-drawer {
+        display: none;
       }
 
       header-actions {
-        grid-area: rightB;
+        grid-area: right;
       }
     }
   }
