@@ -9,12 +9,107 @@
  */{
   "sections": {
     "hero_home": {
-      "type": "hero-home",
+      "type": "hero",
+      "blocks": {
+        "headline": {
+          "type": "text",
+          "name": "Headline",
+          "settings": {
+            "text": "<h1>Your New Favorite Oversized Hoodie</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "h1",
+            "font": "var(--gh-font-heading)",
+            "font_size": "",
+            "line_height": "tight",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "subheadline": {
+          "type": "text",
+          "name": "Subheadline",
+          "settings": {
+            "text": "<p>The softest, coziest, most comfortable hoodie you'll ever own.</p>",
+            "width": "100%",
+            "max_width": "narrow",
+            "alignment": "center",
+            "type_preset": "paragraph",
+            "font": "var(--gh-font-body)",
+            "font_size": "1.25rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 8,
+            "padding-block-end": 24,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "cta_primary": {
+          "type": "button",
+          "name": "Primary CTA",
+          "settings": {
+            "label": "Shop All Hoodies",
+            "link": "shopify://collections/hoodies",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          }
+        }
+      },
+      "block_order": [
+        "headline",
+        "subheadline",
+        "cta_primary"
+      ],
       "settings": {
-        "heading": "Your New Favorite Oversized Hoodie",
-        "subheading": "The softest, coziest, most comfortable hoodie you'll ever own.",
-        "button_text": "Shop All Hoodies",
-        "button_link": "shopify://collections/hoodies"
+        "media_type_1": "image",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "center",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 8,
+        "section_width": "page-width",
+        "section_height": "full-screen",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-5",
+        "toggle_overlay": true,
+        "overlay_color": "#00000055",
+        "overlay_style": "gradient",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "stats_bar": {
