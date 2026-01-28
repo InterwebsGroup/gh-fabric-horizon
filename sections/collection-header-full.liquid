@@ -60,12 +60,7 @@
           {%- assign is_active = true -%}
         {%- endif -%}
 
-        {%- comment -%} Default Best Sellers on main hoodies collection {%- endcomment -%}
-        {%- if current_path == '/collections/hoodies' and label == 'Best Sellers' -%}
-          {%- assign is_active = true -%}
-        {%- endif -%}
-
-        <a
+<a
           href="{{ url }}"
           class="filter-buttons__btn{% if is_active %} filter-buttons__btn--active{% endif %}"
           {% if is_active %}aria-current="page"{% endif %}
