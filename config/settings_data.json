@@ -9,6 +9,9 @@
  */
 {
   "current": {
+    "logo": "shopify://shop_images/gh-logo.png",
+    "logo_height": 36,
+    "logo_height_mobile": 28,
     "type_body_font": "dm_sans_n4",
     "type_subheading_font": "dm_sans_n5",
     "type_heading_font": "libre_baskerville_n4",
@@ -39,6 +42,8 @@
     "type_letter_spacing_h6": "heading-loose",
     "type_case_h6": "uppercase",
     "page_width": "wide",
+    "page_transition_enabled": false,
+    "transition_to_main_product": false,
     "card_hover_effect": "subtle-zoom",
     "badge_position": "top-left",
     "badge_corner_radius": 2,
@@ -51,17 +56,17 @@
     "secondary_button_border_width": 2,
     "button_border_radius_secondary": 50,
     "cart_type": "drawer",
-    "auto_open_cart_drawer": true,
     "cart_price_font": "body",
+    "auto_open_cart_drawer": true,
     "drawer_drop_shadow": true,
     "icon_stroke": "thin",
     "input_border_width": 1,
     "inputs_border_radius": 8,
     "type_preset": "paragraph",
-    "logo_height": 36,
-    "logo_height_mobile": 28,
     "popover_border_radius": 8,
     "popover_border": "none",
+    "show_second_image_on_hover": false,
+    "product_card_carousel": true,
     "product_corner_radius": 2,
     "card_corner_radius": 2,
     "show_variant_image": false,
@@ -95,10 +100,39 @@
     "back_in_stock_placeholder": "Enter your email",
     "back_in_stock_success_msg": "We'll email you when it's back!",
     "happy_customers_count": "225,000+",
-    "show_second_image_on_hover": false,
-    "product_card_carousel": true,
-    "page_transition_enabled": false,
-    "transition_to_main_product": false,
+    "content_for_index": [],
+    "blocks": {
+      "1692329972272007824": {
+        "type": "shopify://apps/zepto-product-personalizer/blocks/product_personalizer_main/7411210d-7b32-4c09-9455-e129e3be4729",
+        "disabled": false,
+        "settings": {}
+      },
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "10312807297210203588": {
+        "type": "shopify://apps/aftersell-by-rokt/blocks/utm-triggers/509ec35d-0632-4dfc-a105-fa799cd9d149",
+        "disabled": false,
+        "settings": {}
+      },
+      "9323109295802554384": {
+        "type": "shopify://apps/upstackified-universal-pixel/blocks/adtScript/2ef9f833-e251-4eed-af16-8dca98b27a2f",
+        "disabled": false,
+        "settings": {}
+      },
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      },
+      "4146198581824321198": {
+        "type": "shopify://apps/postscript-sms-marketing/blocks/sdk/019be67b-1a2f-7589-97a3-72f1751f443e",
+        "disabled": false,
+        "settings": {}
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {

@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "hero_gh": {
       "type": "hero",
@@ -34,7 +35,8 @@
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
-          }
+          },
+          "blocks": {}
         },
         "subheadline": {
           "type": "text",
@@ -59,7 +61,8 @@
             "padding-block-end": 24,
             "padding-inline-start": 0,
             "padding-inline-end": 0
-          }
+          },
+          "blocks": {}
         },
         "cta_primary": {
           "type": "button",
@@ -73,7 +76,8 @@
             "custom_width": 100,
             "width_mobile": "fit-content",
             "custom_width_mobile": 100
-          }
+          },
+          "blocks": {}
         }
       },
       "block_order": [
@@ -83,6 +87,7 @@
       ],
       "settings": {
         "media_type_1": "image",
+        "image_1": "shopify://shop_images/hf_20260126_173429_314c90e7-56e7-4b09-9f1a-d7202f18c900.png",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
@@ -99,11 +104,11 @@
         "vertical_alignment_flex_direction_column": "center",
         "gap": 8,
         "section_width": "page-width",
-        "section_height": "full-screen",
+        "section_height": "large",
         "section_height_custom": 50,
         "color_scheme": "scheme-5",
         "toggle_overlay": true,
-        "overlay_color": "#00000055",
+        "overlay_color": "#00000054",
         "overlay_style": "gradient",
         "gradient_direction": "to top",
         "blurred_reflection": false,
@@ -125,7 +130,7 @@
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "4.9 \u2605",
+            "number": "4.9 ★",
             "label": "Average Rating"
           }
         },
@@ -137,7 +142,12 @@
           }
         }
       },
-      "block_order": ["stat_1", "stat_2", "stat_3"]
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "settings": {}
     },
     "press_logos": {
       "type": "press-logos",
@@ -146,16 +156,6 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 40,
         "padding-block-end": 40
-      }
-    },
-    "value_props": {
-      "type": "value-props",
-      "settings": {
-        "heading": "What's a Giant Hoodie?!",
-        "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 60,
-        "padding-block-end": 60
       }
     },
     "best_sellers": {
@@ -217,7 +217,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "view_all": {
               "type": "button",
@@ -231,10 +232,14 @@
                 "custom_width": 100,
                 "width_mobile": "fit-content",
                 "custom_width_mobile": 100
-              }
+              },
+              "blocks": {}
             }
           },
-          "block_order": ["heading", "view_all"]
+          "block_order": [
+            "heading",
+            "view_all"
+          ]
         },
         "static-product-card": {
           "type": "_product-card",
@@ -267,7 +272,8 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
             "product_info": {
               "type": "_product-card-group",
@@ -300,6 +306,7 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
                 "open_in_new_tab": false,
                 "padding-block-start": 12,
                 "padding-block-end": 0,
@@ -329,7 +336,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "price": {
                   "type": "price",
@@ -351,7 +359,8 @@
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
-                  }
+                  },
+                  "blocks": {}
                 },
                 "swatches": {
                   "type": "swatches",
@@ -364,13 +373,21 @@
                     "product_swatches_padding_bottom": 0,
                     "product_swatches_padding_left": 0,
                     "product_swatches_padding_right": 0
-                  }
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["product_title", "price", "swatches"]
+              "block_order": [
+                "product_title",
+                "price",
+                "swatches"
+              ]
             }
           },
-          "block_order": ["product_card_gallery", "product_info"]
+          "block_order": [
+            "product_card_gallery",
+            "product_info"
+          ]
         }
       },
       "name": "Best Sellers",
@@ -389,6 +406,331 @@
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
         "gap": 0,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "category_tiles": {
+      "type": "category-tiles",
+      "blocks": {
+        "tile_1": {
+          "type": "tile",
+          "settings": {
+            "title": "Giant Hoodies",
+            "link": "shopify://collections/hoodies"
+          }
+        },
+        "tile_2": {
+          "type": "tile",
+          "settings": {
+            "title": "Kids Hoodies",
+            "link": "shopify://collections/kids-hoodies"
+          }
+        },
+        "tile_3": {
+          "type": "tile",
+          "settings": {
+            "title": "Blankets",
+            "link": "shopify://collections/blankets"
+          }
+        },
+        "tile_4": {
+          "type": "tile",
+          "settings": {
+            "title": "Shirts",
+            "link": "shopify://collections/shirts"
+          }
+        },
+        "tile_5": {
+          "type": "tile",
+          "settings": {
+            "title": "Best Sellers",
+            "link": "shopify://collections/best-sellers"
+          }
+        },
+        "tile_6": {
+          "type": "tile",
+          "settings": {
+            "title": "New Arrivals",
+            "link": "shopify://collections/new-arrivals"
+          }
+        }
+      },
+      "block_order": [
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5",
+        "tile_6"
+      ],
+      "settings": {
+        "heading": "Shop by Category",
+        "section_width": "page-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "shop_kids": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 24,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "heading": {
+              "type": "text",
+              "name": "Heading",
+              "settings": {
+                "text": "<h2>Shop Kids</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h2",
+                "font": "var(--gh-font-heading)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "view_all": {
+              "type": "button",
+              "name": "View All",
+              "settings": {
+                "label": "View All",
+                "link": "shopify://collections/kids-hoodies",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "heading",
+            "view_all"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "Product Card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 12,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 16,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery": {
+              "type": "_product-card-gallery",
+              "name": "Product Image",
+              "settings": {
+                "image_ratio": "portrait",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 16,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_info": {
+              "type": "_product-card-group",
+              "name": "Product Info",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "space-between",
+                "vertical_alignment": "flex-end",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 4,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "padding-block-start": 12,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "product_title": {
+                  "type": "product-title",
+                  "name": "Product Title",
+                  "settings": {
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "paragraph",
+                    "font": "var(--gh-font-body)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "price": {
+                  "type": "price",
+                  "name": "Price",
+                  "settings": {
+                    "show_sale_price_first": true,
+                    "show_installments": false,
+                    "show_tax_info": false,
+                    "type_preset": "h6",
+                    "width": "100%",
+                    "alignment": "left",
+                    "font": "var(--gh-font-body)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "color": "",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "swatches": {
+                  "type": "swatches",
+                  "name": "Swatches",
+                  "settings": {
+                    "product_swatches_alignment": "flex-start",
+                    "product_swatches_alignment_mobile": "flex-start",
+                    "hide_padding": false,
+                    "product_swatches_padding_top": 4,
+                    "product_swatches_padding_bottom": 0,
+                    "product_swatches_padding_left": 0,
+                    "product_swatches_padding_right": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "product_title",
+                "price",
+                "swatches"
+              ]
+            }
+          },
+          "block_order": [
+            "product_card_gallery",
+            "product_info"
+          ]
+        }
+      },
+      "name": "Shop Kids",
+      "settings": {
+        "collection": "kids-hoodies",
+        "layout_type": "grid",
+        "carousel_on_mobile": true,
+        "max_products": 4,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 20,
+        "rows_gap": 36,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 0,
+        "color_scheme": "scheme-1",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "value_props": {
+      "type": "value-props",
+      "settings": {
+        "heading": "What's a Giant Hoodie?!",
+        "section_width": "page-width",
         "color_scheme": "scheme-1",
         "padding-block-start": 60,
         "padding-block-end": 60
@@ -460,7 +802,12 @@
           }
         }
       },
-      "block_order": ["quote_1", "quote_2", "quote_3", "quote_4"],
+      "block_order": [
+        "quote_1",
+        "quote_2",
+        "quote_3",
+        "quote_4"
+      ],
       "settings": {
         "heading": "What the Hoodie Fam Says",
         "subheading": "★★★★★ 4.9 · 225,000+ happy customers",
@@ -476,301 +823,12 @@
         "heading": "Join the Hoodie Fam",
         "body": "Get exclusive deals, new drops, and cozy content. No spam, just good stuff.",
         "cta_text": "Subscribe & Save 10%",
+        "success_message": "You're in! Check your email for your 10% off code",
+        "disclaimer": "We respect your privacy.",
         "section_width": "page-width",
         "color_scheme": "scheme-5",
         "padding-block-start": 80,
         "padding-block-end": 80
-      }
-    },
-    "category_tiles": {
-      "type": "category-tiles",
-      "blocks": {
-        "tile_1": {
-          "type": "tile",
-          "settings": {
-            "title": "Giant Hoodies",
-            "link": "shopify://collections/hoodies"
-          }
-        },
-        "tile_2": {
-          "type": "tile",
-          "settings": {
-            "title": "Kids Hoodies",
-            "link": "shopify://collections/kids-hoodies"
-          }
-        },
-        "tile_3": {
-          "type": "tile",
-          "settings": {
-            "title": "Blankets",
-            "link": "shopify://collections/blankets"
-          }
-        },
-        "tile_4": {
-          "type": "tile",
-          "settings": {
-            "title": "Shirts",
-            "link": "shopify://collections/shirts"
-          }
-        },
-        "tile_5": {
-          "type": "tile",
-          "settings": {
-            "title": "Best Sellers",
-            "link": "shopify://collections/best-sellers"
-          }
-        },
-        "tile_6": {
-          "type": "tile",
-          "settings": {
-            "title": "New Arrivals",
-            "link": "shopify://collections/new-arrivals"
-          }
-        }
-      },
-      "block_order": ["tile_1", "tile_2", "tile_3", "tile_4", "tile_5", "tile_6"],
-      "settings": {
-        "heading": "Shop by Category",
-        "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 60,
-        "padding-block-end": 60
-      }
-    },
-    "shop_kids": {
-      "type": "product-list",
-      "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": true,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 24,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "heading": {
-              "type": "text",
-              "name": "Heading",
-              "settings": {
-                "text": "<h2>Shop Kids</h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h2",
-                "font": "var(--gh-font-heading)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "view_all": {
-              "type": "button",
-              "name": "View All",
-              "settings": {
-                "label": "View All",
-                "link": "shopify://collections/kids-hoodies",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              }
-            }
-          },
-          "block_order": ["heading", "view_all"]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "Product Card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 12,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 16,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery": {
-              "type": "_product-card-gallery",
-              "name": "Product Image",
-              "settings": {
-                "image_ratio": "portrait",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 16,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "product_info": {
-              "type": "_product-card-group",
-              "name": "Product Info",
-              "settings": {
-                "content_direction": "column",
-                "vertical_on_mobile": true,
-                "horizontal_alignment": "space-between",
-                "vertical_alignment": "flex-end",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 4,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "open_in_new_tab": false,
-                "padding-block-start": 12,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {
-                "product_title": {
-                  "type": "product-title",
-                  "name": "Product Title",
-                  "settings": {
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "paragraph",
-                    "font": "var(--gh-font-body)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  }
-                },
-                "price": {
-                  "type": "price",
-                  "name": "Price",
-                  "settings": {
-                    "show_sale_price_first": true,
-                    "show_installments": false,
-                    "show_tax_info": false,
-                    "type_preset": "h6",
-                    "width": "100%",
-                    "alignment": "left",
-                    "font": "var(--gh-font-body)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "color": "",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  }
-                },
-                "swatches": {
-                  "type": "swatches",
-                  "name": "Swatches",
-                  "settings": {
-                    "product_swatches_alignment": "flex-start",
-                    "product_swatches_alignment_mobile": "flex-start",
-                    "hide_padding": false,
-                    "product_swatches_padding_top": 4,
-                    "product_swatches_padding_bottom": 0,
-                    "product_swatches_padding_left": 0,
-                    "product_swatches_padding_right": 0
-                  }
-                }
-              },
-              "block_order": ["product_title", "price", "swatches"]
-            }
-          },
-          "block_order": ["product_card_gallery", "product_info"]
-        }
-      },
-      "name": "Shop Kids",
-      "settings": {
-        "collection": "kids-hoodies",
-        "layout_type": "grid",
-        "carousel_on_mobile": true,
-        "max_products": 4,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 20,
-        "rows_gap": 36,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 0,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 60,
-        "padding-block-end": 60
       }
     }
   },
