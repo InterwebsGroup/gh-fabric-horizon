@@ -8,7 +8,7 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "hero_home": {
+    "hero_gh": {
       "type": "hero",
       "blocks": {
         "headline": {
@@ -775,7 +775,7 @@
     }
   },
   "order": [
-    "hero_home",
+    "hero_gh",
     "stats_bar",
     "press_logos",
     "best_sellers",

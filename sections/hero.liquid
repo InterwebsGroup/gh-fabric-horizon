@@ -757,7 +757,14 @@
 
   /* Hero typography and button sizing — Hollow Socks proportions */
 
-  .hero .text-block.h1 > *,
+  .hero .text-block.h1 > * {
+    font-family: var(--gh-font-heading, 'Fraunces', serif);
+    font-weight: 600;
+    font-size: clamp(2.25rem, 7vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
   .hero .text-block.h2 > * {
     font-size: clamp(2.25rem, 7vw, 4.5rem);
     line-height: 1.05;
