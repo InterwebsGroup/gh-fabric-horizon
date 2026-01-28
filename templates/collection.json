@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "volume-pricing-banner": {
       "type": "volume-pricing-banner",
@@ -74,7 +75,14 @@
         "filter_6",
         "filter_7"
       ],
-      "settings": {}
+      "settings": {
+        "collection_banner_image": "shopify://shop_images/hf_20260126_173429_314c90e7-56e7-4b09-9f1a-d7202f18c900.png",
+        "collection_banner_label": "Cozy Savings",
+        "collection_banner_headline": "Shop Hoodies",
+        "collection_banner_accent": "Save Big",
+        "collection_banner_subheadline": "",
+        "collection_description": "Giant Hoodies are intentionally oversized, made with super-soft sponge fleece, and printed by hand right here in the USA. They're as soft as cashmere, cozy as your favorite blanket, and designed to wrap you in comfort wherever life takes you."
+      }
     },
     "main-collection": {
       "type": "main-collection",
@@ -165,6 +173,7 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
                 "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
