@@ -1,0 +1,1054 @@
+{%- liquid
+  assign selected_variant = product.selected_or_first_available_variant
+
+  comment
+    Determine tier eligibility
+  endcomment
+  assign is_tier_eligible = false
+  assign tier_handles = settings.tier_collection_handles | split: ','
+  for handle in tier_handles
+    assign handle_stripped = handle | strip
+    for collection in product.collections
+      if collection.handle == handle_stripped
+        unless product.tags contains settings.tier_exclude_tag
+          assign is_tier_eligible = true
+        endunless
+      endif
+    endfor
+  endfor
+-%}
+
+{%- comment -%} Structured data for SEO {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": "{{ shop.url }}{{ product.url }}",
+  "image": [{{ product.featured_image | image_url: width: 1200 | json }}],
+  "description": {{ product.description | strip_html | truncate: 500 | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ shop.name | json }}
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ shop.url }}{{ product.url }}",
+    "priceCurrency": {{ cart.currency.iso_code | json }},
+    "price": {{ selected_variant.price | divided_by: 100.0 }},
+    "availability": "https://schema.org/{% if selected_variant.available %}InStock{% else %}OutOfStock{% endif %}"
+  }
+}
+</script>
+
+<section
+  class="product-main"
+  data-product-main
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-product-url="{{ product.url }}"
+  data-money-format="{{ shop.money_format | escape }}"
+>
+  <div class="product-main__grid">
+
+    {%- comment -%} ===== LEFT: Image Gallery ===== {%- endcomment -%}
+    <div class="product-main__gallery">
+      {% render 'product-gallery', product: product %}
+    </div>
+
+    {%- comment -%} ===== RIGHT: Product Info ===== {%- endcomment -%}
+    <div class="product-main__info">
+
+      {%- comment -%} Title {%- endcomment -%}
+      <h1 class="product__title">{{ product.title }}</h1>
+
+      {%- comment -%} Reviews badge placeholder (Judge.me injects here) {%- endcomment -%}
+      <div class="product__reviews" data-reviews-badge>
+        <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+          {{ product.metafields.judgeme.badge }}
+        </div>
+      </div>
+
+      {%- comment -%} Price row {%- endcomment -%}
+      <div class="product__price-row" data-price-row>
+        <span class="product__price" data-product-price>
+          {{ selected_variant.price | money }}
+        </span>
+        {%- if selected_variant.compare_at_price > selected_variant.price -%}
+          <span class="product__compare-price" data-compare-price>
+            {{ selected_variant.compare_at_price | money }}
+          </span>
+          {%- assign savings = selected_variant.compare_at_price | minus: selected_variant.price -%}
+          <span class="product__savings-badge" data-savings-badge>
+            Save {{ savings | money }}
+          </span>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Value prop bullets {%- endcomment -%}
+      <ul class="product__benefits">
+        {%- if section.settings.benefit_1 != blank -%}
+          <li>{{ section.settings.benefit_1 }}</li>
+        {%- endif -%}
+        {%- if section.settings.benefit_2 != blank -%}
+          <li>{{ section.settings.benefit_2 }}</li>
+        {%- endif -%}
+        {%- if section.settings.benefit_3 != blank -%}
+          <li>{{ section.settings.benefit_3 }}</li>
+        {%- endif -%}
+      </ul>
+
+      {%- comment -%} Product form {%- endcomment -%}
+      <form
+        id="ProductForm-{{ section.id }}"
+        action="/cart/add"
+        method="post"
+        data-product-form
+      >
+        <input type="hidden" name="id" value="{{ selected_variant.id }}" data-variant-id-input>
+
+        {%- comment -%} Color swatches {%- endcomment -%}
+        {% render 'product-swatches', product: product %}
+
+        {%- comment -%} Quantity selector {%- endcomment -%}
+        {% render 'product-quantity-selector', product: product, section: section, is_tier_eligible: is_tier_eligible %}
+
+        {%- comment -%} Add to Cart button {%- endcomment -%}
+        <button
+          type="submit"
+          class="product__add-to-cart btn-primary"
+          data-add-to-cart
+          {% unless selected_variant.available %}disabled{% endunless %}
+        >
+          {%- if selected_variant.available -%}
+            Add to Cart &mdash; <span data-cart-price>{{ selected_variant.price | money }}</span>
+          {%- else -%}
+            Sold Out
+          {%- endif -%}
+        </button>
+      </form>
+
+      {%- comment -%} Back in stock form (sold-out variants) {%- endcomment -%}
+      {%- unless selected_variant.available -%}
+        {%- if settings.back_in_stock_enabled -%}
+          <div class="product__back-in-stock" data-back-in-stock>
+            <div class="product__back-in-stock-wrapper">
+              <p class="product__back-in-stock-heading">Get Notified When It's Back</p>
+              <p class="product__back-in-stock-body">Enter your email and we'll let you know the moment this is available again.</p>
+              <form class="product__back-in-stock-form" data-back-in-stock-form>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="{{ settings.back_in_stock_placeholder | default: 'Enter your email' }}"
+                  required
+                  class="product__back-in-stock-email"
+                  aria-label="Email for back in stock notification"
+                >
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <input type="hidden" name="variant_id" value="{{ selected_variant.id }}">
+                <button type="submit" class="product__back-in-stock-submit btn-primary">
+                  {{ settings.back_in_stock_button_text | default: 'Notify Me' }}
+                </button>
+              </form>
+              <p class="product__back-in-stock-success" style="display: none;">
+                {{ settings.back_in_stock_success_msg | default: "You're on the list! We'll email you when it's back." }}
+              </p>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endunless -%}
+
+      {%- comment -%} Trust badges {%- endcomment -%}
+      <div class="product__trust-bar">
+        <div class="product__trust-item">
+          <span class="product__trust-icon">&#10003;</span>
+          <span>Free shipping ${{ settings.free_shipping_threshold | default: 75 }}+</span>
+        </div>
+        <div class="product__trust-item">
+          <span class="product__trust-icon">&#8617;</span>
+          <span>30-Day Guarantee</span>
+        </div>
+        <div class="product__trust-item">
+          <svg class="product__trust-flag" width="16" height="12" viewBox="0 0 16 12" aria-hidden="true">
+            <rect width="16" height="4" fill="#B22234"/>
+            <rect y="4" width="16" height="4" fill="#fff"/>
+            <rect y="8" width="16" height="4" fill="#B22234"/>
+            <rect width="6" height="7" fill="#3C3B6E"/>
+          </svg>
+          <span>Made in USA</span>
+        </div>
+      </div>
+
+      {%- comment -%} Product accordions {%- endcomment -%}
+      <div class="product__accordions">
+
+        <details class="product__accordion" open>
+          <summary class="product__accordion-header">
+            <span>What's a Giant Hoodie?</span>
+            <span class="product__accordion-icon">+</span>
+          </summary>
+          <div class="product__accordion-content">
+            <p>Imagine slipping into your new favorite hoodie after a long day. Wrap yourself in a cozy hug, sink into the plush fabric, and forget about the stresses of today.</p>
+            <p>Giant Hoodies are intentionally oversized &mdash; similar to a 3XL &mdash; but designed as a wearable blanket, not fitted clothing. One size fits most, and that's the whole point.</p>
+          </div>
+        </details>
+
+        <details class="product__accordion">
+          <summary class="product__accordion-header">
+            <span>How Do They Fit?</span>
+            <span class="product__accordion-icon">+</span>
+          </summary>
+          <div class="product__accordion-content">
+            <p><strong>One size fits most &mdash; and that's the whole point.</strong></p>
+            <p>Our hoodies are intentionally oversized, similar to a 3XL, designed to wrap you in cozy comfort like a wearable blanket. Whether you're petite or plus-size, you'll be covered.</p>
+            <p>Will it fit me? If you want to feel wrapped in a cozy blanket, yes.</p>
+          </div>
+        </details>
+
+        <details class="product__accordion">
+          <summary class="product__accordion-header">
+            <span>Fabric &amp; Care</span>
+            <span class="product__accordion-icon">+</span>
+          </summary>
+          <div class="product__accordion-content">
+            <p><strong>The fabric:</strong> Super soft, lightweight sponge fleece &mdash; the kind you want to live in. It's plush, cozy, and feels like a hug.</p>
+            <p><strong>Care instructions:</strong></p>
+            <ul>
+              <li>Tie little knots in the string ends (so they don't pull out)</li>
+              <li>Wash alone or with soft clothes only</li>
+              <li>Cold water, gentle/delicate cycle</li>
+              <li>ALWAYS air dry &mdash; no dryer!</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="product__accordion">
+          <summary class="product__accordion-header">
+            <span>Shipping</span>
+            <span class="product__accordion-icon">+</span>
+          </summary>
+          <div class="product__accordion-content">
+            <p>Really, really fast. Most orders ship same or next business day and arrive in 2-3 days within the US.</p>
+            <p>All orders are printed and packed by hand at our facility in Northwest Arkansas.</p>
+            <p><strong>Free shipping on all US orders over ${{ settings.free_shipping_threshold | default: 75 }}!</strong></p>
+          </div>
+        </details>
+
+        <details class="product__accordion">
+          <summary class="product__accordion-header">
+            <span>30-Day Guarantee</span>
+            <span class="product__accordion-icon">+</span>
+          </summary>
+          <div class="product__accordion-content">
+            <p>We're confident you'll love your Giant Hoodie, but we've got you covered if something isn't right.</p>
+            <p>Our 30-day "Best Hoodie Ever" Guarantee means if you're not happy, just reach out and we'll make it right.</p>
+            <p><em>Fun fact: less than 1% of orders are returned &mdash; the average apparel brand sees 21%!</em></p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Mobile sticky Add to Cart {%- endcomment -%}
+  <div class="product__sticky-atc" data-sticky-atc>
+    <div class="product__sticky-info">
+      <span class="product__sticky-price" data-sticky-price>{{ selected_variant.price | money }}</span>
+      {%- if selected_variant.compare_at_price > selected_variant.price -%}
+        <span class="product__sticky-savings" data-sticky-savings>
+          Save {{ selected_variant.compare_at_price | minus: selected_variant.price | money }}
+        </span>
+      {%- endif -%}
+    </div>
+    <button type="button" class="product__sticky-btn btn-primary" data-sticky-atc-btn
+      {% unless selected_variant.available %}disabled{% endunless %}>
+      {%- if selected_variant.available -%}
+        Add to Cart
+      {%- else -%}
+        Sold Out
+      {%- endif -%}
+    </button>
+  </div>
+
+  {%- comment -%} Variant data for JavaScript {%- endcomment -%}
+  <script type="application/json" data-product-variants>
+    {{ product.variants | json }}
+  </script>
+</section>
+
+{{ 'product-page.js' | asset_url | script_tag }}
+
+{% stylesheet %}
+  /* =========================================
+     Product Main — Layout
+     ========================================= */
+  .product-main {
+    padding: 0 0 40px;
+  }
+
+  .product-main__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: var(--page-content-width, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--page-margin, 20px);
+  }
+
+  @media (min-width: 768px) {
+    .product-main__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .product-main__grid {
+      gap: 56px;
+    }
+  }
+
+  .product-main__info {
+    padding: 0 16px;
+  }
+
+  @media (min-width: 768px) {
+    .product-main__info {
+      padding: 40px 0 0;
+      position: sticky;
+      top: 20px;
+    }
+
+    .product-main__gallery {
+      padding: 0;
+    }
+  }
+
+  /* =========================================
+     Gallery
+     ========================================= */
+  .product-gallery {
+    position: relative;
+  }
+
+  .product-gallery__main {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .product-gallery__main::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-gallery__slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    aspect-ratio: 1 / 1.25;
+    overflow: hidden;
+  }
+
+  .product-gallery__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (min-width: 768px) {
+    .product-gallery__slide {
+      border-radius: var(--gh-card-radius, 16px);
+    }
+  }
+
+  .product-gallery__placeholder {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Dots — mobile */
+  .product-gallery__dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 2;
+  }
+
+  .product-gallery__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 150ms ease;
+  }
+
+  .product-gallery__dot--active {
+    background: white;
+  }
+
+  @media (min-width: 768px) {
+    .product-gallery__dots {
+      display: none;
+    }
+  }
+
+  /* Thumbs — desktop */
+  .product-gallery__thumbs {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .product-gallery__thumbs {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .product-gallery__thumbs::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .product-gallery__thumb {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-sm, 8px);
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    background: none;
+    transition: border-color 150ms ease;
+  }
+
+  .product-gallery__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-gallery__thumb--active {
+    border-color: var(--gh-espresso, #3d3028);
+  }
+
+  /* =========================================
+     Title
+     ========================================= */
+  .product__title {
+    font-family: var(--gh-font-heading, 'Fraunces', serif);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--gh-espresso, #3d3028);
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 768px) {
+    .product__title {
+      font-size: 2.25rem;
+    }
+  }
+
+  /* =========================================
+     Reviews
+     ========================================= */
+  .product__reviews {
+    margin-bottom: 16px;
+  }
+
+  /* =========================================
+     Price
+     ========================================= */
+  .product__price-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .product__price {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gh-espresso, #3d3028);
+  }
+
+  .product__compare-price {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--gh-espresso-light, #5a4a3d);
+    text-decoration: line-through;
+  }
+
+  .product__savings-badge {
+    display: inline-block;
+    background: var(--gh-terracotta, #c4704b);
+    color: white;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 9999px;
+  }
+
+  /* =========================================
+     Value Prop Bullets
+     ========================================= */
+  .product__benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+  }
+
+  .product__benefits li {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.95rem;
+    color: var(--gh-espresso-light, #5a4a3d);
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .product__benefits li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    color: var(--gh-terracotta, #c4704b);
+    font-weight: 600;
+  }
+
+  /* =========================================
+     Swatches
+     ========================================= */
+  .product__option {
+    margin-bottom: 20px;
+  }
+
+  .product__option-label {
+    display: block;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gh-espresso, #3d3028);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+
+  .product__option-value {
+    font-weight: 400;
+    text-transform: none;
+  }
+
+  .product__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .product__swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 150ms ease, transform 150ms ease;
+    position: relative;
+    padding: 0;
+  }
+
+  .product__swatch:hover {
+    transform: scale(1.1);
+  }
+
+  .product__swatch--active {
+    border-color: var(--gh-espresso, #3d3028);
+  }
+
+  .product__swatch--unavailable {
+    opacity: 0.4;
+  }
+
+  .product__swatch--unavailable::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -2px;
+    right: -2px;
+    height: 2px;
+    background: var(--gh-espresso, #3d3028);
+    transform: rotate(-45deg);
+  }
+
+  .product__swatch--light {
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+  }
+
+  /* =========================================
+     Quantity Selector
+     ========================================= */
+  .product__quantity-selector {
+    margin-bottom: 24px;
+  }
+
+  .product__quantity-options {
+    display: flex;
+    gap: 10px;
+  }
+
+  .product__qty-btn {
+    flex: 1;
+    padding: 14px 12px;
+    border: 2px solid var(--gh-sand, #e8d5c4);
+    border-radius: 12px;
+    background: white;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 150ms ease, background-color 150ms ease;
+    position: relative;
+  }
+
+  .product__qty-btn:hover {
+    border-color: var(--gh-espresso, #3d3028);
+  }
+
+  .product__qty-btn--active {
+    border-color: var(--gh-espresso, #3d3028);
+    background: var(--gh-cream, #faf7f4);
+  }
+
+  .product__qty-number {
+    display: block;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gh-espresso, #3d3028);
+  }
+
+  .product__qty-price {
+    display: block;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gh-espresso, #3d3028);
+    margin-top: 4px;
+  }
+
+  .product__qty-note {
+    display: block;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.75rem;
+    color: var(--gh-terracotta, #c4704b);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .product__qty-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gh-terracotta, #c4704b);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    white-space: nowrap;
+  }
+
+  /* Simple quantity selector (non-tiered) */
+  .product__quantity-simple {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--gh-sand, #e8d5c4);
+    border-radius: 12px;
+    overflow: hidden;
+    width: fit-content;
+  }
+
+  .product__qty-minus,
+  .product__qty-plus {
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gh-espresso, #3d3028);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product__qty-minus:hover,
+  .product__qty-plus:hover {
+    background: var(--gh-cream, #faf7f4);
+  }
+
+  .product__qty-input {
+    width: 48px;
+    text-align: center;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    color: var(--gh-espresso, #3d3028);
+    -moz-appearance: textfield;
+  }
+
+  .product__qty-input::-webkit-inner-spin-button,
+  .product__qty-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* =========================================
+     Add to Cart Button
+     ========================================= */
+  .product__add-to-cart {
+    width: 100%;
+    padding: 18px 32px;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+  }
+
+  .btn-primary {
+    background: var(--gh-espresso, #3d3028);
+    color: var(--gh-cream, #faf7f4);
+    border: none;
+    border-radius: 9999px;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 150ms ease, transform 150ms ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--gh-espresso-light, #5a4a3d);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:disabled {
+    background: var(--gh-sand, #e8d5c4);
+    color: var(--gh-espresso-light, #5a4a3d);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* =========================================
+     Back in Stock
+     ========================================= */
+  .product__back-in-stock {
+    margin-bottom: 16px;
+  }
+
+  .product__back-in-stock-wrapper {
+    padding: 16px;
+    background: var(--gh-cream, #faf7f4);
+    border-radius: 12px;
+  }
+
+  .product__back-in-stock-heading {
+    margin: 0 0 4px;
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    color: var(--gh-espresso, #3d3028);
+  }
+
+  .product__back-in-stock-body {
+    margin: 0 0 12px;
+    font-size: 0.875rem;
+    color: var(--gh-espresso-light, #5a4a3d);
+  }
+
+  .product__back-in-stock-form {
+    display: flex;
+    gap: 8px;
+  }
+
+  .product__back-in-stock-email {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--gh-sand, #e8d5c4);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    background: white;
+    color: var(--gh-espresso, #3d3028);
+  }
+
+  .product__back-in-stock-email:focus {
+    outline: none;
+    border-color: var(--gh-terracotta, #c4704b);
+  }
+
+  .product__back-in-stock-submit {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .product__back-in-stock-success {
+    margin: 12px 0 0;
+    font-size: 0.875rem;
+    color: #7a9c6d;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product__back-in-stock-form {
+      flex-direction: column;
+    }
+  }
+
+  /* =========================================
+     Trust Bar
+     ========================================= */
+  .product__trust-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 16px 0;
+    border-top: 1px solid var(--gh-sand, #e8d5c4);
+    border-bottom: 1px solid var(--gh-sand, #e8d5c4);
+    margin-bottom: 24px;
+  }
+
+  .product__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--gh-espresso-light, #5a4a3d);
+  }
+
+  .product__trust-icon {
+    font-size: 1rem;
+  }
+
+  .product__trust-flag {
+    flex-shrink: 0;
+  }
+
+  /* =========================================
+     Accordions
+     ========================================= */
+  .product__accordions {
+    margin-top: 0;
+  }
+
+  .product__accordion {
+    border-bottom: 1px solid var(--gh-sand, #e8d5c4);
+  }
+
+  .product__accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    cursor: pointer;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gh-espresso, #3d3028);
+    list-style: none;
+  }
+
+  .product__accordion-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .product__accordion-icon {
+    font-size: 1.25rem;
+    font-weight: 400;
+    transition: transform 200ms ease;
+  }
+
+  .product__accordion[open] .product__accordion-icon {
+    transform: rotate(45deg);
+  }
+
+  .product__accordion-content {
+    padding: 0 0 20px 0;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--gh-espresso-light, #5a4a3d);
+  }
+
+  .product__accordion-content p {
+    margin: 0 0 12px 0;
+  }
+
+  .product__accordion-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .product__accordion-content ul {
+    margin: 12px 0;
+    padding-left: 20px;
+  }
+
+  .product__accordion-content li {
+    margin-bottom: 6px;
+  }
+
+  /* =========================================
+     Sticky ATC (Mobile)
+     ========================================= */
+  .product__sticky-atc {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 12px 16px;
+    box-shadow: 0 -4px 20px rgba(61, 48, 40, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    z-index: 99;
+    transform: translateY(100%);
+    transition: transform 300ms ease;
+  }
+
+  .product__sticky-atc--visible {
+    transform: translateY(0);
+  }
+
+  .product__sticky-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product__sticky-price {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gh-espresso, #3d3028);
+  }
+
+  .product__sticky-savings {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--gh-terracotta, #c4704b);
+  }
+
+  .product__sticky-btn {
+    flex: 1;
+    max-width: 200px;
+    padding: 14px 24px;
+  }
+
+  @media (min-width: 768px) {
+    .product__sticky-atc {
+      display: none;
+    }
+  }
+
+  /* Visually hidden utility */
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GH Product Main",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Value Prop Bullets"
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefit 1",
+      "default": "Intentionally oversized — it's a wearable blanket"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefit 2",
+      "default": "Super-soft sponge fleece"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefit 3",
+      "default": "Printed by hand in the USA"
+    },
+    {
+      "type": "header",
+      "content": "Volume Pricing Tiers"
+    },
+    {
+      "type": "paragraph",
+      "content": "Only shown when pricing mode is Tiered and the product is tier-eligible (set in Theme Settings)."
+    },
+    {
+      "type": "number",
+      "id": "tier_2_each_price",
+      "label": "Tier 2 price (per item, $)",
+      "default": 45
+    },
+    {
+      "type": "text",
+      "id": "tier_2_badge",
+      "label": "Tier 2 badge text",
+      "default": "Most Popular"
+    },
+    {
+      "type": "number",
+      "id": "tier_3_each_price",
+      "label": "Tier 3 price (per item, $)",
+      "default": 39
+    },
+    {
+      "type": "text",
+      "id": "tier_3_badge",
+      "label": "Tier 3 badge text",
+      "default": "Best Value"
+    }
+  ],
+  "presets": [
+    {
+      "name": "GH Product Main",
+      "category": "Giant Hoodies"
+    }
+  ]
+}
+{% endschema %}

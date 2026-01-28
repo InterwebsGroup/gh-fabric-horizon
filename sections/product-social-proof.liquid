@@ -1,0 +1,121 @@
+{%- comment -%}
+  "As Seen On" social proof section — press mentions.
+  Displays below the product main section.
+{%- endcomment -%}
+
+<section class="product-social-proof">
+  <p class="product-social-proof__label">{{ section.settings.heading }}</p>
+  <div class="product-social-proof__logos">
+    {%- if section.settings.press_1 != blank -%}
+      <span>{{ section.settings.press_1 }}</span>
+    {%- endif -%}
+    {%- if section.settings.press_2 != blank -%}
+      <span>{{ section.settings.press_2 }}</span>
+    {%- endif -%}
+    {%- if section.settings.press_3 != blank -%}
+      <span>{{ section.settings.press_3 }}</span>
+    {%- endif -%}
+    {%- if section.settings.press_4 != blank -%}
+      <span>{{ section.settings.press_4 }}</span>
+    {%- endif -%}
+    {%- if section.settings.press_5 != blank -%}
+      <span>{{ section.settings.press_5 }}</span>
+    {%- endif -%}
+    {%- if section.settings.press_6 != blank -%}
+      <span>{{ section.settings.press_6 }}</span>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .product-social-proof {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--gh-cream, #faf7f4);
+  }
+
+  .product-social-proof__label {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gh-espresso-light, #5a4a3d);
+    margin: 0 0 20px 0;
+  }
+
+  .product-social-proof__logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px 32px;
+  }
+
+  .product-social-proof__logos span {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gh-espresso, #3d3028);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GH Social Proof",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "As Seen On"
+    },
+    {
+      "type": "header",
+      "content": "Press Mentions"
+    },
+    {
+      "type": "text",
+      "id": "press_1",
+      "label": "Press 1",
+      "default": "Oprah's Favorite Things"
+    },
+    {
+      "type": "text",
+      "id": "press_2",
+      "label": "Press 2",
+      "default": "Good Morning America"
+    },
+    {
+      "type": "text",
+      "id": "press_3",
+      "label": "Press 3",
+      "default": "Forbes"
+    },
+    {
+      "type": "text",
+      "id": "press_4",
+      "label": "Press 4",
+      "default": "Cosmopolitan"
+    },
+    {
+      "type": "text",
+      "id": "press_5",
+      "label": "Press 5",
+      "default": "Kelly & Mark"
+    },
+    {
+      "type": "text",
+      "id": "press_6",
+      "label": "Press 6",
+      "default": "The View"
+    }
+  ],
+  "presets": [
+    {
+      "name": "GH Social Proof",
+      "category": "Giant Hoodies"
+    }
+  ]
+}
+{% endschema %}

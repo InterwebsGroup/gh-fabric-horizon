@@ -1,0 +1,71 @@
+{%- comment -%}
+  Maps a handleized color name to a CSS color value.
+  Usage: {% render 'swatch-color', swatch_name: 'royal-purple' %}
+{%- endcomment -%}
+{%- case swatch_name -%}
+  {%- when 'black' -%}#000000
+  {%- when 'white' -%}#ffffff
+  {%- when 'red' -%}#c0392b
+  {%- when 'blue' -%}#2980b9
+  {%- when 'navy' -%}#1a1a4e
+  {%- when 'navy-blue' -%}#1a1a4e
+  {%- when 'green' -%}#27ae60
+  {%- when 'forest-green' -%}#228B22
+  {%- when 'olive' -%}#808000
+  {%- when 'purple' -%}#6B21A8
+  {%- when 'royal-purple' -%}#6B21A8
+  {%- when 'lavender' -%}#B57EDC
+  {%- when 'pink' -%}#e91e8c
+  {%- when 'hot-pink' -%}#FF69B4
+  {%- when 'orange' -%}#e67e22
+  {%- when 'yellow' -%}#f1c40f
+  {%- when 'brown' -%}#6B4226
+  {%- when 'tan' -%}#D2B48C
+  {%- when 'beige' -%}#F5F5DC
+  {%- when 'cream' -%}#FFFDD0
+  {%- when 'grey' or 'gray' -%}#808080
+  {%- when 'light-grey' or 'light-gray' -%}#D3D3D3
+  {%- when 'dark-grey' or 'dark-gray' -%}#404040
+  {%- when 'charcoal' -%}#36454F
+  {%- when 'teal' -%}#008080
+  {%- when 'turquoise' -%}#40E0D0
+  {%- when 'coral' -%}#FF6F61
+  {%- when 'salmon' -%}#FA8072
+  {%- when 'burgundy' -%}#800020
+  {%- when 'maroon' -%}#800000
+  {%- when 'terracotta' -%}#c4704b
+  {%- when 'espresso' -%}#3d3028
+  {%- when 'sand' -%}#e8d5c4
+  {%- when 'rust' -%}#B7410E
+  {%- when 'mint' -%}#98FB98
+  {%- when 'sky-blue' -%}#87CEEB
+  {%- when 'indigo' -%}#4B0082
+  {%- when 'magenta' -%}#FF00FF
+  {%- when 'gold' -%}#FFD700
+  {%- when 'silver' -%}#C0C0C0
+  {%- when 'copper' -%}#B87333
+  {%- when 'ivory' -%}#FFFFF0
+  {%- when 'peach' -%}#FFDAB9
+  {%- when 'rose' -%}#FF007F
+  {%- when 'wine' -%}#722F37
+  {%- when 'plum' -%}#673147
+  {%- when 'khaki' -%}#C3B091
+  {%- when 'natural' -%}#F5E6CC
+  {%- when 'oatmeal' -%}#D3C4A5
+  {%- when 'heather-grey' or 'heather-gray' -%}#9E9E9E
+  {%- when 'stone' -%}#928E85
+  {%- when 'slate' -%}#708090
+  {%- when 'midnight' -%}#191970
+  {%- when 'dusty-rose' -%}#DCAE96
+  {%- when 'sage' -%}#BCB88A
+  {%- when 'moss' -%}#8A9A5B
+  {%- when 'denim' -%}#1560BD
+  {%- when 'aqua' -%}#00FFFF
+  {%- when 'lilac' -%}#C8A2C8
+  {%- when 'mustard' -%}#FFDB58
+  {%- when 'blush' -%}#DE5D83
+  {%- when 'camo' or 'camouflage' -%}#78866B
+  {%- when 'tie-dye' -%}#FF6EC7
+  {%- when 'rainbow' -%}linear-gradient(135deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #8B00FF)
+  {%- else -%}#cccccc
+{%- endcase -%}

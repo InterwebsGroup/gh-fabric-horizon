@@ -1,0 +1,141 @@
+{%- comment -%}
+  Customer testimonials section.
+  Displays a grid of customer quotes below the product.
+{%- endcomment -%}
+
+<section class="product-testimonials">
+  <h2 class="product-testimonials__title">{{ section.settings.heading }}</h2>
+
+  <div class="product-testimonials__grid">
+    {%- for block in section.blocks -%}
+      <blockquote class="product-testimonials__card" {{ block.shopify_attributes }}>
+        <p class="product-testimonials__quote">"{{ block.settings.quote }}"</p>
+        <cite class="product-testimonials__author">&mdash; {{ block.settings.author }}</cite>
+      </blockquote>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .product-testimonials {
+    padding: 48px 20px;
+  }
+
+  .product-testimonials__title {
+    font-family: var(--gh-font-heading, 'Fraunces', serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gh-espresso, #3d3028);
+    text-align: center;
+    margin: 0 0 32px 0;
+  }
+
+  .product-testimonials__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .product-testimonials__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .product-testimonials__card {
+    background: var(--gh-cream, #faf7f4);
+    padding: 24px;
+    border-radius: 16px;
+    margin: 0;
+  }
+
+  .product-testimonials__quote {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--gh-espresso, #3d3028);
+    margin: 0 0 12px 0;
+  }
+
+  .product-testimonials__author {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.85rem;
+    font-style: normal;
+    font-weight: 600;
+    color: var(--gh-espresso-light, #5a4a3d);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GH Testimonials",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "What Customers Say"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "It's like wearing a hug."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author name",
+          "default": "Customer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "GH Testimonials",
+      "category": "Giant Hoodies",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "It's like wearing a hug.",
+            "author": "Grace"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I wear mine EVERYWHERE — the gym, the gas station, the laundromat, on a plane, and I get so many compliments!",
+            "author": "Andrea"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "This is my third Giant Hoodie and I couldn't be more in love.",
+            "author": "Grace"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "It's so big and comfy, I LIVE in it!",
+            "author": "Customer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

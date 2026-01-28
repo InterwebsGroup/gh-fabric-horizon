@@ -1,0 +1,78 @@
+{%- comment -%}
+  Product image gallery.
+  Desktop: main image + thumbnails below.
+  Mobile: swipeable gallery with pagination dots.
+  Usage: {% render 'product-gallery', product: product %}
+{%- endcomment -%}
+
+<div class="product-gallery" data-product-gallery>
+  {%- if product.media.size > 0 -%}
+    <div class="product-gallery__main" data-gallery-slides>
+      {%- for media in product.media -%}
+        <div
+          class="product-gallery__slide{% if forloop.first %} product-gallery__slide--active{% endif %}"
+          data-gallery-slide
+          data-media-id="{{ media.id }}"
+          data-index="{{ forloop.index0 }}"
+        >
+          <img
+            src="{{ media | image_url: width: 900 }}"
+            srcset="{{ media | image_url: width: 400 }} 400w, {{ media | image_url: width: 600 }} 600w, {{ media | image_url: width: 900 }} 900w, {{ media | image_url: width: 1200 }} 1200w"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            alt="{{ media.alt | escape | default: product.title }}"
+            width="{{ media.preview_image.width }}"
+            height="{{ media.preview_image.height }}"
+            loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+            draggable="false"
+          >
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Mobile pagination dots {%- endcomment -%}
+    {%- if product.media.size > 1 -%}
+      <div class="product-gallery__dots" data-gallery-dots>
+        {%- for media in product.media -%}
+          <button
+            type="button"
+            class="product-gallery__dot{% if forloop.first %} product-gallery__dot--active{% endif %}"
+            data-gallery-dot
+            data-index="{{ forloop.index0 }}"
+            aria-label="View image {{ forloop.index }}"
+          ></button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Desktop thumbnails {%- endcomment -%}
+    {%- if product.media.size > 1 -%}
+      <div class="product-gallery__thumbs" data-gallery-thumbs>
+        {%- for media in product.media -%}
+          <button
+            type="button"
+            class="product-gallery__thumb{% if forloop.first %} product-gallery__thumb--active{% endif %}"
+            data-gallery-thumb
+            data-index="{{ forloop.index0 }}"
+            data-media-id="{{ media.id }}"
+            aria-label="View image {{ forloop.index }}"
+          >
+            <img
+              src="{{ media | image_url: width: 100 }}"
+              alt="{{ media.alt | escape | default: product.title }}"
+              width="64"
+              height="64"
+              loading="lazy"
+              draggable="false"
+            >
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    <div class="product-gallery__main">
+      <div class="product-gallery__slide product-gallery__slide--active">
+        {{ 'product-1' | placeholder_svg_tag: 'product-gallery__placeholder' }}
+      </div>
+    </div>
+  {%- endif -%}
+</div>

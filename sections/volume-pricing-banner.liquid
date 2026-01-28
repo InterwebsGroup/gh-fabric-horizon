@@ -17,7 +17,7 @@
     /* Make the section wrapper sticky below the header */
     .volume-pricing-banner-section {
       position: sticky;
-      top: var(--header-height, 60px);
+      top: calc(var(--header-height, 60px) - 1px);
       z-index: 99; /* Below header (100) but above content */
     }
 

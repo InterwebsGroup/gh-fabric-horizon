@@ -1,0 +1,60 @@
+{%- comment -%}
+  Product color swatches.
+  Renders circular swatch buttons for the Color option.
+  Usage: {% render 'product-swatches', product: product %}
+{%- endcomment -%}
+
+{%- assign color_option = nil -%}
+{%- assign color_option_index = nil -%}
+{%- for option in product.options_with_values -%}
+  {%- assign option_name_down = option.name | downcase -%}
+  {%- if option_name_down == 'color' or option_name_down == 'colour' -%}
+    {%- assign color_option = option -%}
+    {%- assign color_option_index = forloop.index0 -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if color_option -%}
+  <div class="product__option" data-option-index="{{ color_option_index }}">
+    <label class="product__option-label">
+      Color: <span class="product__option-value" data-selected-color>{{ product.selected_or_first_available_variant.options[color_option_index] }}</span>
+    </label>
+
+    <div class="product__swatches" data-swatches>
+      {%- for value in color_option.values -%}
+        {%- liquid
+          assign swatch_handle = value | handleize
+          assign is_selected = false
+          assign selected_option_value = product.selected_or_first_available_variant.options[color_option_index]
+          if selected_option_value == value
+            assign is_selected = true
+          endif
+
+          assign variant_available = false
+          for variant in product.variants
+            if variant.options[color_option_index] == value
+              if variant.available
+                assign variant_available = true
+                break
+              endif
+            endif
+          endfor
+        -%}
+        <button
+          type="button"
+          class="product__swatch{% if is_selected %} product__swatch--active{% endif %}{% unless variant_available %} product__swatch--unavailable{% endunless %}{% if swatch_handle == 'white' or swatch_handle == 'cream' or swatch_handle == 'ivory' or swatch_handle == 'beige' or swatch_handle == 'natural' or swatch_handle == 'oatmeal' %} product__swatch--light{% endif %}"
+          data-swatch
+          data-color="{{ value }}"
+          data-option-index="{{ color_option_index }}"
+          title="{{ value }}"
+          aria-label="Select {{ value }}"
+          aria-pressed="{{ is_selected }}"
+          style="background: {% render 'swatch-color', swatch_name: swatch_handle %};"
+        >
+          <span class="visually-hidden">{{ value }}</span>
+        </button>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
