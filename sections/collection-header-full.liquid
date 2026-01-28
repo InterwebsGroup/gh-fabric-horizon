@@ -1,0 +1,340 @@
+{%- comment -%}
+  Collection Header Full
+  Includes: Hero banner, filter buttons, description, section title
+  Layout reference: Hollow Socks collection page
+{%- endcomment -%}
+
+{%- liquid
+  assign current_path = request.path
+  assign pricing_mode = settings.pricing_mode | default: 'tiered'
+-%}
+
+<div class="collection-header-full">
+
+  {%- comment -%} ========== HERO BANNER ========== {%- endcomment -%}
+  <div class="collection-banner" {% if section.settings.collection_banner_image %}style="background-image: url('{{ section.settings.collection_banner_image | image_url: width: 1600 }}')"{% endif %}>
+    <div class="collection-banner__overlay">
+      <div class="collection-banner__content">
+
+        {%- if pricing_mode == 'tiered' -%}
+          <span class="collection-banner__label">Cozy Savings</span>
+          <h1 class="collection-banner__headline">
+            Buy More<br>
+            <span class="collection-banner__accent">Save More</span>
+          </h1>
+          <p class="collection-banner__subheadline">2 for $45 each · 3+ for $39 each</p>
+        {%- else -%}
+          {% if section.settings.collection_banner_label != blank %}
+            <span class="collection-banner__label">{{ section.settings.collection_banner_label }}</span>
+          {% endif %}
+          <h1 class="collection-banner__headline">
+            {{ section.settings.collection_banner_headline | default: 'Shop Hoodies' }}<br>
+            {% if section.settings.collection_banner_accent != blank %}
+              <span class="collection-banner__accent">{{ section.settings.collection_banner_accent }}</span>
+            {% endif %}
+          </h1>
+          {% if section.settings.collection_banner_subheadline != blank %}
+            <p class="collection-banner__subheadline">{{ section.settings.collection_banner_subheadline }}</p>
+          {% endif %}
+        {%- endif -%}
+
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ========== FILTER BUTTONS ========== {%- endcomment -%}
+  <nav class="filter-buttons" aria-label="Collection filters">
+    <p class="filter-buttons__label">Filter:</p>
+
+    <div class="filter-buttons__list">
+      {%- assign filters = "Best Sellers|/collections/best-sellers,New Arrivals|/collections/latest-products,Animals|/collections/animals?filter.p.product_type=Hoodie,Funny|/collections/funny?filter.p.product_type=Hoodie,Holidays|/collections/holidays?filter.p.product_type=Hoodie,Blanks|/collections/blank-hoodies,Custom|/collections/customize-your-own" | split: "," -%}
+
+      {%- for filter in filters -%}
+        {%- assign parts = filter | split: "|" -%}
+        {%- assign label = parts[0] -%}
+        {%- assign url = parts[1] -%}
+        {%- assign url_path = url | split: "?" | first -%}
+
+        {%- assign is_active = false -%}
+        {%- if current_path == url_path -%}
+          {%- assign is_active = true -%}
+        {%- endif -%}
+
+        {%- comment -%} Default Best Sellers on main hoodies collection {%- endcomment -%}
+        {%- if current_path == '/collections/hoodies' and label == 'Best Sellers' -%}
+          {%- assign is_active = true -%}
+        {%- endif -%}
+
+        <a
+          href="{{ url }}"
+          class="filter-buttons__btn{% if is_active %} filter-buttons__btn--active{% endif %}"
+          {% if is_active %}aria-current="page"{% endif %}
+        >
+          {{- label -}}
+        </a>
+      {%- endfor -%}
+    </div>
+  </nav>
+
+  {%- comment -%} ========== COLLECTION DESCRIPTION ========== {%- endcomment -%}
+  <div class="collection-description">
+    <p>{{ section.settings.collection_description | default: "Giant Hoodies are intentionally oversized, made with super-soft sponge fleece, and printed by hand right here in the USA. They're as soft as cashmere, cozy as your favorite blanket, and designed to wrap you in comfort wherever life takes you." }}</p>
+  </div>
+
+  {%- comment -%} ========== SECTION HEADER ========== {%- endcomment -%}
+  <div class="collection-section-header">
+    <h2>{{ collection.title | upcase | default: 'GIANT HOODIES' }}</h2>
+  </div>
+
+</div>
+
+<style>
+  /* ========== HERO BANNER ========== */
+  .collection-banner {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    background-color: var(--gh-espresso, #3d3028);
+    background-size: cover;
+    background-position: center;
+  }
+
+  @media (min-width: 768px) {
+    .collection-banner {
+      min-height: 280px;
+    }
+  }
+
+  .collection-banner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(61, 48, 40, 0.9) 0%, rgba(61, 48, 40, 0.5) 60%, rgba(61, 48, 40, 0.3) 100%);
+    display: flex;
+    align-items: center;
+  }
+
+  .collection-banner__content {
+    padding: 24px 20px;
+    max-width: 600px;
+  }
+
+  @media (min-width: 768px) {
+    .collection-banner__content {
+      padding: 40px 48px;
+    }
+  }
+
+  .collection-banner__label {
+    display: inline-block;
+    background: var(--gh-terracotta, #c4704b);
+    color: white;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    margin-bottom: 12px;
+  }
+
+  .collection-banner__headline {
+    font-family: var(--gh-font-heading, 'Fraunces', Georgia, serif);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--gh-cream, #faf7f4);
+    line-height: 1.1;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 768px) {
+    .collection-banner__headline {
+      font-size: 3rem;
+    }
+  }
+
+  .collection-banner__accent {
+    color: var(--gh-terracotta, #c4704b);
+  }
+
+  .collection-banner__subheadline {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--gh-cream, #faf7f4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 12px 0 0 0;
+    opacity: 0.9;
+  }
+
+  /* ========== FILTER BUTTONS ========== */
+  .filter-buttons {
+    padding: 28px 16px 20px;
+    background: var(--gh-cream, #faf7f4);
+  }
+
+  .filter-buttons__label {
+    text-align: center;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gh-espresso, #3d3028);
+    margin: 0 0 16px 0;
+  }
+
+  .filter-buttons__list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 4px 4px 8px;
+  }
+
+  .filter-buttons__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .filter-buttons__list {
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow-x: visible;
+      max-width: 900px;
+      margin: 0 auto;
+      gap: 12px;
+    }
+  }
+
+  .filter-buttons__btn {
+    flex-shrink: 0;
+    padding: 12px 24px;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 9999px;
+    border: 2px solid var(--gh-espresso, #3d3028);
+    background: transparent;
+    color: var(--gh-espresso, #3d3028);
+    white-space: nowrap;
+    transition: background-color 150ms ease, color 150ms ease;
+  }
+
+  .filter-buttons__btn:hover {
+    background: var(--gh-sand, #e8d5c4);
+  }
+
+  .filter-buttons__btn--active,
+  .filter-buttons__btn--active:hover {
+    background: var(--gh-espresso, #3d3028);
+    color: var(--gh-cream, #faf7f4);
+  }
+
+  /* ========== COLLECTION DESCRIPTION ========== */
+  .collection-description {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8px 24px 24px;
+    text-align: center;
+    background: var(--gh-cream, #faf7f4);
+  }
+
+  .collection-description p {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--gh-espresso-light, #5a4a3d);
+    margin: 0;
+  }
+
+  /* ========== SECTION HEADER ========== */
+  .collection-section-header {
+    text-align: center;
+    padding: 24px 20px 32px;
+    background: var(--gh-cream, #faf7f4);
+  }
+
+  .collection-section-header h2 {
+    font-family: var(--gh-font-heading, 'Fraunces', Georgia, serif);
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--gh-espresso, #3d3028);
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .collection-section-header h2 {
+      font-size: 2.25rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Header Full",
+  "tag": "section",
+  "class": "collection-header-full-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_banner_image",
+      "label": "Background Image",
+      "info": "Recommended: 1600x600px. Will have dark overlay applied."
+    },
+    {
+      "type": "text",
+      "id": "collection_banner_label",
+      "label": "Label (small pill)",
+      "default": "Cozy Savings",
+      "info": "Used in Flat pricing mode"
+    },
+    {
+      "type": "text",
+      "id": "collection_banner_headline",
+      "label": "Headline",
+      "default": "Shop Hoodies",
+      "info": "Used in Flat pricing mode"
+    },
+    {
+      "type": "text",
+      "id": "collection_banner_accent",
+      "label": "Accent Line",
+      "default": "Save Big",
+      "info": "Used in Flat pricing mode. Displays in terracotta."
+    },
+    {
+      "type": "text",
+      "id": "collection_banner_subheadline",
+      "label": "Subheadline",
+      "info": "Used in Flat pricing mode"
+    },
+    {
+      "type": "header",
+      "content": "Collection Description"
+    },
+    {
+      "type": "textarea",
+      "id": "collection_description",
+      "label": "Description Text",
+      "default": "Giant Hoodies are intentionally oversized, made with super-soft sponge fleece, and printed by hand right here in the USA. They're as soft as cashmere, cozy as your favorite blanket, and designed to wrap you in comfort wherever life takes you."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Header Full"
+    }
+  ]
+}
+{% endschema %}
