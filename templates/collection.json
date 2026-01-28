@@ -14,6 +14,66 @@
     },
     "collection-header-full": {
       "type": "collection-header-full",
+      "blocks": {
+        "filter_1": {
+          "type": "filter_button",
+          "settings": {
+            "label": "Best Sellers",
+            "url": "/collections/best-sellers"
+          }
+        },
+        "filter_2": {
+          "type": "filter_button",
+          "settings": {
+            "label": "New Arrivals",
+            "url": "/collections/latest-products"
+          }
+        },
+        "filter_3": {
+          "type": "filter_button",
+          "settings": {
+            "label": "Animals",
+            "url": "/collections/animals?filter.p.product_type=Hoodie"
+          }
+        },
+        "filter_4": {
+          "type": "filter_button",
+          "settings": {
+            "label": "Funny",
+            "url": "/collections/funny?filter.p.product_type=Hoodie"
+          }
+        },
+        "filter_5": {
+          "type": "filter_button",
+          "settings": {
+            "label": "Holidays",
+            "url": "/collections/holidays?filter.p.product_type=Hoodie"
+          }
+        },
+        "filter_6": {
+          "type": "filter_button",
+          "settings": {
+            "label": "Blanks",
+            "url": "/collections/blank-hoodies"
+          }
+        },
+        "filter_7": {
+          "type": "filter_button",
+          "settings": {
+            "label": "Custom",
+            "url": "/collections/customize-your-own"
+          }
+        }
+      },
+      "block_order": [
+        "filter_1",
+        "filter_2",
+        "filter_3",
+        "filter_4",
+        "filter_5",
+        "filter_6",
+        "filter_7"
+      ],
       "settings": {}
     },
     "main-collection": {

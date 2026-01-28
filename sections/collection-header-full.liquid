@@ -43,33 +43,34 @@
   </div>
 
   {%- comment -%} ========== FILTER BUTTONS ========== {%- endcomment -%}
-  <nav class="filter-buttons" aria-label="Collection filters">
-    <p class="filter-buttons__label">Filter:</p>
+  {%- if section.blocks.size > 0 -%}
+    <nav class="filter-buttons" aria-label="Collection filters">
+      <p class="filter-buttons__label">Filter:</p>
 
-    <div class="filter-buttons__list">
-      {%- assign filters = "Best Sellers|/collections/best-sellers,New Arrivals|/collections/latest-products,Animals|/collections/animals?filter.p.product_type=Hoodie,Funny|/collections/funny?filter.p.product_type=Hoodie,Holidays|/collections/holidays?filter.p.product_type=Hoodie,Blanks|/collections/blank-hoodies,Custom|/collections/customize-your-own" | split: "," -%}
+      <div class="filter-buttons__list">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'filter_button' -%}
+            {%- assign url = block.settings.url -%}
+            {%- assign url_path = url | split: "?" | first -%}
 
-      {%- for filter in filters -%}
-        {%- assign parts = filter | split: "|" -%}
-        {%- assign label = parts[0] -%}
-        {%- assign url = parts[1] -%}
-        {%- assign url_path = url | split: "?" | first -%}
+            {%- assign is_active = false -%}
+            {%- if current_path == url_path -%}
+              {%- assign is_active = true -%}
+            {%- endif -%}
 
-        {%- assign is_active = false -%}
-        {%- if current_path == url_path -%}
-          {%- assign is_active = true -%}
-        {%- endif -%}
-
-<a
-          href="{{ url }}"
-          class="filter-buttons__btn{% if is_active %} filter-buttons__btn--active{% endif %}"
-          {% if is_active %}aria-current="page"{% endif %}
-        >
-          {{- label -}}
-        </a>
-      {%- endfor -%}
-    </div>
-  </nav>
+            <a
+              href="{{ url }}"
+              class="filter-buttons__btn{% if is_active %} filter-buttons__btn--active{% endif %}"
+              {% if is_active %}aria-current="page"{% endif %}
+              {{ block.shopify_attributes }}
+            >
+              {{- block.settings.label -}}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </nav>
+  {%- endif -%}
 
   {%- comment -%} ========== COLLECTION DESCRIPTION ========== {%- endcomment -%}
   <div class="collection-description">
@@ -326,9 +327,79 @@
       "default": "Giant Hoodies are intentionally oversized, made with super-soft sponge fleece, and printed by hand right here in the USA. They're as soft as cashmere, cozy as your favorite blanket, and designed to wrap you in comfort wherever life takes you."
     }
   ],
+  "blocks": [
+    {
+      "type": "filter_button",
+      "name": "Filter Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Button Label",
+          "default": "Collection"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Collection Header Full"
+      "name": "Collection Header Full",
+      "blocks": [
+        {
+          "type": "filter_button",
+          "settings": {
+            "label": "Best Sellers",
+            "url": "/collections/best-sellers"
+          }
+        },
+        {
+          "type": "filter_button",
+          "settings": {
+            "label": "New Arrivals",
+            "url": "/collections/latest-products"
+          }
+        },
+        {
+          "type": "filter_button",
+          "settings": {
+            "label": "Animals",
+            "url": "/collections/animals?filter.p.product_type=Hoodie"
+          }
+        },
+        {
+          "type": "filter_button",
+          "settings": {
+            "label": "Funny",
+            "url": "/collections/funny?filter.p.product_type=Hoodie"
+          }
+        },
+        {
+          "type": "filter_button",
+          "settings": {
+            "label": "Holidays",
+            "url": "/collections/holidays?filter.p.product_type=Hoodie"
+          }
+        },
+        {
+          "type": "filter_button",
+          "settings": {
+            "label": "Blanks",
+            "url": "/collections/blank-hoodies"
+          }
+        },
+        {
+          "type": "filter_button",
+          "settings": {
+            "label": "Custom",
+            "url": "/collections/customize-your-own"
+          }
+        }
+      ]
     }
   ]
 }
