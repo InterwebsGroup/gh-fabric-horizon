@@ -217,6 +217,32 @@
                 "group_b7xNnM"
               ]
             },
+            "text_trust_bar": {
+              "type": "text",
+              "name": "Trust Bar",
+              "settings": {
+                "text": "<p>\u2713 Free shipping $75+ \u00b7 \u2713 30-Day Guarantee \u00b7 \u2713 Made in USA</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "0.85rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 4,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "variant_picker_3Nha6V": {
               "type": "variant-picker",
               "name": "t:names.product_variant_picker",
@@ -246,7 +272,6 @@
               "blocks": {
                 "quantity": {
                   "type": "quantity",
-                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -269,6 +294,52 @@
               },
               "block_order": []
             },
+            "gh_volume_pricing_1": {
+              "type": "gh-volume-pricing",
+              "settings": {
+                "heading": "Buy more, save more:",
+                "tier_1_text": "2 for $45 each \u2014 Save $60",
+                "tier_2_text": "3+ for $39 each \u2014 Save $108+",
+                "tier_3_text": "",
+                "padding-block-start": 8,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "gh_social_proof_1": {
+              "type": "gh-social-proof",
+              "settings": {
+                "padding-block-start": 4,
+                "padding-block-end": 8,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_inventory_1": {
+              "type": "product-inventory",
+              "settings": {
+                "inventory_threshold": 10,
+                "show_inventory_quantity": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "gh_back_in_stock_1": {
+              "type": "gh-back-in-stock",
+              "settings": {
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "accordion_iWQwkW": {
               "type": "accordion",
               "name": "t:names.accordion",
@@ -288,19 +359,19 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "accordion_row_TbgNUF": {
+                "accordion_row_faq1": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Product Details",
+                    "heading": "How do the hoodies fit?",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
                   },
                   "blocks": {
-                    "text_n6TMzy": {
+                    "text_faq1": {
                       "type": "text",
                       "settings": {
-                        "text": "{{ closest.product.description }}",
+                        "text": "<p>One size fits most \u2014 and that\u2019s the whole point. Our hoodies are intentionally oversized, similar to a 3XL, designed to wrap you in cozy comfort like a wearable blanket. Whether you\u2019re petite or plus-size, you\u2019ll be covered.</p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -324,22 +395,22 @@
                     }
                   },
                   "block_order": [
-                    "text_n6TMzy"
+                    "text_faq1"
                   ]
                 },
-                "accordion_row_XMFatY": {
+                "accordion_row_faq2": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Care & Maintenance",
+                    "heading": "What's the fabric like?",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
                   },
                   "blocks": {
-                    "text_wbGpVU": {
+                    "text_faq2": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>To maintain the beauty and integrity of your purchase, we recommend treating it with care. Simple maintenance practices, such as gentle washing and proper storage, can effectively preserve the longevity of your favorites. We encourage you to refer to the care instructions included with each item, designed to help you keep your purchase in top condition.</p>",
+                        "text": "<p>Super soft, lightweight sponge fleece \u2014 the kind you want to live in. It\u2019s plush, cozy, and feels like a hug. Fair warning: it\u2019s delicate, so treat it gently.</p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -363,22 +434,22 @@
                     }
                   },
                   "block_order": [
-                    "text_wbGpVU"
+                    "text_faq2"
                   ]
                 },
-                "accordion_row_kmdwc8": {
+                "accordion_row_faq3": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Size & Fit",
+                    "heading": "How do I wash my hoodie?",
                     "open_by_default": false,
                     "icon": "none",
                     "width": 20
                   },
                   "blocks": {
-                    "text_hYWKPd": {
+                    "text_faq3": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Our products are crafted to fit true to size, ensuring that you can confidently select your usual size with ease. Whether you’re looking for a relaxed or tailored fit, our designs are made to complement your unique shape and style.</p>",
+                        "text": "<p>With love! Here\u2019s how to keep it perfect:</p><ul><li>Tie little knots in the string ends (so they don\u2019t pull out)</li><li>Wash alone or with soft clothes only</li><li>Cold water, gentle/delicate cycle</li><li>ALWAYS air dry \u2014 no dryer!</li></ul><p>With a little care, you\u2019ll stay in love with your Giant Hoodie for years.</p>",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -402,21 +473,106 @@
                     }
                   },
                   "block_order": [
-                    "text_hYWKPd"
+                    "text_faq3"
+                  ]
+                },
+                "accordion_row_faq4": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "How fast is shipping?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_faq4": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Really, really fast. Most orders ship same or next business day and arrive in 2\u20133 days within the US. All orders are printed and packed by hand at our facility in Northwest Arkansas.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_faq4"
+                  ]
+                },
+                "accordion_row_faq5": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "What if I don't love it?",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_faq5": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>We\u2019re confident you will, but we\u2019ve got you covered. Our 30-day \u201cBest Hoodie Ever\u201d Guarantee means if something isn\u2019t right, just reach out and we\u2019ll make it right. Fun fact: less than 1% of orders are returned \u2014 the average apparel brand sees 21%!</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_faq5"
                   ]
                 }
               },
               "block_order": [
-                "accordion_row_TbgNUF",
-                "accordion_row_XMFatY",
-                "accordion_row_kmdwc8"
+                "accordion_row_faq1",
+                "accordion_row_faq2",
+                "accordion_row_faq3",
+                "accordion_row_faq4",
+                "accordion_row_faq5"
               ]
             }
           },
           "block_order": [
             "group_8fkkWP",
+            "text_trust_bar",
             "variant_picker_3Nha6V",
             "buy_buttons_NmYpFG",
+            "gh_volume_pricing_1",
+            "gh_social_proof_1",
+            "product_inventory_1",
+            "gh_back_in_stock_1",
             "accordion_iWQwkW"
           ]
         }

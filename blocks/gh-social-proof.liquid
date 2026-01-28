@@ -1,0 +1,126 @@
+{%- liquid
+  assign block_settings = block.settings
+  assign product = closest.product
+  assign rating = product.metafields.reviews.rating.value.rating
+  assign rating_count = product.metafields.reviews.rating_count.value
+  assign happy_customers = settings.happy_customers_count | default: '225,000+'
+-%}
+
+<div
+  class="gh-social-proof spacing-style"
+  style="{% render 'spacing-style', settings: block_settings %}"
+  {{ block.shopify_attributes }}
+>
+  {% if rating != blank %}
+    <div class="gh-social-proof__stars" aria-hidden="true">
+      {%- for i in (1..5) -%}
+        <svg class="gh-social-proof__star" viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      {%- endfor -%}
+    </div>
+    <span class="gh-social-proof__rating">{{ rating | round: 1 }}</span>
+    <span class="gh-social-proof__separator" aria-hidden="true">&middot;</span>
+  {% endif %}
+  <span class="gh-social-proof__customers">{{ happy_customers }} happy customers</span>
+</div>
+
+{% stylesheet %}
+  .gh-social-proof {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--font-size--sm, 0.875rem);
+    font-family: var(--font-body--family);
+    color: rgb(var(--color-foreground-rgb) / 0.65);
+    flex-wrap: wrap;
+  }
+
+  .gh-social-proof__stars {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    color: var(--color-foreground);
+  }
+
+  .gh-social-proof__star {
+    width: 14px;
+    height: 14px;
+  }
+
+  .gh-social-proof__rating {
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .gh-social-proof__separator {
+    color: rgb(var(--color-foreground-rgb) / 0.3);
+  }
+
+  .gh-social-proof__customers {
+    color: rgb(var(--color-foreground-rgb) / 0.65);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GH Social Proof",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows star rating from Judge.me and happy customer count from Theme Settings > Giant Hoodies Settings > Social Proof."
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "GH Social Proof",
+      "category": "Giant Hoodies"
+    }
+  ]
+}
+{% endschema %}

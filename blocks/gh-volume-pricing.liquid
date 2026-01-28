@@ -1,0 +1,149 @@
+{%- liquid
+  assign block_settings = block.settings
+  assign product = closest.product
+  assign is_tier_eligible = false
+  assign tier_handles = settings.tier_collection_handles | split: ','
+
+  for handle in tier_handles
+    assign handle_stripped = handle | strip
+    for collection in product.collections
+      if collection.handle == handle_stripped
+        unless product.tags contains settings.tier_exclude_tag
+          assign is_tier_eligible = true
+        endunless
+      endif
+    endfor
+  endfor
+-%}
+
+{% if settings.pricing_mode == 'tiered' and is_tier_eligible %}
+  <div
+    class="gh-volume-pricing spacing-style"
+    style="{% render 'spacing-style', settings: block_settings %}"
+    {{ block.shopify_attributes }}
+  >
+    <p class="gh-volume-pricing__heading">
+      <strong>{{ block_settings.heading }}</strong>
+    </p>
+    <ul class="gh-volume-pricing__list">
+      <li>{{ block_settings.tier_1_text }}</li>
+      <li>{{ block_settings.tier_2_text }}</li>
+      {% if block_settings.tier_3_text != blank %}
+        <li>{{ block_settings.tier_3_text }}</li>
+      {% endif %}
+    </ul>
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .gh-volume-pricing {
+    background: rgb(var(--color-foreground-rgb) / 0.03);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+
+  .gh-volume-pricing__heading {
+    margin: 0 0 6px;
+    font-size: var(--font-paragraph--size);
+    font-family: var(--font-body--family);
+  }
+
+  .gh-volume-pricing__list {
+    margin: 0;
+    padding: 0 0 0 20px;
+    font-size: var(--font-size--sm, 0.875rem);
+    line-height: 1.6;
+    color: rgb(var(--color-foreground-rgb) / 0.75);
+  }
+
+  .gh-volume-pricing__list li {
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "GH Volume Pricing",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows volume pricing tiers. Only visible when pricing mode is Tiered and product is tier-eligible."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Buy more, save more:"
+    },
+    {
+      "type": "text",
+      "id": "tier_1_text",
+      "label": "Tier 1 text",
+      "default": "2 for $45 each \u2014 Save $60"
+    },
+    {
+      "type": "text",
+      "id": "tier_2_text",
+      "label": "Tier 2 text",
+      "default": "3+ for $39 each \u2014 Save $108+"
+    },
+    {
+      "type": "text",
+      "id": "tier_3_text",
+      "label": "Tier 3 text (optional)",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "GH Volume Pricing",
+      "category": "Giant Hoodies"
+    }
+  ]
+}
+{% endschema %}

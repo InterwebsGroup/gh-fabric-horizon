@@ -8,192 +8,41 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "hero_gh": {
-      "type": "hero",
+    "hero_home": {
+      "type": "hero-home",
+      "settings": {
+        "heading": "Your New Favorite Oversized Hoodie",
+        "subheading": "The softest, coziest, most comfortable hoodie you'll ever own.",
+        "button_text": "Shop All Hoodies",
+        "button_link": "shopify://collections/hoodies"
+      }
+    },
+    "stats_bar": {
+      "type": "stats-bar",
       "blocks": {
-        "headline": {
-          "type": "text",
-          "name": "Headline",
+        "stat_1": {
+          "type": "stat",
           "settings": {
-            "text": "<h1>Your New Favorite Oversized Hoodie</h1>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "center",
-            "type_preset": "h1",
-            "font": "var(--gh-font-heading)",
-            "font_size": "",
-            "line_height": "tight",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "number": "225,000+",
+            "label": "Happy Customers"
           }
         },
-        "subheadline": {
-          "type": "text",
-          "name": "Subheadline",
+        "stat_2": {
+          "type": "stat",
           "settings": {
-            "text": "<p>The softest, coziest, most comfortable hoodie you'll ever own.</p>",
-            "width": "100%",
-            "max_width": "narrow",
-            "alignment": "center",
-            "type_preset": "paragraph",
-            "font": "var(--gh-font-body)",
-            "font_size": "1.25rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 8,
-            "padding-block-end": 16,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "number": "4.9 \u2605",
+            "label": "Average Rating"
           }
         },
-        "tagline": {
-          "type": "text",
-          "name": "Tagline",
+        "stat_3": {
+          "type": "stat",
           "settings": {
-            "text": "<p>Intentionally oversized. Impossibly soft. Made in the USA.</p>",
-            "width": "100%",
-            "max_width": "narrow",
-            "alignment": "center",
-            "type_preset": "paragraph",
-            "font": "var(--gh-font-body)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 24,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "number": "90-Day",
+            "label": "Money-Back Guarantee"
           }
-        },
-        "cta_group": {
-          "type": "group",
-          "name": "CTA Group",
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "center",
-            "vertical_alignment": "center",
-            "align_baseline": false,
-            "horizontal_alignment_flex_direction_column": "center",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 16,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "toggle_overlay": false,
-            "overlay_color": "#00000026",
-            "overlay_style": "solid",
-            "gradient_direction": "to top",
-            "open_in_new_tab": false,
-            "placeholder": "",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "cta_primary": {
-              "type": "button",
-              "name": "Primary CTA",
-              "settings": {
-                "label": "Shop All Hoodies",
-                "link": "shopify://collections/hoodies",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              }
-            },
-            "cta_secondary": {
-              "type": "button",
-              "name": "Secondary CTA",
-              "settings": {
-                "label": "Shop Best Sellers",
-                "link": "shopify://collections/best-sellers",
-                "open_in_new_tab": false,
-                "style_class": "button-secondary",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              }
-            }
-          },
-          "block_order": ["cta_primary", "cta_secondary"]
         }
       },
-      "block_order": [
-        "headline",
-        "subheadline",
-        "tagline",
-        "cta_group"
-      ],
-      "name": "Hero",
-      "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "center",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 8,
-        "section_width": "page-width",
-        "section_height": "large",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-1",
-        "toggle_overlay": true,
-        "overlay_color": "#00000033",
-        "overlay_style": "gradient",
-        "gradient_direction": "to top",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 60,
-        "padding-block-end": 60
-      }
+      "block_order": ["stat_1", "stat_2", "stat_3"]
     },
     "press_logos": {
       "type": "press-logos",
@@ -831,7 +680,8 @@
     }
   },
   "order": [
-    "hero_gh",
+    "hero_home",
+    "stats_bar",
     "press_logos",
     "best_sellers",
     "category_tiles",

@@ -2469,6 +2469,17 @@
         "id": "back_in_stock_success_msg",
         "label": "Success message",
         "default": "We'll email you when it's back!"
+      },
+      {
+        "type": "header",
+        "content": "Social Proof"
+      },
+      {
+        "type": "text",
+        "id": "happy_customers_count",
+        "label": "Happy customers count",
+        "default": "225,000+",
+        "info": "Displayed on product page social proof line (e.g. '225,000+ happy customers')"
       }
     ]
   }
