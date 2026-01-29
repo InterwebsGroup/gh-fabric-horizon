@@ -4274,6 +4274,21 @@ h1, h2, h3, h4, h5, h6,
   background: #3ED660;
 }
 
+/* Shipping Progress Message */
+.gh-shipping-progress__msg {
+  margin: 0;
+  font-family: var(--gh-font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gh-espresso);
+  text-align: center;
+}
+
+.gh-shipping-progress--complete .gh-shipping-progress__msg {
+  color: #2E8B3F;
+  font-weight: 600;
+}
+
 /* Cart Upsell Message */
 .gh-cart-upsell {
   background: var(--gh-sand);
@@ -4281,6 +4296,46 @@ h1, h2, h3, h4, h5, h6,
   border-radius: 8px;
   font-size: 0.9375rem;
   text-align: center;
+}
+
+.gh-cart-upsell__msg {
+  margin: 0;
+  color: var(--gh-espresso);
+  font-family: var(--gh-font-body);
+  font-weight: 600;
+}
+
+.gh-cart-upsell__cta {
+  display: inline-block;
+  color: var(--gh-terracotta);
+  font-family: var(--gh-font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  margin-top: 0.25rem;
+}
+
+.gh-cart-upsell__cta:hover {
+  text-decoration: underline;
+}
+
+/* Cart extras spacing */
+.gh-cart-upsell + .gh-shipping-progress {
+  margin-top: 0.5rem;
+}
+
+/* Cart Savings */
+.gh-cart-savings {
+  text-align: center;
+  padding-block: var(--margin-3xs);
+}
+
+.gh-cart-savings__msg {
+  margin: 0;
+  font-family: var(--gh-font-body);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--gh-terracotta);
 }
 
 /* Low Stock Warning */

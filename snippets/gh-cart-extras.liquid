@@ -1,0 +1,129 @@
+{% comment %}
+  Giant Hoodies Cart Extras
+  Renders upsell messaging, shipping progress bar, and savings display.
+  Usage:
+    {% render 'gh-cart-extras', part: 'top' %}     — upsell + shipping bar
+    {% render 'gh-cart-extras', part: 'savings' %}  — savings display
+{% endcomment %}
+
+{% case part %}
+{% when 'top' %}
+
+  {%- comment -%} ——— Hoodie Count ——— {%- endcomment -%}
+  {%- liquid
+    assign tier_handles = settings.tier_collection_handles | split: ','
+    assign hoodie_count = 0
+
+    for item in cart.items
+      assign is_excluded = false
+      for tag in item.product.tags
+        assign tag_strip = tag | strip
+        if tag_strip == settings.tier_exclude_tag
+          assign is_excluded = true
+          break
+        endif
+      endfor
+
+      unless is_excluded
+        assign matched_tier = false
+        for collection in item.product.collections
+          for handle in tier_handles
+            assign handle_trimmed = handle | strip
+            if collection.handle == handle_trimmed
+              assign matched_tier = true
+              break
+            endif
+          endfor
+          if matched_tier
+            break
+          endif
+        endfor
+
+        if matched_tier
+          assign hoodie_count = hoodie_count | plus: item.quantity
+        endif
+      endunless
+    endfor
+  -%}
+
+  {%- comment -%} ——— Upsell Message ——— {%- endcomment -%}
+  {%- if settings.cart_upsell_enabled -%}
+    {%- liquid
+      if settings.pricing_mode == 'flat'
+        assign upsell_msg = settings.upsell_flat_mode
+        assign show_cta = false
+      else
+        assign show_cta = true
+        case hoodie_count
+          when 0
+            assign upsell_msg = settings.upsell_0_hoodies
+          when 1
+            assign upsell_msg = settings.upsell_1_hoodie
+          when 2
+            assign upsell_msg = settings.upsell_2_hoodies
+          else
+            assign upsell_msg = settings.upsell_3_plus
+            assign show_cta = false
+        endcase
+      endif
+    -%}
+
+    <div class="gh-cart-upsell">
+      <p class="gh-cart-upsell__msg">{{ upsell_msg }}</p>
+      {%- if show_cta -%}
+        <a href="/collections/hoodies" class="gh-cart-upsell__cta">Browse Hoodies &rarr;</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ——— Shipping Progress Bar ——— {%- endcomment -%}
+  {%- if settings.show_shipping_progress_bar -%}
+    {%- liquid
+      assign threshold_cents = settings.free_shipping_threshold | times: 100
+      assign remaining_cents = threshold_cents | minus: cart.total_price
+      assign progress = cart.total_price | times: 100 | divided_by: threshold_cents
+      if progress > 100
+        assign progress = 100
+      endif
+
+      assign is_free = false
+      if remaining_cents <= 0
+        assign is_free = true
+      endif
+    -%}
+
+    <div class="gh-shipping-progress{% if is_free %} gh-shipping-progress--complete{% endif %}">
+      {%- if is_free -%}
+        <p class="gh-shipping-progress__msg">{{ settings.shipping_free_msg }}</p>
+      {%- else -%}
+        {%- assign remaining_formatted = remaining_cents | money -%}
+        {%- assign shipping_msg = settings.shipping_progress_msg | replace: '[amount]', remaining_formatted -%}
+        <p class="gh-shipping-progress__msg">{{ shipping_msg }}</p>
+      {%- endif -%}
+      <div class="gh-shipping-progress__bar">
+        <div class="gh-shipping-progress__fill" style="width: {{ progress }}%;"></div>
+      </div>
+    </div>
+  {%- endif -%}
+
+{% when 'savings' %}
+
+  {%- comment -%} ——— Total Savings ——— {%- endcomment -%}
+  {%- liquid
+    assign total_savings = 0
+    for item in cart.items
+      if item.variant.compare_at_price > item.final_price
+        assign item_savings = item.variant.compare_at_price | minus: item.final_price
+        assign item_savings = item_savings | times: item.quantity
+        assign total_savings = total_savings | plus: item_savings
+      endif
+    endfor
+  -%}
+
+  {%- if total_savings > 0 -%}
+    <div class="gh-cart-savings">
+      <p class="gh-cart-savings__msg">You're saving {{ total_savings | money }} on this order!</p>
+    </div>
+  {%- endif -%}
+
+{% endcase %}

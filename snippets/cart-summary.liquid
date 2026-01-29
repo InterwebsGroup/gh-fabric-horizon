@@ -4,6 +4,8 @@
   @param {string} [accelerated_checkout_buttons_layout] - { 'vertical' } Forced layout of the additional checkout buttons, instead of relying on platform's layout.
 {%- enddoc -%}
 
+{% render 'gh-cart-extras', part: 'top' %}
+
 <div class="cart__summary-totals">
   {% # We need to keep this node in place to allow morphing to work properly # %}
   <div class="cart__original-total-container cart-primary-typography">
@@ -35,6 +37,8 @@
       </div>
     {%- endif -%}
   </div>
+
+  {% render 'gh-cart-extras', part: 'savings' %}
 
   {% if settings.show_cart_note or settings.show_add_discount_code %}
     <div class="cart-actions">
