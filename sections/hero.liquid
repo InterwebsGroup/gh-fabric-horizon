@@ -801,7 +801,12 @@
     }
 
     .hero .hero__content-wrapper {
-      justify-content: flex-end;
+      justify-content: flex-end !important;
+    }
+
+    /* Prevent group blocks from stretching and absorbing the space */
+    .hero .hero__content-wrapper > :first-child {
+      margin-top: auto;
     }
 
     .hero__image,
