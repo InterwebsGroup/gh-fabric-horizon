@@ -37,7 +37,9 @@
     var amount = (cents / 100).toFixed(2);
     var amountNoDecimals = Math.round(cents / 100);
     var amountWithComma = amount.replace('.', ',');
-    return format
+    // Normalize spaces inside {{ }} so formats like ${{ amount_no_decimals }} work
+    var f = format.replace(/\{\{\s*(\w+)\s*\}\}/g, '{{$1}}');
+    return f
       .replace('{{amount_with_comma_separator}}', amountWithComma)
       .replace('{{amount_no_decimals}}', amountNoDecimals)
       .replace('{{amount_no_decimals_with_comma_separator}}', amountNoDecimals)
@@ -45,77 +47,66 @@
   }
 
   /* =========================================
-     1. Image Gallery
+     1. Image Gallery (hero + thumbnail row)
      ========================================= */
   function initGallery(section) {
-    var slidesContainer = section.querySelector('[data-gallery-slides]');
-    if (!slidesContainer) return;
-
-    var slides = slidesContainer.querySelectorAll('[data-gallery-slide]');
-    var dots = section.querySelectorAll('[data-gallery-dot]');
+    var hero = section.querySelector('[data-gallery-hero]');
     var thumbs = section.querySelectorAll('[data-gallery-thumb]');
+    if (!hero || thumbs.length === 0) return;
 
-    if (slides.length <= 1) return;
-
-    // Desktop: click thumbnail to scroll to image
+    // Click a thumbnail to show it in the hero
     thumbs.forEach(function (thumb) {
       thumb.addEventListener('click', function () {
-        var index = parseInt(this.dataset.index, 10);
-        scrollToSlide(index);
-        setActiveThumb(index);
+        hero.src = this.dataset.fullSrc;
+        hero.srcset = this.dataset.fullSrcset;
+        hero.alt = this.dataset.fullAlt || '';
+
+        thumbs.forEach(function (t) {
+          t.classList.remove('product-gallery__thumb--active');
+          t.setAttribute('aria-pressed', 'false');
+        });
+        this.classList.add('product-gallery__thumb--active');
+        this.setAttribute('aria-pressed', 'true');
       });
     });
 
-    // Mobile: click dot to scroll
-    dots.forEach(function (dot) {
-      dot.addEventListener('click', function () {
-        var index = parseInt(this.dataset.index, 10);
-        scrollToSlide(index);
-      });
-    });
+    // Expose method for swatch integration — updates variant image
+    section.__ghGalleryUpdateVariant = function (src, alt) {
+      if (!src) return;
+      var variantThumb = section.querySelector('[data-variant-thumb]');
 
-    // Track scroll position for dot/thumb updates
-    var scrollTimeout;
-    slidesContainer.addEventListener('scroll', function () {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(function () {
-        var scrollLeft = slidesContainer.scrollLeft;
-        var slideWidth = slidesContainer.offsetWidth;
-        var currentIndex = Math.round(scrollLeft / slideWidth);
-        setActiveDot(currentIndex);
-        setActiveThumb(currentIndex);
-      }, 50);
-    });
+      // Build sized URLs from base src
+      var baseSrc = src.replace(/[?&]width=\d+/g, '');
+      var sep = baseSrc.indexOf('?') !== -1 ? '&' : '?';
+      var heroSrc = baseSrc + sep + 'width=900';
+      var thumbSrc = baseSrc + sep + 'width=100';
+      var srcset = [400, 600, 900, 1200].map(function (w) {
+        return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
+      }).join(', ');
 
-    function scrollToSlide(index) {
-      var slideWidth = slidesContainer.offsetWidth;
-      slidesContainer.scrollTo({
-        left: slideWidth * index,
-        behavior: 'smooth'
-      });
-    }
+      // Update hero
+      hero.src = heroSrc;
+      hero.srcset = srcset;
+      hero.alt = alt || '';
 
-    function setActiveDot(index) {
-      dots.forEach(function (dot, i) {
-        dot.classList.toggle('product-gallery__dot--active', i === index);
-      });
-    }
-
-    function setActiveThumb(index) {
-      thumbs.forEach(function (thumb, i) {
-        thumb.classList.toggle('product-gallery__thumb--active', i === index);
-      });
-    }
-
-    // Expose scrollToMedia for swatch integration
-    section.__ghGalleryScrollToMedia = function (mediaId) {
-      for (var i = 0; i < slides.length; i++) {
-        if (slides[i].dataset.mediaId === String(mediaId)) {
-          scrollToSlide(i);
-          setActiveThumb(i);
-          setActiveDot(i);
-          return;
+      // Update variant thumbnail
+      if (variantThumb) {
+        variantThumb.dataset.fullSrc = heroSrc;
+        variantThumb.dataset.fullSrcset = srcset;
+        variantThumb.dataset.fullAlt = alt || '';
+        var thumbImg = variantThumb.querySelector('img');
+        if (thumbImg) {
+          thumbImg.src = thumbSrc;
+          thumbImg.alt = alt || '';
         }
+
+        // Set variant thumb as active
+        thumbs.forEach(function (t) {
+          t.classList.remove('product-gallery__thumb--active');
+          t.setAttribute('aria-pressed', 'false');
+        });
+        variantThumb.classList.add('product-gallery__thumb--active');
+        variantThumb.setAttribute('aria-pressed', 'true');
       }
     };
   }
@@ -169,9 +160,9 @@
         // Update ATC button state
         updateATCState(section, matchedVariant, moneyFormat);
 
-        // Scroll gallery to variant's featured media
-        if (matchedVariant.featured_media && section.__ghGalleryScrollToMedia) {
-          section.__ghGalleryScrollToMedia(matchedVariant.featured_media.id);
+        // Update gallery to show variant image
+        if (matchedVariant.featured_image && section.__ghGalleryUpdateVariant) {
+          section.__ghGalleryUpdateVariant(matchedVariant.featured_image.src, matchedVariant.featured_image.alt);
         }
       });
     });

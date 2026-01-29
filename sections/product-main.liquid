@@ -63,7 +63,7 @@
 
     {%- comment -%} ===== LEFT: Image Gallery ===== {%- endcomment -%}
     <div class="product-main__gallery">
-      {% render 'product-gallery', product: product %}
+      {% render 'product-gallery', product: product, section: section %}
     </div>
 
     {%- comment -%} ===== RIGHT: Product Info ===== {%- endcomment -%}
@@ -144,14 +144,14 @@
             <p class="product__option-label">Buy More, Save More</p>
             <div class="product__volume-tiers">
               <div class="product__volume-tier product__volume-tier--current">
-                <span class="product__volume-qty">1</span>
+                <span class="product__volume-qty">Buy Any 1</span>
                 <span class="product__volume-price">{{ selected_variant.price | money_without_trailing_zeros }} each</span>
               </div>
               <div class="product__volume-tier">
                 {%- if section.settings.tier_2_badge != blank -%}
                   <span class="product__qty-badge">{{ section.settings.tier_2_badge }}</span>
                 {%- endif -%}
-                <span class="product__volume-qty">Any 2</span>
+                <span class="product__volume-qty">Buy Any 2</span>
                 <span class="product__volume-price">{{ tier_2_price | money_without_trailing_zeros }} each</span>
                 {%- if savings_tier_2 > 0 -%}
                   <span class="product__volume-save">Save {{ savings_tier_2 | money_without_trailing_zeros }}</span>
@@ -161,7 +161,7 @@
                 {%- if section.settings.tier_3_badge != blank -%}
                   <span class="product__qty-badge">{{ section.settings.tier_3_badge }}</span>
                 {%- endif -%}
-                <span class="product__volume-qty">Any 3+</span>
+                <span class="product__volume-qty">Buy Any 3+</span>
                 <span class="product__volume-price">{{ tier_3_price | money_without_trailing_zeros }} each</span>
                 {%- if savings_tier_3 > 0 -%}
                   <span class="product__volume-save">Save {{ savings_tier_3 | money_without_trailing_zeros }}</span>
@@ -415,36 +415,23 @@
     position: relative;
   }
 
-  .product-gallery__main {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .product-gallery__main::-webkit-scrollbar {
-    display: none;
-  }
-
-  .product-gallery__slide {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
+  /* Hero image */
+  .product-gallery__hero {
     aspect-ratio: 1 / 1.25;
     overflow: hidden;
     border-radius: 12px;
   }
 
-  .product-gallery__slide img {
+  @media (min-width: 768px) {
+    .product-gallery__hero {
+      border-radius: var(--gh-card-radius, 16px);
+    }
+  }
+
+  .product-gallery__hero img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  @media (min-width: 768px) {
-    .product-gallery__slide {
-      border-radius: var(--gh-card-radius, 16px);
-    }
   }
 
   .product-gallery__placeholder {
@@ -452,55 +439,17 @@
     height: 100%;
   }
 
-  /* Dots — mobile */
-  .product-gallery__dots {
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
+  /* Thumbnails — always visible */
+  .product-gallery__thumbs {
     display: flex;
     gap: 8px;
-    z-index: 2;
+    margin-top: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
 
-  .product-gallery__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: background 150ms ease;
-  }
-
-  .product-gallery__dot--active {
-    background: white;
-  }
-
-  @media (min-width: 768px) {
-    .product-gallery__dots {
-      display: none;
-    }
-  }
-
-  /* Thumbs — desktop */
-  .product-gallery__thumbs {
+  .product-gallery__thumbs::-webkit-scrollbar {
     display: none;
-  }
-
-  @media (min-width: 768px) {
-    .product-gallery__thumbs {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .product-gallery__thumbs::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   .product-gallery__thumb {
@@ -1162,6 +1111,44 @@
       "id": "stat_guarantee_label",
       "label": "Guarantee label",
       "default": "Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Gallery Images"
+    },
+    {
+      "type": "paragraph",
+      "content": "The first thumbnail is always the selected variant image. Add up to 6 additional static images below."
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_1",
+      "label": "Gallery image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_2",
+      "label": "Gallery image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_3",
+      "label": "Gallery image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_4",
+      "label": "Gallery image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_5",
+      "label": "Gallery image 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_6",
+      "label": "Gallery image 6"
     }
   ],
   "presets": [

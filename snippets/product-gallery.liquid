@@ -1,78 +1,89 @@
 {%- comment -%}
-  Product image gallery.
-  Desktop: main image + thumbnails below.
-  Mobile: swipeable gallery with pagination dots.
-  Usage: {% render 'product-gallery', product: product %}
+  Product image gallery — hero image + thumbnail row.
+  First thumbnail = selected variant image (updates on variant change).
+  Remaining thumbnails = static images from section settings (editable in Shopify editor).
+  Usage: {% render 'product-gallery', product: product, section: section %}
 {%- endcomment -%}
 
+{%- liquid
+  assign selected_variant = product.selected_or_first_available_variant
+  assign hero_media = selected_variant.featured_media | default: product.featured_media
+-%}
+
 <div class="product-gallery" data-product-gallery>
-  {%- if product.media.size > 0 -%}
-    <div class="product-gallery__main" data-gallery-slides>
-      {%- for media in product.media -%}
-        <div
-          class="product-gallery__slide{% if forloop.first %} product-gallery__slide--active{% endif %}"
-          data-gallery-slide
-          data-media-id="{{ media.id }}"
-          data-index="{{ forloop.index0 }}"
-        >
-          <img
-            src="{{ media | image_url: width: 900 }}"
-            srcset="{{ media | image_url: width: 400 }} 400w, {{ media | image_url: width: 600 }} 600w, {{ media | image_url: width: 900 }} 900w, {{ media | image_url: width: 1200 }} 1200w"
-            sizes="(min-width: 768px) 50vw, 100vw"
-            alt="{{ media.alt | escape | default: product.title }}"
-            width="{{ media.preview_image.width }}"
-            height="{{ media.preview_image.height }}"
-            loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-            draggable="false"
-          >
-        </div>
-      {%- endfor -%}
+  {%- if hero_media -%}
+    <div class="product-gallery__hero">
+      <img
+        data-gallery-hero
+        src="{{ hero_media | image_url: width: 900 }}"
+        srcset="{{ hero_media | image_url: width: 400 }} 400w, {{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w"
+        sizes="(min-width: 768px) 50vw, 100vw"
+        alt="{{ hero_media.alt | escape | default: product.title }}"
+        width="{{ hero_media.preview_image.width }}"
+        height="{{ hero_media.preview_image.height }}"
+        loading="eager"
+        draggable="false"
+      >
     </div>
 
-    {%- comment -%} Mobile pagination dots {%- endcomment -%}
-    {%- if product.media.size > 1 -%}
-      <div class="product-gallery__dots" data-gallery-dots>
-        {%- for media in product.media -%}
-          <button
-            type="button"
-            class="product-gallery__dot{% if forloop.first %} product-gallery__dot--active{% endif %}"
-            data-gallery-dot
-            data-index="{{ forloop.index0 }}"
-            aria-label="View image {{ forloop.index }}"
-          ></button>
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
+    <div class="product-gallery__thumbs" data-gallery-thumbs>
+      {%- comment -%} Variant thumbnail — always first {%- endcomment -%}
+      <button
+        type="button"
+        class="product-gallery__thumb product-gallery__thumb--active"
+        data-gallery-thumb
+        data-variant-thumb
+        data-full-src="{{ hero_media | image_url: width: 900 }}"
+        data-full-srcset="{{ hero_media | image_url: width: 400 }} 400w, {{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w"
+        data-full-alt="{{ hero_media.alt | escape | default: product.title }}"
+        aria-label="Variant image"
+        aria-pressed="true"
+      >
+        <img
+          src="{{ hero_media | image_url: width: 100 }}"
+          alt="{{ hero_media.alt | escape | default: product.title }}"
+          width="80"
+          height="80"
+          loading="eager"
+          draggable="false"
+        >
+      </button>
 
-    {%- comment -%} Desktop thumbnails {%- endcomment -%}
-    {%- if product.media.size > 1 -%}
-      <div class="product-gallery__thumbs" data-gallery-thumbs>
-        {%- for media in product.media -%}
+      {%- comment -%} Static gallery images from section settings {%- endcomment -%}
+      {%- for i in (1..6) -%}
+        {%- case i -%}
+          {%- when 1 -%}{%- assign gallery_img = section.settings.gallery_image_1 -%}
+          {%- when 2 -%}{%- assign gallery_img = section.settings.gallery_image_2 -%}
+          {%- when 3 -%}{%- assign gallery_img = section.settings.gallery_image_3 -%}
+          {%- when 4 -%}{%- assign gallery_img = section.settings.gallery_image_4 -%}
+          {%- when 5 -%}{%- assign gallery_img = section.settings.gallery_image_5 -%}
+          {%- when 6 -%}{%- assign gallery_img = section.settings.gallery_image_6 -%}
+        {%- endcase -%}
+        {%- if gallery_img != blank -%}
           <button
             type="button"
-            class="product-gallery__thumb{% if forloop.first %} product-gallery__thumb--active{% endif %}"
+            class="product-gallery__thumb"
             data-gallery-thumb
-            data-index="{{ forloop.index0 }}"
-            data-media-id="{{ media.id }}"
-            aria-label="View image {{ forloop.index }}"
+            data-full-src="{{ gallery_img | image_url: width: 900 }}"
+            data-full-srcset="{{ gallery_img | image_url: width: 400 }} 400w, {{ gallery_img | image_url: width: 600 }} 600w, {{ gallery_img | image_url: width: 900 }} 900w, {{ gallery_img | image_url: width: 1200 }} 1200w"
+            data-full-alt="{{ gallery_img.alt | escape | default: product.title }}"
+            aria-label="Gallery image {{ i }}"
           >
             <img
-              src="{{ media | image_url: width: 100 }}"
-              alt="{{ media.alt | escape | default: product.title }}"
-              width="64"
-              height="64"
+              src="{{ gallery_img | image_url: width: 100 }}"
+              alt="{{ gallery_img.alt | escape | default: product.title }}"
+              width="80"
+              height="80"
               loading="lazy"
               draggable="false"
             >
           </button>
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
   {%- else -%}
-    <div class="product-gallery__main">
-      <div class="product-gallery__slide product-gallery__slide--active">
-        {{ 'product-1' | placeholder_svg_tag: 'product-gallery__placeholder' }}
-      </div>
+    <div class="product-gallery__hero">
+      {{ 'product-1' | placeholder_svg_tag: 'product-gallery__placeholder' }}
     </div>
   {%- endif -%}
 </div>
