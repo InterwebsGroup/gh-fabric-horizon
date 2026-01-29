@@ -147,25 +147,6 @@
         </button>
       </form>
 
-      {%- comment -%} Bold selling points strip — 3 key stats {%- endcomment -%}
-      {%- liquid
-        assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
-      -%}
-      <div class="product__selling-points">
-        <div class="product__selling-point">
-          <span class="product__selling-point-number">{{ review_count_display }}</span>
-          <span class="product__selling-point-label">{{ section.settings.stat_reviews_label | default: '5-Star Reviews' }}</span>
-        </div>
-        <div class="product__selling-point">
-          <span class="product__selling-point-number">{{ settings.happy_customers_count | default: '225,000+' }}</span>
-          <span class="product__selling-point-label">{{ section.settings.stat_customers_label | default: 'Happy Customers' }}</span>
-        </div>
-        <div class="product__selling-point">
-          <span class="product__selling-point-number">{{ section.settings.stat_guarantee_number | default: '30-Day' }}</span>
-          <span class="product__selling-point-label">{{ section.settings.stat_guarantee_label | default: 'Guarantee' }}</span>
-        </div>
-      </div>
-
       {%- comment -%} Volume pricing banner (sitewide mix & match — informational only) {%- endcomment -%}
       {%- if settings.pricing_mode == 'tiered' and is_tier_eligible -%}
         {%- liquid
@@ -287,25 +268,50 @@
         {%- endif -%}
       {%- endunless -%}
 
+      {%- comment -%} Bold selling points strip — 3 key stats {%- endcomment -%}
+      {%- liquid
+        assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
+      -%}
+      <div class="product__selling-points">
+        <div class="product__selling-point">
+          <span class="product__selling-point-number">{{ review_count_display }}</span>
+          <span class="product__selling-point-label">{{ section.settings.stat_reviews_label | default: '5-Star Reviews' }}</span>
+        </div>
+        <div class="product__selling-point">
+          <span class="product__selling-point-number">{{ settings.happy_customers_count | default: '225,000+' }}</span>
+          <span class="product__selling-point-label">{{ section.settings.stat_customers_label | default: 'Happy Customers' }}</span>
+        </div>
+        <div class="product__selling-point">
+          <span class="product__selling-point-number">{{ section.settings.stat_guarantee_number | default: '30-Day' }}</span>
+          <span class="product__selling-point-label">{{ section.settings.stat_guarantee_label | default: 'Guarantee' }}</span>
+        </div>
+      </div>
+
       {%- comment -%} Trust badges {%- endcomment -%}
       <div class="product__trust-bar">
-        <div class="product__trust-item">
-          <span class="product__trust-icon">&#10003;</span>
-          <span>Free shipping ${{ settings.free_shipping_threshold | default: 75 }}+</span>
-        </div>
-        <div class="product__trust-item">
-          <span class="product__trust-icon">&#8617;</span>
-          <span>30-Day Guarantee</span>
-        </div>
-        <div class="product__trust-item">
-          <svg class="product__trust-flag" width="16" height="12" viewBox="0 0 16 12" aria-hidden="true">
-            <rect width="16" height="4" fill="#B22234"/>
-            <rect y="4" width="16" height="4" fill="#fff"/>
-            <rect y="8" width="16" height="4" fill="#B22234"/>
-            <rect width="6" height="7" fill="#3C3B6E"/>
-          </svg>
-          <span>Made in USA</span>
-        </div>
+        {%- if section.settings.trust_item_1 != blank -%}
+          <div class="product__trust-item">
+            <span class="product__trust-icon">&#10003;</span>
+            <span>{{ section.settings.trust_item_1 }}</span>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.trust_item_2 != blank -%}
+          <div class="product__trust-item">
+            <span class="product__trust-icon">&#8617;</span>
+            <span>{{ section.settings.trust_item_2 }}</span>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.trust_item_3 != blank -%}
+          <div class="product__trust-item">
+            <svg class="product__trust-flag" width="16" height="12" viewBox="0 0 16 12" aria-hidden="true">
+              <rect width="16" height="4" fill="#B22234"/>
+              <rect y="4" width="16" height="4" fill="#fff"/>
+              <rect y="8" width="16" height="4" fill="#B22234"/>
+              <rect width="6" height="7" fill="#3C3B6E"/>
+            </svg>
+            <span>{{ section.settings.trust_item_3 }}</span>
+          </div>
+        {%- endif -%}
       </div>
 
       {%- comment -%} Product accordions {%- endcomment -%}
@@ -995,26 +1001,27 @@
   .product__trust-bar {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    padding: 16px 0;
+    gap: 12px;
+    flex-wrap: nowrap;
+    padding: 12px 0;
     border-top: 1px solid var(--gh-sand, #e8d5c4);
     border-bottom: 1px solid var(--gh-sand, #e8d5c4);
     margin-bottom: 24px;
+    white-space: nowrap;
   }
 
   .product__trust-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: var(--gh-espresso-light, #5a4a3d);
   }
 
   .product__trust-icon {
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
 
   .product__trust-flag {
@@ -1216,11 +1223,11 @@
     },
     {
       "type": "header",
-      "content": "Stats Bar"
+      "content": "Selling Points Strip"
     },
     {
       "type": "paragraph",
-      "content": "Three stats shown below the Add to Cart button."
+      "content": "Three stats shown above the trust bar."
     },
     {
       "type": "text",
@@ -1252,6 +1259,32 @@
       "id": "stat_guarantee_label",
       "label": "Guarantee label",
       "default": "Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Trust Bar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Three trust items shown on a single line below the selling points strip."
+    },
+    {
+      "type": "text",
+      "id": "trust_item_1",
+      "label": "Trust item 1",
+      "default": "Free shipping $75+"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_2",
+      "label": "Trust item 2",
+      "default": "30-Day Guarantee"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_3",
+      "label": "Trust item 3",
+      "default": "Made in USA"
     },
     {
       "type": "header",
