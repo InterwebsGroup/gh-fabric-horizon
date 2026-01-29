@@ -310,6 +310,14 @@ export class OverflowList extends DeclarativeShadowElement {
       }
     });
 
+    // Enforce --max-items cap from CSS custom property (responsive via media queries)
+    const maxItems = parseInt(getComputedStyle(this).getPropertyValue('--max-items'), 10);
+    if (maxItems > 0 && visibleElements.length > maxItems) {
+      const excessElements = visibleElements.splice(maxItems);
+      overflowingElements.unshift(...excessElements);
+      hasOverflow = true;
+    }
+
     if (hasOverflow) {
       moreSlot.style.removeProperty('order');
     }

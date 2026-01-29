@@ -270,9 +270,16 @@
      SWATCHES BELOW IMAGE
      ============================================ */
 
-  /* Let overflow-list fill available card width — shows ~8 swatches on desktop */
+  /* Let overflow-list fill available card width */
   .product-grid product-swatches {
     max-width: 100%;
+    --max-items: 10;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-grid product-swatches {
+      --max-items: 5;
+    }
   }
 
   /* Swatch sizing - espresso border for visibility on light background */
