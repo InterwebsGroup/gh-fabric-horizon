@@ -243,17 +243,26 @@
       assign total_compare_at = total_compare_at | plus: item_compare
     endfor
 
+    assign is_us = false
+    if localization.country.iso_code == 'US'
+      assign is_us = true
+    endif
+
     assign threshold_cents = settings.free_shipping_threshold | times: 100
     assign shipping_is_free = false
-    if cart.total_price >= threshold_cents
+    if is_us and cart.total_price >= threshold_cents
       assign shipping_is_free = true
     endif
   -%}
 
   <span class="cart__summary-item gh-cart-shipping-row">
     <span class="gh-cart-shipping-row__label cart-primary-typography">Shipping</span>
-    {%- if shipping_is_free -%}
-      <span class="gh-cart-shipping-row__value gh-cart-shipping-row__value--free">FREE</span>
+    {%- if is_us -%}
+      {%- if shipping_is_free -%}
+        <span class="gh-cart-shipping-row__value gh-cart-shipping-row__value--free">FREE</span>
+      {%- else -%}
+        <span class="gh-cart-shipping-row__value gh-cart-shipping-row__value--flat">${{ settings.shipping_cost }}</span>
+      {%- endif -%}
     {%- else -%}
       <span class="gh-cart-shipping-row__value">Calculated at Checkout</span>
     {%- endif -%}
@@ -278,6 +287,10 @@
         >
           {{ total_price }}
         </text-component>
+        {%- assign total_savings = total_compare_at | minus: cart.total_price -%}
+        {%- if total_savings > 0 -%}
+          <span class="gh-cart-save-pill gh-cart-save-pill--total">SAVE {{ total_savings | money }}</span>
+        {%- endif -%}
       </span>
     </span>
     {% if settings.show_installments %}

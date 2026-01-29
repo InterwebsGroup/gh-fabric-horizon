@@ -4373,10 +4373,37 @@ h1, h2, h3, h4, h5, h6,
   opacity: 1;
 }
 
+.gh-cart-shipping-row__value--flat {
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* ── Cart Save Pills ── */
+.gh-cart-save-pill {
+  display: inline-block;
+  background: var(--gh-terracotta);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  vertical-align: middle;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+.gh-cart-save-pill--total {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+}
+
 /* ── Cart Total with compare-at ── */
 .cart__total-values {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 

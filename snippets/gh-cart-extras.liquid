@@ -78,7 +78,7 @@
   {%- endif -%}
 
   {%- comment -%} ——— Shipping Progress Bar ——— {%- endcomment -%}
-  {%- if settings.show_shipping_progress_bar -%}
+  {%- if settings.show_shipping_progress_bar and localization.country.iso_code == 'US' -%}
     {%- liquid
       assign threshold_cents = settings.free_shipping_threshold | times: 100
       assign remaining_cents = threshold_cents | minus: cart.total_price
