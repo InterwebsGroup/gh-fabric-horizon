@@ -4414,6 +4414,20 @@ h1, h2, h3, h4, h5, h6,
   color: #2E8B3F;
   font-weight: 700;
   opacity: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.gh-cart-shipping-row__was {
+  color: var(--color-foreground);
+  opacity: 0.5;
+  font-weight: 400;
+  text-decoration: line-through;
+}
+
+.gh-cart-save-pill--shipping {
+  flex-shrink: 0;
 }
 
 .gh-cart-shipping-row__value--flat {

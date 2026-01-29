@@ -235,11 +235,19 @@
     endif
 
     comment
-      Add shipping cost to displayed total for US customers
+      Shipping cost in cents — always calculated so we can show savings when free
+    endcomment
+    assign full_shipping_cents = 0
+    if is_us
+      assign full_shipping_cents = settings.shipping_cost | times: 100
+    endif
+
+    comment
+      Display total includes shipping when not free
     endcomment
     assign shipping_cost_cents = 0
     if is_us and shipping_is_free == false
-      assign shipping_cost_cents = settings.shipping_cost | times: 100
+      assign shipping_cost_cents = full_shipping_cents
     endif
     assign display_total = cart.total_price | plus: shipping_cost_cents
 
@@ -252,6 +260,7 @@
     comment
       Compare-at price with +$20 fallback for testing display
       TODO: Remove this fallback before launch
+      Always includes full shipping cost so savings reflects shipping discount too
     endcomment
     assign total_compare_at = 0
     for item in cart.items
@@ -262,7 +271,7 @@
       assign item_compare = gh_compare_at | times: item.quantity
       assign total_compare_at = total_compare_at | plus: item_compare
     endfor
-    assign total_compare_at = total_compare_at | plus: shipping_cost_cents
+    assign total_compare_at = total_compare_at | plus: full_shipping_cents
   -%}
 
   {%- if is_us and settings.show_shipping_progress_bar -%}
@@ -293,7 +302,11 @@
     {%- endif -%}
     {%- if is_us -%}
       {%- if shipping_is_free -%}
-        <span class="gh-cart-shipping-row__value gh-cart-shipping-row__value--free">FREE</span>
+        <span class="gh-cart-shipping-row__value gh-cart-shipping-row__value--free">
+          <s class="gh-cart-shipping-row__was">${{ settings.shipping_cost }}</s>
+          FREE
+        </span>
+        <span class="gh-cart-save-pill gh-cart-save-pill--shipping">SAVED {{ full_shipping_cents | money }}</span>
       {%- else -%}
         <span class="gh-cart-shipping-row__value gh-cart-shipping-row__value--flat">${{ settings.shipping_cost }}</span>
       {%- endif -%}
