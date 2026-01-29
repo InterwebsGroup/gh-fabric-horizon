@@ -409,4 +409,66 @@ Add to `config/settings_schema.json`:
 
 **All copy from copy-spec.md. All design from visual-spec.md.**
 
-Go build. 🧥
+Go build.
+
+---
+
+## Current Progress (Updated 2026-01-28)
+
+### Phase 1: Sitewide Dependencies -- PARTIAL
+- [x] CSS variables (colors, fonts) defined in gh-collection-styles and product-main
+- [x] Google Fonts (Fraunces + DM Sans) loaded via theme settings
+- [x] Header drop shadow added globally (base.css)
+- [ ] Header sticky on scroll up / hide on scroll down (using Fabric default)
+- [ ] Footer customization (using Fabric default)
+- [ ] Global button styles (defined in product-main, not yet global)
+- [ ] Cart drawer customization (using Fabric default)
+
+### Phase 2: Homepage -- NOT STARTED
+- [ ] Hero section
+- [ ] Social proof bar
+- [ ] Value props
+- [ ] Best sellers grid
+- [ ] Feature blocks
+- [ ] Comparison table
+- [ ] Newsletter signup
+
+### Phase 3: Collection Page -- DONE
+- [x] Collection header with hero banner, filter buttons, description
+- [x] Product grid: 4-col desktop, 2-col mobile, info below image
+- [x] Volume pricing banner (green, sticky below header)
+- [x] Color swatches on product cards (20px desktop, 14px mobile)
+- [x] Pagination dots inside card gallery
+- [x] Filtering and sorting
+
+### Phase 4: Product Page -- DONE
+- [x] Image gallery (hero + thumbnails)
+- [x] Price display with savings from compare-at
+- [x] Color swatches (42px, 62 colors mapped)
+- [x] Volume pricing tiers (Hollow Socks-inspired layout)
+- [x] Add to Cart button with dynamic price
+- [x] Stats bar (reviews, customers, guarantee)
+- [x] Trust bar
+- [x] FAQ accordions (5 sections)
+- [x] Mobile sticky ATC
+- [x] Social proof section
+- [x] Testimonials section
+- [x] Product recommendations
+- [x] Back-in-stock email form
+- [ ] Mobile gallery swipe/dots
+- [ ] Zoom on hover
+- [ ] Additional product templates (kids-hoodie, shirt, blanket)
+
+### Phase 5: Cart Drawer -- NOT STARTED
+- [ ] Drawer slides from right
+- [ ] Opens on Add to Cart
+- [ ] Upsell messages by hoodie count
+- [ ] Shipping progress bar
+- [ ] Savings display
+
+### Key Architecture Decisions
+- Volume pricing is **informational only** on PDP -- actual discounts applied via Shopify automatic discounts at cart level
+- Swatch colors managed via **settings textarea** (editable in Shopify admin) with hardcoded fallback in swatch-color.liquid
+- Compare-at price has **$20 fallback** when not set on a product (temporary until all products updated)
+- CSS uses **overflow-x: clip** (not hidden) on .content-for-layout to avoid breaking sticky positioning on collection page
+- Header shadow is in **base.css** (global) not in section stylesheet

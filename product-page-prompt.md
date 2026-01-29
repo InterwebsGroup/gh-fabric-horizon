@@ -6,6 +6,74 @@ Build a high-converting product page template using Hollow Socks PDP as the CRO 
 
 ---
 
+## Implementation Status (Updated 2026-01-28)
+
+### Completed Components
+
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Image Gallery | Done | Hero + thumbnail row (no mobile swipe yet, static thumbnails) |
+| Product Title | Done | Fraunces heading, responsive sizing |
+| Price Display | Done | Current price, struck-through compare-at, terracotta "Save $XX" pill badge |
+| Value Prop Bullets | Done | 3 checkmark benefits below price |
+| Color Swatches | Done | 42px circles, 62 colors mapped via settings textarea + hardcoded fallback |
+| Volume Pricing Tiers | Done | Horizontal flexbox layout (Hollow Socks style), ribbon badges, total price + compare-at + "Save $XX" |
+| Add to Cart Button | Done | Pill-shaped espresso button with dynamic price |
+| Stats Bar | Done | Star reviews, happy customers, 30-day guarantee icons |
+| Accordions | Done | 5 sections: What's a Giant Hoodie?, How Do They Fit?, Fabric & Care, Shipping, 30-Day Guarantee |
+| Trust Bar | Done | Free shipping, guarantee, made in USA |
+| Mobile Sticky ATC | Done | Shows on scroll, hides when main ATC visible |
+| Social Proof Section | Done | "As Seen On" press mentions (separate section) |
+| Testimonials Section | Done | 4 customer quotes in 2-col grid (separate section) |
+| Product Recommendations | Done | "You Might Also Love" carousel (separate section) |
+| Back-in-Stock Form | Done | Email notification for sold-out variants |
+| Global Header Shadow | Done | Moved to base.css, applies sitewide |
+
+### Key Deviations from Original Spec
+
+1. **Quantity selector** -- Changed from interactive "pack" buttons (1/2/3+) to static informational "Buy More, Save More" volume pricing tiers. Quantity is always 1; discounts apply automatically via Shopify's cart-level automatic discounts.
+2. **Volume pricing layout** -- Horizontal flexbox rows (left: qty label + % off pill + per-each price, right: total price + struck compare-at + Save $XX) with ribbon badges ("Most Popular", "Best Value") at top-right of tier 2 and 3.
+3. **Volume heading** -- Uses decorative side lines on desktop (flexbox ::before/::after), clean centered text on mobile. Text: "Buy More, Save More! Mix & Match Any Designs and Colors!"
+4. **Swatch sizing** -- Increased from 36px to 42px for easier tapping. Gap increased to 10px. 7 swatches fit per row on 390px mobile.
+5. **Gallery** -- Hero image + horizontal thumbnail row below (always visible). No mobile swipe/dots yet.
+6. **Compare-at fallback** -- If compare_at_price is blank/nil/0, falls back to price + $20 as temporary placeholder.
+7. **Savings math** -- Always calculated from compare-at price. Tier 2: (compare_at x 2) - (tier_2_price x 2). Tier 3: (compare_at x 3) - (tier_3_price x 3). Tier 3 displays "Save $XX or more!"
+8. **CSS overflow** -- Uses overflow-x: clip (not hidden) on .content-for-layout to prevent viewport expansion without breaking sticky positioning on other pages.
+9. **Bottom note** -- "Deal applies sitewide to any hoodies you add to cart!" centered below tiers.
+
+### Files Modified/Created
+
+| File | Purpose |
+|------|---------|
+| `sections/product-main.liquid` | Main product section (~1212 lines: HTML, CSS, schema) |
+| `assets/product-page.js` | Client-side JS: gallery, swatches, price, ATC (~490 lines) |
+| `snippets/product-gallery.liquid` | Hero image + thumbnail row with placeholder SVGs |
+| `snippets/product-swatches.liquid` | Circular swatch buttons with light-swatch detection |
+| `snippets/swatch-color.liquid` | Color lookup: settings textarea then hardcoded fallback |
+| `templates/product.json` | Template: product-main, social-proof, testimonials, recommendations |
+| `sections/product-social-proof.liquid` | "As Seen On" press mentions section |
+| `sections/product-testimonials.liquid` | Customer quotes in 2-col grid |
+| `assets/base.css` | Added global header drop shadow |
+
+### Known Issues / Future Work
+
+- Mobile gallery swipe + pagination dots not implemented (using thumbnails for now)
+- Reviews app integration placeholder (no app installed yet)
+- Product templates for other types (kids-hoodie, shirt, blanket) not yet created
+- Zoom on hover not implemented
+- "Only one accordion open at a time" behavior not implemented (all can be open)
+
+### Bugs Fixed During Build
+
+1. formatMoney() -- Shopify money_format had spaces that broke regex; fixed with normalization
+2. Swatch colors all gray -- assign found_color was stripping # chars; fixed parsing
+3. Volume pricing math -- Was using (current - tier), corrected to (compare_at x qty) - (tier x qty)
+4. Mobile viewport overflow (3 iterations) -- Root cause: .content-for-layout needed overflow constraint
+5. Sticky pricing banner on collection page broken -- overflow-x: hidden changed to overflow-x: clip
+6. Git push rejected -- Shopify theme editor changes needed git pull --rebase
+
+---
+
 ## Above-the-Fold Structure
 
 Copy Hollow's information hierarchy — this order is intentional for conversion:
