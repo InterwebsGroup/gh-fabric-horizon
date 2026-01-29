@@ -426,7 +426,7 @@ Go build.
 
 ### Phase 2: Homepage -- DONE
 - [x] Hero section (Fabric default, customized with GH copy/styling, image via Shopify admin)
-- [x] Stats bar (custom section: 225,000+ customers, 4.9★, 90-day guarantee)
+- [x] Stats bar (custom section: 225,000+ customers, 4.9★, 30-day guarantee)
 - [x] Press logos bar (custom section: Oprah, GMA, Forbes, Cosmopolitan, Kelly & Mark, The View)
 - [x] Best Sellers product grid (Fabric product-list, 8 products configured)
 - [x] Category tiles (custom section: 6 tiles — Hoodies, Kids, Blankets, Shirts, Best Sellers, New)

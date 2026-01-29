@@ -38,8 +38,6 @@
     {%- endif -%}
   </div>
 
-  {% render 'gh-cart-extras', part: 'savings' %}
-
   {% if settings.show_cart_note or settings.show_add_discount_code %}
     <div class="cart-actions">
       {% if settings.show_cart_note %}
@@ -230,23 +228,53 @@
     else
       assign total_price = cart.total_price | money
     endif
+
+    assign total_compare_at = 0
+    for item in cart.items
+      if item.variant.compare_at_price
+        assign item_compare = item.variant.compare_at_price | times: item.quantity
+      else
+        assign item_compare = item.original_price | times: item.quantity
+      endif
+      assign total_compare_at = total_compare_at | plus: item_compare
+    endfor
+
+    assign threshold_cents = settings.free_shipping_threshold | times: 100
+    assign shipping_is_free = false
+    if cart.total_price >= threshold_cents
+      assign shipping_is_free = true
+    endif
   -%}
+
+  <span class="cart__summary-item gh-cart-shipping-row">
+    <span class="gh-cart-shipping-row__label cart-primary-typography">Shipping</span>
+    {%- if shipping_is_free -%}
+      <span class="gh-cart-shipping-row__value gh-cart-shipping-row__value--free">FREE</span>
+    {%- else -%}
+      <span class="gh-cart-shipping-row__value">Calculated at Checkout</span>
+    {%- endif -%}
+  </span>
 
   <div class="cart__total-container{% if settings.show_installments %} cart__total-container--has-installments{% endif %}">
     <span
       class="cart__summary-item cart__total"
       role="status"
     >
-      <span class="cart__total-label cart-primary-typography">{{ 'content.cart_estimated_total' | t }}</span>
-      <text-component
-        ref="cartTotal"
-        value="{{ total_price | strip_html }}"
-        class="cart__total-value cart-secondary-typography"
-        {% comment %} Used by payment_terms web component {% endcomment %}
-        data-cart-subtotal
-      >
-        {{ total_price }}
-      </text-component>
+      <span class="cart__total-label cart-primary-typography">TOTAL</span>
+      <span class="cart__total-values">
+        {%- if total_compare_at > cart.total_price -%}
+          <span class="gh-cart-was-price"><s>{{ total_compare_at | money }}</s></span>
+        {%- endif -%}
+        <text-component
+          ref="cartTotal"
+          value="{{ total_price | strip_html }}"
+          class="cart__total-value cart-secondary-typography"
+          {% comment %} Used by payment_terms web component {% endcomment %}
+          data-cart-subtotal
+        >
+          {{ total_price }}
+        </text-component>
+      </span>
     </span>
     {% if settings.show_installments %}
       <span class="cart__summary-item cart__installments">

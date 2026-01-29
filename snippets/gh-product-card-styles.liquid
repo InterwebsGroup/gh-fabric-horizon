@@ -1,0 +1,347 @@
+{% comment %}
+  Giant Hoodies Product Card Styles (Universal)
+  Applied to product cards wherever they appear:
+  collection pages, homepage, product recommendations, etc.
+{% endcomment %}
+
+{% style %}
+  /* ============================================
+     GIANT HOODIES DESIGN SYSTEM - COLOR VARIABLES
+     ============================================ */
+  :root {
+    /* Brand Colors */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-terracotta: #c75d38;
+    --color-espresso: #3d3028;
+    --color-cream: #faf7f4;
+    --color-sand: #e8e0d5;
+
+    /* Semantic Colors */
+    --color-sale: #e53935;
+    --color-success: #2d5016;
+    --color-success-light: #3d6b1f;
+  }
+
+  /* ============================================
+     PRODUCT CARD - INFO BELOW IMAGE
+     Title, price, swatches sit below the image
+     ============================================ */
+
+  /* Card container - relative positioning */
+  .product-grid product-card,
+  .resource-list product-card {
+    position: relative;
+  }
+
+  .product-grid .product-card__content,
+  .resource-list .product-card__content {
+    position: relative;
+    overflow: visible !important;
+  }
+
+  /* Image gallery - rounded corners, fixed aspect ratio */
+  .product-grid .card-gallery,
+  .resource-list .card-gallery {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  /* Info block - static flow below image */
+  .product-grid .product-card__content > .group-block,
+  .resource-list .product-card__content > .group-block {
+    position: static;
+    padding: 12px 4px 4px;
+    background: none;
+    pointer-events: auto;
+  }
+
+  /* ============================================
+     TEXT BELOW IMAGE - DARK ON LIGHT BACKGROUND
+     ============================================ */
+
+  /* Title - espresso, bold, max 2 lines */
+  /* Override inline --color CSS variable and target dynamic class names */
+  .product-grid .text-block[class*="product_title"],
+  .product-grid .text-block[class*="product_title"] p,
+  .product-grid .text-block[class*="product_title"] span,
+  .product-grid product-title,
+  .product-grid product-title a,
+  .product-grid product-title .text-block,
+  .product-grid product-title .text-block p,
+  .resource-list .text-block[class*="product_title"],
+  .resource-list .text-block[class*="product_title"] p,
+  .resource-list .text-block[class*="product_title"] span,
+  .resource-list product-title,
+  .resource-list product-title a,
+  .resource-list product-title .text-block,
+  .resource-list product-title .text-block p {
+    --color: var(--gh-espresso, #3d3028) !important;
+    color: var(--gh-espresso, #3d3028) !important;
+    text-shadow: none !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Clamp title text to 2 lines with ellipsis */
+  .product-grid .text-block[class*="product_title"] p,
+  .product-grid product-title .text-block p,
+  .resource-list .text-block[class*="product_title"] p,
+  .resource-list product-title .text-block p {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Current price - espresso, bold, larger */
+  .product-grid product-price .price,
+  .resource-list product-price .price {
+    color: var(--gh-espresso, #3d3028) !important;
+    font-weight: 700;
+    font-size: 1.15rem;
+    text-shadow: none;
+  }
+
+  /* Compare-at price - espresso muted with strikethrough */
+  .product-grid product-price .compare-at-price,
+  .resource-list product-price .compare-at-price {
+    color: var(--gh-espresso-light, #5a4a3d) !important;
+    opacity: 0.6 !important;
+    text-decoration: line-through;
+    font-size: 1.1rem;
+    margin-right: 8px;
+    font-weight: 500;
+    text-shadow: none;
+  }
+
+  /* Savings badge - red background, positioned nicely */
+  .product-grid product-price .price-savings,
+  .resource-list product-price .price-savings {
+    display: inline-block;
+    background: var(--gh-terracotta, #c4704b);
+    color: var(--color-white) !important;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    vertical-align: middle;
+    text-shadow: none;
+  }
+
+  /* Hide tiered pricing note - redundant with savings badge */
+  .product-grid .gh-tiered-pricing-note,
+  .resource-list .gh-tiered-pricing-note {
+    display: none;
+  }
+
+  /* ============================================
+     SWATCHES BELOW IMAGE
+     ============================================ */
+
+  /* Let overflow-list fill available card width */
+  .product-grid product-swatches,
+  .resource-list product-swatches {
+    max-width: 100%;
+    --max-items: 10;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-grid product-swatches,
+    .resource-list product-swatches {
+      --max-items: 5;
+    }
+  }
+
+  /* Swatch sizing - espresso border for visibility on light background */
+  .product-grid .swatch,
+  .resource-list .swatch {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(61, 48, 40, 0.25);
+    border-radius: 50%;
+  }
+
+  /* Tighter gap between swatches */
+  .product-grid .variant-option--swatches overflow-list::part(list),
+  .resource-list .variant-option--swatches overflow-list::part(list) {
+    gap: 4px;
+  }
+
+  .product-grid .swatch:hover,
+  .resource-list .swatch:hover {
+    border-color: var(--gh-espresso, #3d3028);
+  }
+
+  /* "+X" overflow count - dark text */
+  .product-grid .hidden-swatches__count,
+  .resource-list .hidden-swatches__count {
+    color: var(--gh-espresso-light, #5a4a3d);
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* ============================================
+     MOBILE ADJUSTMENTS
+     ============================================ */
+  @media screen and (max-width: 749px) {
+    /* Info block below image - tighter padding on mobile */
+    .product-grid .product-card__content > .group-block,
+    .resource-list .product-card__content > .group-block {
+      padding: 8px 6px 0;
+    }
+
+    .product-grid .text-block[class*="product_title"],
+    .product-grid .text-block[class*="product_title"] p,
+    .product-grid .text-block[class*="product_title"] span,
+    .product-grid product-title,
+    .product-grid product-title a,
+    .product-grid product-title .text-block,
+    .product-grid product-title .text-block p,
+    .resource-list .text-block[class*="product_title"],
+    .resource-list .text-block[class*="product_title"] p,
+    .resource-list .text-block[class*="product_title"] span,
+    .resource-list product-title,
+    .resource-list product-title a,
+    .resource-list product-title .text-block,
+    .resource-list product-title .text-block p {
+      font-size: 0.9rem !important;
+      font-weight: 700 !important;
+    }
+
+    .product-grid product-price .price,
+    .resource-list product-price .price {
+      font-size: 0.95rem;
+    }
+
+    .product-grid product-price .compare-at-price,
+    .resource-list product-price .compare-at-price {
+      font-size: 0.9rem;
+      margin-right: 4px;
+    }
+
+    .product-grid product-price .price-savings,
+    .resource-list product-price .price-savings {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      margin-left: 6px;
+    }
+
+    /* Smaller swatches on mobile - fit more in available width */
+    .product-grid product-swatches,
+    .resource-list product-swatches {
+      max-width: 100%;
+    }
+
+    .product-grid .swatch,
+    .resource-list .swatch {
+      width: 14px;
+      height: 14px;
+      border-width: 1.5px;
+    }
+
+    /* No border radius on mobile - edge-to-edge image */
+    .product-grid .card-gallery,
+    .resource-list .card-gallery {
+      border-radius: 0;
+    }
+
+    /* Dots at bottom on mobile too */
+    .product-grid .gallery-pagination-dots,
+    .resource-list .gallery-pagination-dots {
+      bottom: 10px;
+    }
+  }
+
+  /* ============================================
+     BADGE POSITIONING
+     ============================================ */
+
+  /* Quick add button - constrained to image area */
+  .product-grid .quick-add,
+  .resource-list .quick-add {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    z-index: 10;
+  }
+
+  /* Product badges - top left, above gradient */
+  .product-grid .product-badge,
+  .resource-list .product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+  }
+
+  /* ============================================
+     PAGINATION DOTS FOR PRODUCT CARD GALLERY
+     Dots are rendered INSIDE card-gallery
+     ============================================ */
+
+  /* Dots container - at bottom of image area */
+  .product-grid .gallery-pagination-dots,
+  .resource-list .gallery-pagination-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Individual dot styling */
+  .product-grid .gallery-pagination-dot,
+  .resource-list .gallery-pagination-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    opacity: 0.4;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.2s ease, width 0.15s ease, height 0.15s ease;
+  }
+
+  /* Active dot - full opacity */
+  .product-grid .gallery-pagination-dot.active,
+  .resource-list .gallery-pagination-dot.active {
+    opacity: 1;
+  }
+
+  /* Progressive dots - smaller edge dots indicate more content */
+  .product-grid .gallery-pagination-dot.dot-small,
+  .resource-list .gallery-pagination-dot.dot-small {
+    width: 4px;
+    height: 4px;
+    opacity: 0.3;
+  }
+
+  .product-grid .gallery-pagination-dot.dot-small.active,
+  .resource-list .gallery-pagination-dot.dot-small.active {
+    opacity: 0.8;
+  }
+
+  /* Hide dots when only 1 image - dots are inside card-gallery */
+  .product-grid .card-gallery[data-slide-count="1"] .gallery-pagination-dots,
+  .product-grid .card-gallery[data-slide-count="0"] .gallery-pagination-dots,
+  .resource-list .card-gallery[data-slide-count="1"] .gallery-pagination-dots,
+  .resource-list .card-gallery[data-slide-count="0"] .gallery-pagination-dots {
+    display: none;
+  }
+
+{% endstyle %}
