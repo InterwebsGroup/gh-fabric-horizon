@@ -168,7 +168,7 @@
             <div class="product__volume-tier">
               <div class="product__volume-left">
                 <div class="product__volume-qty-row">
-                  <span class="product__volume-qty">BUY 1</span>
+                  <span class="product__volume-qty">Buy 1</span>
                   {%- if discount_pct_1 > 0 -%}
                     <span class="product__volume-discount">{{ discount_pct_1 }}% off</span>
                   {%- endif -%}
@@ -178,7 +178,7 @@
               <div class="product__volume-right">
                 <span class="product__volume-price">{{ selected_variant.price | money_without_trailing_zeros }}</span>
                 {%- if savings_amount > 0 -%}
-                  <s class="product__volume-compare-price">{{ compare_at | money_without_trailing_zeros }}</s>
+                  <span class="product__volume-save">Save {{ savings_amount | money_without_trailing_zeros }}</span>
                 {%- endif -%}
               </div>
             </div>
@@ -196,8 +196,10 @@
                 <span class="product__volume-per">{{ tier_2_price | money_without_trailing_zeros }}/each</span>
               </div>
               <div class="product__volume-right">
-                <span class="product__volume-price">{{ tier_2_price | money_without_trailing_zeros }}</span>
-                <s class="product__volume-compare-price">{{ compare_at | money_without_trailing_zeros }}</s>
+                <span class="product__volume-price">{{ tier_2_total | money_without_trailing_zeros }}</span>
+                {%- if savings_tier_2 > 0 -%}
+                  <span class="product__volume-save">Save {{ savings_tier_2 | money_without_trailing_zeros }}</span>
+                {%- endif -%}
               </div>
             </div>
             <div class="product__volume-tier">
@@ -214,8 +216,10 @@
                 <span class="product__volume-per">{{ tier_3_price | money_without_trailing_zeros }}/each</span>
               </div>
               <div class="product__volume-right">
-                <span class="product__volume-price">{{ tier_3_price | money_without_trailing_zeros }}</span>
-                <s class="product__volume-compare-price">{{ compare_at | money_without_trailing_zeros }}</s>
+                <span class="product__volume-price">{{ tier_3_total | money_without_trailing_zeros }}</span>
+                {%- if savings_tier_3 > 0 -%}
+                  <span class="product__volume-save">Save {{ savings_tier_3 | money_without_trailing_zeros }}</span>
+                {%- endif -%}
               </div>
             </div>
           </div>
@@ -399,10 +403,6 @@
   /* =========================================
      Product Main — Layout
      ========================================= */
-  .header-section {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-
   /* Prevent any product page content from expanding the viewport */
   .content-for-layout {
     overflow-x: hidden;
@@ -760,14 +760,13 @@
     color: var(--gh-espresso, #3d3028);
   }
 
-  .product__volume-compare-price {
+  .product__volume-save {
     display: block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: var(--gh-espresso-light, #5a4a3d);
-    text-decoration: line-through;
-    margin-top: 1px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gh-terracotta, #c4704b);
+    margin-top: 2px;
   }
 
   .product__volume-note {
@@ -796,6 +795,10 @@
     box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.12);
     white-space: nowrap;
     z-index: 1;
+  }
+
+  .product__volume-tier:has(.product__qty-badge) {
+    padding-top: 28px;
   }
 
   /* =========================================

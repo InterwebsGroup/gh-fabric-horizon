@@ -1014,6 +1014,11 @@ body:has(.header[transparent]) #header-group > .header-section {
   z-index: var(--layer-sticky);
 }
 
+/* Global header drop shadow */
+.header-section {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
 /* All other header group content should be beneath the floating header,
 but above the rest of the page content */
 body:has(.header[transparent]) #header-group > *:not(.header-section) {
