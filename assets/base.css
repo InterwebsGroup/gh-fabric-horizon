@@ -4138,7 +4138,7 @@ h1, h2, h3, h4, h5, h6,
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
   border: 2px solid transparent;
 }
 
