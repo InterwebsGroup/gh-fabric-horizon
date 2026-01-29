@@ -342,9 +342,10 @@ export class OverflowList extends DeclarativeShadowElement {
     // After counter update, the "more" text may be wider (e.g. "+5 more" vs "+4 more").
     // Re-check that the more button still fits on the same row as visible items.
     // If it wraps, move the last visible swatch to overflow until it fits.
-    if (hasOverflow && visibleElements.length > 0) {
+    // Always keep at least 1 visible item so swatches aren't completely hidden.
+    if (hasOverflow && visibleElements.length > 1) {
       let settled = false;
-      while (!settled && visibleElements.length > 0) {
+      while (!settled && visibleElements.length > 1) {
         const firstVisibleRect = visibleElements[0].getBoundingClientRect();
         const currentMoreRect = moreSlot.getBoundingClientRect();
 

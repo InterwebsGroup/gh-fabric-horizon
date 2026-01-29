@@ -270,7 +270,14 @@
      SWATCHES BELOW IMAGE
      ============================================ */
 
-  /* Let overflow-list fill available card width — shows ~8 swatches on desktop */
+  /* Reset fieldset defaults so overflow-list gets full card width */
+  .product-grid .variant-option--swatches {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Let overflow-list fill available card width */
   .product-grid product-swatches {
     max-width: 100%;
   }
