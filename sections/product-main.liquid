@@ -283,6 +283,11 @@
         {%- endif -%}
       </div>
 
+    </div>
+
+    {%- comment -%} ===== BELOW GALLERY: selling points, trust, press (desktop: left column) ===== {%- endcomment -%}
+    <div class="product-main__below-gallery">
+
       {%- comment -%} Bold selling points strip — 3 key stats {%- endcomment -%}
       {%- liquid
         assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
@@ -332,75 +337,76 @@
       {%- comment -%} "As Seen On" press logos — shared snippet, same as homepage {%- endcomment -%}
       {% render 'press-logos-bar' %}
 
-      {%- comment -%} Product accordions {%- endcomment -%}
-      <div class="product__accordions">
-
-        <details class="product__accordion" open>
-          <summary class="product__accordion-header">
-            <span>What's a Giant Hoodie?</span>
-            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
-          </summary>
-          <div class="product__accordion-content">
-            <p>Imagine slipping into your new favorite hoodie after a long day. Wrap yourself in a cozy hug, sink into the plush fabric, and forget about the stresses of today.</p>
-            <p>Giant Hoodies are intentionally oversized &mdash; similar to a 3XL &mdash; but designed as a wearable blanket, not fitted clothing. One size fits most, and that's the whole point.</p>
-          </div>
-        </details>
-
-        <details class="product__accordion">
-          <summary class="product__accordion-header">
-            <span>How Do They Fit?</span>
-            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
-          </summary>
-          <div class="product__accordion-content">
-            <p><strong>One size fits most &mdash; and that's the whole point.</strong></p>
-            <p>Our hoodies are intentionally oversized, similar to a 3XL, designed to wrap you in cozy comfort like a wearable blanket. Whether you're petite or plus-size, you'll be covered.</p>
-            <p>Will it fit me? If you want to feel wrapped in a cozy blanket, yes.</p>
-          </div>
-        </details>
-
-        <details class="product__accordion">
-          <summary class="product__accordion-header">
-            <span>Fabric &amp; Care</span>
-            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
-          </summary>
-          <div class="product__accordion-content">
-            <p><strong>The fabric:</strong> Super soft, lightweight sponge fleece &mdash; the kind you want to live in. It's plush, cozy, and feels like a hug.</p>
-            <p><strong>Care instructions:</strong></p>
-            <ul>
-              <li>Tie little knots in the string ends (so they don't pull out)</li>
-              <li>Wash alone or with soft clothes only</li>
-              <li>Cold water, gentle/delicate cycle</li>
-              <li>ALWAYS air dry &mdash; no dryer!</li>
-            </ul>
-          </div>
-        </details>
-
-        <details class="product__accordion">
-          <summary class="product__accordion-header">
-            <span>Shipping</span>
-            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
-          </summary>
-          <div class="product__accordion-content">
-            <p>Really, really fast. Most orders ship same or next business day and arrive in 2-3 days within the US.</p>
-            <p>All orders are printed and packed by hand at our facility in Northwest Arkansas.</p>
-            <p><strong>Free shipping on all US orders over ${{ settings.free_shipping_threshold | default: 75 }}!</strong></p>
-          </div>
-        </details>
-
-        <details class="product__accordion">
-          <summary class="product__accordion-header">
-            <span>30-Day Guarantee</span>
-            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
-          </summary>
-          <div class="product__accordion-content">
-            <p>We're confident you'll love your Giant Hoodie, but we've got you covered if something isn't right.</p>
-            <p>Our 30-day "Best Hoodie Ever" Guarantee means if you're not happy, just reach out and we'll make it right.</p>
-            <p><em>Fun fact: less than 1% of orders are returned &mdash; the average apparel brand sees 21%!</em></p>
-          </div>
-        </details>
-
-      </div>
     </div>
+  </div>
+
+  {%- comment -%} ===== FULL-WIDTH: Product accordions (below both columns) ===== {%- endcomment -%}
+  <div class="product__accordions">
+
+    <details class="product__accordion" open>
+      <summary class="product__accordion-header">
+        <span>What's a Giant Hoodie?</span>
+        <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
+      </summary>
+      <div class="product__accordion-content">
+        <p>Imagine slipping into your new favorite hoodie after a long day. Wrap yourself in a cozy hug, sink into the plush fabric, and forget about the stresses of today.</p>
+        <p>Giant Hoodies are intentionally oversized &mdash; similar to a 3XL &mdash; but designed as a wearable blanket, not fitted clothing. One size fits most, and that's the whole point.</p>
+      </div>
+    </details>
+
+    <details class="product__accordion">
+      <summary class="product__accordion-header">
+        <span>How Do They Fit?</span>
+        <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
+      </summary>
+      <div class="product__accordion-content">
+        <p><strong>One size fits most &mdash; and that's the whole point.</strong></p>
+        <p>Our hoodies are intentionally oversized, similar to a 3XL, designed to wrap you in cozy comfort like a wearable blanket. Whether you're petite or plus-size, you'll be covered.</p>
+        <p>Will it fit me? If you want to feel wrapped in a cozy blanket, yes.</p>
+      </div>
+    </details>
+
+    <details class="product__accordion">
+      <summary class="product__accordion-header">
+        <span>Fabric &amp; Care</span>
+        <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
+      </summary>
+      <div class="product__accordion-content">
+        <p><strong>The fabric:</strong> Super soft, lightweight sponge fleece &mdash; the kind you want to live in. It's plush, cozy, and feels like a hug.</p>
+        <p><strong>Care instructions:</strong></p>
+        <ul>
+          <li>Tie little knots in the string ends (so they don't pull out)</li>
+          <li>Wash alone or with soft clothes only</li>
+          <li>Cold water, gentle/delicate cycle</li>
+          <li>ALWAYS air dry &mdash; no dryer!</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="product__accordion">
+      <summary class="product__accordion-header">
+        <span>Shipping</span>
+        <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
+      </summary>
+      <div class="product__accordion-content">
+        <p>Really, really fast. Most orders ship same or next business day and arrive in 2-3 days within the US.</p>
+        <p>All orders are printed and packed by hand at our facility in Northwest Arkansas.</p>
+        <p><strong>Free shipping on all US orders over ${{ settings.free_shipping_threshold | default: 75 }}!</strong></p>
+      </div>
+    </details>
+
+    <details class="product__accordion">
+      <summary class="product__accordion-header">
+        <span>30-Day Guarantee</span>
+        <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
+      </summary>
+      <div class="product__accordion-content">
+        <p>We're confident you'll love your Giant Hoodie, but we've got you covered if something isn't right.</p>
+        <p>Our 30-day "Best Hoodie Ever" Guarantee means if you're not happy, just reach out and we'll make it right.</p>
+        <p><em>Fun fact: less than 1% of orders are returned &mdash; the average apparel brand sees 21%!</em></p>
+      </div>
+    </details>
+
   </div>
 
   {%- comment -%} Mobile sticky Add to Cart {%- endcomment -%}
@@ -464,6 +470,29 @@
       align-items: start;
       padding: 0 var(--page-margin, 40px);
     }
+
+    /* Gallery takes col 1, row 1 */
+    .product-main__gallery {
+      grid-column: 1;
+      grid-row: 1;
+      padding: 0;
+    }
+
+    /* Info takes col 2, spans all rows so sticky works alongside left content */
+    .product-main__info {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      padding: 40px 0 0;
+      position: sticky;
+      top: 20px;
+    }
+
+    /* Below-gallery (selling points, trust, press) sits under gallery in col 1 */
+    .product-main__below-gallery {
+      grid-column: 1;
+      grid-row: 2;
+      padding-top: 16px;
+    }
   }
 
   @media (min-width: 1024px) {
@@ -473,24 +502,13 @@
   }
 
   .product-main__gallery,
-  .product-main__info {
+  .product-main__info,
+  .product-main__below-gallery {
     min-width: 0;
   }
 
   .product-main__info {
     padding: 0;
-  }
-
-  @media (min-width: 768px) {
-    .product-main__info {
-      padding: 40px 0 0;
-      position: sticky;
-      top: 20px;
-    }
-
-    .product-main__gallery {
-      padding: 0;
-    }
   }
 
   /* =========================================
@@ -1172,6 +1190,17 @@
   .product__accordions {
     margin-top: 8px;
     border-top: 1px solid var(--gh-sand, #e8d5c4);
+    max-width: var(--page-content-width, 1200px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-inline: var(--page-margin, 16px);
+  }
+
+  @media (min-width: 768px) {
+    .product__accordions {
+      padding-inline: var(--page-margin, 40px);
+      margin-top: 40px;
+    }
   }
 
   .product__accordion {
