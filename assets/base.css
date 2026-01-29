@@ -4054,6 +4054,8 @@ body {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: var(--gh-font-heading);
+  font-weight: 700;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1, 'opsz' 72;
 }
 
 /* Product Cards - Gradient Overlay Style */
