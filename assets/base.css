@@ -4479,6 +4479,27 @@ h1, h2, h3, h4, h5, h6,
   flex-shrink: 0;
 }
 
+/* ── Checkout Divider ── */
+.gh-checkout-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gh-checkout-divider__line {
+  flex: 1;
+  height: 1px;
+  background: var(--color-border, rgba(0, 0, 0, 0.1));
+}
+
+.gh-checkout-divider__text {
+  font-family: var(--gh-font-body);
+  font-size: 0.75rem;
+  color: var(--color-foreground);
+  opacity: 0.5;
+  text-transform: lowercase;
+}
+
 /* ── Cart Guarantee ── */
 .gh-cart-guarantee {
   margin: 0;
