@@ -67,45 +67,37 @@
     margin-bottom: 24px;
   }
 
+  /* Desktop: single row, logos flex to fill width */
   .press-logos__grid {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 32px 48px;
+    gap: 24px;
   }
 
   .press-logos__item {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 30px;
+    flex: 1;
+    height: clamp(34px, 3.2vw, 44px);
   }
 
   .press-logos__img {
     height: 100%;
     width: auto;
-    filter: grayscale(100%);
-    opacity: 0.7;
-    transition: opacity 0.3s ease, filter 0.3s ease;
   }
 
-  .press-logos__img:hover {
-    filter: grayscale(0%);
-    opacity: 1;
-  }
-
-  /* Balance logos by visual weight — wide wordmarks get a shorter container,
-     compact logos get a taller one, so perceived area is roughly equal.
+  /* Balance by visual weight — wide wordmarks get shorter containers.
      Slot order: 1 Oprah (81×31), 2 GMA (71×41), 3 ABC (81×34),
                  4 Cosmo (100×19), 5 Kelly&Mark (78×41), 6 The View (80×41) */
   .press-logos__item:nth-child(1),
   .press-logos__item:nth-child(3) {
-    height: 26px;
+    height: clamp(30px, 2.8vw, 38px);
   }
 
   .press-logos__item:nth-child(4) {
-    height: 18px;
+    height: clamp(20px, 1.9vw, 26px);
   }
 
   .press-logos__text {
@@ -117,22 +109,27 @@
     white-space: nowrap;
   }
 
+  /* Mobile: full width, 3 per row, 2 rows */
   @media screen and (max-width: 749px) {
     .press-logos__grid {
-      gap: 20px 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px 16px;
+      justify-items: center;
     }
 
     .press-logos__item {
-      height: 22px;
+      height: 28px;
+      width: 100%;
     }
 
     .press-logos__item:nth-child(1),
     .press-logos__item:nth-child(3) {
-      height: 20px;
+      height: 24px;
     }
 
     .press-logos__item:nth-child(4) {
-      height: 14px;
+      height: 16px;
     }
 
     .press-logos__text {
