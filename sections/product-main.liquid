@@ -229,11 +229,12 @@
                   <s class="product__volume-compare">{{ compare_total_3 | money_without_trailing_zeros }}</s>
                 </div>
                 {%- if savings_tier_3 > 0 -%}
-                  <span class="product__volume-save">Save {{ savings_tier_3 | money_without_trailing_zeros }}</span>
+                  <span class="product__volume-save">Save {{ savings_tier_3 | money_without_trailing_zeros }} or more!</span>
                 {%- endif -%}
               </div>
             </div>
           </div>
+          <p class="product__volume-note">Deal applies sitewide to any hoodies you add to cart!</p>
         </div>
       {%- endif -%}
 
@@ -829,6 +830,14 @@
     font-weight: 600;
     color: var(--gh-terracotta, #c4704b);
     margin-top: 2px;
+  }
+
+  .product__volume-note {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.75rem;
+    color: var(--gh-espresso-light, #5a4a3d);
+    text-align: center;
+    margin: 10px 0 0;
   }
 
   /* Ribbon badge — top-right corner */
