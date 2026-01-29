@@ -1,36 +1,61 @@
-{% comment %} Giant Hoodies Value Props - "What's a Giant Hoodie?!" {% endcomment %}
+{% comment %} Giant Hoodies - "What's a Giant Hoodie?" {% endcomment %}
 
 <div
   class="value-props section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
   style="{% render 'spacing-padding', settings: section.settings %}"
 >
-  {% if section.settings.heading != blank %}
-    <h2 class="value-props__heading">{{ section.settings.heading }}</h2>
-  {% endif %}
+  <div class="value-props__header">
+    {% if section.settings.heading != blank %}
+      <h2 class="value-props__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <p class="value-props__subheading">Not just another hoodie. Here's what makes ours different.</p>
+  </div>
 
   <div class="value-props__grid">
     <div class="value-props__item">
-      <div class="value-props__icon">🧥</div>
-      <h3 class="value-props__title">Oversized</h3>
-      <p class="value-props__desc">One size fits most — it's a wearable blanket, not a fitted shirt.</p>
+      <div class="value-props__icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4 12c4-3 8 3 12 0s8 3 12 0 8 3 12 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M4 20c4-3 8 3 12 0s8 3 12 0 8 3 12 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M4 28c4-3 8 3 12 0s8 3 12 0 8 3 12 0" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="value-props__title">8oz Sponge Fleece</h3>
+      <p class="value-props__desc">The same ultra-soft fleece found in premium blankets — stitched into a hoodie. No pilling. No fading. No scratchy seams.</p>
     </div>
 
     <div class="value-props__item">
-      <div class="value-props__icon">✨</div>
-      <h3 class="value-props__title">Trendy</h3>
-      <p class="value-props__desc">Look effortlessly cool at home or out and about.</p>
+      <div class="value-props__icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 4l4.5 9.2 10.1 1.5-7.3 7.1 1.7 10.1L20 27l-9 4.9 1.7-10.1-7.3-7.1 10.1-1.5L20 4z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3 class="value-props__title">Hand-Printed in the USA</h3>
+      <p class="value-props__desc">Every hoodie is printed to order in Little Rock, Arkansas. Zero mass production. Zero overseas shortcuts.</p>
     </div>
 
     <div class="value-props__item">
-      <div class="value-props__icon">✓</div>
-      <h3 class="value-props__title">Guaranteed</h3>
-      <p class="value-props__desc">30-day "Best Hoodie Ever" guarantee. You'll love it.</p>
+      <div class="value-props__icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="5" y="5" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="2.5"/>
+          <rect x="23" y="5" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="2.5"/>
+          <rect x="5" y="23" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="2.5"/>
+          <rect x="23" y="23" width="12" height="12" rx="2.5" stroke="currentColor" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <h3 class="value-props__title">200+ Original Designs</h3>
+      <p class="value-props__desc">Animals, abstract, funny, holiday — new artist-made designs drop every week.</p>
     </div>
 
     <div class="value-props__item">
-      <div class="value-props__icon">📦</div>
-      <h3 class="value-props__title">Free Shipping</h3>
-      <p class="value-props__desc">Free on US orders $75+. Lightning fast from Arkansas.</p>
+      <div class="value-props__icon">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 6c-5 0-9 2-11 5l-3 10c0 2 1 3 3 3h2v8a2 2 0 002 2h14a2 2 0 002-2v-8h2c2 0 3-1 3-3l-3-10c-2-3-6-5-11-5z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M14 6c0-2 3-3 6-3s6 1 6 3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3 class="value-props__title">Wearable Blanket</h3>
+      <p class="value-props__desc">Intentionally oversized with an XXL hood, deep kangaroo pocket, and enough room to curl up inside.</p>
     </div>
   </div>
 </div>
@@ -40,19 +65,32 @@
     text-align: center;
   }
 
+  .value-props__header {
+    margin-bottom: 48px;
+  }
+
   .value-props__heading {
     font-family: var(--gh-font-heading);
     font-size: clamp(1.75rem, 4vw, 2.5rem);
     font-weight: 900;
     font-variation-settings: 'SOFT' 100, 'WONK' 1;
-    margin-bottom: 48px;
+    margin: 0 0 12px;
     color: var(--color-foreground);
+  }
+
+  .value-props__subheading {
+    font-family: var(--gh-font-body);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: var(--color-foreground);
+    opacity: 0.6;
+    margin: 0;
   }
 
   .value-props__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
+    gap: 24px;
   }
 
   .value-props__item {
@@ -60,58 +98,74 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background: rgba(var(--color-foreground-rgb), 0.03);
-    border-radius: 16px;
-    padding: 32px 24px;
+    border-left: 3px solid var(--gh-terracotta, #c4704b);
+    background: rgba(var(--color-foreground-rgb), 0.025);
+    border-radius: 12px;
+    padding: 36px 24px;
   }
 
   .value-props__icon {
-    font-size: 2.5rem;
-    margin-bottom: 16px;
+    color: var(--gh-terracotta, #c4704b);
+    margin-bottom: 20px;
     line-height: 1;
   }
 
   .value-props__title {
     font-family: var(--gh-font-heading);
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 900;
     font-variation-settings: 'SOFT' 100, 'WONK' 1;
-    margin-bottom: 8px;
+    margin: 0 0 10px;
     color: var(--color-foreground);
   }
 
   .value-props__desc {
     font-family: var(--gh-font-body);
     font-size: 0.9375rem;
-    line-height: 1.6;
+    line-height: 1.65;
     color: var(--color-foreground);
-    opacity: 0.8;
+    opacity: 0.7;
     margin: 0;
   }
 
   @media screen and (max-width: 989px) {
     .value-props__grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 40px 24px;
+      gap: 20px;
     }
   }
 
   @media screen and (max-width: 749px) {
-    .value-props__heading {
+    .value-props__header {
       margin-bottom: 32px;
     }
 
     .value-props__grid {
-      gap: 32px 16px;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .value-props__item {
+      flex-direction: row;
+      text-align: left;
+      align-items: flex-start;
+      padding: 24px 20px;
+      gap: 16px;
     }
 
     .value-props__icon {
-      width: 40px;
-      height: 40px;
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+
+    .value-props__icon svg {
+      width: 32px;
+      height: 32px;
     }
 
     .value-props__title {
-      font-size: 1.125rem;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
     }
 
     .value-props__desc {
@@ -130,7 +184,7 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "What's a Giant Hoodie?!"
+      "default": "What's a Giant Hoodie?"
     },
     {
       "type": "header",
