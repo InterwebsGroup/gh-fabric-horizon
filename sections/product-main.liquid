@@ -17,15 +17,11 @@
     endfor
   endfor
 
-  comment
-    Compare-at price with +$20 fallback for display testing.
-    Remove the fallback once real compare_at_price is set on products.
-  endcomment
   assign compare_at = selected_variant.compare_at_price
-  if compare_at == blank or compare_at == nil or compare_at == 0
-    assign compare_at = selected_variant.price | plus: 2000
+  assign savings_amount = 0
+  if compare_at and compare_at > selected_variant.price
+    assign savings_amount = compare_at | minus: selected_variant.price
   endif
-  assign savings_amount = compare_at | minus: selected_variant.price
 -%}
 
 {%- comment -%} Structured data for SEO {%- endcomment -%}

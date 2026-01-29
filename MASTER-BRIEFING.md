@@ -413,45 +413,44 @@ Go build.
 
 ---
 
-## Current Progress (Updated 2026-01-28)
+## Current Progress (Updated 2026-01-29)
 
-### Phase 1: Sitewide Dependencies -- PARTIAL
-- [x] CSS variables (colors, fonts) defined in gh-collection-styles and product-main
+### Phase 1: Sitewide Dependencies -- MOSTLY DONE
+- [x] CSS variables (colors, fonts) defined in theme-styles-variables, gh-collection-styles, base.css
 - [x] Google Fonts (Fraunces + DM Sans) loaded via theme settings
 - [x] Header drop shadow added globally (base.css)
-- [ ] Header sticky on scroll up / hide on scroll down (using Fabric default)
-- [ ] Footer customization (using Fabric default)
-- [ ] Global button styles (defined in product-main, not yet global)
+- [x] Header sticky (using Fabric default sticky-always)
+- [x] Footer customization (espresso bg, cream text, Fraunces headings, payment icons, divider)
+- [x] Global button styles (4 types in base.css: primary-dark, primary-warm, secondary-outline, secondary-soft)
 - [ ] Cart drawer customization (using Fabric default)
 
-### Phase 2: Homepage -- MOSTLY DONE
+### Phase 2: Homepage -- DONE
 - [x] Hero section (Fabric default, customized with GH copy/styling, image via Shopify admin)
 - [x] Stats bar (custom section: 225,000+ customers, 4.9★, 90-day guarantee)
 - [x] Press logos bar (custom section: Oprah, GMA, Forbes, Cosmopolitan, Kelly & Mark, The View)
 - [x] Best Sellers product grid (Fabric product-list, 8 products configured)
 - [x] Category tiles (custom section: 6 tiles — Hoodies, Kids, Blankets, Shirts, Best Sellers, New)
 - [x] Shop Kids product grid (Fabric product-list, 4 products configured)
-- [x] Value props (custom section: 4-column — Oversized, Trendy, Guaranteed, Free Shipping)
-- [x] Feature block: Oversized (custom section: 6-photo grid "One Size. Every Body.")
-- [x] Feature block: Trendy (custom section: 5-photo lifestyle collage "Your Hoodie for Everything")
+- [x] Value props (custom section: 4 cards — 8oz Sponge Fleece, Hand-Printed USA, 200+ Designs, Wearable Blanket)
+- [x] Feature block: Oversized (custom section: 6-photo grid "One Size. Every Body." — images configured)
+- [x] Feature block: Trendy (custom section: 5-photo lifestyle collage "Your Hoodie for Everything" — images configured)
 - [x] Feature block: Guarantee (custom section: <1% return rate, 3-step process, 30-day badge)
 - [x] Comparison table (custom section: Giant Hoodies vs Oodie, 7 rows + price)
 - [x] Testimonials (custom section: 4 quotes on dark background "What the Hoodie Fam Says")
 - [x] Newsletter signup (custom section: "Join the Hoodie Fam" with 10% discount incentive)
-- [ ] Feature Oversized images (section built, no images configured yet)
-- [ ] Feature Trendy images (section built, no images configured yet)
+- [x] Reviews section (JudgeMe stats + 6 customer review cards)
 
 ### Phase 3: Collection Page -- DONE
 - [x] Collection header with hero banner, filter buttons, description
 - [x] Product grid: 4-col desktop, 2-col mobile, info below image
 - [x] Volume pricing banner (green, sticky below header)
-- [x] Color swatches on product cards (20px desktop, 14px mobile)
+- [x] Color swatches on product cards (20px desktop, 14px mobile, max 10/5 with "+N more")
 - [x] Pagination dots inside card gallery
 - [x] Filtering and sorting
 
 ### Phase 4: Product Page -- DONE
 - [x] Image gallery (hero + thumbnails)
-- [x] Price display with savings from compare-at
+- [x] Price display with savings from compare-at (uses Shopify compare_at_price)
 - [x] Color swatches (42px, 62 colors mapped)
 - [x] Volume pricing tiers (Hollow Socks-inspired layout)
 - [x] Add to Cart button with dynamic price
@@ -463,9 +462,8 @@ Go build.
 - [x] Testimonials section
 - [x] Product recommendations
 - [x] Back-in-stock email form
-- [ ] Mobile gallery swipe/dots
-- [ ] Zoom on hover
-- [ ] Additional product templates (kids-hoodie, shirt, blanket)
+- [x] Mobile gallery swipe/dots
+- [ ] Additional product templates (kids-hoodie, shirt, blanket) — deferred to post-build
 
 ### Phase 5: Cart Drawer -- NOT STARTED
 - [ ] Drawer slides from right
@@ -477,6 +475,7 @@ Go build.
 ### Key Architecture Decisions
 - Volume pricing is **informational only** on PDP -- actual discounts applied via Shopify automatic discounts at cart level
 - Swatch colors managed via **settings textarea** (editable in Shopify admin) with hardcoded fallback in swatch-color.liquid
-- Compare-at price has **$20 fallback** when not set on a product (temporary until all products updated)
+- Compare-at price uses **Shopify compare_at_price** directly (hardcoded $20 fallback removed)
 - CSS uses **overflow-x: clip** (not hidden) on .content-for-layout to avoid breaking sticky positioning on collection page
 - Header shadow is in **base.css** (global) not in section stylesheet
+- Button styles use `.gh-button` class system in base.css; product-main migrated from section-scoped `.btn-primary`
