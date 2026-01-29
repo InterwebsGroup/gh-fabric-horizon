@@ -29,7 +29,7 @@ export class OverflowMinimumEvent extends Event {
  */
 export class OverflowList extends DeclarativeShadowElement {
   static get observedAttributes() {
-    return ['disabled', 'minimum-items', 'max-items'];
+    return ['disabled', 'minimum-items'];
   }
 
   /**
@@ -44,8 +44,6 @@ export class OverflowList extends DeclarativeShadowElement {
       } else {
         this.#reflowItems();
       }
-    } else if (name === 'max-items') {
-      this.#reflowItems();
     }
   }
 
@@ -312,17 +310,6 @@ export class OverflowList extends DeclarativeShadowElement {
       }
     });
 
-    // Enforce max-items cap if set
-    const maxItems = this.getAttribute('max-items');
-    if (maxItems) {
-      const max = parseInt(maxItems, 10);
-      if (!isNaN(max) && visibleElements.length > max) {
-        const excessElements = visibleElements.splice(max);
-        overflowingElements.unshift(...excessElements);
-        hasOverflow = true;
-      }
-    }
-
     if (hasOverflow) {
       moreSlot.style.removeProperty('order');
     }
@@ -339,29 +326,6 @@ export class OverflowList extends DeclarativeShadowElement {
     list.style.setProperty('counter-reset', `overflow-count ${overflowingElements.length}`);
     this.style.setProperty('--overflow-count', `${overflowingElements.length}`);
 
-    // After counter update, the "more" text may be wider (e.g. "+5 more" vs "+4 more").
-    // Re-check that the more button still fits on the same row as visible items.
-    // If it wraps, move the last visible swatch to overflow until it fits.
-    // Always keep at least 1 visible item so swatches aren't completely hidden.
-    if (hasOverflow && visibleElements.length > 1) {
-      let settled = false;
-      while (!settled && visibleElements.length > 1) {
-        const firstVisibleRect = visibleElements[0].getBoundingClientRect();
-        const currentMoreRect = moreSlot.getBoundingClientRect();
-
-        if (currentMoreRect.top > firstVisibleRect.top) {
-          const lastVisible = visibleElements.pop();
-          lastVisible.slot = overflowSlot.name;
-          overflowingElements.unshift(lastVisible);
-
-          list.style.setProperty('counter-reset', `overflow-count ${overflowingElements.length}`);
-          this.style.setProperty('--overflow-count', `${overflowingElements.length}`);
-        } else {
-          settled = true;
-        }
-      }
-    }
-
     // Adjust the "More" button visibility.
     moreSlot.hidden = !hasOverflow;
 
@@ -371,8 +335,7 @@ export class OverflowList extends DeclarativeShadowElement {
       placeholder.hidden = false;
     }
 
-    // Reset the flex-wrap and overflow properties now that reflow is complete.
-    list.style.removeProperty('flex-wrap');
+    // Reset the overflow property since children elements may need to display outside the list (e.g. dropdowns, popovers).
     list.style.setProperty('overflow', 'unset');
 
     hasOverflow && this.#updateMinimumReached(visibleElements);
