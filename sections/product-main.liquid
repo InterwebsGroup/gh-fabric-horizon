@@ -16,6 +16,16 @@
       endif
     endfor
   endfor
+
+  comment
+    Compare-at price with +$20 fallback for display testing.
+    Remove the fallback once real compare_at_price is set on products.
+  endcomment
+  assign compare_at = selected_variant.compare_at_price
+  if compare_at == blank or compare_at == nil or compare_at == 0
+    assign compare_at = selected_variant.price | plus: 2000
+  endif
+  assign savings_amount = compare_at | minus: selected_variant.price
 -%}
 
 {%- comment -%} Structured data for SEO {%- endcomment -%}
@@ -69,32 +79,42 @@
         </div>
       </div>
 
-      {%- comment -%} Price row {%- endcomment -%}
+      {%- comment -%} Price row — compare-at shown first {%- endcomment -%}
       <div class="product__price-row" data-price-row>
+        {%- if savings_amount > 0 -%}
+          <span class="product__compare-price" data-compare-price>
+            {{ compare_at | money }}
+          </span>
+        {%- endif -%}
         <span class="product__price" data-product-price>
           {{ selected_variant.price | money }}
         </span>
-        {%- if selected_variant.compare_at_price > selected_variant.price -%}
-          <span class="product__compare-price" data-compare-price>
-            {{ selected_variant.compare_at_price | money }}
-          </span>
-          {%- assign savings = selected_variant.compare_at_price | minus: selected_variant.price -%}
+        {%- if savings_amount > 0 -%}
           <span class="product__savings-badge" data-savings-badge>
-            Save {{ savings | money }}
+            Save {{ savings_amount | money }}
           </span>
         {%- endif -%}
       </div>
 
-      {%- comment -%} Value prop bullets {%- endcomment -%}
+      {%- comment -%} Value prop bullets with icons {%- endcomment -%}
       <ul class="product__benefits">
         {%- if section.settings.benefit_1 != blank -%}
-          <li>{{ section.settings.benefit_1 }}</li>
+          <li>
+            <svg class="product__benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 2 2 6v5h4v11h12V11h4V6l-4.5-4H14a2 2 0 1 1-4 0H6.5z"/></svg>
+            <span>{{ section.settings.benefit_1 }}</span>
+          </li>
         {%- endif -%}
         {%- if section.settings.benefit_2 != blank -%}
-          <li>{{ section.settings.benefit_2 }}</li>
+          <li>
+            <svg class="product__benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            <span>{{ section.settings.benefit_2 }}</span>
+          </li>
         {%- endif -%}
         {%- if section.settings.benefit_3 != blank -%}
-          <li>{{ section.settings.benefit_3 }}</li>
+          <li>
+            <svg class="product__benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            <span>{{ section.settings.benefit_3 }}</span>
+          </li>
         {%- endif -%}
       </ul>
 
@@ -110,8 +130,49 @@
         {%- comment -%} Color swatches {%- endcomment -%}
         {% render 'product-swatches', product: product %}
 
-        {%- comment -%} Quantity selector {%- endcomment -%}
-        {% render 'product-quantity-selector', product: product, section: section, is_tier_eligible: is_tier_eligible %}
+        {%- comment -%} Volume pricing info (sitewide mix & match — informational only) {%- endcomment -%}
+        {%- if settings.pricing_mode == 'tiered' and is_tier_eligible -%}
+          {%- liquid
+            assign tier_2_price = section.settings.tier_2_each_price | times: 100
+            assign tier_3_price = section.settings.tier_3_each_price | times: 100
+            assign per_item_save_2 = selected_variant.price | minus: tier_2_price
+            assign savings_tier_2 = per_item_save_2 | times: 2
+            assign per_item_save_3 = selected_variant.price | minus: tier_3_price
+            assign savings_tier_3 = per_item_save_3 | times: 3
+          -%}
+          <div class="product__volume-pricing">
+            <p class="product__option-label">Buy More, Save More</p>
+            <div class="product__volume-tiers">
+              <div class="product__volume-tier product__volume-tier--current">
+                <span class="product__volume-qty">1</span>
+                <span class="product__volume-price">{{ selected_variant.price | money_without_trailing_zeros }} each</span>
+              </div>
+              <div class="product__volume-tier">
+                {%- if section.settings.tier_2_badge != blank -%}
+                  <span class="product__qty-badge">{{ section.settings.tier_2_badge }}</span>
+                {%- endif -%}
+                <span class="product__volume-qty">Any 2</span>
+                <span class="product__volume-price">{{ tier_2_price | money_without_trailing_zeros }} each</span>
+                {%- if savings_tier_2 > 0 -%}
+                  <span class="product__volume-save">Save {{ savings_tier_2 | money_without_trailing_zeros }}</span>
+                {%- endif -%}
+              </div>
+              <div class="product__volume-tier">
+                {%- if section.settings.tier_3_badge != blank -%}
+                  <span class="product__qty-badge">{{ section.settings.tier_3_badge }}</span>
+                {%- endif -%}
+                <span class="product__volume-qty">Any 3+</span>
+                <span class="product__volume-price">{{ tier_3_price | money_without_trailing_zeros }} each</span>
+                {%- if savings_tier_3 > 0 -%}
+                  <span class="product__volume-save">Save {{ savings_tier_3 | money_without_trailing_zeros }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+            <p class="product__volume-note">Mix &amp; match any styles sitewide!</p>
+          </div>
+        {%- endif -%}
+
+        <input type="hidden" name="quantity" value="1" data-quantity-input>
 
         {%- comment -%} Add to Cart button {%- endcomment -%}
         <button
@@ -127,6 +188,28 @@
           {%- endif -%}
         </button>
       </form>
+
+      {%- comment -%} Stats bar — 3 key stats below ATC {%- endcomment -%}
+      {%- liquid
+        assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
+      -%}
+      <div class="product__stats">
+        <div class="product__stat">
+          <svg class="product__stat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span class="product__stat-number">{{ review_count_display }}</span>
+          <span class="product__stat-label">{{ section.settings.stat_reviews_label | default: '5-Star Reviews' }}</span>
+        </div>
+        <div class="product__stat">
+          <svg class="product__stat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="product__stat-number">{{ settings.happy_customers_count | default: '225,000+' }}</span>
+          <span class="product__stat-label">{{ section.settings.stat_customers_label | default: 'Happy Customers' }}</span>
+        </div>
+        <div class="product__stat">
+          <svg class="product__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span class="product__stat-number">{{ section.settings.stat_guarantee_number | default: '30-Day' }}</span>
+          <span class="product__stat-label">{{ section.settings.stat_guarantee_label | default: 'Guarantee' }}</span>
+        </div>
+      </div>
 
       {%- comment -%} Back in stock form (sold-out variants) {%- endcomment -%}
       {%- unless selected_variant.available -%}
@@ -254,9 +337,9 @@
   <div class="product__sticky-atc" data-sticky-atc>
     <div class="product__sticky-info">
       <span class="product__sticky-price" data-sticky-price>{{ selected_variant.price | money }}</span>
-      {%- if selected_variant.compare_at_price > selected_variant.price -%}
+      {%- if savings_amount > 0 -%}
         <span class="product__sticky-savings" data-sticky-savings>
-          Save {{ selected_variant.compare_at_price | minus: selected_variant.price | money }}
+          Save {{ savings_amount | money }}
         </span>
       {%- endif -%}
     </div>
@@ -349,6 +432,7 @@
     scroll-snap-align: start;
     aspect-ratio: 1 / 1.25;
     overflow: hidden;
+    border-radius: 12px;
   }
 
   .product-gallery__slide img {
@@ -473,16 +557,9 @@
   .product__price-row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
     margin-bottom: 20px;
-  }
-
-  .product__price {
-    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--gh-espresso, #3d3028);
   }
 
   .product__compare-price {
@@ -491,6 +568,13 @@
     font-weight: 400;
     color: var(--gh-espresso-light, #5a4a3d);
     text-decoration: line-through;
+  }
+
+  .product__price {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gh-espresso, #3d3028);
   }
 
   .product__savings-badge {
@@ -515,21 +599,21 @@
   }
 
   .product__benefits li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.95rem;
     color: var(--gh-espresso-light, #5a4a3d);
-    padding-left: 20px;
-    position: relative;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     line-height: 1.4;
   }
 
-  .product__benefits li::before {
-    content: "\2713";
-    position: absolute;
-    left: 0;
+  .product__benefit-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
     color: var(--gh-terracotta, #c4704b);
-    font-weight: 600;
   }
 
   /* =========================================
@@ -558,12 +642,12 @@
   .product__swatches {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
   }
 
   .product__swatch {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: 2px solid transparent;
     cursor: pointer;
@@ -600,62 +684,65 @@
   }
 
   /* =========================================
-     Quantity Selector
+     Volume Pricing Info
      ========================================= */
-  .product__quantity-selector {
+  .product__volume-pricing {
     margin-bottom: 24px;
   }
 
-  .product__quantity-options {
+  .product__volume-tiers {
     display: flex;
     gap: 10px;
   }
 
-  .product__qty-btn {
+  .product__volume-tier {
     flex: 1;
-    padding: 14px 12px;
+    padding: 14px 10px;
     border: 2px solid var(--gh-sand, #e8d5c4);
     border-radius: 12px;
     background: white;
-    cursor: pointer;
     text-align: center;
-    transition: border-color 150ms ease, background-color 150ms ease;
     position: relative;
   }
 
-  .product__qty-btn:hover {
-    border-color: var(--gh-espresso, #3d3028);
-  }
-
-  .product__qty-btn--active {
+  .product__volume-tier--current {
     border-color: var(--gh-espresso, #3d3028);
     background: var(--gh-cream, #faf7f4);
   }
 
-  .product__qty-number {
+  .product__volume-qty {
     display: block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--gh-espresso, #3d3028);
   }
 
-  .product__qty-price {
+  .product__volume-price {
     display: block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--gh-espresso, #3d3028);
     margin-top: 4px;
   }
 
-  .product__qty-note {
+  .product__volume-save {
     display: block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.75rem;
     color: var(--gh-terracotta, #c4704b);
     font-weight: 600;
     margin-top: 2px;
+  }
+
+  .product__volume-note {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.8rem;
+    color: var(--gh-espresso-light, #5a4a3d);
+    text-align: center;
+    margin: 10px 0 0;
+    font-style: italic;
   }
 
   .product__qty-badge {
@@ -673,60 +760,13 @@
     white-space: nowrap;
   }
 
-  /* Simple quantity selector (non-tiered) */
-  .product__quantity-simple {
-    display: flex;
-    align-items: center;
-    border: 2px solid var(--gh-sand, #e8d5c4);
-    border-radius: 12px;
-    overflow: hidden;
-    width: fit-content;
-  }
-
-  .product__qty-minus,
-  .product__qty-plus {
-    width: 44px;
-    height: 44px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--gh-espresso, #3d3028);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .product__qty-minus:hover,
-  .product__qty-plus:hover {
-    background: var(--gh-cream, #faf7f4);
-  }
-
-  .product__qty-input {
-    width: 48px;
-    text-align: center;
-    border: none;
-    font-size: 1rem;
-    font-weight: 600;
-    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    color: var(--gh-espresso, #3d3028);
-    -moz-appearance: textfield;
-  }
-
-  .product__qty-input::-webkit-inner-spin-button,
-  .product__qty-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
   /* =========================================
      Add to Cart Button
      ========================================= */
   .product__add-to-cart {
     width: 100%;
-    padding: 18px 32px;
-    font-size: 1.1rem;
+    padding: 22px 32px;
+    font-size: 1.25rem;
     margin-bottom: 16px;
   }
 
@@ -751,6 +791,48 @@
     color: var(--gh-espresso-light, #5a4a3d);
     cursor: not-allowed;
     transform: none;
+  }
+
+  /* =========================================
+     Stats Bar
+     ========================================= */
+  .product__stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 20px 0;
+    margin-bottom: 16px;
+  }
+
+  .product__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+  }
+
+  .product__stat-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--gh-terracotta, #c4704b);
+  }
+
+  .product__stat-number {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gh-espresso, #3d3028);
+    line-height: 1.2;
+  }
+
+  .product__stat-label {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--gh-espresso-light, #5a4a3d);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   /* =========================================
@@ -1016,7 +1098,7 @@
     },
     {
       "type": "paragraph",
-      "content": "Only shown when pricing mode is Tiered and the product is tier-eligible (set in Theme Settings)."
+      "content": "Informational table shown when pricing mode is Tiered and the product is tier-eligible. Discounts apply sitewide (mix & match)."
     },
     {
       "type": "number",
@@ -1041,6 +1123,45 @@
       "id": "tier_3_badge",
       "label": "Tier 3 badge text",
       "default": "Best Value"
+    },
+    {
+      "type": "header",
+      "content": "Stats Bar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Three stats shown below the Add to Cart button."
+    },
+    {
+      "type": "text",
+      "id": "stat_reviews_number",
+      "label": "Reviews count",
+      "default": "2,400+",
+      "info": "Displayed as the review count stat"
+    },
+    {
+      "type": "text",
+      "id": "stat_reviews_label",
+      "label": "Reviews label",
+      "default": "5-Star Reviews"
+    },
+    {
+      "type": "text",
+      "id": "stat_customers_label",
+      "label": "Customers label",
+      "default": "Happy Customers"
+    },
+    {
+      "type": "text",
+      "id": "stat_guarantee_number",
+      "label": "Guarantee number",
+      "default": "30-Day"
+    },
+    {
+      "type": "text",
+      "id": "stat_guarantee_label",
+      "label": "Guarantee label",
+      "default": "Guarantee"
     }
   ],
   "presets": [

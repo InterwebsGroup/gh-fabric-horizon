@@ -1,6 +1,6 @@
 /**
  * Giant Hoodies — Product Page
- * Handles image gallery, color swatches, quantity selector,
+ * Handles image gallery, color swatches,
  * sticky ATC bar, and AJAX add-to-cart with cart drawer integration.
  */
 (function () {
@@ -25,11 +25,9 @@
 
     initGallery(section);
     initSwatches(section, variants);
-    initQuantitySelector(section);
     initStickyATC(section);
     initAddToCart(section, variants);
     initBackInStock(section);
-    initSimpleQuantity(section);
   });
 
   /* =========================================
@@ -202,16 +200,22 @@
     var stickyPriceEl = section.querySelector('[data-sticky-price]');
     var stickySavingsEl = section.querySelector('[data-sticky-savings]');
 
+    // Compare-at price with +$20 fallback for testing display
+    var compareAt = variant.compare_at_price;
+    if (!compareAt || compareAt <= variant.price) {
+      compareAt = variant.price + 2000;
+    }
+    var savings = compareAt - variant.price;
+
     if (priceEl) {
       priceEl.textContent = formatMoney(variant.price, moneyFormat);
     }
 
-    if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+    if (savings > 0) {
       if (compareEl) {
-        compareEl.textContent = formatMoney(variant.compare_at_price, moneyFormat);
+        compareEl.textContent = formatMoney(compareAt, moneyFormat);
         compareEl.style.display = '';
       }
-      var savings = variant.compare_at_price - variant.price;
       if (savingsEl) {
         savingsEl.textContent = 'Save ' + formatMoney(savings, moneyFormat);
         savingsEl.style.display = '';
@@ -266,65 +270,7 @@
   }
 
   /* =========================================
-     3. Quantity Selector (Tier Buttons)
-     ========================================= */
-  function initQuantitySelector(section) {
-    var qtyBtns = section.querySelectorAll('[data-qty-btn]');
-    var qtyInput = section.querySelector('[data-quantity-input]');
-
-    if (qtyBtns.length === 0 || !qtyInput) return;
-
-    qtyBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var qty = parseInt(this.dataset.quantity, 10);
-
-        // Update active state
-        qtyBtns.forEach(function (b) {
-          b.classList.remove('product__qty-btn--active');
-        });
-        this.classList.add('product__qty-btn--active');
-
-        // Update hidden input
-        qtyInput.value = qty;
-      });
-    });
-  }
-
-  /* =========================================
-     3b. Simple +/- Quantity Selector
-     ========================================= */
-  function initSimpleQuantity(section) {
-    var minusBtn = section.querySelector('[data-qty-minus]');
-    var plusBtn = section.querySelector('[data-qty-plus]');
-    var qtyDisplay = section.querySelector('[data-qty-input]');
-    var qtyHidden = section.querySelector('[data-quantity-input]');
-
-    if (!minusBtn || !plusBtn || !qtyDisplay || !qtyHidden) return;
-
-    minusBtn.addEventListener('click', function () {
-      var current = parseInt(qtyDisplay.value, 10) || 1;
-      if (current > 1) {
-        qtyDisplay.value = current - 1;
-        qtyHidden.value = current - 1;
-      }
-    });
-
-    plusBtn.addEventListener('click', function () {
-      var current = parseInt(qtyDisplay.value, 10) || 1;
-      qtyDisplay.value = current + 1;
-      qtyHidden.value = current + 1;
-    });
-
-    qtyDisplay.addEventListener('change', function () {
-      var val = parseInt(this.value, 10);
-      if (isNaN(val) || val < 1) val = 1;
-      this.value = val;
-      qtyHidden.value = val;
-    });
-  }
-
-  /* =========================================
-     4. Sticky Add to Cart (Mobile)
+     3. Sticky Add to Cart (Mobile)
      ========================================= */
   function initStickyATC(section) {
     var mainATC = section.querySelector('[data-add-to-cart]');
@@ -360,7 +306,7 @@
   }
 
   /* =========================================
-     5. AJAX Add to Cart
+     4. AJAX Add to Cart
      ========================================= */
   function initAddToCart(section, variants) {
     var form = section.querySelector('[data-product-form]');
@@ -372,7 +318,8 @@
       var atcBtn = section.querySelector('[data-add-to-cart]');
       var stickyBtn = section.querySelector('[data-sticky-atc-btn]');
       var variantId = form.querySelector('[data-variant-id-input]').value;
-      var quantity = form.querySelector('[data-quantity-input]').value || '1';
+      var qtyInput = form.querySelector('[data-quantity-input]');
+      var quantity = qtyInput ? qtyInput.value : '1';
 
       // Disable buttons during request
       if (atcBtn) {
@@ -508,7 +455,7 @@
   }
 
   /* =========================================
-     6. Back in Stock Form
+     5. Back in Stock Form
      ========================================= */
   function initBackInStock(section) {
     var form = section.querySelector('[data-back-in-stock-form]');
