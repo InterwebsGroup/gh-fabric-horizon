@@ -130,48 +130,6 @@
         {%- comment -%} Color swatches {%- endcomment -%}
         {% render 'product-swatches', product: product %}
 
-        {%- comment -%} Volume pricing info (sitewide mix & match — informational only) {%- endcomment -%}
-        {%- if settings.pricing_mode == 'tiered' and is_tier_eligible -%}
-          {%- liquid
-            assign tier_2_price = section.settings.tier_2_each_price | times: 100
-            assign tier_3_price = section.settings.tier_3_each_price | times: 100
-            assign per_item_save_2 = selected_variant.price | minus: tier_2_price
-            assign savings_tier_2 = per_item_save_2 | times: 2
-            assign per_item_save_3 = selected_variant.price | minus: tier_3_price
-            assign savings_tier_3 = per_item_save_3 | times: 3
-          -%}
-          <div class="product__volume-pricing">
-            <p class="product__option-label">Buy More, Save More</p>
-            <div class="product__volume-tiers">
-              <div class="product__volume-tier product__volume-tier--current">
-                <span class="product__volume-qty">Buy Any 1</span>
-                <span class="product__volume-price">{{ selected_variant.price | money_without_trailing_zeros }} each</span>
-              </div>
-              <div class="product__volume-tier">
-                {%- if section.settings.tier_2_badge != blank -%}
-                  <span class="product__qty-badge">{{ section.settings.tier_2_badge }}</span>
-                {%- endif -%}
-                <span class="product__volume-qty">Buy Any 2</span>
-                <span class="product__volume-price">{{ tier_2_price | money_without_trailing_zeros }} each</span>
-                {%- if savings_tier_2 > 0 -%}
-                  <span class="product__volume-save">Save {{ savings_tier_2 | money_without_trailing_zeros }}</span>
-                {%- endif -%}
-              </div>
-              <div class="product__volume-tier">
-                {%- if section.settings.tier_3_badge != blank -%}
-                  <span class="product__qty-badge">{{ section.settings.tier_3_badge }}</span>
-                {%- endif -%}
-                <span class="product__volume-qty">Buy Any 3+</span>
-                <span class="product__volume-price">{{ tier_3_price | money_without_trailing_zeros }} each</span>
-                {%- if savings_tier_3 > 0 -%}
-                  <span class="product__volume-save">Save {{ savings_tier_3 | money_without_trailing_zeros }}</span>
-                {%- endif -%}
-              </div>
-            </div>
-            <p class="product__volume-note">Mix &amp; match any styles sitewide!</p>
-          </div>
-        {%- endif -%}
-
         <input type="hidden" name="quantity" value="1" data-quantity-input>
 
         {%- comment -%} Add to Cart button {%- endcomment -%}
@@ -188,6 +146,54 @@
           {%- endif -%}
         </button>
       </form>
+
+      {%- comment -%} Volume pricing info (sitewide mix & match — informational only) {%- endcomment -%}
+      {%- if settings.pricing_mode == 'tiered' and is_tier_eligible -%}
+        {%- liquid
+          assign tier_2_price = section.settings.tier_2_each_price | times: 100
+          assign tier_3_price = section.settings.tier_3_each_price | times: 100
+          assign per_item_save_2 = selected_variant.price | minus: tier_2_price
+          assign savings_tier_2 = per_item_save_2 | times: 2
+          assign per_item_save_3 = selected_variant.price | minus: tier_3_price
+          assign savings_tier_3 = per_item_save_3 | times: 3
+        -%}
+        <div class="product__volume-pricing">
+          <p class="product__option-label">Buy More, Save More</p>
+          <div class="product__volume-tiers">
+            <div class="product__volume-tier">
+              <span class="product__volume-qty">BUY 1</span>
+              <span class="product__volume-price">
+                <s class="product__volume-compare-price">{{ compare_at | money_without_trailing_zeros }}</s>
+                {{ selected_variant.price | money_without_trailing_zeros }}
+              </span>
+              {%- if savings_amount > 0 -%}
+                <span class="product__volume-save">Save {{ savings_amount | money_without_trailing_zeros }}</span>
+              {%- endif -%}
+            </div>
+            <div class="product__volume-tier">
+              {%- if section.settings.tier_2_badge != blank -%}
+                <span class="product__qty-badge">{{ section.settings.tier_2_badge }}</span>
+              {%- endif -%}
+              <span class="product__volume-qty">Buy Any 2</span>
+              <span class="product__volume-price">{{ tier_2_price | money_without_trailing_zeros }} each</span>
+              {%- if savings_tier_2 > 0 -%}
+                <span class="product__volume-save">Save {{ savings_tier_2 | money_without_trailing_zeros }}</span>
+              {%- endif -%}
+            </div>
+            <div class="product__volume-tier">
+              {%- if section.settings.tier_3_badge != blank -%}
+                <span class="product__qty-badge">{{ section.settings.tier_3_badge }}</span>
+              {%- endif -%}
+              <span class="product__volume-qty">Buy Any 3+</span>
+              <span class="product__volume-price">{{ tier_3_price | money_without_trailing_zeros }} each</span>
+              {%- if savings_tier_3 > 0 -%}
+                <span class="product__volume-save">Save {{ savings_tier_3 | money_without_trailing_zeros }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+          <p class="product__volume-note">Mix &amp; match any styles sitewide!</p>
+        </div>
+      {%- endif -%}
 
       {%- comment -%} Stats bar — 3 key stats below ATC {%- endcomment -%}
       {%- liquid
@@ -654,9 +660,11 @@
     position: relative;
   }
 
-  .product__volume-tier--current {
-    border-color: var(--gh-espresso, #3d3028);
-    background: var(--gh-cream, #faf7f4);
+  .product__volume-compare-price {
+    color: var(--gh-espresso-light, #5a4a3d);
+    text-decoration: line-through;
+    font-weight: 400;
+    margin-right: 4px;
   }
 
   .product__volume-qty {

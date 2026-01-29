@@ -2,6 +2,7 @@
   Product image gallery — hero image + thumbnail row.
   First thumbnail = selected variant image (updates on variant change).
   Remaining thumbnails = static images from section settings (editable in Shopify editor).
+  Empty slots render placeholder SVGs for layout testing.
   Usage: {% render 'product-gallery', product: product, section: section %}
 {%- endcomment -%}
 
@@ -49,7 +50,7 @@
         >
       </button>
 
-      {%- comment -%} Static gallery images from section settings {%- endcomment -%}
+      {%- comment -%} Static gallery images from section settings (placeholders when empty) {%- endcomment -%}
       {%- for i in (1..6) -%}
         {%- case i -%}
           {%- when 1 -%}{%- assign gallery_img = section.settings.gallery_image_1 -%}
@@ -78,6 +79,10 @@
               draggable="false"
             >
           </button>
+        {%- else -%}
+          <div class="product-gallery__thumb product-gallery__thumb--placeholder">
+            {{ 'product-' | append: i | placeholder_svg_tag: 'product-gallery__placeholder-thumb' }}
+          </div>
         {%- endif -%}
       {%- endfor -%}
     </div>

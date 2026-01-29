@@ -1,7 +1,31 @@
 {%- comment -%}
   Maps a handleized color name to a CSS color value.
+  First checks settings.color_swatch_list textarea, then falls back to hardcoded defaults.
   Usage: {% render 'swatch-color', swatch_name: 'royal-purple' %}
 {%- endcomment -%}
+{%- liquid
+  assign found_color = nil
+
+  if settings.color_swatch_list != blank
+    assign swatch_lines = settings.color_swatch_list | newline_to_br | split: '<br />'
+    for line in swatch_lines
+      assign stripped = line | strip
+      if stripped == blank
+        continue
+      endif
+      assign parts = stripped | split: ':'
+      if parts.size >= 2
+        assign line_name = parts[0] | strip | handleize
+        if line_name == swatch_name
+          assign found_color = '#' | append: parts[1] | remove: '#' | strip
+          break
+        endif
+      endif
+    endfor
+  endif
+-%}
+{%- if found_color -%}{{ found_color }}
+{%- else -%}
 {%- case swatch_name -%}
   {%- when 'black' -%}#000000
   {%- when 'white' -%}#ffffff
@@ -69,3 +93,4 @@
   {%- when 'rainbow' -%}linear-gradient(135deg, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #8B00FF)
   {%- else -%}#cccccc
 {%- endcase -%}
+{%- endif -%}

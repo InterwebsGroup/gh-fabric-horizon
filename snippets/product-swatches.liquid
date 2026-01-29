@@ -43,7 +43,7 @@
         -%}
         <button
           type="button"
-          class="product__swatch{% if is_selected %} product__swatch--active{% endif %}{% unless variant_available %} product__swatch--unavailable{% endunless %}{% if swatch_handle == 'white' or swatch_handle == 'cream' or swatch_handle == 'ivory' or swatch_handle == 'beige' or swatch_handle == 'natural' or swatch_handle == 'oatmeal' %} product__swatch--light{% endif %}"
+          class="product__swatch{% if is_selected %} product__swatch--active{% endif %}{% unless variant_available %} product__swatch--unavailable{% endunless %}{% if swatch_handle == 'white' or swatch_handle == 'cream' or swatch_handle == 'ivory' or swatch_handle == 'beige' or swatch_handle == 'natural' or swatch_handle == 'oatmeal' or swatch_handle == 'off-white' or swatch_handle == 'solid-white' or swatch_handle == 'vintage-white' or swatch_handle == 'glacier-gray' or swatch_handle == 'cool-gray' or swatch_handle == 'light-gray' or swatch_handle == 'cotton-candy' or swatch_handle == 'lime-cream' or swatch_handle == 'lavender' or swatch_handle == 'light-blue' or swatch_handle == 'aqua-blue' or swatch_handle == 'light-pink' %} product__swatch--light{% endif %}"
           data-swatch
           data-color="{{ value }}"
           data-option-index="{{ color_option_index }}"

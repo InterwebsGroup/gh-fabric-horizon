@@ -2480,6 +2480,17 @@
         "label": "Happy customers count",
         "default": "225,000+",
         "info": "Displayed on product page social proof line (e.g. '225,000+ happy customers')"
+      },
+      {
+        "type": "header",
+        "content": "Color Swatches"
+      },
+      {
+        "type": "textarea",
+        "id": "color_swatch_list",
+        "label": "Color swatch list",
+        "info": "One per line: Color Name:#hexcode",
+        "default": "Graphite:#4B4E53\nAthletic Heather:#AAA1A2\nOff White:#E5E5DB\nDark Gray:#222127\nLight Pink:#DCAFCE\nPurple:#543964\nHeather Navy:#52647C\nSlate Blue:#2A5673\nHeather Blue:#7B95BA\nTeal:#0DB2AE\nTan:#BEA994\nHeather Forest:#214C30\nGold:#FD9F17\nMauve:#915f6d\nHeather Maroon:#521B32\nRed:#D52E35\nPeach:#d4a493\nBrick:#99321f\nNavy Blue:#202A44\nAqua Blue:#8df7fa\nLight Blue:#ADD8E6\nMagenta:#f07ee5\nVintage Red:#c9636e\nSolid White:#f4f4f4\nCool Gray:#c4c4c4\nPastel Green:#abc7c0\nHeather Peach:#d7b6a4\nHeather Purple:#7b728c\nHeather Storm:#807f84\nHeather Black:#000000\nHeather Sunset:#cc9c8f\nHeather Red:#ff5c5c\nPoppy:#E35335\nVery Blue:#0072ff\nVintage White:#f5f5eb\nBlack and Pink:#000000\nPurple and Teal:#543964\nHot Pink:#ff028d\nDusty Rose:#DCAFCE\nCotton Candy:#8ce3ff\nLight Gray:#d3d5d4\nBlack Zip:#000000\nTeal Zip:#0DB2AE\nHeather Forest Zip:#214C30\nBlack Dots:#000000\nMauve Dots:#915f6d\nVery Blue Dots:#0072ff\nPurple Dots:#543964\nBlack Hearts:#000000\nBlack Stars:#000000\nBlack and Red:#ff0000\nLavender:#DFC5FE\nVibrant Earth:#96cc30\nSmoke:#666064\nCoral Splash:#ea7842\nWinter Blue:#84a7d8\nGlacier Gray:#e3e3e3\nPurple Rose:#543964\nOcean:#1ea8c5\nLime Cream:#dee6aa\nTangerine Dream:#FF6900\nBlack Dots Zip:#000000"
       }
     ]
   }
