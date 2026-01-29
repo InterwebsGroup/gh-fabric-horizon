@@ -4,32 +4,6 @@
   class="reviews section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
   style="{% render 'spacing-padding', settings: section.settings %}"
 >
-  {%- comment -%} JudgeMe Achievement Badges {%- endcomment -%}
-  <div class="reviews__badges">
-    <div class="reviews__badge">
-      <span class="reviews__badge-icon">🏆</span>
-      <span class="reviews__badge-label">Top 1% of Stores</span>
-    </div>
-    <div class="reviews__badge">
-      <span class="reviews__badge-icon">📈</span>
-      <span class="reviews__badge-label">Top 1% Trending</span>
-    </div>
-    <div class="reviews__badge">
-      <span class="reviews__badge-icon">✓</span>
-      <span class="reviews__badge-label">Gold Transparency</span>
-    </div>
-    <div class="reviews__badge">
-      <span class="reviews__badge-icon">⭐</span>
-      <span class="reviews__badge-label">
-        <span class="jdgm-all-reviews-count" data-shop-domain="gianthoodies.com">11,000+</span> Total Reviews
-      </span>
-    </div>
-    <div class="reviews__badge">
-      <span class="reviews__badge-icon">🔥</span>
-      <span class="reviews__badge-label">Monthly Record: 191</span>
-    </div>
-  </div>
-
   {%- comment -%} Section Header {%- endcomment -%}
   <div class="reviews__header">
     {% if section.settings.heading != blank %}
@@ -43,6 +17,11 @@
       {%- endfor -%}
       <span class="reviews__rating-text">4.9 out of 5</span>
     </div>
+  </div>
+
+  {%- comment -%} JudgeMe Medals — JS populates this container automatically {%- endcomment -%}
+  <div class="reviews__medals">
+    <div class="jdgm-medal-page" data-shop-domain="gianthoodies.com"></div>
   </div>
 
   {%- comment -%} Review Cards Grid {%- endcomment -%}
@@ -86,33 +65,11 @@
     padding-inline: 20px;
   }
 
-  /* ---- Badges Row ---- */
-  .reviews__badges {
+  /* ---- JudgeMe Medals ---- */
+  .reviews__medals {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
     margin-bottom: 40px;
-  }
-
-  .reviews__badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--gh-cream, #faf7f4);
-    border: 1px solid var(--gh-sand, #e8d5c4);
-    border-radius: 9999px;
-    padding: 8px 16px;
-    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--gh-espresso, #3d3028);
-    white-space: nowrap;
-  }
-
-  .reviews__badge-icon {
-    font-size: 1rem;
-    line-height: 1;
   }
 
   /* ---- Section Header ---- */
@@ -245,14 +202,8 @@
 
   /* ---- Mobile ---- */
   @media screen and (max-width: 749px) {
-    .reviews__badges {
-      gap: 8px;
-      margin-bottom: 32px;
-    }
-
-    .reviews__badge {
-      font-size: 0.75rem;
-      padding: 6px 12px;
+    .reviews__medals {
+      margin-bottom: 24px;
     }
 
     .reviews__header {
