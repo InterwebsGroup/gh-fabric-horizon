@@ -17,7 +17,7 @@
       if parts.size >= 2
         assign line_name = parts[0] | strip | handleize
         if line_name == swatch_name
-          assign found_color = '#' | append: parts[1] | remove: '#' | strip
+          assign found_color = parts[1] | strip
           break
         endif
       endif
