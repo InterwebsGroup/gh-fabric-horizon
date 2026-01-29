@@ -283,6 +283,9 @@ export class OverflowList extends DeclarativeShadowElement {
       list.style.setProperty('height', `${listHeight}px`);
     }
 
+    // Read --max-items before forcing layout to batch the style read
+    const maxItems = parseInt(getComputedStyle(this).getPropertyValue('--max-items'), 10);
+
     // Enable flex-wrap so overflowing items break to the next line. This makes calculations easier.
     list.style.setProperty('flex-wrap', 'wrap');
     placeholder.hidden = true;
@@ -310,8 +313,12 @@ export class OverflowList extends DeclarativeShadowElement {
       }
     });
 
+    // Remove flex-wrap now that measurement is done — leaving it set causes
+    // the list to stay in a wrapped layout state, which triggers ResizeObserver
+    // cascades across all 24 product cards on the collection page.
+    list.style.removeProperty('flex-wrap');
+
     // Enforce --max-items cap from CSS custom property (responsive via media queries)
-    const maxItems = parseInt(getComputedStyle(this).getPropertyValue('--max-items'), 10);
     if (maxItems > 0 && visibleElements.length > maxItems) {
       const excessElements = visibleElements.splice(maxItems);
       overflowingElements.unshift(...excessElements);
