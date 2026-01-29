@@ -4340,10 +4340,30 @@ h1, h2, h3, h4, h5, h6,
   margin-top: 0;
 }
 
-/* Hide duplicate upsell/shipping in drawer summary (shown at top of drawer instead) */
-.cart-drawer__summary .gh-cart-upsell,
-.cart-drawer__summary .gh-shipping-progress {
+/* Shipping progress now lives inline in the shipping row */
+.gh-shipping-progress {
   display: none;
+}
+
+/* Hide duplicate upsell in drawer summary (shown at top of drawer instead) */
+.cart-drawer__summary .gh-cart-upsell {
+  display: none;
+}
+
+/* ── Shipping message above inline bar ── */
+.gh-cart-shipping-msg {
+  margin: 0 0 0.25rem;
+  font-family: var(--gh-font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--gh-espresso);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.gh-cart-shipping-msg--free {
+  color: #2E8B3F;
 }
 
 /* ── Shipping Row in Summary ── */
