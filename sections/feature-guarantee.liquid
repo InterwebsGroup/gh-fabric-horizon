@@ -148,19 +148,46 @@
   }
 
   @media screen and (max-width: 749px) {
+    .feature-guarantee__stat {
+      margin-bottom: 8px;
+    }
+
+    .feature-guarantee__stat-number {
+      font-size: clamp(3rem, 12vw, 4rem);
+    }
+
+    .feature-guarantee__stat-label {
+      font-size: 1.25rem;
+    }
+
+    .feature-guarantee__comparison {
+      font-size: 0.9375rem;
+      margin-bottom: 24px;
+    }
+
     .feature-guarantee__process {
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
     .feature-guarantee__arrow {
-      transform: rotate(90deg);
-      padding: 0;
+      display: none;
     }
 
-    .feature-guarantee__step {
-      max-width: 100%;
+    .feature-guarantee__step-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .feature-guarantee__step-title {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+
+    .feature-guarantee__step-desc {
+      display: none;
     }
 
     .feature-guarantee__badge {
