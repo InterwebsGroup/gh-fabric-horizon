@@ -428,6 +428,8 @@ Go build.
 - [x] Hero section (Fabric default, customized with GH copy/styling, image via Shopify admin)
 - [x] Stats bar (custom section: 225,000+ customers, 4.9★, 30-day guarantee)
 - [x] Press logos bar (custom section: Oprah, GMA, Forbes, Cosmopolitan, Kelly & Mark, The View)
+  - Desktop: static centered row (no scrolling), `gap: 40px`, duplicates hidden
+  - Mobile: infinite seamless marquee (CSS animation, `margin-right` instead of `gap` for perfect `-50%` loop), edge-to-edge via negative margins
 - [x] Best Sellers product grid (Fabric product-list, 8 products configured)
 - [x] Category tiles (custom section: 6 tiles — Hoodies, Kids, Blankets, Shirts, Best Sellers, New)
 - [x] Shop Kids product grid (Fabric product-list, 4 products configured)
@@ -443,9 +445,9 @@ Go build.
 ### Phase 3: Collection Page -- DONE
 - [x] Collection header with hero banner, filter buttons, description
 - [x] Product grid: 4-col desktop, 2-col mobile, info below image
-- [x] Volume pricing banner (green, sticky below header)
+- [x] Volume pricing banner (green, sticky below header, uses `settings.free_shipping_threshold`)
 - [x] Color swatches on product cards (20px desktop, 14px mobile, max 10/5 with "+N more")
-- [x] Pagination dots inside card gallery
+- [x] Pagination dots inside card gallery (hidden in side-scroller sections, shown in grids)
 - [x] Filtering and sorting
 
 ### Phase 4: Product Page -- DONE
@@ -465,12 +467,34 @@ Go build.
 - [x] Mobile gallery swipe/dots
 - [ ] Additional product templates (kids-hoodie, shirt, blanket) — deferred to post-build
 
-### Phase 5: Cart Drawer -- NOT STARTED
-- [ ] Drawer slides from right
-- [ ] Opens on Add to Cart
-- [ ] Upsell messages by hoodie count
-- [ ] Shipping progress bar
-- [ ] Savings display
+### Phase 5: Cart (Drawer + Page) -- IN PROGRESS
+- [x] Drawer slides from right (Fabric default)
+- [x] Opens on Add to Cart (Fabric default)
+- [x] Upsell messages by hoodie count (gh-cart-extras.liquid)
+- [x] Shipping progress bar (gh-cart-extras.liquid, US-only)
+- [x] Per-item SAVE pill (terracotta, matches product card style) — `cart-products.liquid`
+- [x] Total SAVE pill on TOTAL row (crossed-out compare-at + actual total + pill) — `cart-summary.liquid`
+- [x] Country-aware shipping: US flat rate / US free / International "Calculated at Checkout" — `cart-summary.liquid`
+- [x] Checkout "or" divider between SECURE CHECKOUT and accelerated payment buttons — `cart-summary.liquid`
+- [ ] Hide PayPal/Google Pay, make Apple Pay first — **Must be done in Shopify Admin > Settings > Payments** (closed shadow DOM prevents CSS targeting)
+- [ ] Final visual QA and polish
+
+### Bugs Fixed (2026-01-29)
+- Fixed press logos scrolling on desktop (should be static) and resetting on mobile (should be infinite seamless marquee)
+- Fixed mobile press logos not reaching screen edges (negative margin breakout from parent padding)
+- Fixed pagination dots showing in side-scroller product card sections (should only show in grids)
+- Fixed orphaned Judge.me medals section in `templates/index.json` causing Shopify import validation error
+- Fixed volume pricing banner hardcoded "$75" — now uses `settings.free_shipping_threshold`
+
+---
+
+### TODOs — Before Launch
+- [ ] **Remove +$20 compare-at price fallback** — Search for `TEMP_COMPARE_AT_FALLBACK` in `cart-products.liquid` and `cart-summary.liquid`. This adds a fake $20 savings when no compare-at price is set on a product. Must be removed once all products have real compare-at prices set in Shopify Admin.
+- [ ] **Shopify Admin: Configure accelerated checkout buttons** — Hide PayPal and Google Pay, prioritize Apple Pay. Go to Settings > Payments in Shopify Admin.
+- [ ] **Additional product templates** — `product.kids-hoodie.json`, `product.shirt.json`, `product.blanket.json` (deferred to post-build)
+- [ ] **Final QA pass** — Test all cart flows (US below threshold, US above threshold, international customer)
+
+---
 
 ### Key Architecture Decisions
 - Volume pricing is **informational only** on PDP -- actual discounts applied via Shopify automatic discounts at cart level
@@ -479,3 +503,23 @@ Go build.
 - CSS uses **overflow-x: clip** (not hidden) on .content-for-layout to avoid breaking sticky positioning on collection page
 - Header shadow is in **base.css** (global) not in section stylesheet
 - Button styles use `.gh-button` class system in base.css; product-main migrated from section-scoped `.btn-primary`
+- Country detection uses **`localization.country.iso_code`** (Shopify built-in, globally available in Liquid, defaults to primary market = US)
+- Free shipping threshold is a **global theme setting** (`settings.free_shipping_threshold`, default 75) — used in volume pricing banner, cart summary, shipping progress bar, product page trust bar
+- Shipping flat rate stored in **`settings.shipping_cost`** (default "4.95")
+- Shopify accelerated checkout buttons use **closed shadow DOM** — individual buttons cannot be hidden/reordered via CSS, must use Shopify Admin
+- Press logos marquee uses **`margin-right` instead of CSS `gap`** on mobile — `gap` creates n-1 gaps which breaks the -50% translateX loop; `margin-right` ensures each item contributes equal space
+- Cart save pills use **`.gh-cart-save-pill`** class (terracotta bg, white text, pill shape) matching the product card `.price-savings` styling
+
+### Key Files Reference
+| File | Purpose |
+|------|---------|
+| `snippets/cart-products.liquid` | Cart line items (both drawer + page), per-item SAVE pill |
+| `snippets/cart-summary.liquid` | Cart totals, shipping row, total SAVE pill, checkout buttons |
+| `snippets/gh-cart-extras.liquid` | Upsell banner + shipping progress bar (US-only) |
+| `snippets/press-logos-bar.liquid` | Shared press logos bar (desktop static, mobile marquee) |
+| `snippets/gh-product-card-styles.liquid` | Universal product card styling (dots, swatches, image lock) |
+| `sections/press-logos.liquid` | Press logos section wrapper (padding, color scheme) |
+| `sections/volume-pricing-banner.liquid` | Collection page volume pricing sticky banner |
+| `assets/base.css` | Global styles, GH brand overrides, save pill CSS |
+| `config/settings_schema.json` | Theme settings (shipping threshold, pricing mode, upsell messages) |
+| `templates/index.json` | Homepage template (section order + settings) |
