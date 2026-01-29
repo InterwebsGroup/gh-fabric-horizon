@@ -465,6 +465,9 @@ Go build.
 - [x] Product recommendations
 - [x] Back-in-stock email form
 - [x] Mobile gallery swipe/dots
+- [x] Desktop gallery redesign: 2×2 grid with lightbox (replaces single tall hero)
+- [x] Desktop layout: selling-points, trust-bar, press-logos moved under gallery (left column)
+- [x] Desktop layout: accordions full-width below both columns
 - [ ] Additional product templates (kids-hoodie, shirt, blanket) — deferred to post-build
 
 ### Phase 5: Cart (Drawer + Page) -- IN PROGRESS
@@ -486,13 +489,53 @@ Go build.
 - Fixed orphaned Judge.me medals section in `templates/index.json` causing Shopify import validation error
 - Fixed volume pricing banner hardcoded "$75" — now uses `settings.free_shipping_threshold`
 
+### Changes Made (2026-01-29, session 2)
+
+**Product card styling unification:**
+- Extracted shared product card styles from `gh-collection-styles.liquid` into `gh-product-card-styles.liquid`
+- Added dual selectors (`.product-grid` + `.resource-list`) so cards render consistently everywhere
+- Added `{% render 'gh-product-card-styles' %}` to `product-list.liquid` and `product-recommendations.liquid`
+
+**Press logos consolidation:**
+- Replaced PDP "As Seen On" text section with shared `press-logos-bar.liquid` snippet (same as homepage)
+- Moved press logos to inline in `product-main.liquid` (under trust bar) — Shopify can't render sections inside sections
+- Centralized logo images in `config/settings_schema.json` (theme-level settings, editable once for all instances)
+- `sections/press-logos.liquid` is a thin wrapper that renders the snippet
+
+**JudgeMe medals fix:**
+- Added CSS overrides in `reviews.liquid` to force `flex-wrap: wrap` and `overflow: visible` on all breakpoints
+- Mobile: full viewport width with negative margin breakout
+
+**Desktop product gallery redesign:**
+- Replaced single tall hero (aspect-ratio 1/1.25) with 2×2 grid of 1:1 images
+- Position 1 = variant image (locked, only swatch changes update it)
+- Positions 2–4 = first 3 static gallery images from section settings
+- Thumbnails below = remaining images (slots 4–6 on desktop, all on mobile)
+- Click any image opens lightbox overlay (no hero swapping)
+- Mobile layout unchanged (single hero + all thumbnails)
+- Files: `snippets/product-gallery.liquid`, `assets/product-page.js`, `sections/product-main.liquid`
+
+**Desktop layout restructure:**
+- Selling-points strip, trust bar, and press logos moved from right info column to under the gallery in the left column (new `product-main__below-gallery` wrapper)
+- Info column spans both grid rows (`grid-row: 1 / 3`) to keep sticky behavior
+- Accordions moved outside the 2-column grid, render full width with page-width centering
+- Mobile stacking order unchanged: gallery → info → social proof → accordions
+
 ---
 
 ### TODOs — Before Launch
-- [ ] **Remove +$20 compare-at price fallback** — Search for `TEMP_COMPARE_AT_FALLBACK` in `cart-products.liquid` and `cart-summary.liquid`. This adds a fake $20 savings when no compare-at price is set on a product. Must be removed once all products have real compare-at prices set in Shopify Admin.
+- [ ] **Remove +$20 compare-at price fallback** — Search for `TEMP_COMPARE_AT_FALLBACK` in `cart-products.liquid` and `cart-summary.liquid`. Also in `product-page.js` (`updatePriceDisplay` function, line ~197). This adds a fake $20 savings when no compare-at price is set on a product. Must be removed once all products have real compare-at prices set in Shopify Admin.
 - [ ] **Shopify Admin: Configure accelerated checkout buttons** — Hide PayPal and Google Pay, prioritize Apple Pay. Go to Settings > Payments in Shopify Admin.
 - [ ] **Additional product templates** — `product.kids-hoodie.json`, `product.shirt.json`, `product.blanket.json` (deferred to post-build)
 - [ ] **Final QA pass** — Test all cart flows (US below threshold, US above threshold, international customer)
+
+### TODOs — Visual QA (next session)
+- [ ] **Test desktop gallery redesign** — Verify 2×2 grid renders correctly, lightbox opens/closes, swatch changes update position 1 only
+- [ ] **Test gallery on mobile** — Verify single hero + all thumbnails, lightbox works, swatch changes update hero
+- [ ] **Test below-gallery layout** — Verify selling-points/trust/press appear under gallery on desktop, after info on mobile
+- [ ] **Test full-width accordions** — Verify accordions span full page width on desktop, proper padding and centering
+- [ ] **Test sticky info column** — Verify right column (title/price/ATC) still sticks correctly with the new grid-row spanning
+- [ ] **General desktop/mobile responsive check** — All breakpoints (768px, 1024px) transition cleanly
 
 ---
 
@@ -509,6 +552,10 @@ Go build.
 - Shopify accelerated checkout buttons use **closed shadow DOM** — individual buttons cannot be hidden/reordered via CSS, must use Shopify Admin
 - Press logos marquee uses **`margin-right` instead of CSS `gap`** on mobile — `gap` creates n-1 gaps which breaks the -50% translateX loop; `margin-right` ensures each item contributes equal space
 - Cart save pills use **`.gh-cart-save-pill`** class (terracotta bg, white text, pill shape) matching the product card `.price-savings` styling
+- Product gallery uses **two separate hero img elements** (`data-gallery-hero` for desktop grid, `data-gallery-hero-mobile` for mobile) — both synced by `__ghGalleryUpdateVariant()` on swatch change. Avoids CSS complexity of moving a single element between layouts.
+- Desktop gallery grid uses **`grid-row: 1 / 3`** on the info column so it spans both the gallery row and below-gallery row, keeping `position: sticky` working correctly
+- Accordions sit **outside `.product-main__grid`** — they're a direct child of `.product-main` section, rendered full width with their own `max-width` and `padding-inline` matching the grid
+- Lightbox uses **`data-lightbox-trigger`** attribute on any clickable image element — grid items, mobile hero, and thumbnails all share the same trigger mechanism
 
 ### Key Files Reference
 | File | Purpose |
@@ -518,8 +565,14 @@ Go build.
 | `snippets/gh-cart-extras.liquid` | Upsell banner + shipping progress bar (US-only) |
 | `snippets/press-logos-bar.liquid` | Shared press logos bar (desktop static, mobile marquee) |
 | `snippets/gh-product-card-styles.liquid` | Universal product card styling (dots, swatches, image lock) |
+| `snippets/gh-collection-styles.liquid` | Collection-specific styles (filter bar, spacing, grid gaps) — renders `gh-product-card-styles` |
+| `snippets/product-gallery.liquid` | Product page image gallery (desktop 2×2 grid + mobile hero + lightbox) |
+| `sections/product-main.liquid` | Product page layout (2-col grid, gallery CSS, info column, accordions, all component CSS) |
 | `sections/press-logos.liquid` | Press logos section wrapper (padding, color scheme) |
 | `sections/volume-pricing-banner.liquid` | Collection page volume pricing sticky banner |
+| `sections/reviews.liquid` | Reviews section (JudgeMe medals + customer review cards) |
+| `assets/product-page.js` | Product page JS (gallery variant sync, lightbox, swatches, sticky ATC, AJAX cart) |
 | `assets/base.css` | Global styles, GH brand overrides, save pill CSS |
-| `config/settings_schema.json` | Theme settings (shipping threshold, pricing mode, upsell messages) |
+| `config/settings_schema.json` | Theme settings (shipping threshold, pricing mode, upsell messages, press logos) |
 | `templates/index.json` | Homepage template (section order + settings) |
+| `templates/product.json` | Product page template (product-main, testimonials, recommendations) |
