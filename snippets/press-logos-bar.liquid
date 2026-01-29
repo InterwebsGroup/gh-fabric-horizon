@@ -1,30 +1,29 @@
 {% comment %}
   Shared "As Seen On" press logos bar.
   Renders the same logo strip everywhere — homepage, PDP, etc.
-  Uses file_url so it works from any context (section or snippet).
+  Logos are configured in Theme Settings > Giant Hoodies Settings > Press Logos.
+  Falls back to file_url references if theme settings aren't set yet.
 
   Usage:  {% render 'press-logos-bar' %}
 {% endcomment %}
 
 {%- capture logo_items -%}
-  <div class="press-logos__item">
-    <img src="{{ 'Oprah_Mag.svg' | file_url }}" alt="Oprah's Favorite Things" class="press-logos__img" loading="lazy" width="200" height="80">
-  </div>
-  <div class="press-logos__item">
-    <img src="{{ 'GMA.svg' | file_url }}" alt="Good Morning America" class="press-logos__img" loading="lazy" width="200" height="80">
-  </div>
-  <div class="press-logos__item">
-    <img src="{{ 'ABC.svg' | file_url }}" alt="Forbes" class="press-logos__img" loading="lazy" width="200" height="80">
-  </div>
-  <div class="press-logos__item">
-    <img src="{{ 'Cosmopolitan.svg' | file_url }}" alt="Cosmopolitan" class="press-logos__img" loading="lazy" width="200" height="80">
-  </div>
-  <div class="press-logos__item">
-    <img src="{{ 'Kelly_and_Mark.svg' | file_url }}" alt="Kelly & Mark" class="press-logos__img" loading="lazy" width="200" height="80">
-  </div>
-  <div class="press-logos__item">
-    <img src="{{ 'The_View.svg' | file_url }}" alt="The View" class="press-logos__img" loading="lazy" width="200" height="80">
-  </div>
+  {%- liquid
+    assign logos = 'press_logo_1,press_logo_2,press_logo_3,press_logo_4,press_logo_5,press_logo_6' | split: ','
+    assign fallback_files = 'Oprah_Mag.svg,GMA.svg,ABC.svg,Cosmopolitan.svg,Kelly_and_Mark.svg,The_View.svg' | split: ','
+    assign fallback_alts = "Oprah's Favorite Things,Good Morning America,Forbes,Cosmopolitan,Kelly & Mark,The View" | split: ','
+  -%}
+  {%- for logo_key in logos -%}
+    {%- assign alt_key = logo_key | append: '_alt' -%}
+    {%- assign alt_text = settings[alt_key] | default: fallback_alts[forloop.index0] -%}
+    <div class="press-logos__item">
+      {%- if settings[logo_key] != blank -%}
+        {{ settings[logo_key] | image_url: width: 200 | image_tag: alt: alt_text, class: 'press-logos__img', loading: 'lazy' }}
+      {%- else -%}
+        <img src="{{ fallback_files[forloop.index0] | file_url }}" alt="{{ alt_text }}" class="press-logos__img" loading="lazy" width="200" height="80">
+      {%- endif -%}
+    </div>
+  {%- endfor -%}
 {%- endcapture -%}
 
 <div class="press-logos">

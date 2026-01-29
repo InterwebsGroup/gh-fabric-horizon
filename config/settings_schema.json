@@ -2472,6 +2472,76 @@
       },
       {
         "type": "header",
+        "content": "Press Logos (As Seen On)"
+      },
+      {
+        "type": "image_picker",
+        "id": "press_logo_1",
+        "label": "Logo 1 (Oprah)"
+      },
+      {
+        "type": "text",
+        "id": "press_logo_1_alt",
+        "label": "Logo 1 alt text",
+        "default": "Oprah's Favorite Things"
+      },
+      {
+        "type": "image_picker",
+        "id": "press_logo_2",
+        "label": "Logo 2 (GMA)"
+      },
+      {
+        "type": "text",
+        "id": "press_logo_2_alt",
+        "label": "Logo 2 alt text",
+        "default": "Good Morning America"
+      },
+      {
+        "type": "image_picker",
+        "id": "press_logo_3",
+        "label": "Logo 3 (Forbes)"
+      },
+      {
+        "type": "text",
+        "id": "press_logo_3_alt",
+        "label": "Logo 3 alt text",
+        "default": "Forbes"
+      },
+      {
+        "type": "image_picker",
+        "id": "press_logo_4",
+        "label": "Logo 4 (Cosmo)"
+      },
+      {
+        "type": "text",
+        "id": "press_logo_4_alt",
+        "label": "Logo 4 alt text",
+        "default": "Cosmopolitan"
+      },
+      {
+        "type": "image_picker",
+        "id": "press_logo_5",
+        "label": "Logo 5 (Kelly & Mark)"
+      },
+      {
+        "type": "text",
+        "id": "press_logo_5_alt",
+        "label": "Logo 5 alt text",
+        "default": "Kelly & Mark"
+      },
+      {
+        "type": "image_picker",
+        "id": "press_logo_6",
+        "label": "Logo 6 (The View)"
+      },
+      {
+        "type": "text",
+        "id": "press_logo_6_alt",
+        "label": "Logo 6 alt text",
+        "default": "The View"
+      },
+      {
+        "type": "header",
         "content": "Social Proof"
       },
       {
