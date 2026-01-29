@@ -444,6 +444,12 @@
     "feature_oversized": {
       "type": "feature-oversized",
       "settings": {
+        "image_1": "shopify://shop_images/gianthoodies-size-small.jpg",
+        "image_2": "shopify://shop_images/gianthoodies-size-medium.jpg",
+        "image_3": "shopify://shop_images/gianthoodies-size-large.jpg",
+        "image_4": "shopify://shop_images/gianthoodies-size-xl.jpg",
+        "image_5": "shopify://shop_images/gianthoodies-size-2xl.jpg",
+        "image_6": "shopify://shop_images/gianthoodies-size-3xl.jpg",
         "color_scheme": "scheme-1",
         "padding-block-start": 80,
         "padding-block-end": 80
