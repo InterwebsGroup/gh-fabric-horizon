@@ -703,13 +703,37 @@
   }
 
   .product__volume-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
     font-family: var(--gh-font-heading, 'Fraunces', serif);
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--gh-espresso, #3d3028);
-    line-height: 1.3;
-    margin: 0 0 12px;
-    text-wrap: pretty;
+    line-height: 1.35;
+    margin: 0 0 14px;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .product__volume-heading::before,
+  .product__volume-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gh-sand, #e8d5c4);
+  }
+
+  @media (max-width: 767px) {
+    .product__volume-heading {
+      justify-content: center;
+      font-size: 1.05rem;
+    }
+
+    .product__volume-heading::before,
+    .product__volume-heading::after {
+      display: none;
+    }
   }
 
   .product__volume-tiers {
