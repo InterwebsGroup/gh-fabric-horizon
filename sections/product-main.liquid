@@ -413,9 +413,12 @@
   /* =========================================
      Product Main — Layout
      ========================================= */
-  /* Prevent any product page content from expanding the viewport */
+  /* Prevent any product page content from expanding the viewport.
+     Use clip instead of hidden — hidden creates a scroll container
+     that breaks position:sticky on child elements (e.g. collection
+     pricing banner). clip clips overflow without a new container. */
   .content-for-layout {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
   }
 
