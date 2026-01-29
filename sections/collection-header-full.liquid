@@ -167,8 +167,14 @@
 
   /* ========== FILTER BUTTONS ========== */
   .filter-buttons {
-    padding: 28px 16px 20px;
+    padding: 28px 0 20px;
     background: var(--gh-cream, #faf7f4);
+  }
+
+  @media (min-width: 768px) {
+    .filter-buttons {
+      padding: 28px 16px 20px;
+    }
   }
 
   .filter-buttons__label {
@@ -190,7 +196,7 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 4px 4px 8px;
+    padding: 4px 16px 8px;
   }
 
   .filter-buttons__list::-webkit-scrollbar {
@@ -205,6 +211,7 @@
       max-width: 900px;
       margin: 0 auto;
       gap: 12px;
+      padding: 4px 4px 8px;
     }
   }
 
