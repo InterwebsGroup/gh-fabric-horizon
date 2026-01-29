@@ -163,7 +163,7 @@
           assign discount_pct_3 = savings_tier_3 | times: 100 | divided_by: compare_total_3
         -%}
         <div class="product__volume-pricing">
-          <p class="product__option-label">Buy More, Save More</p>
+          <p class="product__volume-heading">Buy More, Save More! Mix &amp; Match Any Designs and Colors!</p>
           <div class="product__volume-tiers">
             <div class="product__volume-tier">
               <div class="product__volume-left">
@@ -234,7 +234,6 @@
               </div>
             </div>
           </div>
-          <p class="product__volume-note">Mix &amp; match any styles sitewide!</p>
         </div>
       {%- endif -%}
 
@@ -700,6 +699,16 @@
     margin-bottom: 24px;
   }
 
+  .product__volume-heading {
+    font-family: var(--gh-font-heading, 'Fraunces', serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--gh-espresso, #3d3028);
+    line-height: 1.3;
+    margin: 0 0 12px;
+    text-wrap: pretty;
+  }
+
   .product__volume-tiers {
     border: 1.5px solid var(--gh-sand, #e8d5c4);
     border-radius: 8px;
@@ -793,15 +802,6 @@
     font-weight: 600;
     color: var(--gh-terracotta, #c4704b);
     margin-top: 2px;
-  }
-
-  .product__volume-note {
-    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.8rem;
-    color: var(--gh-espresso-light, #5a4a3d);
-    text-align: center;
-    margin: 10px 0 0;
-    font-style: italic;
   }
 
   /* Ribbon badge — top-right corner */
