@@ -4299,37 +4299,3 @@ h1, h2, h3, h4, h5, h6,
     display: none;
   }
 }
-
-/* Judge.me Medals – infinite marquee, no scrollbar */
-.jdgm-medals {
-  overflow: hidden !important;
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
-.jdgm-medals::-webkit-scrollbar {
-  display: none !important;
-}
-
-@keyframes jdgm-medals-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.jdgm-medals-marquee {
-  display: flex;
-  width: max-content;
-  animation: jdgm-medals-scroll 25s linear infinite;
-  will-change: transform;
-}
-
-.jdgm-medals-marquee > * {
-  flex-shrink: 0;
-  padding-right: 24px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .jdgm-medals-marquee {
-    animation-play-state: paused;
-  }
-}
