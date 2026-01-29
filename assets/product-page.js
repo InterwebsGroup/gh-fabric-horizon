@@ -24,6 +24,7 @@
     var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
 
     initGallery(section);
+    initLightbox(section);
     initSwatches(section, variants);
     initStickyATC(section);
     initAddToCart(section, variants);
@@ -47,68 +48,145 @@
   }
 
   /* =========================================
-     1. Image Gallery (hero + thumbnail row)
+     1. Image Gallery — variant image sync
+     Desktop: 2×2 grid, Mobile: hero + thumbs
+     No image swapping — all clicks open lightbox
      ========================================= */
   function initGallery(section) {
-    var hero = section.querySelector('[data-gallery-hero]');
-    var thumbs = section.querySelectorAll('[data-gallery-thumb]');
-    if (!hero || thumbs.length === 0) return;
+    var desktopHero = section.querySelector('[data-gallery-hero]');
+    var mobileHero = section.querySelector('[data-gallery-hero-mobile]');
+    var variantGridItem = section.querySelector('.product-gallery__grid-item--variant');
 
-    // Click a thumbnail to show it in the hero
-    thumbs.forEach(function (thumb) {
-      thumb.addEventListener('click', function () {
-        hero.src = this.dataset.fullSrc;
-        hero.srcset = this.dataset.fullSrcset;
-        hero.alt = this.dataset.fullAlt || '';
-
-        thumbs.forEach(function (t) {
-          t.classList.remove('product-gallery__thumb--active');
-          t.setAttribute('aria-pressed', 'false');
-        });
-        this.classList.add('product-gallery__thumb--active');
-        this.setAttribute('aria-pressed', 'true');
-      });
-    });
-
-    // Expose method for swatch integration — updates variant image
+    // Expose method for swatch integration — updates variant image (pos 1)
     section.__ghGalleryUpdateVariant = function (src, alt) {
       if (!src) return;
-      var variantThumb = section.querySelector('[data-variant-thumb]');
 
       // Build sized URLs from base src
       var baseSrc = src.replace(/[?&]width=\d+/g, '');
       var sep = baseSrc.indexOf('?') !== -1 ? '&' : '?';
       var heroSrc = baseSrc + sep + 'width=900';
       var thumbSrc = baseSrc + sep + 'width=100';
+      var largeSrc = baseSrc + sep + 'width=1200';
       var srcset = [400, 600, 900, 1200].map(function (w) {
         return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
       }).join(', ');
+      var largeSrcset = [600, 900, 1200].map(function (w) {
+        return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
+      }).join(', ');
 
-      // Update hero
-      hero.src = heroSrc;
-      hero.srcset = srcset;
-      hero.alt = alt || '';
+      // Update desktop grid position 1
+      if (desktopHero) {
+        desktopHero.src = heroSrc;
+        desktopHero.srcset = srcset;
+        desktopHero.alt = alt || '';
+      }
 
-      // Update variant thumbnail
+      // Update desktop grid-item lightbox data
+      if (variantGridItem) {
+        variantGridItem.dataset.fullSrc = largeSrc;
+        variantGridItem.dataset.fullSrcset = largeSrcset;
+        variantGridItem.dataset.fullAlt = alt || '';
+      }
+
+      // Update mobile hero
+      if (mobileHero) {
+        mobileHero.src = heroSrc;
+        mobileHero.srcset = srcset;
+        mobileHero.alt = alt || '';
+        mobileHero.dataset.fullSrc = largeSrc;
+        mobileHero.dataset.fullSrcset = largeSrcset;
+        mobileHero.dataset.fullAlt = alt || '';
+      }
+
+      // Update mobile variant thumbnail
+      var variantThumb = section.querySelector('[data-variant-thumb]');
       if (variantThumb) {
-        variantThumb.dataset.fullSrc = heroSrc;
-        variantThumb.dataset.fullSrcset = srcset;
+        variantThumb.dataset.fullSrc = largeSrc;
+        variantThumb.dataset.fullSrcset = largeSrcset;
         variantThumb.dataset.fullAlt = alt || '';
         var thumbImg = variantThumb.querySelector('img');
         if (thumbImg) {
           thumbImg.src = thumbSrc;
           thumbImg.alt = alt || '';
         }
-
-        // Set variant thumb as active
-        thumbs.forEach(function (t) {
-          t.classList.remove('product-gallery__thumb--active');
-          t.setAttribute('aria-pressed', 'false');
-        });
-        variantThumb.classList.add('product-gallery__thumb--active');
-        variantThumb.setAttribute('aria-pressed', 'true');
       }
     };
+  }
+
+  /* =========================================
+     1b. Lightbox — opens full-size image
+     ========================================= */
+  function initLightbox(section) {
+    var lightbox = section.querySelector('[data-gallery-lightbox]');
+    var lightboxImg = section.querySelector('[data-lightbox-img]');
+    var closeBtn = section.querySelector('[data-lightbox-close]');
+    if (!lightbox || !lightboxImg) return;
+
+    var triggers = section.querySelectorAll('[data-lightbox-trigger]');
+
+    function openLightbox(src, srcset, alt) {
+      lightboxImg.src = src || '';
+      if (srcset) {
+        lightboxImg.srcset = srcset;
+      } else {
+        lightboxImg.removeAttribute('srcset');
+      }
+      lightboxImg.alt = alt || '';
+      lightbox.classList.add('product-gallery__lightbox--open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('product-gallery__lightbox--open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Bind all triggers (grid items, mobile hero, thumbnails)
+    triggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        var el = this.closest('[data-full-src]') || this;
+        openLightbox(
+          el.dataset.fullSrc,
+          el.dataset.fullSrcset,
+          el.dataset.fullAlt
+        );
+      });
+
+      // Keyboard support for div[role=button] triggers
+      if (trigger.getAttribute('role') === 'button') {
+        trigger.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
+      }
+    });
+
+    // Close on button click
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        closeLightbox();
+      });
+    }
+
+    // Close on overlay click (not on image)
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('product-gallery__lightbox--open')) {
+        closeLightbox();
+      }
+    });
   }
 
   /* =========================================
