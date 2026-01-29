@@ -523,13 +523,54 @@ Go build.
 
 ---
 
+### Changes Made (2026-01-29, session 3)
+
+**Guarantee standardization:**
+- Fixed conflicting guarantee durations across theme — all references now say **30 days** consistently
+- Changed `90-Day` → `30-Day` in: `templates/index.json` (stats bar data), `sections/stats-bar.liquid` (schema default), `MASTER-BRIEFING.md`
+- No 14-day references found; all other files were already correct at 30 days
+
+**Feature guarantee section spacing:**
+- Added `margin-top: 40px; margin-bottom: 40px` to `.feature-guarantee` for separation from adjacent homepage sections
+
+**Product page — selling points & trust bar restructure:**
+- Moved selling-points strip from below ATC button to directly above trust bar (consolidated trust/social proof block)
+- Trust bar forced to single line on all breakpoints (`flex-wrap: nowrap`, `white-space: nowrap`, `font-size: 0.75rem`, `gap: 12px`)
+- Trust bar items now **editable in theme editor** — 3 text fields under "Trust Bar" heading (defaults: "Free shipping $75+", "30-Day Guarantee", "Made in USA")
+- Selling-points strip background changed from espresso (`--gh-espresso`) to terracotta (`--gh-terracotta`) with `!important` to override color scheme specificity
+
+**Offer banner (new feature):**
+- Added `image_picker` setting under "Offer Banner" heading in GH Product Main section
+- Renders above selling-points strip, full-width in info column, `border-radius: 8px`
+- Shows Shopify `lifestyle-1` placeholder SVG when no image uploaded (cream bg, dashed border)
+- Inspired by Hollow Socks product page sale banner
+
+**Press logos fix (both homepage + PDP):**
+- Homepage section switched from `page-width` to `full-width` (schema default + `index.json` config) — no more side padding
+- Scroll animation now infinite seamless marquee on mobile (was glitching/resetting)
+- Desktop: static centered row with duplicates hidden
+- Mobile: edge-to-edge via negative margins, `margin-right` instead of `gap` for perfect `-50%` loop
+- `nth-child` selectors updated to `6n+` pattern for both logo copies
+
+**Cart cleanup:**
+- Hidden "Taxes and shipping calculated at checkout" text in cart summary (`display: none` on `.tax-note` div in `cart-summary.liquid`)
+
+---
+
 ### TODOs — Before Launch
 - [ ] **Remove +$20 compare-at price fallback** — Search for `TEMP_COMPARE_AT_FALLBACK` in `cart-products.liquid` and `cart-summary.liquid`. Also in `product-page.js` (`updatePriceDisplay` function, line ~197). This adds a fake $20 savings when no compare-at price is set on a product. Must be removed once all products have real compare-at prices set in Shopify Admin.
 - [ ] **Shopify Admin: Configure accelerated checkout buttons** — Hide PayPal and Google Pay, prioritize Apple Pay. Go to Settings > Payments in Shopify Admin.
 - [ ] **Additional product templates** — `product.kids-hoodie.json`, `product.shirt.json`, `product.blanket.json` (deferred to post-build)
 - [ ] **Final QA pass** — Test all cart flows (US below threshold, US above threshold, international customer)
 
-### TODOs — Visual QA (next session)
+### TODOs — Next Session
+- [ ] **Upload offer banner image** — Go to Customize > Products > GH Product Main > Offer Banner and upload a promotional banner (placeholder SVG is showing currently)
+- [ ] **Verify selling-points terracotta background** — Previous `!important` fix should override color scheme; confirm it renders terracotta not espresso after deploy
+- [ ] **Test trust bar single-line on mobile** — Confirm all 3 items fit on one line without overflow on small screens (320px+)
+- [ ] **Test press logos on homepage** — Verify full-width (no side padding), smooth infinite scroll on mobile, static centered on desktop
+- [ ] **Test press logos on product page** — Same behavior as homepage, edge-to-edge on mobile
+
+### TODOs — Visual QA
 - [ ] **Test desktop gallery redesign** — Verify 2×2 grid renders correctly, lightbox opens/closes, swatch changes update position 1 only
 - [ ] **Test gallery on mobile** — Verify single hero + all thumbnails, lightbox works, swatch changes update hero
 - [ ] **Test below-gallery layout** — Verify selling-points/trust/press appear under gallery on desktop, after info on mobile
@@ -556,6 +597,9 @@ Go build.
 - Desktop gallery grid uses **`grid-row: 1 / 3`** on the info column so it spans both the gallery row and below-gallery row, keeping `position: sticky` working correctly
 - Accordions sit **outside `.product-main__grid`** — they're a direct child of `.product-main` section, rendered full width with their own `max-width` and `padding-inline` matching the grid
 - Lightbox uses **`data-lightbox-trigger`** attribute on any clickable image element — grid items, mobile hero, and thumbnails all share the same trigger mechanism
+- Offer banner uses **`image_picker` schema setting** (`offer_banner_image`) — Shopify's `image_picker` doesn't support a `default` value, so a placeholder SVG renders when empty
+- Trust bar items are **editable via section settings** (`trust_item_1`, `trust_item_2`, `trust_item_3`) — icons (checkmark, return arrow, US flag SVG) are hardcoded per position
+- Selling-points background uses **`!important`** to override the section color scheme's `background-color` which was winning the specificity battle in `{% stylesheet %}` blocks
 
 ### Key Files Reference
 | File | Purpose |
@@ -575,4 +619,5 @@ Go build.
 | `assets/base.css` | Global styles, GH brand overrides, save pill CSS |
 | `config/settings_schema.json` | Theme settings (shipping threshold, pricing mode, upsell messages, press logos) |
 | `templates/index.json` | Homepage template (section order + settings) |
+| `sections/feature-guarantee.liquid` | Homepage guarantee section (<1% return rate, 30-day badge) |
 | `templates/product.json` | Product page template (product-main, testimonials, recommendations) |
