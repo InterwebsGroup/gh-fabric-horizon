@@ -41,7 +41,7 @@
     {% if swatch_value == null %} swatch--unavailable{% endif %}
   "
   style="
-    --swatch-background: {{ swatch_value }};
+    {% if swatch_value %}--swatch-background: {{ swatch_value }};{% endif %}
     {% if swatch.image and settings.show_variant_image == false %} --swatch-focal-point: {{ swatch.image.presentation.focal_point }};{% endif %}
   "
 >
