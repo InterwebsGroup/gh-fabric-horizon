@@ -34,9 +34,9 @@
   style="
     {% render 'size-style', settings: block_settings %}
     {% render 'spacing-style', settings: block_settings %}
-    --font-family: var(--font-body--family);
-    --font-style: var(--font-body--style);
-    --font-weight: 600;
+    --font-family: var(--gh-font-heading);
+    --font-style: normal;
+    --font-weight: 900;
   "
   {{ block.shopify_attributes }}
 >
@@ -57,7 +57,7 @@
       image: settings.logo,
       class: 'header-logo__image',
       height: settings.logo_height,
-      text_fallback: shop.name,
+      text_fallback: 'Giant Hoodies',
       style: logo_style
     %}
   </span>
@@ -71,7 +71,7 @@
         image: inverse_logo,
         class: 'header-logo__image',
         height: settings.logo_height,
-        text_fallback: shop.name,
+        text_fallback: 'Giant Hoodies',
         style: inverse_logo_style
       %}
     </span>
@@ -86,6 +86,7 @@
     font-family: var(--font-family);
     font-weight: var(--font-weight);
     font-style: var(--font-style);
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
     color: var(--color-foreground);
     justify-content: center;
     align-items: center;
