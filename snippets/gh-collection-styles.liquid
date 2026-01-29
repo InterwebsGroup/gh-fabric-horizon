@@ -270,30 +270,17 @@
      SWATCHES BELOW IMAGE
      ============================================ */
 
-  /* Reset fieldset defaults so swatches lay out cleanly */
-  .product-grid .variant-option--swatches {
-    border: 0;
-    margin: 0;
-    padding: 0;
-    min-inline-size: 0;
-  }
-
-  /* Let overflow-list fill available card width */
+  /* Let overflow-list fill available card width — shows ~8 swatches on desktop */
   .product-grid product-swatches {
-    display: flex;
     max-width: 100%;
   }
 
   /* Swatch sizing - espresso border for visibility on light background */
   .product-grid .swatch {
-    display: block;
     width: 20px;
     height: 20px;
-    min-width: 20px;
-    min-height: 20px;
     border: 2px solid rgba(61, 48, 40, 0.25);
     border-radius: 50%;
-    background: var(--swatch-background, var(--custom-swatch-color, #ccc));
   }
 
   /* Tighter gap between swatches */
@@ -310,7 +297,6 @@
     color: var(--gh-espresso-light, #5a4a3d);
     font-size: 0.75rem;
     font-weight: 500;
-    white-space: nowrap;
   }
 
   /* ============================================
@@ -356,8 +342,6 @@
     .product-grid .swatch {
       width: 14px;
       height: 14px;
-      min-width: 14px;
-      min-height: 14px;
       border-width: 1.5px;
     }
 
