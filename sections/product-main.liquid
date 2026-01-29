@@ -373,25 +373,23 @@
   /* =========================================
      Product Main — Layout
      ========================================= */
-  .product-main *,
-  .product-main *::before,
-  .product-main *::after {
-    box-sizing: border-box;
+  /* Prevent any product page content from expanding the viewport */
+  .content-for-layout {
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   .product-main {
     padding: 0 0 40px;
-    overflow-x: hidden;
   }
 
   .product-main__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 24px;
-    width: 100%;
     max-width: var(--page-content-width, 1200px);
     margin: 0 auto;
-    padding: 0 var(--page-margin, 20px);
+    padding: 0 var(--page-margin, 16px);
   }
 
   @media (min-width: 768px) {
@@ -399,6 +397,7 @@
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 40px;
       align-items: start;
+      padding: 0 var(--page-margin, 40px);
     }
   }
 
@@ -451,7 +450,6 @@
 
   .product-gallery__hero img {
     width: 100%;
-    max-width: 100%;
     height: 100%;
     object-fit: cover;
   }
