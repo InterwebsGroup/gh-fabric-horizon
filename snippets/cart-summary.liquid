@@ -223,10 +223,30 @@
   {% endif %}
 
   {%- liquid
+    assign is_us = false
+    if localization.country.iso_code == 'US'
+      assign is_us = true
+    endif
+
+    assign threshold_cents = settings.free_shipping_threshold | times: 100
+    assign shipping_is_free = false
+    if is_us and cart.total_price >= threshold_cents
+      assign shipping_is_free = true
+    endif
+
+    comment
+      Add shipping cost to displayed total for US customers
+    endcomment
+    assign shipping_cost_cents = 0
+    if is_us and shipping_is_free == false
+      assign shipping_cost_cents = settings.shipping_cost | times: 100
+    endif
+    assign display_total = cart.total_price | plus: shipping_cost_cents
+
     if settings.currency_code_enabled_cart_total
-      assign total_price = cart.total_price | money_with_currency
+      assign total_price = display_total | money_with_currency
     else
-      assign total_price = cart.total_price | money
+      assign total_price = display_total | money
     endif
 
     comment
@@ -242,17 +262,7 @@
       assign item_compare = gh_compare_at | times: item.quantity
       assign total_compare_at = total_compare_at | plus: item_compare
     endfor
-
-    assign is_us = false
-    if localization.country.iso_code == 'US'
-      assign is_us = true
-    endif
-
-    assign threshold_cents = settings.free_shipping_threshold | times: 100
-    assign shipping_is_free = false
-    if is_us and cart.total_price >= threshold_cents
-      assign shipping_is_free = true
-    endif
+    assign total_compare_at = total_compare_at | plus: shipping_cost_cents
   -%}
 
   {%- if is_us and settings.show_shipping_progress_bar -%}
@@ -299,7 +309,7 @@
     >
       <span class="cart__total-label cart-primary-typography">TOTAL</span>
       <span class="cart__total-values">
-        {%- if total_compare_at > cart.total_price -%}
+        {%- if total_compare_at > display_total -%}
           <span class="gh-cart-was-price"><s>{{ total_compare_at | money }}</s></span>
         {%- endif -%}
         <text-component
@@ -311,7 +321,7 @@
         >
           {{ total_price }}
         </text-component>
-        {%- assign total_savings = total_compare_at | minus: cart.total_price -%}
+        {%- assign total_savings = total_compare_at | minus: display_total -%}
         {%- if total_savings > 0 -%}
           <span class="gh-cart-save-pill gh-cart-save-pill--total">SAVE {{ total_savings | money }}</span>
         {%- endif -%}
