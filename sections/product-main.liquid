@@ -147,7 +147,26 @@
         </button>
       </form>
 
-      {%- comment -%} Volume pricing info (sitewide mix & match — informational only) {%- endcomment -%}
+      {%- comment -%} Bold selling points strip — 3 key stats {%- endcomment -%}
+      {%- liquid
+        assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
+      -%}
+      <div class="product__selling-points">
+        <div class="product__selling-point">
+          <span class="product__selling-point-number">{{ review_count_display }}</span>
+          <span class="product__selling-point-label">{{ section.settings.stat_reviews_label | default: '5-Star Reviews' }}</span>
+        </div>
+        <div class="product__selling-point">
+          <span class="product__selling-point-number">{{ settings.happy_customers_count | default: '225,000+' }}</span>
+          <span class="product__selling-point-label">{{ section.settings.stat_customers_label | default: 'Happy Customers' }}</span>
+        </div>
+        <div class="product__selling-point">
+          <span class="product__selling-point-number">{{ section.settings.stat_guarantee_number | default: '30-Day' }}</span>
+          <span class="product__selling-point-label">{{ section.settings.stat_guarantee_label | default: 'Guarantee' }}</span>
+        </div>
+      </div>
+
+      {%- comment -%} Volume pricing banner (sitewide mix & match — informational only) {%- endcomment -%}
       {%- if settings.pricing_mode == 'tiered' and is_tier_eligible -%}
         {%- liquid
           assign tier_2_price = section.settings.tier_2_each_price | times: 100
@@ -162,7 +181,7 @@
           assign discount_pct_2 = savings_tier_2 | times: 100 | divided_by: compare_total_2
           assign discount_pct_3 = savings_tier_3 | times: 100 | divided_by: compare_total_3
         -%}
-        <div class="product__volume-pricing">
+        <div class="product__volume-banner">
           <p class="product__volume-heading">Buy More, Save More! Mix &amp; Match Any Designs and Colors!</p>
           <div class="product__volume-tiers">
             <div class="product__volume-tier">
@@ -238,28 +257,6 @@
         </div>
       {%- endif -%}
 
-      {%- comment -%} Stats bar — 3 key stats below ATC {%- endcomment -%}
-      {%- liquid
-        assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
-      -%}
-      <div class="product__stats">
-        <div class="product__stat">
-          <svg class="product__stat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <span class="product__stat-number">{{ review_count_display }}</span>
-          <span class="product__stat-label">{{ section.settings.stat_reviews_label | default: '5-Star Reviews' }}</span>
-        </div>
-        <div class="product__stat">
-          <svg class="product__stat-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <span class="product__stat-number">{{ settings.happy_customers_count | default: '225,000+' }}</span>
-          <span class="product__stat-label">{{ section.settings.stat_customers_label | default: 'Happy Customers' }}</span>
-        </div>
-        <div class="product__stat">
-          <svg class="product__stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-          <span class="product__stat-number">{{ section.settings.stat_guarantee_number | default: '30-Day' }}</span>
-          <span class="product__stat-label">{{ section.settings.stat_guarantee_label | default: 'Guarantee' }}</span>
-        </div>
-      </div>
-
       {%- comment -%} Back in stock form (sold-out variants) {%- endcomment -%}
       {%- unless selected_variant.available -%}
         {%- if settings.back_in_stock_enabled -%}
@@ -317,7 +314,7 @@
         <details class="product__accordion" open>
           <summary class="product__accordion-header">
             <span>What's a Giant Hoodie?</span>
-            <span class="product__accordion-icon">+</span>
+            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
           </summary>
           <div class="product__accordion-content">
             <p>Imagine slipping into your new favorite hoodie after a long day. Wrap yourself in a cozy hug, sink into the plush fabric, and forget about the stresses of today.</p>
@@ -328,7 +325,7 @@
         <details class="product__accordion">
           <summary class="product__accordion-header">
             <span>How Do They Fit?</span>
-            <span class="product__accordion-icon">+</span>
+            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
           </summary>
           <div class="product__accordion-content">
             <p><strong>One size fits most &mdash; and that's the whole point.</strong></p>
@@ -340,7 +337,7 @@
         <details class="product__accordion">
           <summary class="product__accordion-header">
             <span>Fabric &amp; Care</span>
-            <span class="product__accordion-icon">+</span>
+            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
           </summary>
           <div class="product__accordion-content">
             <p><strong>The fabric:</strong> Super soft, lightweight sponge fleece &mdash; the kind you want to live in. It's plush, cozy, and feels like a hug.</p>
@@ -357,7 +354,7 @@
         <details class="product__accordion">
           <summary class="product__accordion-header">
             <span>Shipping</span>
-            <span class="product__accordion-icon">+</span>
+            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
           </summary>
           <div class="product__accordion-content">
             <p>Really, really fast. Most orders ship same or next business day and arrive in 2-3 days within the US.</p>
@@ -369,7 +366,7 @@
         <details class="product__accordion">
           <summary class="product__accordion-header">
             <span>30-Day Guarantee</span>
-            <span class="product__accordion-icon">+</span>
+            <svg class="product__accordion-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 6 8 10 12 6"/></svg>
           </summary>
           <div class="product__accordion-content">
             <p>We're confident you'll love your Giant Hoodie, but we've got you covered if something isn't right.</p>
@@ -698,19 +695,19 @@
   }
 
   /* =========================================
-     Volume Pricing Info
+     Volume Pricing Banner (rounded card)
      ========================================= */
-  .product__volume-pricing {
+  .product__volume-banner {
+    background: var(--gh-cream, #faf7f4);
+    border-radius: 12px;
+    padding: 20px;
     margin-bottom: 24px;
   }
 
   .product__volume-heading {
-    display: flex;
-    align-items: center;
-    gap: 16px;
     font-family: var(--gh-font-heading, 'Fraunces', serif);
-    font-size: 1.1rem;
-    font-weight: 900;
+    font-size: 1rem;
+    font-weight: 800;
     font-variation-settings: 'SOFT' 100, 'WONK' 1;
     color: var(--gh-espresso, #3d3028);
     line-height: 1.35;
@@ -719,43 +716,21 @@
     text-wrap: balance;
   }
 
-  .product__volume-heading::before,
-  .product__volume-heading::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--gh-sand, #e8d5c4);
-  }
-
-  @media (max-width: 767px) {
-    .product__volume-heading {
-      justify-content: center;
-      font-size: 1.05rem;
-    }
-
-    .product__volume-heading::before,
-    .product__volume-heading::after {
-      display: none;
-    }
-  }
-
   .product__volume-tiers {
-    border: 1.5px solid var(--gh-sand, #e8d5c4);
-    border-radius: 8px;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .product__volume-tier {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 16px;
+    padding: 12px 14px;
     background: white;
+    border-radius: 8px;
+    border: 1.5px solid var(--gh-sand, #e8d5c4);
     position: relative;
-  }
-
-  .product__volume-tier + .product__volume-tier {
-    border-top: 1px solid var(--gh-sand, #e8d5c4);
   }
 
   .product__volume-left {
@@ -771,7 +746,7 @@
 
   .product__volume-qty {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--gh-espresso, #3d3028);
   }
@@ -779,7 +754,7 @@
   .product__volume-discount {
     display: inline-block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     color: var(--gh-terracotta, #c4704b);
     background: rgba(196, 112, 75, 0.1);
@@ -791,7 +766,7 @@
   .product__volume-per {
     display: block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 400;
     color: var(--gh-espresso-light, #5a4a3d);
     margin-top: 2px;
@@ -812,14 +787,14 @@
 
   .product__volume-price {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: var(--gh-espresso, #3d3028);
   }
 
   .product__volume-compare {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 400;
     color: var(--gh-espresso-light, #5a4a3d);
     text-decoration: line-through;
@@ -828,7 +803,7 @@
   .product__volume-save {
     display: block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: var(--gh-terracotta, #c4704b);
     margin-top: 2px;
@@ -836,10 +811,11 @@
 
   .product__volume-note {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--gh-espresso-light, #5a4a3d);
     text-align: center;
     margin: 10px 0 0;
+    opacity: 0.8;
   }
 
   /* Ribbon badge — top-right corner */
@@ -884,52 +860,65 @@
   }
 
   /* =========================================
-     Stats Bar
+     Bold Selling Points Strip
      ========================================= */
-  .product__stats {
+  .product__selling-points {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-    padding: 20px 0;
-    margin-bottom: 16px;
+    background: var(--gh-espresso, #3d3028);
+    border-radius: 10px;
+    padding: 14px 8px;
+    margin-bottom: 20px;
   }
 
-  @media (min-width: 480px) {
-    .product__stats {
-      gap: 24px;
-    }
-  }
-
-  .product__stat {
+  .product__selling-point {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 4px;
+    flex: 1;
+    padding: 0 8px;
   }
 
-  .product__stat-icon {
-    width: 24px;
-    height: 24px;
-    color: var(--gh-terracotta, #c4704b);
+  .product__selling-point + .product__selling-point {
+    border-left: 1px solid rgba(250, 247, 244, 0.2);
   }
 
-  .product__stat-number {
+  .product__selling-point-number {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--gh-espresso, #3d3028);
+    font-weight: 800;
+    color: var(--gh-cream, #faf7f4);
     line-height: 1.2;
   }
 
-  .product__stat-label {
+  .product__selling-point-label {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--gh-espresso-light, #5a4a3d);
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: rgba(250, 247, 244, 0.65);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    margin-top: 2px;
+  }
+
+  @media (min-width: 480px) {
+    .product__selling-points {
+      padding: 16px 16px;
+    }
+
+    .product__selling-point {
+      padding: 0 16px;
+    }
+
+    .product__selling-point-number {
+      font-size: 1.25rem;
+    }
+
+    .product__selling-point-label {
+      font-size: 0.65rem;
+    }
   }
 
   /* =========================================
@@ -1033,10 +1022,11 @@
   }
 
   /* =========================================
-     Accordions
+     Collapsible Accordions
      ========================================= */
   .product__accordions {
-    margin-top: 0;
+    margin-top: 8px;
+    border-top: 1px solid var(--gh-sand, #e8d5c4);
   }
 
   .product__accordion {
@@ -1047,13 +1037,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 0;
+    padding: 18px 4px;
     cursor: pointer;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 1rem;
+    font-size: 0.9375rem;
     font-weight: 600;
     color: var(--gh-espresso, #3d3028);
     list-style: none;
+    user-select: none;
   }
 
   .product__accordion-header::-webkit-details-marker {
@@ -1061,20 +1052,22 @@
   }
 
   .product__accordion-icon {
-    font-size: 1.25rem;
-    font-weight: 400;
-    transition: transform 200ms ease;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--gh-espresso-light, #5a4a3d);
+    transition: transform 250ms ease;
   }
 
   .product__accordion[open] .product__accordion-icon {
-    transform: rotate(45deg);
+    transform: rotate(180deg);
   }
 
   .product__accordion-content {
-    padding: 0 0 20px 0;
+    padding: 0 4px 20px;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.9rem;
+    line-height: 1.7;
     color: var(--gh-espresso-light, #5a4a3d);
   }
 
