@@ -62,17 +62,6 @@
     </div>
   </div>
 
-  <div class="feature-trendy__contexts">
-    <span class="feature-trendy__context">Couch</span>
-    <span class="feature-trendy__dot">·</span>
-    <span class="feature-trendy__context">Airport</span>
-    <span class="feature-trendy__dot">·</span>
-    <span class="feature-trendy__context">Coffee Shop</span>
-    <span class="feature-trendy__dot">·</span>
-    <span class="feature-trendy__context">Errands</span>
-    <span class="feature-trendy__dot">·</span>
-    <span class="feature-trendy__context">Work From Home</span>
-  </div>
 </div>
 
 {% stylesheet %}
@@ -164,21 +153,6 @@
     text-align: center;
   }
 
-  .feature-trendy__contexts {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px 16px;
-    font-family: var(--gh-font-body);
-    font-size: 1rem;
-    color: var(--color-foreground);
-    opacity: 0.6;
-  }
-
-  .feature-trendy__dot {
-    opacity: 0.3;
-  }
 
   @media screen and (max-width: 749px) {
     .feature-trendy__collage {
@@ -201,9 +175,6 @@
       border-radius: 8px;
     }
 
-    .feature-trendy__contexts {
-      font-size: 0.875rem;
-    }
   }
 {% endstylesheet %}
 
