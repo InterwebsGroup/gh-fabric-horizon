@@ -152,10 +152,12 @@
         {%- liquid
           assign tier_2_price = section.settings.tier_2_each_price | times: 100
           assign tier_3_price = section.settings.tier_3_each_price | times: 100
-          assign per_item_save_2 = selected_variant.price | minus: tier_2_price
-          assign savings_tier_2 = per_item_save_2 | times: 2
-          assign per_item_save_3 = selected_variant.price | minus: tier_3_price
-          assign savings_tier_3 = per_item_save_3 | times: 3
+          assign compare_total_2 = compare_at | times: 2
+          assign tier_2_total = tier_2_price | times: 2
+          assign savings_tier_2 = compare_total_2 | minus: tier_2_total
+          assign compare_total_3 = compare_at | times: 3
+          assign tier_3_total = tier_3_price | times: 3
+          assign savings_tier_3 = compare_total_3 | minus: tier_3_total
         -%}
         <div class="product__volume-pricing">
           <p class="product__option-label">Buy More, Save More</p>
