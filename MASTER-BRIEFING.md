@@ -479,6 +479,11 @@ Go build.
 - [x] Total SAVE pill on TOTAL row (crossed-out compare-at + actual total + pill) — `cart-summary.liquid`
 - [x] Country-aware shipping: US flat rate / US free / International "Calculated at Checkout" — `cart-summary.liquid`
 - [x] Checkout "or" divider between SECURE CHECKOUT and accelerated payment buttons — `cart-summary.liquid`
+- [x] Cart badge terracotta color — `header-actions.liquid`
+- [x] Inline shipping progress bar on shipping row (Shipping [==bar==] $4.95) — `cart-summary.liquid`
+- [x] Shipping message ("You're $X away from free shipping") relocated to above shipping row — `cart-summary.liquid`
+- [x] Cart total includes shipping cost — `cart-summary.liquid`
+- [x] Shipping savings when free: strikethrough price, FREE label, SAVE pill, included in total savings — `cart-summary.liquid`
 - [ ] Hide PayPal/Google Pay, make Apple Pay first — **Must be done in Shopify Admin > Settings > Payments** (closed shadow DOM prevents CSS targeting)
 - [ ] Final visual QA and polish
 
@@ -488,6 +493,8 @@ Go build.
 - Fixed pagination dots showing in side-scroller product card sections (should only show in grids)
 - Fixed orphaned Judge.me medals section in `templates/index.json` causing Shopify import validation error
 - Fixed volume pricing banner hardcoded "$75" — now uses `settings.free_shipping_threshold`
+- Fixed mobile double-tap on product cards (two rounds: `quick-add.liquid` hover opacity + `base.css` slideshow arrow animation — both wrapped in `@media (hover: hover)`)
+- Fixed float imprecision in shipping cost calculation (`4.95 * 100 = 494.999...` → added `| round`)
 
 ### Changes Made (2026-01-29, session 2)
 
@@ -557,7 +564,50 @@ Go build.
 
 ---
 
+### Changes Made (2026-01-29, session 4)
+
+**Cart badge terracotta:**
+- Added CSS override in `header-actions.liquid` to make the cart count circle terracotta (`--gh-terracotta`) with white text, overriding the default `--color-primary-button-background`
+
+**Mobile double-tap fix (two rounds):**
+- Round 1: `snippets/quick-add.liquid` line 141 — the `:hover`/`:focus-within` rule changing quick-add button opacity was unguarded. On iOS, first tap synthesizes `:hover`, browser sees opacity change, requires second tap to follow link. Fixed by wrapping in `@media (hover: hover)`
+- Round 2: `assets/base.css` line 3544 — the `:focus-within` rule on `slideshow-component` triggering `arrowsSlideIn` animation was the same class of bug. On iOS first tap triggered arrow animation, second tap followed the link. Fixed by wrapping in `@media (hover: hover)`
+
+**Shipping progress bar inline on shipping row:**
+- Moved progress bar from standalone component (`gh-cart-extras.liquid`) to inline within the shipping row in `cart-summary.liquid`
+- Layout: `Shipping [==bar==] $4.95` on one flex line for all screen sizes
+- CSS: `.gh-cart-shipping-row__bar` uses `flex: 1 1 0%`, 5px height, sand background, espresso fill (green when complete)
+- Old standalone bar hidden: `.gh-shipping-progress { display: none; }` in base.css
+
+**Shipping message relocated:**
+- "You're $X away from free shipping" / "You've unlocked FREE shipping" message moved from top of cart (inside `gh-cart-extras`) to directly above the shipping row in `cart-summary.liquid`
+- New class `.gh-cart-shipping-msg` (centered, uppercase, small text) with `--free` modifier (green)
+
+**Cart total includes shipping:**
+- `display_total = cart.total_price | plus: shipping_cost_cents` (only added when US and not free)
+- Compare-at total always includes `full_shipping_cents` so savings reflect the full picture
+
+**Shipping savings when free:**
+- When free shipping met: shipping row shows `~~$4.95~~ FREE` with a `SAVE $4.95` pill
+- `full_shipping_cents` always calculated (not just when not free) so it can be shown as savings
+- Compare-at total always includes full shipping cost, making total SAVE pill include shipping discount
+- CSS: `.gh-cart-shipping-row__was` (strikethrough), `.gh-cart-shipping-row__value--free` (green, inline-flex)
+
+**Rounding fixes:**
+- Added `| round` after `| times: 100` on shipping cost to fix float imprecision (4.95 * 100 → 494.999...)
+- Changed "SAVED" text to "SAVE" on shipping pill
+
+**Money format investigation:**
+- Investigated persistent rounding to whole dollars on all `| money` output
+- Root cause: `shop.money_format` (Shopify admin setting) is set to `${{amount_no_decimals}}`
+- The `| money` Liquid filter and JS `formatMoney()` in `product-page.js` both respect this format string
+- Fix: Change in Shopify Admin → Settings → General → Store currency → Change formatting from `${{amount_no_decimals}}` to `${{amount}}`
+- Added to TODOs — Before Launch (to be done alongside compare-at price and dynamic checkout buttons)
+
+---
+
 ### TODOs — Before Launch
+- [ ] **Shopify Admin: Change money format** — Go to Settings → General → Store currency → Change formatting from `${{amount_no_decimals}}` to `${{amount}}` (and same for "with currency" format). This is why all `| money` output rounds to whole dollars. Do this alongside the other two Shopify Admin tasks below.
 - [ ] **Remove +$20 compare-at price fallback** — Search for `TEMP_COMPARE_AT_FALLBACK` in `cart-products.liquid` and `cart-summary.liquid`. Also in `product-page.js` (`updatePriceDisplay` function, line ~197). This adds a fake $20 savings when no compare-at price is set on a product. Must be removed once all products have real compare-at prices set in Shopify Admin.
 - [ ] **Shopify Admin: Configure accelerated checkout buttons** — Hide PayPal and Google Pay, prioritize Apple Pay. Go to Settings > Payments in Shopify Admin.
 - [ ] **Additional product templates** — `product.kids-hoodie.json`, `product.shirt.json`, `product.blanket.json` (deferred to post-build)
@@ -600,6 +650,10 @@ Go build.
 - Offer banner uses **`image_picker` schema setting** (`offer_banner_image`) — Shopify's `image_picker` doesn't support a `default` value, so a placeholder SVG renders when empty
 - Trust bar items are **editable via section settings** (`trust_item_1`, `trust_item_2`, `trust_item_3`) — icons (checkmark, return arrow, US flag SVG) are hardcoded per position
 - Selling-points background uses **`!important`** to override the section color scheme's `background-color` which was winning the specificity battle in `{% stylesheet %}` blocks
+- iOS double-tap caused by **unguarded `:hover`/`:focus-within`** CSS rules — any CSS that changes visual properties (opacity, animation) on hover/focus-within triggers iOS's two-tap behavior. Fix: wrap in `@media (hover: hover)` so touch devices skip these rules entirely
+- Shipping progress bar is **rendered in two places**: the old standalone component in `gh-cart-extras.liquid` (now hidden via `display: none`) and the new inline version in `cart-summary.liquid` shipping row. Both use the same threshold/progress calculation
+- Cart total **includes shipping cost** — `display_total = cart.total_price | plus: shipping_cost_cents`. Compare-at total always includes `full_shipping_cents` so savings display accounts for shipping discount when free
+- Money format controlled by **`shop.money_format`** in Shopify Admin (Settings → General → Store currency). If set to `${{amount_no_decimals}}`, all `| money` output rounds to whole dollars. Must be `${{amount}}` for decimal prices
 
 ### Key Files Reference
 | File | Purpose |
@@ -620,4 +674,6 @@ Go build.
 | `config/settings_schema.json` | Theme settings (shipping threshold, pricing mode, upsell messages, press logos) |
 | `templates/index.json` | Homepage template (section order + settings) |
 | `sections/feature-guarantee.liquid` | Homepage guarantee section (<1% return rate, 30-day badge) |
+| `snippets/header-actions.liquid` | Header icons (cart, search), cart drawer wrapper, cart badge styling |
+| `snippets/quick-add.liquid` | Quick-add button on product cards (hover-guarded for mobile) |
 | `templates/product.json` | Product page template (product-main, testimonials, recommendations) |
