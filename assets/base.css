@@ -4054,8 +4054,8 @@ body {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: var(--gh-font-heading);
-  font-weight: 700;
-  font-variation-settings: 'SOFT' 100, 'WONK' 1, 'opsz' 72;
+  font-weight: 900;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
 }
 
 /* Product Cards - Gradient Overlay Style */
@@ -4079,7 +4079,8 @@ h1, h2, h3, h4, h5, h6,
 .gh-product-card__title {
   font-family: var(--gh-font-heading);
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 900;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
   margin: 0 0 0.25rem;
 }
 
