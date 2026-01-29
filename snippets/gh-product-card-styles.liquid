@@ -352,6 +352,11 @@
     opacity: 0.8;
   }
 
+  /* Hide dots in side-scroller sections (card slideshow is disabled there) */
+  .resource-list__carousel .gallery-pagination-dots {
+    display: none;
+  }
+
   /* Hide dots when only 1 image - dots are inside card-gallery */
   .product-grid .card-gallery[data-slide-count="1"] .gallery-pagination-dots,
   .product-grid .card-gallery[data-slide-count="0"] .gallery-pagination-dots,
