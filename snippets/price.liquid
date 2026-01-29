@@ -109,7 +109,7 @@
 
     {% comment %} Display savings amount {% endcomment %}
     {% if show_compare_price and savings_amount > 0 %}
-      <span class="price-savings">Save {{ savings_formatted }}</span>
+      <span class="price-savings">Save {{ savings_formatted }}+</span>
     {% endif %}
   {% endif %}
   {%- if selected_variant.unit_price and show_unit_price %}

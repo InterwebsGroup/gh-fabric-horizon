@@ -29,7 +29,7 @@ export class OverflowMinimumEvent extends Event {
  */
 export class OverflowList extends DeclarativeShadowElement {
   static get observedAttributes() {
-    return ['disabled', 'minimum-items'];
+    return ['disabled', 'minimum-items', 'max-items'];
   }
 
   /**
@@ -44,6 +44,8 @@ export class OverflowList extends DeclarativeShadowElement {
       } else {
         this.#reflowItems();
       }
+    } else if (name === 'max-items') {
+      this.#reflowItems();
     }
   }
 
@@ -309,6 +311,17 @@ export class OverflowList extends DeclarativeShadowElement {
         visibleElements.push(element);
       }
     });
+
+    // Enforce max-items cap if set
+    const maxItems = this.getAttribute('max-items');
+    if (maxItems) {
+      const max = parseInt(maxItems, 10);
+      if (!isNaN(max) && visibleElements.length > max) {
+        const excessElements = visibleElements.splice(max);
+        overflowingElements.unshift(...excessElements);
+        hasOverflow = true;
+      }
+    }
 
     if (hasOverflow) {
       moreSlot.style.removeProperty('order');
