@@ -275,6 +275,7 @@
     border: 0;
     margin: 0;
     padding: 0;
+    min-inline-size: 0;
   }
 
   /* Let overflow-list fill available card width */
@@ -290,9 +291,9 @@
     border-radius: 50%;
   }
 
-  /* Tighter gap between swatches */
+  /* Tighter gap between swatches - !important needed to override shadow DOM internal column-gap: 1rem */
   .product-grid .variant-option--swatches overflow-list::part(list) {
-    gap: 4px;
+    gap: 4px !important;
   }
 
   .product-grid .swatch:hover {
