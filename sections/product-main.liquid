@@ -373,6 +373,13 @@
   /* =========================================
      Product Main — Layout
      ========================================= */
+  /* Subtle drop shadow under the sticky header */
+  .header-section {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    position: relative;
+    z-index: 2;
+  }
+
   /* Prevent any product page content from expanding the viewport */
   .content-for-layout {
     overflow-x: hidden;
@@ -548,7 +555,7 @@
 
   .product__savings-badge {
     display: inline-block;
-    background: var(--color-sale, #e53935);
+    background: var(--gh-terracotta, #c4704b);
     color: white;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.8rem;
@@ -662,22 +669,15 @@
   .product__volume-tiers {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-  }
-
-  @media (min-width: 480px) {
-    .product__volume-tiers {
-      flex-direction: row;
-    }
+    gap: 8px;
   }
 
   .product__volume-tier {
-    flex: 1;
-    padding: 14px 10px;
-    border: 2px solid var(--gh-sand, #e8d5c4);
-    border-radius: 12px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--gh-sand, #e8d5c4);
+    border-radius: 6px;
     background: white;
-    text-align: center;
+    text-align: left;
     position: relative;
   }
 
@@ -691,7 +691,7 @@
   .product__volume-qty {
     display: block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--gh-espresso, #3d3028);
   }
@@ -700,16 +700,16 @@
     display: block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--gh-espresso, #3d3028);
-    margin-top: 4px;
+    font-weight: 500;
+    color: var(--gh-espresso-light, #5a4a3d);
+    margin-top: 2px;
   }
 
   .product__volume-save {
     display: block;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.75rem;
-    color: var(--color-sale, #e53935);
+    color: var(--gh-terracotta, #c4704b);
     font-weight: 600;
     margin-top: 2px;
   }
@@ -718,23 +718,22 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.8rem;
     color: var(--gh-espresso-light, #5a4a3d);
-    text-align: center;
+    text-align: left;
     margin: 10px 0 0;
     font-style: italic;
   }
 
   .product__qty-badge {
     position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--gh-terracotta, #c4704b);
+    top: -9px;
+    left: 12px;
+    background: var(--gh-espresso, #3d3028);
     color: white;
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 9999px;
+    padding: 3px 10px;
+    border-radius: 4px;
     white-space: nowrap;
   }
 
@@ -1030,7 +1029,7 @@
   .product__sticky-savings {
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--color-sale, #e53935);
+    color: var(--gh-terracotta, #c4704b);
   }
 
   .product__sticky-btn {
