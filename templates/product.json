@@ -21,15 +21,18 @@
       }
     },
     "social-proof": {
-      "type": "product-social-proof",
+      "type": "press-logos",
       "settings": {
-        "heading": "As Seen On",
-        "press_1": "Oprah's Favorite Things",
-        "press_2": "Good Morning America",
-        "press_3": "Forbes",
-        "press_4": "Cosmopolitan",
-        "press_5": "Kelly & Mark",
-        "press_6": "The View"
+        "logo_1": "shopify://shop_images/Oprah_Mag.svg",
+        "logo_2": "shopify://shop_images/GMA.svg",
+        "logo_3": "shopify://shop_images/ABC.svg",
+        "logo_4": "shopify://shop_images/Cosmopolitan.svg",
+        "logo_5": "shopify://shop_images/Kelly_and_Mark.svg",
+        "logo_6": "shopify://shop_images/The_View.svg",
+        "section_width": "page-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 20,
+        "padding-block-end": 20
       }
     },
     "testimonials": {
