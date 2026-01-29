@@ -191,8 +191,13 @@
     var stickyPriceEl = section.querySelector('[data-sticky-price]');
     var stickySavingsEl = section.querySelector('[data-sticky-savings]');
 
+    // Compare-at price with +$20 fallback for testing display
+    // TODO: Remove this fallback before launch
     var compareAt = variant.compare_at_price;
-    var savings = (compareAt && compareAt > variant.price) ? compareAt - variant.price : 0;
+    if (!compareAt || compareAt <= variant.price) {
+      compareAt = variant.price + 2000;
+    }
+    var savings = compareAt - variant.price;
 
     if (priceEl) {
       priceEl.textContent = formatMoney(variant.price, moneyFormat);

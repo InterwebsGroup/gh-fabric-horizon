@@ -475,7 +475,7 @@ Go build.
 ### Key Architecture Decisions
 - Volume pricing is **informational only** on PDP -- actual discounts applied via Shopify automatic discounts at cart level
 - Swatch colors managed via **settings textarea** (editable in Shopify admin) with hardcoded fallback in swatch-color.liquid
-- Compare-at price uses **Shopify compare_at_price** directly (hardcoded $20 fallback removed)
+- Compare-at price has **+$20 fallback** when not set on a product (temporary for testing — TODO: remove before launch, search `TEMP_COMPARE_AT_FALLBACK`)
 - CSS uses **overflow-x: clip** (not hidden) on .content-for-layout to avoid breaking sticky positioning on collection page
 - Header shadow is in **base.css** (global) not in section stylesheet
 - Button styles use `.gh-button` class system in base.css; product-main migrated from section-scoped `.btn-primary`
