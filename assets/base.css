@@ -823,6 +823,7 @@ h1,
   font-family: var(--font-h1--family);
   font-style: var(--font-h1--style);
   font-weight: var(--font-h1--weight);
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
   font-size: var(--font-h1--size);
   line-height: var(--font-h1--line-height);
   letter-spacing: var(--font-h1--letter-spacing);

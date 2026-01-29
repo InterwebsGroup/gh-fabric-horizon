@@ -5,7 +5,7 @@
   style="{% render 'spacing-padding', settings: section.settings %}"
 >
   <p class="press-logos__label">As Seen On</p>
-  <div class="press-logos__grid">
+  {%- capture logo_items -%}
     <div class="press-logos__item">
       {% if section.settings.logo_1 != blank %}
         {{ section.settings.logo_1 | image_url: width: 200 | image_tag: alt: "Oprah's Favorite Things", class: "press-logos__img" }}
@@ -48,6 +48,15 @@
         <span class="press-logos__text">The View</span>
       {% endif %}
     </div>
+  {%- endcapture -%}
+
+  <div class="press-logos__grid">
+    <div class="press-logos__track">
+      {{ logo_items }}
+      <div class="press-logos__dupes" aria-hidden="true">
+        {{ logo_items }}
+      </div>
+    </div>
   </div>
 </div>
 
@@ -69,10 +78,18 @@
 
   /* Desktop: single row, logos flex to fill width */
   .press-logos__grid {
+    overflow: hidden;
+  }
+
+  .press-logos__track {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 24px;
+  }
+
+  .press-logos__dupes {
+    display: none;
   }
 
   .press-logos__item {
@@ -109,19 +126,22 @@
     white-space: nowrap;
   }
 
-  /* Mobile: single-row horizontal scroll */
+  /* Mobile: auto-scrolling marquee */
+  @keyframes press-logos-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
   @media screen and (max-width: 749px) {
-    .press-logos__grid {
-      display: flex;
-      gap: 24px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+    .press-logos__track {
+      justify-content: flex-start;
+      width: max-content;
+      animation: press-logos-scroll 20s linear infinite;
+      will-change: transform;
     }
 
-    .press-logos__grid::-webkit-scrollbar {
-      display: none;
+    .press-logos__dupes {
+      display: contents;
     }
 
     .press-logos__item {
@@ -140,6 +160,12 @@
 
     .press-logos__text {
       font-size: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .press-logos__track {
+      animation-play-state: paused;
     }
   }
 {% endstylesheet %}
