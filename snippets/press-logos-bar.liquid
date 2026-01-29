@@ -58,18 +58,12 @@
     width: 100%;
   }
 
-  @keyframes press-logos-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
+  /* ── Desktop: static centered row ── */
   .press-logos__track {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 40px;
-    width: max-content;
-    animation: press-logos-scroll 25s linear infinite;
-    will-change: transform;
   }
 
   .press-logos__item {
@@ -78,6 +72,11 @@
     justify-content: center;
     flex: 0 0 auto;
     height: clamp(34px, 3.2vw, 44px);
+  }
+
+  /* Hide the duplicate set on desktop (items 7-12) */
+  .press-logos__item:nth-child(n+7) {
+    display: none;
   }
 
   .press-logos__img {
@@ -106,14 +105,40 @@
     white-space: nowrap;
   }
 
+  /* ── Mobile: infinite seamless marquee ── */
+  @keyframes press-logos-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
   @media screen and (max-width: 749px) {
+    /* Break out of any parent padding for true edge-to-edge scroll */
+    .press-logos {
+      margin-inline: calc(-1 * var(--page-margin, 16px));
+      width: calc(100% + 2 * var(--page-margin, 16px));
+    }
+
+    .press-logos__label {
+      margin-bottom: 16px;
+    }
+
+    /* Show ALL items including duplicates for seamless loop */
+    .press-logos__item:nth-child(n+7) {
+      display: flex;
+    }
+
+    /* Use margin instead of gap so -50% perfectly equals one set of logos */
     .press-logos__track {
-      gap: 32px;
-      animation-duration: 18s;
+      justify-content: flex-start;
+      gap: 0;
+      width: max-content;
+      animation: press-logos-scroll 20s linear infinite;
+      will-change: transform;
     }
 
     .press-logos__item {
       height: 28px;
+      margin-right: 32px;
     }
 
     .press-logos__item:nth-child(6n+1),
