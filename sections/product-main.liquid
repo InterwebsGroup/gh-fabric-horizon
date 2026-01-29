@@ -314,6 +314,31 @@
         {%- endif -%}
       </div>
 
+      {%- comment -%} "As Seen On" press logos — same logos as homepage {%- endcomment -%}
+      <div class="product__press-logos">
+        <p class="product__press-label">As Seen On</p>
+        <div class="product__press-grid">
+          <div class="product__press-item">
+            <img src="{{ 'Oprah_Mag.svg' | file_url }}" alt="Oprah's Favorite Things" class="product__press-img" loading="lazy" width="200" height="80">
+          </div>
+          <div class="product__press-item">
+            <img src="{{ 'GMA.svg' | file_url }}" alt="Good Morning America" class="product__press-img" loading="lazy" width="200" height="80">
+          </div>
+          <div class="product__press-item">
+            <img src="{{ 'ABC.svg' | file_url }}" alt="Forbes" class="product__press-img" loading="lazy" width="200" height="80">
+          </div>
+          <div class="product__press-item">
+            <img src="{{ 'Cosmopolitan.svg' | file_url }}" alt="Cosmopolitan" class="product__press-img" loading="lazy" width="200" height="80">
+          </div>
+          <div class="product__press-item">
+            <img src="{{ 'Kelly_and_Mark.svg' | file_url }}" alt="Kelly & Mark" class="product__press-img" loading="lazy" width="200" height="80">
+          </div>
+          <div class="product__press-item">
+            <img src="{{ 'The_View.svg' | file_url }}" alt="The View" class="product__press-img" loading="lazy" width="200" height="80">
+          </div>
+        </div>
+      </div>
+
       {%- comment -%} Product accordions {%- endcomment -%}
       <div class="product__accordions">
 
@@ -871,7 +896,7 @@
   .product__selling-points {
     display: flex;
     justify-content: center;
-    background: var(--gh-terracotta, #c4704b);
+    background: var(--gh-terracotta, #c4704b) !important;
     border-radius: 10px;
     padding: 14px 8px;
     margin-bottom: 20px;
