@@ -1054,6 +1054,77 @@
   }
 
   /* =========================================
+     "As Seen On" Press Logos (inside info column)
+     ========================================= */
+  .product__press-logos {
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .product__press-label {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gh-espresso-light, #5a4a3d);
+    opacity: 0.6;
+    margin-bottom: 16px;
+  }
+
+  .product__press-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px 20px;
+  }
+
+  .product__press-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: clamp(22px, 2.5vw, 32px);
+  }
+
+  /* Balance by visual weight — wide wordmarks get shorter */
+  .product__press-item:nth-child(1),
+  .product__press-item:nth-child(3) {
+    height: clamp(20px, 2.2vw, 28px);
+  }
+
+  .product__press-item:nth-child(4) {
+    height: clamp(14px, 1.5vw, 20px);
+  }
+
+  .product__press-img {
+    height: 100%;
+    width: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product__press-logos {
+      padding: 16px 0;
+    }
+
+    .product__press-grid {
+      gap: 12px 16px;
+    }
+
+    .product__press-item {
+      height: 22px;
+    }
+
+    .product__press-item:nth-child(1),
+    .product__press-item:nth-child(3) {
+      height: 18px;
+    }
+
+    .product__press-item:nth-child(4) {
+      height: 14px;
+    }
+  }
+
+  /* =========================================
      Collapsible Accordions
      ========================================= */
   .product__accordions {
