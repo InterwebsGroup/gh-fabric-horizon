@@ -369,28 +369,11 @@
 
 {{ 'product-page.js' | asset_url | script_tag }}
 
-<script>
-  (function(){
-    var h = document.querySelector('.header-section');
-    if (!h) return;
-    var scrolled = false;
-    window.addEventListener('scroll', function(){
-      var s = window.scrollY > 0;
-      if (s !== scrolled) { scrolled = s; h.classList.toggle('header-section--scrolled', s); }
-    }, {passive: true});
-  })();
-</script>
-
 {% stylesheet %}
   /* =========================================
      Product Main — Layout
      ========================================= */
-  /* Drop shadow appears on header when page is scrolled */
   .header-section {
-    transition: box-shadow 0.2s ease;
-  }
-
-  .header-section--scrolled {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
