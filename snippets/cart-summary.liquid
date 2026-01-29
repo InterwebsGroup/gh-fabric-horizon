@@ -239,7 +239,7 @@
     endcomment
     assign full_shipping_cents = 0
     if is_us
-      assign full_shipping_cents = settings.shipping_cost | times: 100
+      assign full_shipping_cents = settings.shipping_cost | times: 100 | round
     endif
 
     comment
@@ -306,7 +306,7 @@
           <s class="gh-cart-shipping-row__was">${{ settings.shipping_cost }}</s>
           FREE
         </span>
-        <span class="gh-cart-save-pill gh-cart-save-pill--shipping">SAVED {{ full_shipping_cents | money }}</span>
+        <span class="gh-cart-save-pill gh-cart-save-pill--shipping">SAVE {{ full_shipping_cents | money }}</span>
       {%- else -%}
         <span class="gh-cart-shipping-row__value gh-cart-shipping-row__value--flat">${{ settings.shipping_cost }}</span>
       {%- endif -%}
