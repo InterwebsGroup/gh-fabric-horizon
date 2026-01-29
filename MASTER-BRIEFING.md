@@ -424,14 +424,22 @@ Go build.
 - [ ] Global button styles (defined in product-main, not yet global)
 - [ ] Cart drawer customization (using Fabric default)
 
-### Phase 2: Homepage -- NOT STARTED
-- [ ] Hero section
-- [ ] Social proof bar
-- [ ] Value props
-- [ ] Best sellers grid
-- [ ] Feature blocks
-- [ ] Comparison table
-- [ ] Newsletter signup
+### Phase 2: Homepage -- MOSTLY DONE
+- [x] Hero section (Fabric default, customized with GH copy/styling, image via Shopify admin)
+- [x] Stats bar (custom section: 225,000+ customers, 4.9★, 90-day guarantee)
+- [x] Press logos bar (custom section: Oprah, GMA, Forbes, Cosmopolitan, Kelly & Mark, The View)
+- [x] Best Sellers product grid (Fabric product-list, 8 products configured)
+- [x] Category tiles (custom section: 6 tiles — Hoodies, Kids, Blankets, Shirts, Best Sellers, New)
+- [x] Shop Kids product grid (Fabric product-list, 4 products configured)
+- [x] Value props (custom section: 4-column — Oversized, Trendy, Guaranteed, Free Shipping)
+- [x] Feature block: Oversized (custom section: 6-photo grid "One Size. Every Body.")
+- [x] Feature block: Trendy (custom section: 5-photo lifestyle collage "Your Hoodie for Everything")
+- [x] Feature block: Guarantee (custom section: <1% return rate, 3-step process, 30-day badge)
+- [x] Comparison table (custom section: Giant Hoodies vs Oodie, 7 rows + price)
+- [x] Testimonials (custom section: 4 quotes on dark background "What the Hoodie Fam Says")
+- [x] Newsletter signup (custom section: "Join the Hoodie Fam" with 10% discount incentive)
+- [ ] Feature Oversized images (section built, no images configured yet)
+- [ ] Feature Trendy images (section built, no images configured yet)
 
 ### Phase 3: Collection Page -- DONE
 - [x] Collection header with hero banner, filter buttons, description
