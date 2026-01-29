@@ -138,8 +138,10 @@
     background-color: #0000;
   }
 
-  product-card:is(:hover, :focus-within) .quick-add__button {
-    opacity: 1;
+  @media (hover: hover) {
+    product-card:is(:hover, :focus-within) .quick-add__button {
+      opacity: 1;
+    }
   }
 
   .quick-add__button {
