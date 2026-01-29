@@ -242,9 +242,9 @@
                       assign gh_compare_at = item.original_price | plus: 2000
                     endif
                   -%}
-                  <div class="gh-cart-item-pricing">
+                  <div>
                     <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>
-                    <span class="gh-cart-item-price">{{ item.final_price | money }}</span>
+                    <span>{{ item.final_price | money }}</span>
                     {% if gh_compare_at > item.final_price %}
                       <span class="visually-hidden">{{ 'content.price_regular' | t }}</span>
                       <s class="compare-at-price">{{ gh_compare_at | money }}</s>

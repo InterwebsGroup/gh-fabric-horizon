@@ -4421,23 +4421,6 @@ h1, h2, h3, h4, h5, h6,
   opacity: 1;
 }
 
-/* ── Cart Line Item Pricing ── */
-.gh-cart-item-pricing {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 4px;
-  font-size: 0.7rem;
-}
-
-.gh-cart-item-price {
-  font-weight: 700;
-}
-
-.gh-cart-item-pricing .compare-at-price {
-  font-size: inherit;
-}
-
 /* ── Cart Save Pills ── */
 .gh-cart-save-pill {
   display: inline-block;
