@@ -232,31 +232,22 @@
                     </ul>
                   {% endif %}
 
+                  {%- liquid
+                    comment
+                      Compare-at price with +$20 fallback for testing display
+                      TODO: Remove this fallback before launch
+                    endcomment
+                    assign gh_compare_at = item.variant.compare_at_price
+                    if gh_compare_at == blank or gh_compare_at <= item.original_price
+                      assign gh_compare_at = item.original_price | plus: 2000
+                    endif
+                  -%}
                   <div>
-                    {% if item.original_price != item.final_price %}
-                      <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>
-                      <span>{{ item.final_price | money }}</span>
+                    <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>
+                    <span>{{ item.final_price | money }}</span>
+                    {% if gh_compare_at > item.final_price %}
                       <span class="visually-hidden">{{ 'content.price_regular' | t }}</span>
-                      <s class="compare-at-price">
-                        {% if item.variant.compare_at_price > item.original_price %}
-                          {{ item.variant.compare_at_price | money }}
-                        {% else %}
-                          {{ item.original_price | money }}
-                        {% endif %}
-                      </s>
-                    {% else %}
-                      {% if item.variant.compare_at_price > item.original_price %}
-                        <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>
-                      {% else %}
-                        <span class="visually-hidden">{{ 'content.price' | t }}</span>
-                      {% endif %}
-
-                      <span>{{ item.original_price | money }}</span>
-
-                      {% if item.variant.compare_at_price > item.original_price %}
-                        <span class="visually-hidden">{{ 'content.price_regular' | t }}</span>
-                        <s class="compare-at-price">{{ item.variant.compare_at_price | money }}</s>
-                      {% endif %}
+                      <s class="compare-at-price">{{ gh_compare_at | money }}</s>
                     {% endif %}
                   </div>
                 </td>

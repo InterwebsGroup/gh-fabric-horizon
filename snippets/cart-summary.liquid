@@ -229,13 +229,17 @@
       assign total_price = cart.total_price | money
     endif
 
+    comment
+      Compare-at price with +$20 fallback for testing display
+      TODO: Remove this fallback before launch
+    endcomment
     assign total_compare_at = 0
     for item in cart.items
-      if item.variant.compare_at_price
-        assign item_compare = item.variant.compare_at_price | times: item.quantity
-      else
-        assign item_compare = item.original_price | times: item.quantity
+      assign gh_compare_at = item.variant.compare_at_price
+      if gh_compare_at == blank or gh_compare_at <= item.original_price
+        assign gh_compare_at = item.original_price | plus: 2000
       endif
+      assign item_compare = gh_compare_at | times: item.quantity
       assign total_compare_at = total_compare_at | plus: item_compare
     endfor
 
