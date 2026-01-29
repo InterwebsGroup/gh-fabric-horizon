@@ -118,5 +118,39 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
+    <script>
+      /* Judge.me Medals – convert scroll-and-reset into infinite marquee */
+      (function() {
+        var attempts = 0;
+        function init() {
+          var el = document.querySelector('.jdgm-medals');
+          if (!el || !el.children.length) {
+            if (++attempts < 50) setTimeout(init, 100);
+            return;
+          }
+          if (el.dataset.marquee) return;
+          el.dataset.marquee = '1';
+
+          var track = document.createElement('div');
+          while (el.firstChild) track.appendChild(el.firstChild);
+
+          var dupe = track.cloneNode(true);
+          dupe.setAttribute('aria-hidden', 'true');
+
+          var marquee = document.createElement('div');
+          marquee.className = 'jdgm-medals-marquee';
+          marquee.appendChild(track);
+          marquee.appendChild(dupe);
+
+          el.appendChild(marquee);
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
   </body>
 </html>
