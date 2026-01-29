@@ -3541,12 +3541,14 @@ slideshow-arrows .slideshow-control.slideshow-control--style-none {
   }
 }
 
-:not(.media-gallery--carousel)
-  > :is(slideshow-component:hover, slideshow-component:focus-within):not(:has(slideshow-controls:hover))
-  > slideshow-container
-  > slideshow-arrows
-  .slideshow-control {
-  animation: arrowsSlideIn var(--animation-speed) var(--animation-easing) forwards;
+@media (hover: hover) {
+  :not(.media-gallery--carousel)
+    > :is(slideshow-component:hover, slideshow-component:focus-within):not(:has(slideshow-controls:hover))
+    > slideshow-container
+    > slideshow-arrows
+    .slideshow-control {
+    animation: arrowsSlideIn var(--animation-speed) var(--animation-easing) forwards;
+  }
 }
 
 @keyframes arrowsSlideIn {
