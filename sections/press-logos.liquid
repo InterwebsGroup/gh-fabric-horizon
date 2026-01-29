@@ -54,6 +54,7 @@
 {% stylesheet %}
   .press-logos {
     text-align: center;
+    padding-block: var(--padding-block-start) var(--padding-block-end);
   }
 
   .press-logos__label {
@@ -78,10 +79,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 30px;
   }
 
   .press-logos__img {
-    max-height: 32px;
+    height: 100%;
     width: auto;
     filter: grayscale(100%);
     opacity: 0.7;
@@ -91,6 +93,19 @@
   .press-logos__img:hover {
     filter: grayscale(0%);
     opacity: 1;
+  }
+
+  /* Balance logos by visual weight — wide wordmarks get a shorter container,
+     compact logos get a taller one, so perceived area is roughly equal.
+     Slot order: 1 Oprah (81×31), 2 GMA (71×41), 3 ABC (81×34),
+                 4 Cosmo (100×19), 5 Kelly&Mark (78×41), 6 The View (80×41) */
+  .press-logos__item:nth-child(1),
+  .press-logos__item:nth-child(3) {
+    height: 26px;
+  }
+
+  .press-logos__item:nth-child(4) {
+    height: 18px;
   }
 
   .press-logos__text {
@@ -107,8 +122,17 @@
       gap: 20px 32px;
     }
 
-    .press-logos__img {
-      max-height: 24px;
+    .press-logos__item {
+      height: 22px;
+    }
+
+    .press-logos__item:nth-child(1),
+    .press-logos__item:nth-child(3) {
+      height: 20px;
+    }
+
+    .press-logos__item:nth-child(4) {
+      height: 14px;
     }
 
     .press-logos__text {
