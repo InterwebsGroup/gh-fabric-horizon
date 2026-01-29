@@ -1,0 +1,433 @@
+{% comment %} Giant Hoodies Reviews Section — JudgeMe stats + customer review cards {% endcomment %}
+
+<div
+  class="reviews section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  style="{% render 'spacing-padding', settings: section.settings %}"
+>
+  {%- comment -%} JudgeMe Achievement Badges {%- endcomment -%}
+  <div class="reviews__badges">
+    <div class="reviews__badge">
+      <span class="reviews__badge-icon">🏆</span>
+      <span class="reviews__badge-label">Top 1% of Stores</span>
+    </div>
+    <div class="reviews__badge">
+      <span class="reviews__badge-icon">📈</span>
+      <span class="reviews__badge-label">Top 1% Trending</span>
+    </div>
+    <div class="reviews__badge">
+      <span class="reviews__badge-icon">✓</span>
+      <span class="reviews__badge-label">Gold Transparency</span>
+    </div>
+    <div class="reviews__badge">
+      <span class="reviews__badge-icon">⭐</span>
+      <span class="reviews__badge-label">
+        <span class="jdgm-all-reviews-count" data-shop-domain="gianthoodies.com">11,000+</span> Total Reviews
+      </span>
+    </div>
+    <div class="reviews__badge">
+      <span class="reviews__badge-icon">🔥</span>
+      <span class="reviews__badge-label">Monthly Record: 191</span>
+    </div>
+  </div>
+
+  {%- comment -%} Section Header {%- endcomment -%}
+  <div class="reviews__header">
+    {% if section.settings.heading != blank %}
+      <h2 class="reviews__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    <div class="reviews__overall-stars" aria-label="4.9 out of 5 stars">
+      {%- for i in (1..5) -%}
+        <svg class="reviews__star" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      {%- endfor -%}
+      <span class="reviews__rating-text">4.9 out of 5</span>
+    </div>
+  </div>
+
+  {%- comment -%} Review Cards Grid {%- endcomment -%}
+  {% if section.blocks.size > 0 %}
+    <div class="reviews__grid">
+      {% for block in section.blocks %}
+        <div class="reviews__card" {{ block.shopify_attributes }}>
+          {% if block.settings.photo != blank %}
+            <div class="reviews__card-photo">
+              {{ block.settings.photo | image_url: width: 400 | image_tag: class: 'reviews__card-img', alt: block.settings.author, loading: 'lazy' }}
+            </div>
+          {% endif %}
+          <div class="reviews__card-content">
+            <div class="reviews__card-stars" aria-label="5 out of 5 stars">
+              {%- for i in (1..5) -%}
+                <svg class="reviews__star reviews__star--card" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              {%- endfor -%}
+            </div>
+            {% if block.settings.title != blank %}
+              <h3 class="reviews__card-title">{{ block.settings.title }}</h3>
+            {% endif %}
+            <p class="reviews__card-text">{{ block.settings.body }}</p>
+            <div class="reviews__card-footer">
+              <span class="reviews__card-author">{{ block.settings.author }}</span>
+              {% if block.settings.verified %}
+                <span class="reviews__card-verified">✓ Verified Buyer</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .reviews {
+    text-align: center;
+    padding-inline: 20px;
+  }
+
+  /* ---- Badges Row ---- */
+  .reviews__badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .reviews__badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gh-cream, #faf7f4);
+    border: 1px solid var(--gh-sand, #e8d5c4);
+    border-radius: 9999px;
+    padding: 8px 16px;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--gh-espresso, #3d3028);
+    white-space: nowrap;
+  }
+
+  .reviews__badge-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  /* ---- Section Header ---- */
+  .reviews__header {
+    margin-bottom: 48px;
+  }
+
+  .reviews__heading {
+    font-family: var(--gh-font-heading, 'Fraunces', serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+    color: var(--gh-espresso, #3d3028);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  .reviews__overall-stars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .reviews__star {
+    color: var(--gh-terracotta, #c4704b);
+  }
+
+  .reviews__rating-text {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1rem;
+    color: var(--gh-espresso-light, #5a4a3d);
+    margin-left: 8px;
+  }
+
+  /* ---- Review Cards Grid ---- */
+  .reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .reviews__card {
+    background: var(--gh-cream, #faf7f4);
+    border: 1px solid var(--gh-sand, #e8d5c4);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .reviews__card-photo {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .reviews__card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .reviews__card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .reviews__card-stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 12px;
+  }
+
+  .reviews__star--card {
+    width: 16px;
+    height: 16px;
+  }
+
+  .reviews__card-title {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gh-espresso, #3d3028);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .reviews__card-text {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--gh-espresso, #3d3028);
+    opacity: 0.85;
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+
+  .reviews__card-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .reviews__card-author {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--gh-espresso, #3d3028);
+  }
+
+  .reviews__card-verified {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.75rem;
+    color: #2d5016;
+    font-weight: 600;
+  }
+
+  /* ---- Tablet ---- */
+  @media screen and (max-width: 989px) {
+    .reviews__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ---- Mobile ---- */
+  @media screen and (max-width: 749px) {
+    .reviews__badges {
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .reviews__badge {
+      font-size: 0.75rem;
+      padding: 6px 12px;
+    }
+
+    .reviews__header {
+      margin-bottom: 32px;
+    }
+
+    .reviews__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .reviews__card-content {
+      padding: 16px;
+    }
+
+    .reviews__card-text {
+      font-size: 0.875rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Reviews",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What the Hoodie Fam Says"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width", "label": "Page width" },
+        { "value": "full-width", "label": "Full width" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Customer photo"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review title",
+          "default": "Best purchase ever!"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Review text",
+          "default": "I love my Giant Hoodie so much. It's the comfiest thing I own."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Reviewer name",
+          "default": "Happy Customer"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show verified buyer badge",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "title": "I live in this thing",
+            "body": "I bought my first Giant Hoodie last winter and now I have three. I wear mine EVERYWHERE — the gym, the gas station, the laundromat, on a plane. I get so many compliments!",
+            "author": "Andrea M.",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "It's like wearing a hug",
+            "body": "This is genuinely the softest, coziest thing I've ever worn. My husband tried to steal it so I had to buy him his own. Now we match on movie nights.",
+            "author": "Grace T.",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Third one and counting",
+            "body": "This is my third Giant Hoodie and I couldn't be more in love. The quality is incredible and it washes perfectly every time. Worth every penny.",
+            "author": "James R.",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "My whole family is obsessed",
+            "body": "Started with one for me, then my daughter wanted one, then my wife. Now we all have Giant Hoodies and cozy movie nights are next level.",
+            "author": "Marcus L.",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Perfect for WFH life",
+            "body": "I work from home and this hoodie is my daily uniform. Looks great on Zoom calls, feels like pajamas. Best of both worlds.",
+            "author": "Sarah K.",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Amazing customer service too",
+            "body": "Nicest company with the best support I've ever worked with! Had a sizing question and they responded within minutes. The hoodie itself is absolutely incredible.",
+            "author": "Amara W.",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
