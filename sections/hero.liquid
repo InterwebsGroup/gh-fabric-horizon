@@ -792,6 +792,23 @@
       max-width: 340px;
     }
   }
+
+  /* ---- Mobile compact hero ---- */
+  @media screen and (max-width: 749px) {
+    .hero {
+      min-height: min(60svh, calc(var(--hero-min-height) - var(--hero-height-offset)));
+      overflow: hidden;
+    }
+
+    .hero .hero__container {
+      align-items: flex-end;
+    }
+
+    .hero__image,
+    .hero__video {
+      object-position: center top;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
