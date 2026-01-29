@@ -135,7 +135,7 @@
         {%- comment -%} Add to Cart button {%- endcomment -%}
         <button
           type="submit"
-          class="product__add-to-cart btn-primary"
+          class="product__add-to-cart gh-button gh-button--primary-dark"
           data-add-to-cart
           {% unless selected_variant.available %}disabled{% endunless %}
         >
@@ -278,7 +278,7 @@
                 >
                 <input type="hidden" name="product_id" value="{{ product.id }}">
                 <input type="hidden" name="variant_id" value="{{ selected_variant.id }}">
-                <button type="submit" class="product__back-in-stock-submit btn-primary">
+                <button type="submit" class="product__back-in-stock-submit gh-button gh-button--primary-dark">
                   {{ settings.back_in_stock_button_text | default: 'Notify Me' }}
                 </button>
               </form>
@@ -392,7 +392,7 @@
         </span>
       {%- endif -%}
     </div>
-    <button type="button" class="product__sticky-btn btn-primary" data-sticky-atc-btn
+    <button type="button" class="product__sticky-btn gh-button gh-button--primary-dark" data-sticky-atc-btn
       {% unless selected_variant.available %}disabled{% endunless %}>
       {%- if selected_variant.available -%}
         Add to Cart
@@ -881,29 +881,6 @@
       padding: 22px 32px;
       font-size: 1.25rem;
     }
-  }
-
-  .btn-primary {
-    background: var(--gh-espresso, #3d3028);
-    color: var(--gh-cream, #faf7f4);
-    border: none;
-    border-radius: 9999px;
-    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 150ms ease, transform 150ms ease;
-  }
-
-  .btn-primary:hover {
-    background: var(--gh-espresso-light, #5a4a3d);
-    transform: translateY(-1px);
-  }
-
-  .btn-primary:disabled {
-    background: var(--gh-sand, #e8d5c4);
-    color: var(--gh-espresso-light, #5a4a3d);
-    cursor: not-allowed;
-    transform: none;
   }
 
   /* =========================================

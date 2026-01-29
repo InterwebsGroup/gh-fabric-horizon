@@ -4135,10 +4135,24 @@ h1, h2, h3, h4, h5, h6,
   font-family: var(--gh-font-body);
   font-weight: 600;
   font-size: 0.9375rem;
+  line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
   border: 2px solid transparent;
+}
+
+.gh-button:hover {
+  transform: translateY(-1px);
+}
+
+.gh-button:disabled,
+.gh-button[disabled] {
+  background-color: var(--gh-sand);
+  color: var(--gh-espresso-light);
+  border-color: var(--gh-sand);
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Primary Dark - Espresso bg, cream text */
