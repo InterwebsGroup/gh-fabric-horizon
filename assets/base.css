@@ -4311,11 +4311,8 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .gh-shipping-progress__bar {
-  height: 5px;
-  background: var(--gh-sand);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-top: 0.5rem;
+  /* Bar now lives inline with the shipping row */
+  display: none;
 }
 
 .gh-shipping-progress__fill {
@@ -4352,14 +4349,36 @@ h1, h2, h3, h4, h5, h6,
 /* ── Shipping Row in Summary ── */
 .gh-cart-shipping-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.625rem;
   padding-block: 0.25rem;
 }
 
 .gh-cart-shipping-row__label {
   font-style: italic;
   font-size: var(--cart-font-size--sm, 0.875rem);
+  flex-shrink: 0;
+}
+
+.gh-cart-shipping-row__bar {
+  flex: 1 1 0%;
+  min-width: 0;
+  height: 5px;
+  background: var(--gh-sand, #e8d5c4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.gh-cart-shipping-row__fill {
+  display: block;
+  height: 100%;
+  background: var(--gh-espresso, #3d3028);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.gh-cart-shipping-row__bar--complete .gh-cart-shipping-row__fill {
+  background: #3ED660;
 }
 
 .gh-cart-shipping-row__value {
@@ -4367,6 +4386,8 @@ h1, h2, h3, h4, h5, h6,
   font-size: var(--cart-font-size--sm, 0.875rem);
   color: var(--color-foreground);
   opacity: 0.7;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .gh-cart-shipping-row__value--free {
