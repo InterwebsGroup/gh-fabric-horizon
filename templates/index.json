@@ -422,8 +422,8 @@
         "image_4": "shopify://shop_images/gianthoodies-errands.jpg",
         "image_5": "shopify://shop_images/gianthoodies-movies.jpg",
         "color_scheme": "scheme-2",
-        "padding-block-start": 80,
-        "padding-block-end": 80
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "product_list_jDCfUL": {
@@ -690,8 +690,8 @@
         "image_5": "shopify://shop_images/gianthoodies-size-2xl.jpg",
         "image_6": "shopify://shop_images/gianthoodies-size-3xl.jpg",
         "color_scheme": "scheme-1",
-        "padding-block-start": 80,
-        "padding-block-end": 80
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "slideshow_3eCk7e": {
@@ -1205,8 +1205,8 @@
         "slideshow_controls_style": "dots",
         "autoplay": false,
         "autoplay_speed": 4,
-        "padding-block-start": 40,
-        "padding-block-end": 0
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "feature_guarantee": {
@@ -1214,8 +1214,8 @@
       "name": "Guarantee",
       "settings": {
         "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "comparison_table": {
@@ -1293,8 +1293,8 @@
         "brand_them": "Oodie",
         "section_width": "page-width",
         "color_scheme": "scheme-1",
-        "padding-block-start": 80,
-        "padding-block-end": 80
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "176974364261417f41": {
@@ -1365,8 +1365,8 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "section_GFiYp7": {
@@ -1771,8 +1771,8 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "section_DUGh9D": {
@@ -1852,8 +1852,8 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     }
   },
