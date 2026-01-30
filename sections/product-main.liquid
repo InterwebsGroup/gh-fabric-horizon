@@ -335,7 +335,7 @@
       </div>
 
       {%- comment -%} "As Seen On" press logos — shared snippet, same as homepage {%- endcomment -%}
-      {% render 'press-logos-bar' %}
+      {% render 'press-logos-bar', loading: 'lazy' %}
 
     </div>
   </div>
@@ -435,7 +435,7 @@
   </script>
 </section>
 
-{{ 'product-page.js' | asset_url | script_tag }}
+<script src="{{ 'product-page.js' | asset_url }}" defer></script>
 
 {% stylesheet %}
   /* =========================================
@@ -1027,7 +1027,7 @@
   .product__selling-points {
     display: flex;
     justify-content: center;
-    background: var(--color-terracotta, #c4704b) !important;
+    background: var(--color-terracotta, #c4704b);
     border-radius: 10px;
     padding: 14px 8px;
     margin-bottom: 20px;

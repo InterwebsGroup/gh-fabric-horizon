@@ -124,6 +124,10 @@
 
     var triggers = section.querySelectorAll('[data-lightbox-trigger]');
 
+    function handleEscape(e) {
+      if (e.key === 'Escape') closeLightbox();
+    }
+
     function openLightbox(src, srcset, alt) {
       lightboxImg.src = src || '';
       if (srcset) {
@@ -135,12 +139,14 @@
       lightbox.classList.add('product-gallery__lightbox--open');
       lightbox.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', handleEscape);
     }
 
     function closeLightbox() {
       lightbox.classList.remove('product-gallery__lightbox--open');
       lightbox.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleEscape);
     }
 
     // Bind all triggers (grid items, mobile hero, thumbnails)
@@ -181,12 +187,6 @@
       }
     });
 
-    // Close on Escape key
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && lightbox.classList.contains('product-gallery__lightbox--open')) {
-        closeLightbox();
-      }
-    });
   }
 
   /* =========================================
@@ -318,9 +318,7 @@
         atcBtn.disabled = false;
         var cartPriceSpan = atcBtn.querySelector('[data-cart-price]');
         if (cartPriceSpan) {
-          atcBtn.innerHTML = 'Add to Cart &mdash; <span data-cart-price>' + formatMoney(variant.price, moneyFormat) + '</span>';
-        } else {
-          atcBtn.textContent = 'Add to Cart';
+          cartPriceSpan.textContent = formatMoney(variant.price, moneyFormat);
         }
       } else {
         atcBtn.disabled = true;
@@ -394,7 +392,8 @@
       // Disable buttons during request
       if (atcBtn) {
         atcBtn.disabled = true;
-        atcBtn.dataset.originalText = atcBtn.innerHTML;
+        var priceSpan = atcBtn.querySelector('[data-cart-price]');
+        if (priceSpan) atcBtn.dataset.originalPrice = priceSpan.textContent;
         atcBtn.textContent = 'Adding...';
       }
       if (stickyBtn) {
@@ -439,18 +438,19 @@
           updateCartCount();
 
           // Dispatch event to open cart drawer
-          var event = new Event('cart:update', { bubbles: true });
-          event.detail = {
-            resource: data,
-            sourceId: 'product-main',
-            data: {
-              source: 'product-main',
-              itemCount: parseInt(quantity, 10),
-              productId: section.dataset.productId,
-              sections: data.sections || {}
+          document.dispatchEvent(new CustomEvent('cart:update', {
+            bubbles: true,
+            detail: {
+              resource: data,
+              sourceId: 'product-main',
+              data: {
+                source: 'product-main',
+                itemCount: parseInt(quantity, 10),
+                productId: section.dataset.productId,
+                sections: data.sections || {}
+              }
             }
-          };
-          document.dispatchEvent(event);
+          }));
 
           // Restore button after brief delay
           setTimeout(function () {
@@ -466,10 +466,16 @@
   }
 
   function restoreATCButton(section, atcBtn, stickyBtn) {
-    if (atcBtn && atcBtn.dataset.originalText) {
-      atcBtn.innerHTML = atcBtn.dataset.originalText;
+    if (atcBtn) {
       atcBtn.disabled = false;
-      delete atcBtn.dataset.originalText;
+      if (atcBtn.dataset.originalPrice) {
+        atcBtn.textContent = 'Add to Cart \u2014 ';
+        var span = document.createElement('span');
+        span.setAttribute('data-cart-price', '');
+        span.textContent = atcBtn.dataset.originalPrice;
+        atcBtn.appendChild(span);
+        delete atcBtn.dataset.originalPrice;
+      }
     }
     if (stickyBtn) {
       stickyBtn.disabled = false;

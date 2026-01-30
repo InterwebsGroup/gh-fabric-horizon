@@ -7,6 +7,9 @@
   Usage:  {% render 'press-logos-bar' %}
 {% endcomment %}
 
+{%- liquid
+  assign img_loading = loading | default: 'eager'
+-%}
 {%- capture logo_items -%}
   {%- liquid
     assign logos = 'press_logo_1,press_logo_2,press_logo_3,press_logo_4,press_logo_5,press_logo_6' | split: ','
@@ -18,9 +21,9 @@
     {%- assign alt_text = settings[alt_key] | default: fallback_alts[forloop.index0] -%}
     <div class="press-logos__item">
       {%- if settings[logo_key] != blank -%}
-        {{ settings[logo_key] | image_url: width: 200 | image_tag: alt: alt_text, class: 'press-logos__img', loading: 'eager' }}
+        {{ settings[logo_key] | image_url: width: 200 | image_tag: alt: alt_text, class: 'press-logos__img', loading: img_loading }}
       {%- else -%}
-        <img src="{{ fallback_files[forloop.index0] | file_url }}" alt="{{ alt_text }}" class="press-logos__img" loading="eager" width="200" height="80">
+        <img src="{{ fallback_files[forloop.index0] | file_url }}" alt="{{ alt_text }}" class="press-logos__img" loading="{{ img_loading }}" width="200" height="80">
       {%- endif -%}
     </div>
   {%- endfor -%}
