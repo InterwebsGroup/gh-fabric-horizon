@@ -37,6 +37,7 @@ class CartItemsComponent extends Component {
     super.disconnectedCallback();
 
     document.removeEventListener(ThemeEvents.cartUpdate, this.#handleCartUpdate);
+    document.removeEventListener(ThemeEvents.discountUpdate, this.handleDiscountUpdate);
     document.removeEventListener(ThemeEvents.quantitySelectorUpdate, this.#debouncedOnChange);
   }
 
@@ -137,11 +138,8 @@ class CartItemsComponent extends Component {
     cartTotal?.shimmer();
 
     fetch(`${Theme.routes.cart_change_url}`, fetchConfig('json', { body }))
-      .then((response) => {
-        return response.text();
-      })
-      .then((responseText) => {
-        const parsedResponseText = JSON.parse(responseText);
+      .then((response) => response.json())
+      .then((parsedResponseText) => {
 
         resetShimmer(this);
 

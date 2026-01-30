@@ -173,12 +173,11 @@
                 aria-label="{{ 'accessibility.cart' | t }}"
                 style="--header-height: 60px;"
               >
-                <scroll-hint
+                <div
                   class="cart-drawer__items"
                 >
-                  {% render 'gh-cart-extras', part: 'top' %}
                   {% render 'cart-products', drawer_context: 'drawer' %}
-                </scroll-hint>
+                </div>
 
                 <div
                   class="cart-drawer__summary"
@@ -422,21 +421,6 @@
     margin-bottom: var(--margin-md);
   }
 
-  .cart-drawer__items .cart-items__table-row {
-    padding-bottom: var(--gap-xl);
-    border-bottom: var(--style-border-width) solid var(--color-border);
-    margin-bottom: var(--gap-xl);
-  }
-
-  .cart-drawer__items .cart-items__table-row:has(+ .cart-items__nested-line) {
-    border-bottom: none;
-    margin-bottom: 0;
-  }
-
-  .cart-drawer__items .cart-items__table-row:last-child {
-    border-bottom: none;
-  }
-
   .cart-drawer__summary {
     --cart-drawer-summary-padding: var(--padding-lg);
 
@@ -508,6 +492,11 @@
     margin-bottom: var(--gap-xl);
   }
 
+  .cart-drawer__items .cart-items__table-row:has(+ .cart-items__nested-line) {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
   .cart-drawer__items .cart-items__table-row:last-child {
     border-bottom: none;
     padding-block-end: 0;
@@ -534,7 +523,7 @@
     justify-content: space-between;
     width: 100%;
     padding: var(--cart-drawer-padding);
-    border-bottom: var(--style-border-width) solid none;
+    border-bottom: none;
     position: sticky;
     top: 0;
     z-index: 1;

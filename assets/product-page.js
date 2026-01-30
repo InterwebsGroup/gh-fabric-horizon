@@ -434,10 +434,7 @@
             return;
           }
 
-          // Success: update cart count
-          updateCartCount();
-
-          // Dispatch event to open cart drawer
+          // Dispatch event to update cart drawer + count
           document.dispatchEvent(new CustomEvent('cart:update', {
             bubbles: true,
             detail: {
@@ -501,33 +498,6 @@
     setTimeout(function () {
       if (errorEl.parentNode) errorEl.remove();
     }, 5000);
-  }
-
-  function updateCartCount() {
-    fetch('/cart.js', {
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-      .then(function (r) {
-        return r.json();
-      })
-      .then(function (cart) {
-        // Update any cart count badges in the header
-        document.querySelectorAll('[data-cart-count]').forEach(function (el) {
-          el.textContent = cart.item_count;
-        });
-        // Also try the Fabric-specific cart count element
-        document
-          .querySelectorAll('.cart-count, .header__cart-count, [data-header-cart-count]')
-          .forEach(function (el) {
-            el.textContent = cart.item_count;
-            if (cart.item_count > 0) {
-              el.style.display = '';
-            }
-          });
-      })
-      .catch(function () {
-        // Non-critical — cart drawer will show correct count
-      });
   }
 
   /* =========================================

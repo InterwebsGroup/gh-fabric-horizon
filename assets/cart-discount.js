@@ -111,6 +111,7 @@ class CartDiscount extends Component {
       document.dispatchEvent(new DiscountUpdateEvent(data, this.id));
       morphSection(this.dataset.sectionId, newHtml);
     } catch (error) {
+      if (error?.name !== 'AbortError') console.warn('[Cart] Discount apply failed:', error);
     } finally {
       this.#activeFetch = null;
       cartPerformance.measureFromEvent('discount-update:user-action', event);
@@ -125,9 +126,10 @@ class CartDiscount extends Component {
     event.preventDefault();
     event.stopPropagation();
 
+    const isValidClick = event instanceof MouseEvent;
+    const isValidKey = event instanceof KeyboardEvent && event.key === 'Enter';
     if (
-      (event instanceof KeyboardEvent && event.key !== 'Enter') ||
-      !(event instanceof MouseEvent) ||
+      (!isValidClick && !isValidKey) ||
       !(event.target instanceof HTMLElement) ||
       typeof this.dataset.sectionId !== 'string'
     ) {
@@ -163,6 +165,7 @@ class CartDiscount extends Component {
       document.dispatchEvent(new DiscountUpdateEvent(data, this.id));
       morphSection(this.dataset.sectionId, data.sections[this.dataset.sectionId]);
     } catch (error) {
+      if (error?.name !== 'AbortError') console.warn('[Cart] Discount remove failed:', error);
     } finally {
       this.#activeFetch = null;
     }
