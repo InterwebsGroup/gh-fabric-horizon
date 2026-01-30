@@ -412,6 +412,20 @@
         "padding-block-end": 60
       }
     },
+    "feature_trendy": {
+      "type": "feature-trendy",
+      "name": "Wear It Everywhere",
+      "settings": {
+        "image_main": "shopify://shop_images/gianthoodies-couch.jpg",
+        "image_2": "shopify://shop_images/gianthoodies-airport.jpg",
+        "image_3": "shopify://shop_images/gianthoodies-coffee.jpg",
+        "image_4": "shopify://shop_images/gianthoodies-errands.jpg",
+        "image_5": "shopify://shop_images/gianthoodies-movies.jpg",
+        "color_scheme": "scheme-2",
+        "padding-block-start": 80,
+        "padding-block-end": 80
+      }
+    },
     "product_list_jDCfUL": {
       "type": "product-list",
       "blocks": {
@@ -644,7 +658,7 @@
           ]
         }
       },
-      "name": "Best Sellers",
+      "name": "New Drops",
       "settings": {
         "collection": "latest-products",
         "layout_type": "grid",
@@ -665,19 +679,6 @@
         "padding-block-end": 60
       }
     },
-    "feature_trendy": {
-      "type": "feature-trendy",
-      "settings": {
-        "image_main": "shopify://shop_images/gianthoodies-couch.jpg",
-        "image_2": "shopify://shop_images/gianthoodies-airport.jpg",
-        "image_3": "shopify://shop_images/gianthoodies-coffee.jpg",
-        "image_4": "shopify://shop_images/gianthoodies-errands.jpg",
-        "image_5": "shopify://shop_images/gianthoodies-movies.jpg",
-        "color_scheme": "scheme-2",
-        "padding-block-start": 80,
-        "padding-block-end": 80
-      }
-    },
     "value_props": {
       "type": "value-props",
       "settings": {
@@ -690,6 +691,7 @@
     },
     "feature_oversized": {
       "type": "feature-oversized",
+      "name": "One Size Fits Most",
       "settings": {
         "image_1": "shopify://shop_images/gianthoodies-size-s.jpg",
         "image_2": "shopify://shop_images/gianthoodies-size-medium.jpg",
@@ -704,6 +706,7 @@
     },
     "feature_guarantee": {
       "type": "feature-guarantee",
+      "name": "Guarantee",
       "settings": {
         "color_scheme": "scheme-1",
         "padding-block-start": 48,
@@ -712,6 +715,7 @@
     },
     "comparison_table": {
       "type": "comparison-table",
+      "name": "Comparison",
       "settings": {
         "heading": "Giant Hoodies vs. The Other Guys",
         "section_width": "page-width",
@@ -720,92 +724,50 @@
         "padding-block-end": 80
       }
     },
-    "reviews": {
-      "type": "reviews",
-      "blocks": {
-        "review_1": {
-          "type": "review",
-          "settings": {
-            "title": "I live in this thing",
-            "body": "I bought my first Giant Hoodie last winter and now I have three. I wear mine EVERYWHERE — the gym, the gas station, the laundromat, on a plane. I get so many compliments!",
-            "author": "Andrea M.",
-            "verified": true
-          }
-        },
-        "review_2": {
-          "type": "review",
-          "settings": {
-            "title": "It's like wearing a hug",
-            "body": "This is genuinely the softest, coziest thing I've ever worn. My husband tried to steal it so I had to buy him his own. Now we match on movie nights.",
-            "author": "Grace T.",
-            "verified": true
-          }
-        },
-        "review_3": {
-          "type": "review",
-          "settings": {
-            "title": "Third one and counting",
-            "body": "This is my third Giant Hoodie and I couldn't be more in love. The quality is incredible and it washes perfectly every time. Worth every penny.",
-            "author": "James R.",
-            "verified": true
-          }
-        },
-        "review_4": {
-          "type": "review",
-          "settings": {
-            "title": "My whole family is obsessed",
-            "body": "Started with one for me, then my daughter wanted one, then my wife. Now we all have Giant Hoodies and cozy movie nights are next level.",
-            "author": "Marcus L.",
-            "verified": true
-          }
-        },
-        "review_5": {
-          "type": "review",
-          "settings": {
-            "title": "Perfect for WFH life",
-            "body": "I work from home and this hoodie is my daily uniform. Looks great on Zoom calls, feels like pajamas. Best of both worlds.",
-            "author": "Sarah K.",
-            "verified": true
-          }
-        },
-        "review_6": {
-          "type": "review",
-          "settings": {
-            "title": "Amazing customer service too",
-            "body": "Nicest company with the best support I've ever worked with! Had a sizing question and they responded within minutes. The hoodie itself is absolutely incredible.",
-            "author": "Amara W.",
-            "verified": true
-          }
-        }
-      },
-      "block_order": [
-        "review_1",
-        "review_2",
-        "review_3",
-        "review_4",
-        "review_5",
-        "review_6"
-      ],
-      "disabled": true,
-      "settings": {
-        "heading": "What the Hoodie Fam Says",
-        "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 60,
-        "padding-block-end": 60
-      }
-    },
     "176974364261417f41": {
       "type": "_blocks",
       "blocks": {
+        "judge_me_reviews_cards_carousel_XgEhLB": {
+          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": false,
+            "reviews_selection": "featured_reviews",
+            "products": [],
+            "star_rating": "5_star",
+            "show_review_media": true,
+            "display_order": "media_first",
+            "no_image_fallback": "review_text_only",
+            "max_reviews": 20,
+            "review_length": "large",
+            "text_size": "small",
+            "image_ratio": "1",
+            "reviews_shown": 4,
+            "show_reviewer_name": true,
+            "show_product_name": true,
+            "hide_arrows_mobile": true,
+            "arrows_position": "sides",
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "header_text_color": "#000000",
+            "text_color": "#000000",
+            "card_color": "#F9F9F9",
+            "stars_color": "",
+            "arrows_color": "#000000",
+            "transition_speed": 5,
+            "header_text": "Hear from Others!",
+            "show_average_rating": true
+          }
+        },
         "judge_me_reviews_all_reviews_text_PVtC9R": {
           "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_text/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
         }
       },
       "block_order": [
+        "judge_me_reviews_cards_carousel_XgEhLB",
         "judge_me_reviews_all_reviews_text_PVtC9R"
       ],
+      "name": "Reviews",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -840,13 +802,12 @@
     "stats_bar",
     "press_logos",
     "best_sellers",
-    "product_list_jDCfUL",
     "feature_trendy",
+    "product_list_jDCfUL",
     "value_props",
     "feature_oversized",
     "feature_guarantee",
     "comparison_table",
-    "reviews",
     "176974364261417f41"
   ]
 }
