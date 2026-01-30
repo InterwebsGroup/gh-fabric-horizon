@@ -136,6 +136,7 @@
     {%- endfor -%}
   {%- endfor -%}
   {%- if is_tier_eligible -%}
-    <small class="gh-tiered-pricing-note">Buy 2+, save up to 48%</small>
+    {%- assign tier_max_discount = settings.tier_retail_price | minus: settings.tier_3_price | times: 100 | divided_by: settings.tier_retail_price -%}
+    <small class="gh-tiered-pricing-note">Buy 2+, save up to {{ tier_max_discount }}%</small>
   {%- endif -%}
 {%- endif -%}

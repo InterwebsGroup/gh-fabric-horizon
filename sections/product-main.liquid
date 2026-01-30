@@ -150,8 +150,8 @@
       {%- comment -%} Volume pricing banner (sitewide mix & match — informational only) {%- endcomment -%}
       {%- if settings.pricing_mode == 'tiered' and is_tier_eligible -%}
         {%- liquid
-          assign tier_2_price = section.settings.tier_2_each_price | times: 100
-          assign tier_3_price = section.settings.tier_3_each_price | times: 100
+          assign tier_2_price = settings.tier_2_price | times: 100
+          assign tier_3_price = settings.tier_3_price | times: 100
           assign compare_total_2 = compare_at | times: 2
           assign tier_2_total = tier_2_price | times: 2
           assign savings_tier_2 = compare_total_2 | minus: tier_2_total
@@ -551,7 +551,7 @@
   }
 
   .product-gallery__grid-item--placeholder {
-    background: var(--gh-cream, #faf7f4);
+    background: var(--color-cream, #faf7f4);
     cursor: default;
   }
 
@@ -631,7 +631,7 @@
   }
 
   .product-gallery__thumb:hover {
-    border-color: var(--gh-espresso, #3d3028);
+    border-color: var(--color-espresso, #3d3028);
   }
 
   /* ----- Lightbox overlay ----- */
@@ -686,7 +686,7 @@
     font-size: 1.75rem;
     font-weight: 900;
     font-variation-settings: 'SOFT' 100, 'WONK' 1;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
     margin: 0 0 8px 0;
     line-height: 1.2;
   }
@@ -719,7 +719,7 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 1.1rem;
     font-weight: 400;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
     text-decoration: line-through;
   }
 
@@ -727,12 +727,12 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
   }
 
   .product__savings-badge {
     display: inline-block;
-    background: var(--gh-terracotta, #c4704b);
+    background: var(--color-terracotta, #c4704b);
     color: white;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.8rem;
@@ -757,7 +757,7 @@
     gap: 10px;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.95rem;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
     margin-bottom: 8px;
     line-height: 1.4;
   }
@@ -766,7 +766,7 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    color: var(--gh-terracotta, #c4704b);
+    color: var(--color-terracotta, #c4704b);
   }
 
   /* =========================================
@@ -781,7 +781,7 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 10px;
@@ -814,7 +814,7 @@
   }
 
   .product__swatch--active {
-    border-color: var(--gh-espresso, #3d3028);
+    border-color: var(--color-espresso, #3d3028);
   }
 
   .product__swatch--unavailable {
@@ -828,7 +828,7 @@
     left: -2px;
     right: -2px;
     height: 2px;
-    background: var(--gh-espresso, #3d3028);
+    background: var(--color-espresso, #3d3028);
     transform: rotate(-45deg);
   }
 
@@ -840,7 +840,7 @@
      Volume Pricing Banner (rounded card)
      ========================================= */
   .product__volume-banner {
-    background: var(--gh-cream, #faf7f4);
+    background: var(--color-cream, #faf7f4);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 24px;
@@ -851,7 +851,7 @@
     font-size: 1rem;
     font-weight: 800;
     font-variation-settings: 'SOFT' 100, 'WONK' 1;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
     line-height: 1.35;
     margin: 0 0 14px;
     text-align: center;
@@ -871,7 +871,7 @@
     padding: 12px 14px;
     background: white;
     border-radius: 8px;
-    border: 1.5px solid var(--gh-sand, #e8d5c4);
+    border: 1.5px solid var(--color-sand, #e8d5c4);
     position: relative;
   }
 
@@ -890,7 +890,7 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.95rem;
     font-weight: 700;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
   }
 
   .product__volume-discount {
@@ -898,7 +898,7 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.65rem;
     font-weight: 700;
-    color: var(--gh-terracotta, #c4704b);
+    color: var(--color-terracotta, #c4704b);
     background: rgba(196, 112, 75, 0.1);
     padding: 2px 8px;
     border-radius: 9999px;
@@ -910,7 +910,7 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.75rem;
     font-weight: 400;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
     margin-top: 2px;
   }
 
@@ -931,14 +931,14 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 1.05rem;
     font-weight: 700;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
   }
 
   .product__volume-compare {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.75rem;
     font-weight: 400;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
     text-decoration: line-through;
   }
 
@@ -947,14 +947,14 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.7rem;
     font-weight: 600;
-    color: var(--gh-terracotta, #c4704b);
+    color: var(--color-terracotta, #c4704b);
     margin-top: 2px;
   }
 
   .product__volume-note {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.7rem;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
     text-align: center;
     margin: 10px 0 0;
     opacity: 0.8;
@@ -965,7 +965,7 @@
     position: absolute;
     top: -1px;
     right: -1px;
-    background: var(--gh-espresso, #3d3028);
+    background: var(--color-espresso, #3d3028);
     color: white;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.6rem;
@@ -1017,8 +1017,8 @@
   }
 
   .product__offer-banner-placeholder {
-    background: var(--gh-cream, #faf7f4);
-    border: 1px dashed var(--gh-sand, #e8d5c4);
+    background: var(--color-cream, #faf7f4);
+    border: 1px dashed var(--color-sand, #e8d5c4);
   }
 
   /* =========================================
@@ -1027,7 +1027,7 @@
   .product__selling-points {
     display: flex;
     justify-content: center;
-    background: var(--gh-terracotta, #c4704b) !important;
+    background: var(--color-terracotta, #c4704b) !important;
     border-radius: 10px;
     padding: 14px 8px;
     margin-bottom: 20px;
@@ -1050,7 +1050,7 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 1.1rem;
     font-weight: 800;
-    color: var(--gh-cream, #faf7f4);
+    color: var(--color-cream, #faf7f4);
     line-height: 1.2;
   }
 
@@ -1092,7 +1092,7 @@
 
   .product__back-in-stock-wrapper {
     padding: 16px;
-    background: var(--gh-cream, #faf7f4);
+    background: var(--color-cream, #faf7f4);
     border-radius: 12px;
   }
 
@@ -1101,13 +1101,13 @@
     font-weight: 600;
     font-size: 1rem;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
   }
 
   .product__back-in-stock-body {
     margin: 0 0 12px;
     font-size: 0.875rem;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
   }
 
   .product__back-in-stock-form {
@@ -1118,17 +1118,17 @@
   .product__back-in-stock-email {
     flex: 1;
     padding: 10px 12px;
-    border: 1px solid var(--gh-sand, #e8d5c4);
+    border: 1px solid var(--color-sand, #e8d5c4);
     border-radius: 8px;
     font-size: 1rem;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     background: white;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
   }
 
   .product__back-in-stock-email:focus {
     outline: none;
-    border-color: var(--gh-terracotta, #c4704b);
+    border-color: var(--color-terracotta, #c4704b);
   }
 
   .product__back-in-stock-submit {
@@ -1160,8 +1160,8 @@
     gap: 12px;
     flex-wrap: nowrap;
     padding: 12px 0;
-    border-top: 1px solid var(--gh-sand, #e8d5c4);
-    border-bottom: 1px solid var(--gh-sand, #e8d5c4);
+    border-top: 1px solid var(--color-sand, #e8d5c4);
+    border-bottom: 1px solid var(--color-sand, #e8d5c4);
     margin-bottom: 24px;
     white-space: nowrap;
   }
@@ -1173,7 +1173,7 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
   }
 
   .product__trust-icon {
@@ -1189,7 +1189,7 @@
      ========================================= */
   .product__accordions {
     margin-top: 8px;
-    border-top: 1px solid var(--gh-sand, #e8d5c4);
+    border-top: 1px solid var(--color-sand, #e8d5c4);
     max-width: var(--page-content-width, 1200px);
     margin-left: auto;
     margin-right: auto;
@@ -1204,7 +1204,7 @@
   }
 
   .product__accordion {
-    border-bottom: 1px solid var(--gh-sand, #e8d5c4);
+    border-bottom: 1px solid var(--color-sand, #e8d5c4);
   }
 
   .product__accordion-header {
@@ -1216,7 +1216,7 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
     list-style: none;
     user-select: none;
   }
@@ -1229,7 +1229,7 @@
     flex-shrink: 0;
     width: 16px;
     height: 16px;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
     transition: transform 250ms ease;
   }
 
@@ -1242,7 +1242,7 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.9rem;
     line-height: 1.7;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
   }
 
   .product__accordion-content p {
@@ -1295,13 +1295,13 @@
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
   }
 
   .product__sticky-savings {
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--gh-terracotta, #c4704b);
+    color: var(--color-terracotta, #c4704b);
   }
 
   .product__sticky-btn {
@@ -1365,22 +1365,10 @@
       "content": "Informational table shown when pricing mode is Tiered and the product is tier-eligible. Discounts apply sitewide (mix & match)."
     },
     {
-      "type": "number",
-      "id": "tier_2_each_price",
-      "label": "Tier 2 price (per item, $)",
-      "default": 45
-    },
-    {
       "type": "text",
       "id": "tier_2_badge",
       "label": "Tier 2 badge text",
       "default": "Most Popular"
-    },
-    {
-      "type": "number",
-      "id": "tier_3_each_price",
-      "label": "Tier 3 price (per item, $)",
-      "default": 39
     },
     {
       "type": "text",

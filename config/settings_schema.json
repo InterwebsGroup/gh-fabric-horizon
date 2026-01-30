@@ -2301,7 +2301,32 @@
           { "value": "flat", "label": "Flat (for sales)" }
         ],
         "default": "tiered",
-        "info": "Tiered: 1 for $55, 2 for $45ea, 3+ for $39ea. Flat: All hoodies $55."
+        "info": "Tiered: volume discounts at 2+ and 3+ quantities. Flat: single price per hoodie."
+      },
+      {
+        "type": "header",
+        "content": "Tier Prices"
+      },
+      {
+        "type": "number",
+        "id": "tier_retail_price",
+        "label": "Retail price (compare-at, $)",
+        "default": 75,
+        "info": "The original retail price used to calculate savings amounts."
+      },
+      {
+        "type": "number",
+        "id": "tier_2_price",
+        "label": "Tier 2 price (per item, $)",
+        "default": 45,
+        "info": "Price per hoodie when buying 2."
+      },
+      {
+        "type": "number",
+        "id": "tier_3_price",
+        "label": "Tier 3 price (per item, $)",
+        "default": 39,
+        "info": "Price per hoodie when buying 3+."
       },
       {
         "type": "header",

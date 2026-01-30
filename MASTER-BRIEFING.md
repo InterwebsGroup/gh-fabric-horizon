@@ -546,7 +546,7 @@ Go build.
 - Moved selling-points strip from below ATC button to directly above trust bar (consolidated trust/social proof block)
 - Trust bar forced to single line on all breakpoints (`flex-wrap: nowrap`, `white-space: nowrap`, `font-size: 0.75rem`, `gap: 12px`)
 - Trust bar items now **editable in theme editor** — 3 text fields under "Trust Bar" heading (defaults: "Free shipping $75+", "30-Day Guarantee", "Made in USA")
-- Selling-points strip background changed from espresso (`--gh-espresso`) to terracotta (`--gh-terracotta`) with `!important` to override color scheme specificity
+- Selling-points strip background changed from espresso (`--color-espresso`) to terracotta (`--color-terracotta`) with `!important` to override color scheme specificity
 
 **Offer banner (new feature):**
 - Added `image_picker` setting under "Offer Banner" heading in GH Product Main section
@@ -569,7 +569,7 @@ Go build.
 ### Changes Made (2026-01-29, session 4)
 
 **Cart badge terracotta:**
-- Added CSS override in `header-actions.liquid` to make the cart count circle terracotta (`--gh-terracotta`) with white text, overriding the default `--color-primary-button-background`
+- Added CSS override in `header-actions.liquid` to make the cart count circle terracotta (`--color-terracotta`) with white text, overriding the default `--color-primary-button-background`
 
 **Mobile double-tap fix (two rounds):**
 - Round 1: `snippets/quick-add.liquid` line 141 — the `:hover`/`:focus-within` rule changing quick-add button opacity was unguarded. On iOS, first tap synthesizes `:hover`, browser sees opacity change, requires second tap to follow link. Fixed by wrapping in `@media (hover: hover)`
@@ -639,6 +639,7 @@ Go build.
 - [ ] **Test trust bar single-line on mobile** — Confirm all 3 items fit on one line without overflow on small screens (320px+)
 - [ ] **Test press logos on homepage** — Verify full-width (no side padding), smooth infinite scroll on mobile, static centered on desktop
 - [ ] **Test press logos on product page** — Same behavior as homepage, edge-to-edge on mobile
+- [ ] **Collection filter buttons → AJAX navigation** — Filter buttons in `collection-header-full.liquid` (lines 61-68) use plain `<a href>` links causing full page reloads. Convert to AJAX-based filtering using the existing facets system to avoid re-downloading all assets when switching categories (e.g. Animals, Funny, Holidays).
 
 ### TODOs — Visual QA
 - [ ] **Test desktop gallery redesign** — Verify 2×2 grid renders correctly, lightbox opens/closes, swatch changes update position 1 only

@@ -20,8 +20,8 @@
     {%- liquid
       assign unit_price = selected_variant.price
       assign compare_price = selected_variant.compare_at_price | default: unit_price
-      assign tier_2_price = section.settings.tier_2_each_price | times: 100
-      assign tier_3_price = section.settings.tier_3_each_price | times: 100
+      assign tier_2_price = settings.tier_2_price | times: 100
+      assign tier_3_price = settings.tier_3_price | times: 100
 
       assign savings_1 = compare_price | minus: unit_price
 

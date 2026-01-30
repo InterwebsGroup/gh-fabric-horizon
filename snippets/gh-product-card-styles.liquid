@@ -6,24 +6,6 @@
 
 {% style %}
   /* ============================================
-     GIANT HOODIES DESIGN SYSTEM - COLOR VARIABLES
-     ============================================ */
-  :root {
-    /* Brand Colors */
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-terracotta: #c75d38;
-    --color-espresso: #3d3028;
-    --color-cream: #faf7f4;
-    --color-sand: #e8e0d5;
-
-    /* Semantic Colors */
-    --color-sale: #e53935;
-    --color-success: #2d5016;
-    --color-success-light: #3d6b1f;
-  }
-
-  /* ============================================
      PRODUCT CARD - INFO BELOW IMAGE
      Title, price, swatches sit below the image
      ============================================ */
@@ -81,8 +63,8 @@
   :is(.product-grid, .resource-list) product-title a,
   :is(.product-grid, .resource-list) product-title .text-block,
   :is(.product-grid, .resource-list) product-title .text-block p {
-    --color: var(--gh-espresso, #3d3028) !important;
-    color: var(--gh-espresso, #3d3028) !important;
+    --color: var(--color-espresso, #3d3028) !important;
+    color: var(--color-espresso, #3d3028) !important;
     text-shadow: none !important;
     font-size: 1.1rem !important;
     font-weight: 700 !important;
@@ -101,7 +83,7 @@
 
   /* Current price - espresso, bold, larger */
   :is(.product-grid, .resource-list) product-price .price {
-    color: var(--gh-espresso, #3d3028) !important;
+    color: var(--color-espresso, #3d3028) !important;
     font-weight: 700;
     font-size: 1.15rem;
     text-shadow: none;
@@ -109,7 +91,7 @@
 
   /* Compare-at price - espresso muted with strikethrough */
   :is(.product-grid, .resource-list) product-price .compare-at-price {
-    color: var(--gh-espresso-light, #5a4a3d) !important;
+    color: var(--color-espresso-light, #5a4a3d) !important;
     opacity: 0.6 !important;
     text-decoration: line-through;
     font-size: 1.1rem;
@@ -121,7 +103,7 @@
   /* Savings badge - red background, positioned nicely */
   :is(.product-grid, .resource-list) product-price .price-savings {
     display: inline-block;
-    background: var(--gh-terracotta, #c4704b);
+    background: var(--color-terracotta, #c4704b);
     color: var(--color-white) !important;
     font-size: 0.8rem;
     font-weight: 700;
@@ -169,12 +151,12 @@
   }
 
   :is(.product-grid, .resource-list) .swatch:hover {
-    border-color: var(--gh-espresso, #3d3028);
+    border-color: var(--color-espresso, #3d3028);
   }
 
   /* "+X" overflow count - dark text */
   :is(.product-grid, .resource-list) .hidden-swatches__count {
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
     font-size: 0.75rem;
     font-weight: 500;
     white-space: nowrap;

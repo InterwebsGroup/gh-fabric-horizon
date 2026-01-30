@@ -12,7 +12,17 @@
 <div class="collection-header-full">
 
   {%- comment -%} ========== HERO BANNER ========== {%- endcomment -%}
-  <div class="collection-banner" {% if section.settings.collection_banner_image %}style="background-image: url('{{ section.settings.collection_banner_image | image_url: width: 1600 }}')"{% endif %}>
+  <div class="collection-banner">
+    {%- if section.settings.collection_banner_image -%}
+      {{ section.settings.collection_banner_image | image_url: width: 1600 | image_tag:
+        class: 'collection-banner__image',
+        sizes: '100vw',
+        widths: '400, 600, 800, 1000, 1200, 1600',
+        loading: 'eager',
+        fetchpriority: 'high',
+        alt: collection.title | default: 'Collection banner'
+      }}
+    {%- endif -%}
     <div class="collection-banner__overlay">
       <div class="collection-banner__content">
 
@@ -22,7 +32,7 @@
             Buy More<br>
             <span class="collection-banner__accent">Save More</span>
           </h1>
-          <p class="collection-banner__subheadline">2 for $45 each · 3+ for $39 each</p>
+          <p class="collection-banner__subheadline">2 for ${{ settings.tier_2_price }} each · 3+ for ${{ settings.tier_3_price }} each</p>
         {%- else -%}
           {% if section.settings.collection_banner_label != blank %}
             <span class="collection-banner__label">{{ section.settings.collection_banner_label }}</span>
@@ -84,15 +94,22 @@
 
 </div>
 
-<style>
+{% stylesheet %}
   /* ========== HERO BANNER ========== */
   .collection-banner {
     position: relative;
     width: 100%;
     min-height: 200px;
-    background-color: var(--gh-espresso, #3d3028);
-    background-size: cover;
-    background-position: center;
+    background-color: var(--color-espresso, #3d3028);
+    overflow: hidden;
+  }
+
+  .collection-banner__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   @media (min-width: 768px) {
@@ -122,7 +139,7 @@
 
   .collection-banner__label {
     display: inline-block;
-    background: var(--gh-terracotta, #c4704b);
+    background: var(--color-terracotta, #c4704b);
     color: white;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.65rem;
@@ -139,7 +156,7 @@
     font-size: 2rem;
     font-weight: 900;
     font-variation-settings: 'SOFT' 100, 'WONK' 1;
-    color: var(--gh-cream, #faf7f4);
+    color: var(--color-cream, #faf7f4);
     line-height: 1.1;
     margin: 0 0 8px 0;
   }
@@ -151,14 +168,14 @@
   }
 
   .collection-banner__accent {
-    color: var(--gh-terracotta, #c4704b);
+    color: var(--color-terracotta, #c4704b);
   }
 
   .collection-banner__subheadline {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--gh-cream, #faf7f4);
+    color: var(--color-cream, #faf7f4);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin: 12px 0 0 0;
@@ -168,7 +185,7 @@
   /* ========== FILTER BUTTONS ========== */
   .filter-buttons {
     padding: 28px 0 20px;
-    background: var(--gh-cream, #faf7f4);
+    background: var(--color-cream, #faf7f4);
   }
 
   @media (min-width: 768px) {
@@ -184,7 +201,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
     margin: 0 0 16px 0;
   }
 
@@ -223,21 +240,21 @@
     font-weight: 600;
     text-decoration: none;
     border-radius: 9999px;
-    border: 2px solid var(--gh-espresso, #3d3028);
+    border: 2px solid var(--color-espresso, #3d3028);
     background: transparent;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
     white-space: nowrap;
     transition: background-color 150ms ease, color 150ms ease;
   }
 
   .filter-buttons__btn:hover {
-    background: var(--gh-sand, #e8d5c4);
+    background: var(--color-sand, #e8d5c4);
   }
 
   .filter-buttons__btn--active,
   .filter-buttons__btn--active:hover {
-    background: var(--gh-espresso, #3d3028);
-    color: var(--gh-cream, #faf7f4);
+    background: var(--color-espresso, #3d3028);
+    color: var(--color-cream, #faf7f4);
   }
 
   /* ========== COLLECTION DESCRIPTION ========== */
@@ -246,14 +263,14 @@
     margin: 0 auto;
     padding: 8px 24px 24px;
     text-align: center;
-    background: var(--gh-cream, #faf7f4);
+    background: var(--color-cream, #faf7f4);
   }
 
   .collection-description p {
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
     font-size: 1rem;
     line-height: 1.7;
-    color: var(--gh-espresso-light, #5a4a3d);
+    color: var(--color-espresso-light, #5a4a3d);
     margin: 0;
   }
 
@@ -261,7 +278,7 @@
   .collection-section-header {
     text-align: center;
     padding: 24px 20px 32px;
-    background: var(--gh-cream, #faf7f4);
+    background: var(--color-cream, #faf7f4);
   }
 
   .collection-section-header h2 {
@@ -269,7 +286,7 @@
     font-size: 1.75rem;
     font-weight: 900;
     font-variation-settings: 'SOFT' 100, 'WONK' 1;
-    color: var(--gh-espresso, #3d3028);
+    color: var(--color-espresso, #3d3028);
     margin: 0;
   }
 
@@ -278,7 +295,7 @@
       font-size: 2.25rem;
     }
   }
-</style>
+{% endstylesheet %}
 
 {% schema %}
 {
