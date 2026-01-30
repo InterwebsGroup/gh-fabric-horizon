@@ -18,9 +18,9 @@
     {%- assign alt_text = settings[alt_key] | default: fallback_alts[forloop.index0] -%}
     <div class="press-logos__item">
       {%- if settings[logo_key] != blank -%}
-        {{ settings[logo_key] | image_url: width: 200 | image_tag: alt: alt_text, class: 'press-logos__img', loading: 'lazy' }}
+        {{ settings[logo_key] | image_url: width: 200 | image_tag: alt: alt_text, class: 'press-logos__img', loading: 'eager' }}
       {%- else -%}
-        <img src="{{ fallback_files[forloop.index0] | file_url }}" alt="{{ alt_text }}" class="press-logos__img" loading="lazy" width="200" height="80">
+        <img src="{{ fallback_files[forloop.index0] | file_url }}" alt="{{ alt_text }}" class="press-logos__img" loading="eager" width="200" height="80">
       {%- endif -%}
     </div>
   {%- endfor -%}

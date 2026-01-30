@@ -1,4 +1,4 @@
-{% comment %} Giant Hoodies Comparison Table - Giant Hoodies vs Oodie {% endcomment %}
+{% comment %} Giant Hoodies Comparison Table - Block-driven, editable from theme editor {% endcomment %}
 
 <div
   class="comparison-table section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
@@ -14,77 +14,50 @@
         <tr>
           <th class="comparison-table__feature-header">Feature</th>
           <th class="comparison-table__brand comparison-table__brand--us">
-            <span class="comparison-table__brand-name">Giant Hoodies</span>
+            <span class="comparison-table__brand-name">{{ section.settings.brand_us }}</span>
           </th>
           <th class="comparison-table__brand comparison-table__brand--them">
-            <span class="comparison-table__brand-name">Oodie</span>
+            <span class="comparison-table__brand-name">{{ section.settings.brand_them }}</span>
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="comparison-table__feature">Oversized, One Size Fits Most</td>
-          <td class="comparison-table__check comparison-table__check--yes">
-            <span class="comparison-table__icon comparison-table__icon--check">✓</span>
-          </td>
-          <td class="comparison-table__check comparison-table__check--yes">
-            <span class="comparison-table__icon comparison-table__icon--check">✓</span>
-          </td>
-        </tr>
-        <tr>
-          <td class="comparison-table__feature">Comfy & Relaxing at Home</td>
-          <td class="comparison-table__check comparison-table__check--yes">
-            <span class="comparison-table__icon comparison-table__icon--check">✓</span>
-          </td>
-          <td class="comparison-table__check comparison-table__check--yes">
-            <span class="comparison-table__icon comparison-table__icon--check">✓</span>
-          </td>
-        </tr>
-        <tr>
-          <td class="comparison-table__feature">Cute & Trendy in Public</td>
-          <td class="comparison-table__check comparison-table__check--yes">
-            <span class="comparison-table__icon comparison-table__icon--check">✓</span>
-          </td>
-          <td class="comparison-table__check comparison-table__check--no">
-            <span class="comparison-table__icon comparison-table__icon--x">✗</span>
-          </td>
-        </tr>
-        <tr>
-          <td class="comparison-table__feature">Printed by Hand in the USA</td>
-          <td class="comparison-table__check comparison-table__check--yes">
-            <span class="comparison-table__icon comparison-table__icon--check">✓</span>
-          </td>
-          <td class="comparison-table__check comparison-table__check--no">
-            <span class="comparison-table__icon comparison-table__icon--x">✗</span>
-          </td>
-        </tr>
-        <tr>
-          <td class="comparison-table__feature">7,000+ Design & Color Combos</td>
-          <td class="comparison-table__check comparison-table__check--yes">
-            <span class="comparison-table__icon comparison-table__icon--check">✓</span>
-          </td>
-          <td class="comparison-table__check comparison-table__check--no">
-            <span class="comparison-table__icon comparison-table__icon--x">✗</span>
-          </td>
-        </tr>
-        <tr>
-          <td class="comparison-table__feature">Customize Your Own</td>
-          <td class="comparison-table__check comparison-table__check--yes">
-            <span class="comparison-table__icon comparison-table__icon--check">✓</span>
-          </td>
-          <td class="comparison-table__check comparison-table__check--no">
-            <span class="comparison-table__icon comparison-table__icon--x">✗</span>
-          </td>
-        </tr>
-        <tr class="comparison-table__row--price">
-          <td class="comparison-table__feature">Price</td>
-          <td class="comparison-table__price comparison-table__price--us">
-            <span class="comparison-table__price-value">$55</span>
-          </td>
-          <td class="comparison-table__price comparison-table__price--them">
-            <span class="comparison-table__price-value">$129</span>
-          </td>
-        </tr>
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'feature_row' -%}
+              <tr {{ block.shopify_attributes }}>
+                <td class="comparison-table__feature">{{ block.settings.feature }}</td>
+                <td class="comparison-table__check comparison-table__check--{{ block.settings.us_value }}">
+                  {%- if block.settings.us_value == 'check' -%}
+                    <span class="comparison-table__icon comparison-table__icon--check" aria-label="Yes">✓</span>
+                  {%- elsif block.settings.us_value == 'x' -%}
+                    <span class="comparison-table__icon comparison-table__icon--x" aria-label="No">✗</span>
+                  {%- else -%}
+                    <span class="comparison-table__icon">{{ block.settings.us_custom }}</span>
+                  {%- endif -%}
+                </td>
+                <td class="comparison-table__check comparison-table__check--{{ block.settings.them_value }}">
+                  {%- if block.settings.them_value == 'check' -%}
+                    <span class="comparison-table__icon comparison-table__icon--check" aria-label="Yes">✓</span>
+                  {%- elsif block.settings.them_value == 'x' -%}
+                    <span class="comparison-table__icon comparison-table__icon--x" aria-label="No">✗</span>
+                  {%- else -%}
+                    <span class="comparison-table__icon">{{ block.settings.them_custom }}</span>
+                  {%- endif -%}
+                </td>
+              </tr>
+            {%- when 'price_row' -%}
+              <tr class="comparison-table__row--price" {{ block.shopify_attributes }}>
+                <td class="comparison-table__feature">Price</td>
+                <td class="comparison-table__price comparison-table__price--us">
+                  <span class="comparison-table__price-value">{{ block.settings.us_price }}</span>
+                </td>
+                <td class="comparison-table__price comparison-table__price--them">
+                  <span class="comparison-table__price-value">{{ block.settings.them_price }}</span>
+                </td>
+              </tr>
+          {%- endcase -%}
+        {%- endfor -%}
       </tbody>
     </table>
   </div>
@@ -243,6 +216,22 @@
     },
     {
       "type": "header",
+      "content": "Brand Names"
+    },
+    {
+      "type": "text",
+      "id": "brand_us",
+      "label": "Our brand name",
+      "default": "Giant Hoodies"
+    },
+    {
+      "type": "text",
+      "id": "brand_them",
+      "label": "Competitor brand name",
+      "default": "Oodie"
+    },
+    {
+      "type": "header",
       "content": "Layout"
     },
     {
@@ -286,9 +275,133 @@
       "default": 80
     }
   ],
+  "blocks": [
+    {
+      "type": "feature_row",
+      "name": "Feature Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature",
+          "default": "Feature name"
+        },
+        {
+          "type": "select",
+          "id": "us_value",
+          "label": "Us",
+          "options": [
+            { "value": "check", "label": "✓ Yes" },
+            { "value": "x", "label": "✗ No" },
+            { "value": "custom", "label": "Custom text" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "us_custom",
+          "label": "Us custom text",
+          "info": "Only used when \"Us\" is set to Custom text"
+        },
+        {
+          "type": "select",
+          "id": "them_value",
+          "label": "Them",
+          "options": [
+            { "value": "check", "label": "✓ Yes" },
+            { "value": "x", "label": "✗ No" },
+            { "value": "custom", "label": "Custom text" }
+          ],
+          "default": "x"
+        },
+        {
+          "type": "text",
+          "id": "them_custom",
+          "label": "Them custom text",
+          "info": "Only used when \"Them\" is set to Custom text"
+        }
+      ]
+    },
+    {
+      "type": "price_row",
+      "name": "Price Row",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "us_price",
+          "label": "Our price",
+          "default": "$55"
+        },
+        {
+          "type": "text",
+          "id": "them_price",
+          "label": "Their price",
+          "default": "$129"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Comparison Table"
+      "name": "Comparison Table",
+      "blocks": [
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Oversized, One Size Fits Most",
+            "us_value": "check",
+            "them_value": "check"
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Comfy & Relaxing at Home",
+            "us_value": "check",
+            "them_value": "check"
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Cute & Trendy in Public",
+            "us_value": "check",
+            "them_value": "x"
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Printed by Hand in the USA",
+            "us_value": "check",
+            "them_value": "x"
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature": "7,000+ Design & Color Combos",
+            "us_value": "check",
+            "them_value": "x"
+          }
+        },
+        {
+          "type": "feature_row",
+          "settings": {
+            "feature": "Customize Your Own",
+            "us_value": "check",
+            "them_value": "x"
+          }
+        },
+        {
+          "type": "price_row",
+          "settings": {
+            "us_price": "$55",
+            "them_price": "$129"
+          }
+        }
+      ]
     }
   ]
 }

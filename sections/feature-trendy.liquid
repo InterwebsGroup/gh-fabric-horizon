@@ -10,56 +10,41 @@
   </div>
 
   <div class="feature-trendy__collage">
-    <div class="feature-trendy__item feature-trendy__item--large">
-      {% if section.settings.image_main != blank %}
-        {{ section.settings.image_main | image_url: width: 800 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie lifestyle' }}
-      {% else %}
-        <div class="feature-trendy__placeholder">
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'feature-trendy__placeholder-svg' }}
-        </div>
-      {% endif %}
-      <div class="feature-trendy__label">Couch</div>
-    </div>
-    <div class="feature-trendy__item">
-      {% if section.settings.image_2 != blank %}
-        {{ section.settings.image_2 | image_url: width: 500 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie at airport' }}
-      {% else %}
-        <div class="feature-trendy__placeholder">
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'feature-trendy__placeholder-svg' }}
-        </div>
-      {% endif %}
-      <div class="feature-trendy__label">Airport</div>
-    </div>
-    <div class="feature-trendy__item">
-      {% if section.settings.image_3 != blank %}
-        {{ section.settings.image_3 | image_url: width: 500 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie at coffee shop' }}
-      {% else %}
-        <div class="feature-trendy__placeholder">
-          {{ 'collection-1' | placeholder_svg_tag: 'feature-trendy__placeholder-svg' }}
-        </div>
-      {% endif %}
-      <div class="feature-trendy__label">Coffee Shop</div>
-    </div>
-    <div class="feature-trendy__item">
-      {% if section.settings.image_4 != blank %}
-        {{ section.settings.image_4 | image_url: width: 500 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie running errands' }}
-      {% else %}
-        <div class="feature-trendy__placeholder">
-          {{ 'collection-2' | placeholder_svg_tag: 'feature-trendy__placeholder-svg' }}
-        </div>
-      {% endif %}
-      <div class="feature-trendy__label">Errands</div>
-    </div>
-    <div class="feature-trendy__item">
-      {% if section.settings.image_5 != blank %}
-        {{ section.settings.image_5 | image_url: width: 500 | image_tag: class: 'feature-trendy__img', alt: 'Giant Hoodie at home' }}
-      {% else %}
-        <div class="feature-trendy__placeholder">
-          {{ 'collection-3' | placeholder_svg_tag: 'feature-trendy__placeholder-svg' }}
-        </div>
-      {% endif %}
-      <div class="feature-trendy__label">Movie Night</div>
-    </div>
+    {%- assign image_keys = 'image_main,image_2,image_3,image_4,image_5' | split: ',' -%}
+    {%- assign label_keys = 'label_main,label_2,label_3,label_4,label_5' | split: ',' -%}
+    {%- assign alt_texts = 'Giant Hoodie on the couch,Giant Hoodie at the airport,Giant Hoodie at a coffee shop,Giant Hoodie running errands,Giant Hoodie on movie night' | split: ',' -%}
+    {%- assign placeholders = 'lifestyle-1,lifestyle-2,collection-1,collection-2,collection-3' | split: ',' -%}
+
+    {%- for key in image_keys -%}
+      {%- if forloop.first -%}
+        {%- assign item_class = 'feature-trendy__item feature-trendy__item--large' -%}
+        {%- assign img_width = 800 -%}
+        {%- assign img_widths = '400, 600, 800, 1200' -%}
+        {%- assign img_sizes = '(min-width: 750px) 600px, 100vw' -%}
+      {%- else -%}
+        {%- assign item_class = 'feature-trendy__item' -%}
+        {%- assign img_width = 500 -%}
+        {%- assign img_widths = '200, 300, 400, 600' -%}
+        {%- assign img_sizes = '(min-width: 750px) 300px, 50vw' -%}
+      {%- endif -%}
+
+      <div class="{{ item_class }}">
+        {%- if section.settings[key] != blank -%}
+          {{ section.settings[key] | image_url: width: img_width | image_tag:
+              class: 'feature-trendy__img',
+              alt: alt_texts[forloop.index0],
+              loading: 'lazy',
+              widths: img_widths,
+              sizes: img_sizes
+          }}
+        {%- else -%}
+          <div class="feature-trendy__placeholder">
+            {{ placeholders[forloop.index0] | placeholder_svg_tag: 'feature-trendy__placeholder-svg' }}
+          </div>
+        {%- endif -%}
+        <div class="feature-trendy__label">{{ section.settings[label_keys[forloop.index0]] }}</div>
+      </div>
+    {%- endfor -%}
   </div>
 
 </div>
@@ -194,9 +179,21 @@
       "label": "Main photo (large)"
     },
     {
+      "type": "text",
+      "id": "label_main",
+      "label": "Main photo label",
+      "default": "Couch"
+    },
+    {
       "type": "image_picker",
       "id": "image_2",
       "label": "Photo 2"
+    },
+    {
+      "type": "text",
+      "id": "label_2",
+      "label": "Photo 2 label",
+      "default": "Airport"
     },
     {
       "type": "image_picker",
@@ -204,14 +201,32 @@
       "label": "Photo 3"
     },
     {
+      "type": "text",
+      "id": "label_3",
+      "label": "Photo 3 label",
+      "default": "Coffee Shop"
+    },
+    {
       "type": "image_picker",
       "id": "image_4",
       "label": "Photo 4"
     },
     {
+      "type": "text",
+      "id": "label_4",
+      "label": "Photo 4 label",
+      "default": "Errands"
+    },
+    {
       "type": "image_picker",
       "id": "image_5",
       "label": "Photo 5"
+    },
+    {
+      "type": "text",
+      "id": "label_5",
+      "label": "Photo 5 label",
+      "default": "Movie Night"
     },
     {
       "type": "header",

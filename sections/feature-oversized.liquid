@@ -5,53 +5,30 @@
   style="{% render 'spacing-padding', settings: section.settings %}"
 >
   <div class="feature-oversized__header">
-    <h1 class="feature-oversized__heading">One Size Fits Most</h1>
+    <h2 class="feature-oversized__heading">One Size Fits Most</h2>
     <p class="feature-oversized__subtext">From Small to 3XL, our one size has you covered.</p>
   </div>
 
   <div class="feature-oversized__grid">
-    {% if section.settings.image_1 != blank %}
-      {{ section.settings.image_1 | image_url: width: 600 | image_tag: class: 'feature-oversized__img', alt: 'Giant Hoodie on different body type' }}
-    {% else %}
-      <div class="feature-oversized__placeholder">
-        {{ 'product-apparel-1' | placeholder_svg_tag: 'feature-oversized__placeholder-svg' }}
-      </div>
-    {% endif %}
-    {% if section.settings.image_2 != blank %}
-      {{ section.settings.image_2 | image_url: width: 600 | image_tag: class: 'feature-oversized__img', alt: 'Giant Hoodie on different body type' }}
-    {% else %}
-      <div class="feature-oversized__placeholder">
-        {{ 'product-apparel-2' | placeholder_svg_tag: 'feature-oversized__placeholder-svg' }}
-      </div>
-    {% endif %}
-    {% if section.settings.image_3 != blank %}
-      {{ section.settings.image_3 | image_url: width: 600 | image_tag: class: 'feature-oversized__img', alt: 'Giant Hoodie on different body type' }}
-    {% else %}
-      <div class="feature-oversized__placeholder">
-        {{ 'product-apparel-3' | placeholder_svg_tag: 'feature-oversized__placeholder-svg' }}
-      </div>
-    {% endif %}
-    {% if section.settings.image_4 != blank %}
-      {{ section.settings.image_4 | image_url: width: 600 | image_tag: class: 'feature-oversized__img', alt: 'Giant Hoodie on different body type' }}
-    {% else %}
-      <div class="feature-oversized__placeholder">
-        {{ 'product-apparel-1' | placeholder_svg_tag: 'feature-oversized__placeholder-svg' }}
-      </div>
-    {% endif %}
-    {% if section.settings.image_5 != blank %}
-      {{ section.settings.image_5 | image_url: width: 600 | image_tag: class: 'feature-oversized__img', alt: 'Giant Hoodie on different body type' }}
-    {% else %}
-      <div class="feature-oversized__placeholder">
-        {{ 'product-apparel-2' | placeholder_svg_tag: 'feature-oversized__placeholder-svg' }}
-      </div>
-    {% endif %}
-    {% if section.settings.image_6 != blank %}
-      {{ section.settings.image_6 | image_url: width: 600 | image_tag: class: 'feature-oversized__img', alt: 'Giant Hoodie on different body type' }}
-    {% else %}
-      <div class="feature-oversized__placeholder">
-        {{ 'product-apparel-3' | placeholder_svg_tag: 'feature-oversized__placeholder-svg' }}
-      </div>
-    {% endif %}
+    {%- assign image_keys = 'image_1,image_2,image_3,image_4,image_5,image_6' | split: ',' -%}
+    {%- assign alt_texts = 'Giant Hoodie on size S body,Giant Hoodie on size M body,Giant Hoodie on size L body,Giant Hoodie on size XL body,Giant Hoodie on size 2XL body,Giant Hoodie on size 3XL body' | split: ',' -%}
+    {%- assign placeholders = 'product-apparel-1,product-apparel-2,product-apparel-3,product-apparel-1,product-apparel-2,product-apparel-3' | split: ',' -%}
+
+    {%- for key in image_keys -%}
+      {%- if section.settings[key] != blank -%}
+        {{ section.settings[key] | image_url: width: 600 | image_tag:
+            class: 'feature-oversized__img',
+            alt: alt_texts[forloop.index0],
+            loading: 'lazy',
+            widths: '200, 300, 400, 600',
+            sizes: '(min-width: 990px) 233px, (min-width: 750px) 33vw, 50vw'
+        }}
+      {%- else -%}
+        <div class="feature-oversized__placeholder">
+          {{ placeholders[forloop.index0] | placeholder_svg_tag: 'feature-oversized__placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
   </div>
 </div>
 
@@ -66,15 +43,6 @@
   .feature-oversized__header {
     max-width: 600px;
     margin: 0 auto 48px;
-  }
-
-  .feature-oversized__eyebrow {
-    font-family: var(--gh-font-body);
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--gh-terracotta);
-    margin-bottom: 16px;
   }
 
   .feature-oversized__heading {

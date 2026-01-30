@@ -6,34 +6,34 @@
 >
   <div class="feature-guarantee__container">
     <div class="feature-guarantee__stat">
-      <p class="feature-guarantee__stat-number">&lt; 1%</p>
-      <p class="feature-guarantee__stat-label">Return Rate</p>
+      <p class="feature-guarantee__stat-number">{{ section.settings.stat_number | escape }}</p>
+      <p class="feature-guarantee__stat-label">{{ section.settings.stat_label }}</p>
     </div>
 
-    <p class="feature-guarantee__comparison">The average apparel brand sees 21%</p>
+    <p class="feature-guarantee__comparison">{{ section.settings.comparison_text }}</p>
 
     <div class="feature-guarantee__process">
       <div class="feature-guarantee__step">
         <div class="feature-guarantee__step-icon">1</div>
-        <p class="feature-guarantee__step-title">Order</p>
-        <p class="feature-guarantee__step-desc">Ships same or next business day</p>
+        <p class="feature-guarantee__step-title">{{ section.settings.step_1_title }}</p>
+        <p class="feature-guarantee__step-desc">{{ section.settings.step_1_desc }}</p>
       </div>
       <div class="feature-guarantee__arrow">→</div>
       <div class="feature-guarantee__step">
         <div class="feature-guarantee__step-icon">2</div>
-        <p class="feature-guarantee__step-title">Try</p>
-        <p class="feature-guarantee__step-desc">Wrap yourself in cozy</p>
+        <p class="feature-guarantee__step-title">{{ section.settings.step_2_title }}</p>
+        <p class="feature-guarantee__step-desc">{{ section.settings.step_2_desc }}</p>
       </div>
       <div class="feature-guarantee__arrow">→</div>
       <div class="feature-guarantee__step">
         <div class="feature-guarantee__step-icon">3</div>
-        <p class="feature-guarantee__step-title">Love It</p>
-        <p class="feature-guarantee__step-desc">Or we'll make it right</p>
+        <p class="feature-guarantee__step-title">{{ section.settings.step_3_title }}</p>
+        <p class="feature-guarantee__step-desc">{{ section.settings.step_3_desc }}</p>
       </div>
     </div>
 
     <div class="feature-guarantee__badge">
-      <span class="feature-guarantee__badge-text">30-Day "Best Hoodie Ever" Guarantee</span>
+      <span class="feature-guarantee__badge-text">{{ section.settings.badge_text }}</span>
     </div>
   </div>
 </div>
@@ -208,6 +208,82 @@
   "tag": "section",
   "class": "section-wrapper",
   "settings": [
+    {
+      "type": "header",
+      "content": "Stat"
+    },
+    {
+      "type": "text",
+      "id": "stat_number",
+      "label": "Stat number",
+      "default": "< 1%"
+    },
+    {
+      "type": "text",
+      "id": "stat_label",
+      "label": "Stat label",
+      "default": "Return Rate"
+    },
+    {
+      "type": "text",
+      "id": "comparison_text",
+      "label": "Comparison text",
+      "default": "The average apparel brand sees 21%"
+    },
+    {
+      "type": "header",
+      "content": "Steps"
+    },
+    {
+      "type": "text",
+      "id": "step_1_title",
+      "label": "Step 1 title",
+      "default": "Order"
+    },
+    {
+      "type": "text",
+      "id": "step_1_desc",
+      "label": "Step 1 description",
+      "default": "Ships same or next business day"
+    },
+    {
+      "type": "text",
+      "id": "step_2_title",
+      "label": "Step 2 title",
+      "default": "Try"
+    },
+    {
+      "type": "text",
+      "id": "step_2_desc",
+      "label": "Step 2 description",
+      "default": "Wrap yourself in cozy"
+    },
+    {
+      "type": "text",
+      "id": "step_3_title",
+      "label": "Step 3 title",
+      "default": "Love It"
+    },
+    {
+      "type": "text",
+      "id": "step_3_desc",
+      "label": "Step 3 description",
+      "default": "Or we'll make it right"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "30-Day \"Best Hoodie Ever\" Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
