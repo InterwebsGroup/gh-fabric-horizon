@@ -71,7 +71,7 @@
       <p class="gh-cart-upsell__msg">
         {{- upsell_msg -}}
         {%- if show_cta -%}
-          <a href="/collections/hoodies" class="gh-cart-upsell__cta">Browse Hoodies &rarr;</a>
+          <a href="{{ settings.upsell_cta_url | default: '/collections/hoodies' }}" class="gh-cart-upsell__cta">{{ settings.upsell_cta_text | default: 'Browse Hoodies →' }}</a>
         {%- endif -%}
       </p>
     </div>

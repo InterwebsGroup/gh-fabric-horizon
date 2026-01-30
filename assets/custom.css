@@ -1,19 +1,6 @@
-/*
-  Narrow content width for FAQ and large-logo sections on the homepage.
-
-  These selectors use auto-generated Shopify section IDs which are stable
-  for the life of each section instance, but will change if a section is
-  removed and re-added in the theme editor.
-
-  section_GFiYp7 → FAQ (accordion)
-  section_DUGh9D → Large logo / brand story
-
-  A future improvement would be to add a "custom_class" text setting to
-  the section schema so these can be targeted by a reusable class instead.
-*/
+/* Narrow content width for sections that need it (FAQ, brand story, etc.) */
 @media screen and (min-width: 750px) {
-  #shopify-section-section_GFiYp7 .section-content-wrapper,
-  #shopify-section-section_DUGh9D .section-content-wrapper {
+  .section-narrow {
     max-width: 900px;
     margin-inline: auto;
     width: 100%;

@@ -44,13 +44,13 @@
     font-weight: 900;
     font-variation-settings: 'SOFT' 100, 'WONK' 1;
     margin-bottom: 16px;
-    color: #faf7f4;
+    color: var(--color-cream, #faf7f4);
   }
 
   .testimonials__subheading {
     font-family: var(--gh-font-body);
     font-size: 1.125rem;
-    color: #faf7f4;
+    color: var(--color-cream, #faf7f4);
     opacity: 0.9;
   }
 
@@ -76,7 +76,7 @@
     font-size: 1rem;
     line-height: 1.7;
     font-style: italic;
-    color: #faf7f4;
+    color: var(--color-cream, #faf7f4);
     margin-bottom: 16px;
     opacity: 0.95;
   }
@@ -86,10 +86,11 @@
     font-size: 0.875rem;
     font-style: normal;
     font-weight: 600;
-    color: #faf7f4;
+    color: var(--color-cream, #faf7f4);
     opacity: 0.8;
   }
 
+  /* 989px breakpoint is intentional for 4-col grids — matches reviews.liquid */
   @media screen and (max-width: 989px) {
     .testimonials__grid {
       grid-template-columns: repeat(2, 1fr);

@@ -30,7 +30,7 @@
 {%- endcapture -%}
 
 <div class="press-logos">
-  <p class="press-logos__label">As Seen On</p>
+  <p class="press-logos__label">{{ 'content.press_as_seen_on' | t }}</p>
   <div class="press-logos__grid">
     <div class="press-logos__track">
       {{ logo_items }}
@@ -160,7 +160,12 @@
 
   @media (prefers-reduced-motion: reduce) {
     .press-logos__track {
-      animation-play-state: paused;
+      animation: none;
+    }
+
+    /* Hide duplicate set when animation is off */
+    .press-logos__item:nth-child(n+7) {
+      display: none;
     }
   }
 {% endstyle %}

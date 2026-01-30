@@ -2420,6 +2420,18 @@
         "default": "Sale prices applied!"
       },
       {
+        "type": "url",
+        "id": "upsell_cta_url",
+        "label": "Upsell CTA link",
+        "default": "/collections/hoodies"
+      },
+      {
+        "type": "text",
+        "id": "upsell_cta_text",
+        "label": "Upsell CTA text",
+        "default": "Browse Hoodies →"
+      },
+      {
         "type": "header",
         "content": "Shipping Progress Messages"
       },

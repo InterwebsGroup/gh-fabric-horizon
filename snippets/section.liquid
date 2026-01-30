@@ -52,6 +52,7 @@
         layout-panel-flex
         layout-panel-flex--{{ section.settings.content_direction }}
         section-content-wrapper
+        {% if section.settings.custom_class != blank %} {{ section.settings.custom_class }}{% endif %}
         {% if section.settings.vertical_on_mobile %} mobile-column{% endif %}
       "
       style="
