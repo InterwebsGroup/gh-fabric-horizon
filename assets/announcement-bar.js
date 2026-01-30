@@ -85,7 +85,7 @@ export class AnnouncementBar extends Component {
   resume() {
     if (!this.autoplay || this.paused) return;
 
-    this.pause();
+    this.suspend();
     this.play();
   }
 
@@ -120,9 +120,11 @@ export class AnnouncementBar extends Component {
   }
 
   /**
-   * Pause the slideshow when the page is hidden.
+   * Suspend the slideshow when the page is hidden, resume when visible.
+   * Uses suspend() instead of pause() so the paused flag isn't set —
+   * otherwise resume() would bail out and autoplay would never restart.
    */
-  #handleVisibilityChange = () => (document.hidden ? this.pause() : this.resume());
+  #handleVisibilityChange = () => (document.hidden ? this.suspend() : this.resume());
 }
 
 if (!customElements.get('announcement-bar-component')) {

@@ -52,7 +52,9 @@ export class QuickAddComponent extends Component {
     document.addEventListener(ThemeEvents.cartUpdate, this.#handleCartUpdate, {
       signal: this.#cartUpdateAbortController.signal,
     });
-    document.addEventListener(ThemeEvents.variantSelected, this.#updateQuickAddButtonState.bind(this));
+    document.addEventListener(ThemeEvents.variantSelected, this.#updateQuickAddButtonState, {
+      signal: this.#cartUpdateAbortController.signal,
+    });
   }
 
   disconnectedCallback() {
@@ -61,7 +63,6 @@ export class QuickAddComponent extends Component {
     mediaQueryLarge.removeEventListener('change', this.#closeQuickAddModal);
     this.#abortController?.abort();
     this.#cartUpdateAbortController.abort();
-    document.removeEventListener(ThemeEvents.variantSelected, this.#updateQuickAddButtonState.bind(this));
   }
 
   /**
@@ -226,13 +227,13 @@ export class QuickAddComponent extends Component {
    * Updates the quick-add button state based on whether a swatch is selected
    * @param {VariantSelectedEvent} event - The variant selected event
    */
-  #updateQuickAddButtonState(event) {
+  #updateQuickAddButtonState = (event) => {
     if (!(event.target instanceof HTMLElement)) return;
     if (event.target.closest('product-card') !== this.closest('product-card')) return;
     const productOptionsCount = this.dataset.productOptionsCount;
     const quickAddButton = productOptionsCount === '1' ? 'add' : 'choose';
     this.setAttribute('data-quick-add-button', quickAddButton);
-  }
+  };
 
   /**
    * Syncs the variant selection from the product card to the modal
