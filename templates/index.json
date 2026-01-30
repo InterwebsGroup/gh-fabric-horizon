@@ -438,7 +438,7 @@
     "feature_oversized": {
       "type": "feature-oversized",
       "settings": {
-        "image_1": "shopify://shop_images/gianthoodies-size-small.jpg",
+        "image_1": "shopify://shop_images/gianthoodies-size-s.jpg",
         "image_2": "shopify://shop_images/gianthoodies-size-medium.jpg",
         "image_3": "shopify://shop_images/gianthoodies-size-large.jpg",
         "image_4": "shopify://shop_images/gianthoodies-size-xl.jpg",
