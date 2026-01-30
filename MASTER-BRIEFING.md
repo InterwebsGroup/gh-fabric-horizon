@@ -421,6 +421,8 @@ Go build.
 - [x] Header drop shadow added globally (base.css)
 - [x] Header sticky (using Fabric default sticky-always)
 - [x] Footer customization (espresso bg, cream text, Fraunces headings, payment icons, divider)
+- [x] Footer newsletter signup ("Join the Hoodie Fam" + email capture with "Subscribe & Save 10%")
+- [x] Footer menu columns (Shop, Customer Care, About Us, Connect) — menus need Shopify Admin navigation setup
 - [x] Global button styles (4 types in base.css: primary-dark, primary-warm, secondary-outline, secondary-soft)
 - [ ] Cart drawer customization (using Fabric default)
 
@@ -606,10 +608,28 @@ Go build.
 
 ---
 
+### Changes Made (2026-01-30)
+
+**Footer completion:**
+- Added newsletter signup to footer: "Join the Hoodie Fam" heading + "Get exclusive deals, new drops, and cozy content. No spam, just good stuff." body + email form with "Subscribe & Save 10%" button
+- Newsletter renders as a full-width centered row above the 4 menu columns, separated by a subtle divider
+- Set menu handles for empty columns: `customer-care`, `about`, `connect` — Matt needs to create these navigation menus in Shopify Admin
+- Added CSS in `footer.liquid` for newsletter group layout: `grid-column: 1 / -1`, centered text, max-width 480px email form, opacity 0.7 body text
+- Added CSS to ensure payment icons always span full width as the last child in the footer grid
+- Files changed: `sections/footer.liquid` (CSS), `sections/footer-group.json` (config)
+
+---
+
 ### TODOs — Before Launch
 - [ ] **Shopify Admin: Change money format** — Go to Settings → General → Store currency → Change formatting from `${{amount_no_decimals}}` to `${{amount}}` (and same for "with currency" format). This is why all `| money` output rounds to whole dollars. Do this alongside the other two Shopify Admin tasks below.
 - [ ] **Remove +$20 compare-at price fallback** — Search for `TEMP_COMPARE_AT_FALLBACK` in `cart-products.liquid` and `cart-summary.liquid`. Also in `product-page.js` (`updatePriceDisplay` function, line ~197). This adds a fake $20 savings when no compare-at price is set on a product. Must be removed once all products have real compare-at prices set in Shopify Admin.
 - [ ] **Shopify Admin: Configure accelerated checkout buttons** — Hide PayPal and Google Pay, prioritize Apple Pay. Go to Settings > Payments in Shopify Admin.
+- [ ] **Shopify Admin: Create footer navigation menus** — Go to Online Store → Navigation and create these menus with the exact handles:
+  - `customer-care` — Suggested links: Contact Us, Shipping & Returns, FAQ, Track My Order
+  - `about` — Suggested links: Our Story, Made in USA, Press, Hoodie Fam
+  - `connect` — Suggested links: Contact Us, Instagram, TikTok, Facebook
+  - The `footer` menu (for the "Shop" column) already exists
+- [ ] **Shopify Admin: Update social media URLs** — The footer utilities social links currently have placeholder URLs (facebook.com, instagram.com, etc.). Update these to the real Giant Hoodies social profiles in the theme editor under Footer → Policies & Links → Social Media Links.
 - [ ] **Additional product templates** — `product.kids-hoodie.json`, `product.shirt.json`, `product.blanket.json` (deferred to post-build)
 - [ ] **Final QA pass** — Test all cart flows (US below threshold, US above threshold, international customer)
 

@@ -14,6 +14,64 @@
     "footer": {
       "type": "Footer",
       "blocks": {
+        "newsletter_group": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 8,
+            "width": "fill",
+            "height": "fit",
+            "inherit_color_scheme": true,
+            "border": "none",
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "newsletter_heading": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Join the Hoodie Fam<\/p>",
+                "width": "100%",
+                "alignment": "center",
+                "type_preset": "h3"
+              }
+            },
+            "newsletter_body": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Get exclusive deals, new drops, and cozy content. No spam, just good stuff.<\/p>",
+                "width": "100%",
+                "alignment": "center",
+                "type_preset": "rte"
+              }
+            },
+            "newsletter_form": {
+              "type": "email-signup",
+              "settings": {
+                "width": "fill",
+                "inherit_color_scheme": true,
+                "border_style": "all",
+                "border_width": 1,
+                "border_radius": 50,
+                "style_class": "button",
+                "display_type": "text",
+                "label": "Subscribe & Save 10%",
+                "integrated_button": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              }
+            }
+          },
+          "block_order": ["newsletter_heading", "newsletter_body", "newsletter_form"]
+        },
         "menu_HADdVb": {
           "type": "menu",
           "name": "t:names.menu",
@@ -39,8 +97,8 @@
           "type": "menu",
           "name": "t:names.menu",
           "settings": {
-            "menu": "",
-            "heading": "Customer care",
+            "menu": "customer-care",
+            "heading": "Customer Care",
             "menu_spacing": 8,
             "show_as_accordion": false,
             "accordion_icon": "caret",
@@ -60,8 +118,8 @@
           "type": "menu",
           "name": "t:names.menu",
           "settings": {
-            "menu": "",
-            "heading": "About us",
+            "menu": "about",
+            "heading": "About Us",
             "menu_spacing": 8,
             "show_as_accordion": false,
             "accordion_icon": "caret",
@@ -81,7 +139,7 @@
           "type": "menu",
           "name": "t:names.menu",
           "settings": {
-            "menu": "",
+            "menu": "connect",
             "heading": "Connect",
             "menu_spacing": 8,
             "show_as_accordion": false,
@@ -112,6 +170,7 @@
         }
       },
       "block_order": [
+        "newsletter_group",
         "menu_HADdVb",
         "menu_xJa7q7",
         "menu_f9RViT",
@@ -153,9 +212,9 @@
           "settings": {
             "facebook_url": "https://www.facebook.com/gianthoodies",
             "instagram_url": "https://instagram.com/gianthoodies",
-            "youtube_url": "https://www.youtube.com/",
+            "youtube_url": "",
             "tiktok_url": "https://www.tiktok.com/@gianthoodies",
-            "twitter_url": "https://x.com/",
+            "twitter_url": "",
             "threads_url": "",
             "linkedin_url": "",
             "bluesky_url": "",

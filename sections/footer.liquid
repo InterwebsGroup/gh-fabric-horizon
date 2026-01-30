@@ -116,6 +116,39 @@
       grid-column: 1 / -1;
     }
   }
+
+  /* GH: Newsletter/group blocks span full width in footer */
+  .footer-content > .group-block {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding-bottom: var(--footer-gap);
+    margin-bottom: calc(var(--footer-gap) / 2);
+    border-bottom: 1px solid rgba(250, 247, 244, 0.15);
+  }
+
+  .footer-content > .group-block .email-signup-block {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .footer-content > .group-block .email-signup__heading {
+    font-family: var(--gh-font-heading, 'Fraunces', serif);
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  }
+
+  .footer-content > .group-block .group-block-content {
+    align-items: center;
+  }
+
+  .footer-content > .group-block .rte,
+  .footer-content > .group-block .paragraph {
+    opacity: 0.7;
+  }
+
+  /* GH: Payment icons always span full width at bottom */
+  .footer-content > :last-child {
+    grid-column: 1 / -1;
+  }
 {% endstylesheet %}
 
 {% schema %}
