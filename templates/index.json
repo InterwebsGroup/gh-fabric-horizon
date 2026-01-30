@@ -1391,19 +1391,19 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "accordion_row_y64i3r": {
+            "accordion_row_fit01": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "What is the return policy?",
+                "heading": "Will it fit me?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
               },
               "blocks": {
-                "text_DwWPhC": {
+                "text_fit01": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Our goal is for every customer to be totally satisfied with their purchase. If this isn't the case, let us know and we'll do our best to work with you to make it right.</p>",
+                    "text": "<p>If you want to feel like you're wrapped in a cozy blanket, yes. Our hoodies are intentionally oversized — similar to a 3XL/4XL — but they're wearable blankets, not fitted clothing. Customers from size XS to 3XL love the fit. It's giant on purpose.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1427,22 +1427,22 @@
                 }
               },
               "block_order": [
-                "text_DwWPhC"
+                "text_fit01"
               ]
             },
-            "accordion_row_36N8Xp": {
+            "accordion_row_fab02": {
               "type": "_accordion-row",
               "settings": {
-                "heading": "Are any purchases final sale?",
+                "heading": "What does the fabric feel like?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
               },
               "blocks": {
-                "text_9FDAtC": {
+                "text_fab02": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>We are unable to accept returns on certain items. These will be carefully marked before purchase.</p>",
+                    "text": "<p>Super soft, lightweight sponge fleece — the kind you never want to take off. It's plush and cozy without being heavy or bulky. Our customers describe it as \"wearing a hug.\" Once you feel it, you'll get it.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1466,24 +1466,22 @@
                 }
               },
               "block_order": [
-                "text_9FDAtC"
+                "text_fab02"
               ]
             },
-            "accordion_row_QU33ph": {
+            "accordion_row_wash03": {
               "type": "_accordion-row",
-              "name": "t:names.accordion_row",
               "settings": {
-                "heading": "When will I get my order?",
+                "heading": "How do I wash my Giant Hoodie?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
               },
               "blocks": {
-                "text_jq6rJz": {
+                "text_wash03": {
                   "type": "text",
-                  "name": "t:names.text",
                   "settings": {
-                    "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>",
+                    "text": "<p>With love! Our sponge fleece is super soft but delicate. Here's the deal: tie little knots in the drawstring ends so they don't pull out, wash alone or with soft clothes only, cold water on the gentle cycle, and always air dry — no dryer, ever. Treat it right and you'll stay in love for years.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1507,24 +1505,22 @@
                 }
               },
               "block_order": [
-                "text_jq6rJz"
+                "text_wash03"
               ]
             },
-            "accordion_row_zNLjVr": {
+            "accordion_row_ship04": {
               "type": "_accordion-row",
-              "name": "t:names.accordion_row",
               "settings": {
-                "heading": "Where are your products manufactured?",
+                "heading": "How fast will I get my order?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
               },
               "blocks": {
-                "text_VKQbKe": {
+                "text_ship04": {
                   "type": "text",
-                  "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
+                    "text": "<p>Really, really fast. Most orders ship same or next business day and arrive in 2–3 days within the US. Every hoodie is printed and packed by hand at our facility in Northwest Arkansas. Oh, and we include a handwritten thank-you card in every box.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1548,24 +1544,22 @@
                 }
               },
               "block_order": [
-                "text_VKQbKe"
+                "text_ship04"
               ]
             },
-            "accordion_row_bRLN8E": {
+            "accordion_row_summ05": {
               "type": "_accordion-row",
-              "name": "t:names.accordion_row",
               "settings": {
-                "heading": "How much does shipping cost?",
+                "heading": "Can I wear it in summer?",
                 "open_by_default": false,
                 "icon": "none",
                 "width": 20
               },
               "blocks": {
-                "text_rQe8eq": {
+                "text_summ05": {
                   "type": "text",
-                  "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Shipping is calculated based on your location and the items in your order. You will always know the shipping price before you purchase.</p>",
+                    "text": "<p>Absolutely. Our sponge fleece is lightweight and breathable — not heavy or bulky at all. Customers wear them year-round: in blasting AC, on summer movie nights, and even outside in warm weather. It's cozy without the sweat.</p>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1589,16 +1583,136 @@
                 }
               },
               "block_order": [
-                "text_rQe8eq"
+                "text_summ05"
+              ]
+            },
+            "accordion_row_guar06": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "What if I don't love it?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_guar06": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>We're confident you will, but we've got you covered. Our 30-day \"Best Hoodie Ever\" Guarantee means if something isn't right, just reach out and we'll make it right. Fun fact: less than 1% of our orders are returned. The average apparel brand sees 21%. We'll let that speak for itself.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_guar06"
+              ]
+            },
+            "accordion_row_save07": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Do I save more if I buy multiple?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_save07": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>You bet. One hoodie is $55 (already $20 off). Grab two and they drop to $45 each — that's $60 saved total. Three or more? Just $39 each, saving you $108+. Plus, orders over $75 ship free. Fair warning: once you own one, you'll be back for more.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_save07"
+              ]
+            },
+            "accordion_row_made08": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Where are Giant Hoodies made?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_made08": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Every single hoodie is printed and packed by hand at our facility in Northwest Arkansas, USA. We're a small team of 5 who genuinely love what we do — and we put a handwritten thank-you card in every order. You're supporting a real small business, not a faceless warehouse.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_made08"
               ]
             }
           },
           "block_order": [
-            "accordion_row_y64i3r",
-            "accordion_row_36N8Xp",
-            "accordion_row_QU33ph",
-            "accordion_row_zNLjVr",
-            "accordion_row_bRLN8E"
+            "accordion_row_fit01",
+            "accordion_row_fab02",
+            "accordion_row_wash03",
+            "accordion_row_ship04",
+            "accordion_row_summ05",
+            "accordion_row_guar06",
+            "accordion_row_save07",
+            "accordion_row_made08"
           ]
         }
       },
