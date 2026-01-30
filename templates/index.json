@@ -679,46 +679,19 @@
         "padding-block-end": 60
       }
     },
-    "marquee_XYem64": {
-      "type": "marquee",
-      "blocks": {
-        "text_EnacxK": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>So What's a Giant Hoodie?!</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h1",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_EnacxK"
-      ],
-      "name": "t:names.marquee_section",
+    "feature_oversized": {
+      "type": "feature-oversized",
+      "name": "One Size Fits Most",
       "settings": {
-        "movement_direction": "normal",
-        "color_scheme": "",
-        "padding-block-start": 24,
-        "padding-block-end": 24,
-        "gap_between_elements": 24
+        "image_1": "shopify://shop_images/gianthoodies-size-s.jpg",
+        "image_2": "shopify://shop_images/gianthoodies-size-medium.jpg",
+        "image_3": "shopify://shop_images/gianthoodies-size-large.jpg",
+        "image_4": "shopify://shop_images/gianthoodies-size-xl.jpg",
+        "image_5": "shopify://shop_images/gianthoodies-size-2xl.jpg",
+        "image_6": "shopify://shop_images/gianthoodies-size-3xl.jpg",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 80,
+        "padding-block-end": 80
       }
     },
     "slideshow_3eCk7e": {
@@ -1225,30 +1198,15 @@
         "slideshow_gap": 18,
         "corner_radius": 20,
         "slide_height": "medium",
-        "content_position": "below-media",
+        "content_position": "on-media",
         "color_scheme": "",
         "icons_style": "arrows_large",
         "icons_shape": "none",
-        "slideshow_controls_style": "none",
+        "slideshow_controls_style": "dots",
         "autoplay": false,
         "autoplay_speed": 4,
-        "padding-block-start": 0,
+        "padding-block-start": 40,
         "padding-block-end": 0
-      }
-    },
-    "feature_oversized": {
-      "type": "feature-oversized",
-      "name": "One Size Fits Most",
-      "settings": {
-        "image_1": "shopify://shop_images/gianthoodies-size-s.jpg",
-        "image_2": "shopify://shop_images/gianthoodies-size-medium.jpg",
-        "image_3": "shopify://shop_images/gianthoodies-size-large.jpg",
-        "image_4": "shopify://shop_images/gianthoodies-size-xl.jpg",
-        "image_5": "shopify://shop_images/gianthoodies-size-2xl.jpg",
-        "image_6": "shopify://shop_images/gianthoodies-size-3xl.jpg",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 80,
-        "padding-block-end": 80
       }
     },
     "feature_guarantee": {
@@ -1756,8 +1714,8 @@
           "type": "text",
           "settings": {
             "text": "<p>We're a small team of dreamers passionate about creating the softest, most comfortable oversized hoodies in the world. </p><p>All of our products are printed and fulfilled from Fayetteville, Arkansas with by our incredible team of 5. </p><p>Thank you for your support, we're so happy you're a part of our journey :)</p>",
-            "width": "fit-content",
-            "max_width": "narrow",
+            "width": "100%",
+            "max_width": "none",
             "alignment": "left",
             "type_preset": "custom",
             "font": "var(--font-body--family)",
@@ -1783,7 +1741,7 @@
             "inverse": false,
             "font": "heading",
             "unit": "percent",
-            "percent_width": 100,
+            "percent_width": 48,
             "pixel_height": 48,
             "custom_mobile_size": false,
             "unit_mobile": "percent",
@@ -1812,7 +1770,7 @@
         "vertical_alignment_flex_direction_column": "space-between",
         "gap": 16,
         "section_width": "page-width",
-        "section_height": "medium",
+        "section_height": "",
         "section_height_custom": 50,
         "color_scheme": "scheme-3",
         "background_media": "none",
@@ -1838,9 +1796,8 @@
     "best_sellers",
     "feature_trendy",
     "product_list_jDCfUL",
-    "marquee_XYem64",
-    "slideshow_3eCk7e",
     "feature_oversized",
+    "slideshow_3eCk7e",
     "feature_guarantee",
     "comparison_table",
     "176974364261417f41",
