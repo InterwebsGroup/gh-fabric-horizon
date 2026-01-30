@@ -146,9 +146,6 @@ select {
 
 .product-card__content {
   position: relative;
-}
-
-.product-card__content {
   cursor: pointer;
 }
 
@@ -160,7 +157,6 @@ select {
 .predictive-search-results__card .collection-card,
 .predictive-search-results__card .resource-card {
   transition: none;
-  will-change: auto;
 }
 
 @media (any-pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -358,13 +354,6 @@ p:empty {
 *:focus-visible {
   outline: var(--focus-outline-width) solid currentcolor;
   outline-offset: var(--focus-outline-offset);
-}
-
-@supports not selector(:focus-visible) {
-  *:focus {
-    outline: var(--focus-outline-width) solid currentcolor;
-    outline-offset: var(--focus-outline-offset);
-  }
 }
 
 .focus-inset {
@@ -625,11 +614,6 @@ p:empty {
       )
       1fr;
   }
-}
-
-.flex {
-  display: flex;
-  gap: var(--gap-md);
 }
 
 .flip-x {
@@ -1016,7 +1000,7 @@ body:has(.header[transparent]) #header-group > .header-section {
 
 /* Global header drop shadow */
 .header-section {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgb(var(--color-foreground-rgb, 0 0 0) / 0.08);
 }
 
 /* All other header group content should be beneath the floating header,
@@ -1742,7 +1726,7 @@ zoom-dialog dialog {
   padding: 0;
   max-width: 100%;
   max-height: 100%;
-  background: #fff;
+  background: var(--color-white, #fff);
   opacity: 0;
   transition: opacity var(--animation-speed) var(--animation-easing);
   scrollbar-width: none;
@@ -4172,7 +4156,7 @@ h1, h2, h3, h4, h5, h6,
 /* Primary Warm - Terracotta bg, white text */
 .gh-button--primary-warm {
   background-color: var(--color-terracotta);
-  color: #fff;
+  color: var(--color-white);
   border-color: var(--color-terracotta);
 }
 
@@ -4323,15 +4307,15 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .gh-shipping-progress--complete .gh-shipping-progress__fill {
-  background: #3ED660;
+  background: var(--color-instock);
 }
 
 .gh-shipping-progress--complete .gh-shipping-progress__msg {
-  color: #2E8B3F;
+  color: var(--color-success);
 }
 
 .gh-shipping-progress--complete .gh-shipping-progress__icon {
-  color: #2E8B3F;
+  color: var(--color-success);
   opacity: 1;
 }
 
@@ -4363,7 +4347,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .gh-cart-shipping-msg--free {
-  color: #2E8B3F;
+  color: var(--color-success);
 }
 
 /* ── Shipping Row in Summary ── */
@@ -4398,7 +4382,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .gh-cart-shipping-row__bar--complete .gh-cart-shipping-row__fill {
-  background: #3ED660;
+  background: var(--color-instock);
 }
 
 .gh-cart-shipping-row__value {
@@ -4411,7 +4395,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .gh-cart-shipping-row__value--free {
-  color: #2E8B3F;
+  color: var(--color-success);
   font-weight: 700;
   opacity: 1;
   display: inline-flex;
@@ -4439,7 +4423,7 @@ h1, h2, h3, h4, h5, h6,
 .gh-cart-save-pill {
   display: inline-block;
   background: var(--color-terracotta);
-  color: #fff;
+  color: var(--color-white);
   font-size: 0.7rem;
   font-weight: 700;
   padding: 2px 8px;
@@ -4473,12 +4457,12 @@ h1, h2, h3, h4, h5, h6,
 
 /* ── Secure Checkout Button ── */
 .gh-checkout-button {
+  --button-color: var(--color-cream);
+  --button-background-color: var(--color-espresso);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: var(--color-espresso) !important;
-  color: var(--color-cream) !important;
   font-family: var(--gh-font-body);
   font-weight: 700;
   font-size: 0.9375rem;
@@ -4489,6 +4473,8 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .gh-checkout-button:hover {
+  --button-color: var(--color-cream);
+  --button-background-color: var(--color-espresso);
   opacity: 0.9;
 }
 
@@ -4531,7 +4517,7 @@ h1, h2, h3, h4, h5, h6,
 
 /* Low Stock Warning */
 .gh-low-stock {
-  color: #EE9441;
+  color: var(--color-lowstock);
   font-size: 0.875rem;
   font-weight: 500;
 }
@@ -4544,7 +4530,7 @@ h1, h2, h3, h4, h5, h6,
   right: 0;
   background: var(--color-cream);
   padding: 0.75rem 1rem;
-  box-shadow: 0 -2px 10px rgba(61, 48, 40, 0.1);
+  box-shadow: 0 -2px 10px rgb(var(--color-foreground-rgb, 61 48 40) / 0.1);
   z-index: var(--layer-sticky);
   transform: translateY(100%);
   transition: transform 0.3s ease;
