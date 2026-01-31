@@ -4085,6 +4085,14 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 400;
 }
 
+/* JudgeMe Reviews - Match heading to h1 preset */
+.jdgm-carousel-wrapper h2,
+.jdgm-rev-widg__header,
+[class*="jdgm"] h2 {
+  font-size: var(--font-size--h1);
+  line-height: var(--line-height--display-tight);
+}
+
 /* Product Grid - Mobile: 2-col 3px gap, Desktop: 4-col 20px gap */
 .gh-product-grid {
   display: grid;

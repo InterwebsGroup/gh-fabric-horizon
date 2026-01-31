@@ -143,13 +143,8 @@
   .footer-content > .group-block .rte,
   .footer-content > .group-block .paragraph {
     opacity: 0.7;
-  }
-
-  /* Keep newsletter body text to 2 lines on mobile */
-  @media screen and (max-width: 749px) {
-    .footer-content > .group-block .rte {
-      font-size: clamp(0.75rem, 3.5vw, 1rem);
-    }
+    max-width: 480px;
+    font-size: clamp(0.75rem, 2.5vw, 0.875rem);
   }
 
   /* GH: Payment icons always span full width at bottom */

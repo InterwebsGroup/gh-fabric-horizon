@@ -83,7 +83,7 @@
               "settings": {
                 "text": "<p>We'll send you the best deal or discount we have <span style=\"text-decoration:underline\"><strong>right now</strong></span>, and keep you updated with new sales in the future :)</p>",
                 "width": "100%",
-                "max_width": "normal",
+                "max_width": "none",
                 "alignment": "center",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
