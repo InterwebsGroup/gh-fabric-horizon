@@ -14,7 +14,7 @@
   {%- liquid
     assign logos = 'press_logo_1,press_logo_2,press_logo_3,press_logo_4,press_logo_5,press_logo_6' | split: ','
     assign fallback_files = 'Oprah_Mag.svg,GMA.svg,ABC.svg,Cosmopolitan.svg,Kelly_and_Mark.svg,The_View.svg' | split: ','
-    assign fallback_alts = "Oprah's Favorite Things,Good Morning America,Forbes,Cosmopolitan,Kelly & Mark,The View" | split: ','
+    assign fallback_alts = "Oprah's Favorite Things,Good Morning America,ABC News,Cosmopolitan,Kelly & Mark,The View" | split: ','
   -%}
   {%- for logo_key in logos -%}
     {%- assign alt_key = logo_key | append: '_alt' -%}
