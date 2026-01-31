@@ -96,7 +96,7 @@
               "blocks": {}
             }
           },
-          "block_order": []
+          "block_order": ["image", "heading", "blog-post-details"]
         }
       },
       "block_order": [

@@ -52,14 +52,19 @@
           }
         }
       })
-    });
-
-    // Show success, hide form
-    var wrapper = form.closest('.gh-back-in-stock__form-wrapper');
-    if (wrapper) {
-      var successEl = wrapper.querySelector('.gh-back-in-stock__success');
-      if (successEl) successEl.style.display = 'block';
-      form.style.display = 'none';
-    }
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Subscription request failed');
+        // Show success, hide form
+        var wrapper = form.closest('.gh-back-in-stock__form-wrapper');
+        if (wrapper) {
+          var successEl = wrapper.querySelector('.gh-back-in-stock__success');
+          if (successEl) successEl.style.display = 'block';
+          form.style.display = 'none';
+        }
+      })
+      .catch(function (err) {
+        console.error('[GH] Back in stock error:', err);
+      });
   });
 })();
