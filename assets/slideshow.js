@@ -755,9 +755,9 @@ export class Slideshow extends Component {
   }
 
   /**
-   * Pause the slideshow when the page is hidden.
+   * Suspend the slideshow when the page is hidden, resume when visible.
    */
-  #handleVisibilityChange = () => (document.hidden ? this.pause() : this.resume());
+  #handleVisibilityChange = () => (document.hidden ? this.suspend() : this.resume());
 
   #updateControlsVisibility() {
     if (!this.hasAttribute('auto-hide-controls')) return;

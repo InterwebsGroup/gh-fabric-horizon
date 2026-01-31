@@ -7,33 +7,33 @@
   <div class="feature-guarantee__container">
     <div class="feature-guarantee__stat">
       <p class="feature-guarantee__stat-number">{{ section.settings.stat_number | escape }}</p>
-      <p class="feature-guarantee__stat-label">{{ section.settings.stat_label }}</p>
+      <p class="feature-guarantee__stat-label">{{ section.settings.stat_label | escape }}</p>
     </div>
 
-    <p class="feature-guarantee__comparison">{{ section.settings.comparison_text }}</p>
+    <p class="feature-guarantee__comparison">{{ section.settings.comparison_text | escape }}</p>
 
     <div class="feature-guarantee__process">
       <div class="feature-guarantee__step">
         <div class="feature-guarantee__step-icon">1</div>
-        <p class="feature-guarantee__step-title">{{ section.settings.step_1_title }}</p>
-        <p class="feature-guarantee__step-desc">{{ section.settings.step_1_desc }}</p>
+        <p class="feature-guarantee__step-title">{{ section.settings.step_1_title | escape }}</p>
+        <p class="feature-guarantee__step-desc">{{ section.settings.step_1_desc | escape }}</p>
       </div>
       <div class="feature-guarantee__arrow">→</div>
       <div class="feature-guarantee__step">
         <div class="feature-guarantee__step-icon">2</div>
-        <p class="feature-guarantee__step-title">{{ section.settings.step_2_title }}</p>
-        <p class="feature-guarantee__step-desc">{{ section.settings.step_2_desc }}</p>
+        <p class="feature-guarantee__step-title">{{ section.settings.step_2_title | escape }}</p>
+        <p class="feature-guarantee__step-desc">{{ section.settings.step_2_desc | escape }}</p>
       </div>
       <div class="feature-guarantee__arrow">→</div>
       <div class="feature-guarantee__step">
         <div class="feature-guarantee__step-icon">3</div>
-        <p class="feature-guarantee__step-title">{{ section.settings.step_3_title }}</p>
-        <p class="feature-guarantee__step-desc">{{ section.settings.step_3_desc }}</p>
+        <p class="feature-guarantee__step-title">{{ section.settings.step_3_title | escape }}</p>
+        <p class="feature-guarantee__step-desc">{{ section.settings.step_3_desc | escape }}</p>
       </div>
     </div>
 
     <div class="feature-guarantee__badge">
-      <span class="feature-guarantee__badge-text">{{ section.settings.badge_text }}</span>
+      <span class="feature-guarantee__badge-text">{{ section.settings.badge_text | escape }}</span>
     </div>
   </div>
 </div>

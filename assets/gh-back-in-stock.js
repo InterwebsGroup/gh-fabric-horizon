@@ -12,9 +12,14 @@
     if (!form.matches('[data-back-in-stock-form]')) return;
     e.preventDefault();
 
-    var email = form.querySelector('input[name="email"]').value;
-    var productId = form.querySelector('input[name="product_id"]').value;
-    var variantId = form.querySelector('input[name="variant_id"]').value;
+    var emailInput = form.querySelector('input[name="email"]');
+    var productIdInput = form.querySelector('input[name="product_id"]');
+    var variantIdInput = form.querySelector('input[name="variant_id"]');
+    if (!emailInput || !productIdInput || !variantIdInput) return;
+
+    var email = emailInput.value;
+    var productId = productIdInput.value;
+    var variantId = variantIdInput.value;
 
     var data = {
       email: email,

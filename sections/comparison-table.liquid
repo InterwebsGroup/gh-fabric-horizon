@@ -5,7 +5,7 @@
   style="{% render 'spacing-padding', settings: section.settings %}"
 >
   {% if section.settings.heading != blank %}
-    <h2 class="comparison-table__heading">{{ section.settings.heading }}</h2>
+    <h2 class="comparison-table__heading">{{ section.settings.heading | escape }}</h2>
   {% endif %}
 
   <div class="comparison-table__wrapper">
@@ -14,10 +14,10 @@
         <tr>
           <th class="comparison-table__feature-header">Feature</th>
           <th class="comparison-table__brand comparison-table__brand--us">
-            <span class="comparison-table__brand-name">{{ section.settings.brand_us }}</span>
+            <span class="comparison-table__brand-name">{{ section.settings.brand_us | escape }}</span>
           </th>
           <th class="comparison-table__brand comparison-table__brand--them">
-            <span class="comparison-table__brand-name">{{ section.settings.brand_them }}</span>
+            <span class="comparison-table__brand-name">{{ section.settings.brand_them | escape }}</span>
           </th>
         </tr>
       </thead>
@@ -26,14 +26,14 @@
           {%- case block.type -%}
             {%- when 'feature_row' -%}
               <tr {{ block.shopify_attributes }}>
-                <td class="comparison-table__feature">{{ block.settings.feature }}</td>
+                <td class="comparison-table__feature">{{ block.settings.feature | escape }}</td>
                 <td class="comparison-table__check comparison-table__check--{{ block.settings.us_value }}">
                   {%- if block.settings.us_value == 'check' -%}
                     <span class="comparison-table__icon comparison-table__icon--check" aria-label="Yes">✓</span>
                   {%- elsif block.settings.us_value == 'x' -%}
                     <span class="comparison-table__icon comparison-table__icon--x" aria-label="No">✗</span>
                   {%- else -%}
-                    <span class="comparison-table__icon">{{ block.settings.us_custom }}</span>
+                    <span class="comparison-table__icon">{{ block.settings.us_custom | escape }}</span>
                   {%- endif -%}
                 </td>
                 <td class="comparison-table__check comparison-table__check--{{ block.settings.them_value }}">
@@ -42,7 +42,7 @@
                   {%- elsif block.settings.them_value == 'x' -%}
                     <span class="comparison-table__icon comparison-table__icon--x" aria-label="No">✗</span>
                   {%- else -%}
-                    <span class="comparison-table__icon">{{ block.settings.them_custom }}</span>
+                    <span class="comparison-table__icon">{{ block.settings.them_custom | escape }}</span>
                   {%- endif -%}
                 </td>
               </tr>
@@ -50,10 +50,10 @@
               <tr class="comparison-table__row--price" {{ block.shopify_attributes }}>
                 <td class="comparison-table__feature">Price</td>
                 <td class="comparison-table__price comparison-table__price--us">
-                  <span class="comparison-table__price-value">{{ block.settings.us_price }}</span>
+                  <span class="comparison-table__price-value">{{ block.settings.us_price | escape }}</span>
                 </td>
                 <td class="comparison-table__price comparison-table__price--them">
-                  <span class="comparison-table__price-value">{{ block.settings.them_price }}</span>
+                  <span class="comparison-table__price-value">{{ block.settings.them_price | escape }}</span>
                 </td>
               </tr>
           {%- endcase -%}

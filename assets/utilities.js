@@ -249,7 +249,7 @@ export function normalizeString(str) {
  * @returns {string} The formatted value
  */
 export function formatMoney(value) {
-  let valueWithNoSpaces = value.replace(' ', '');
+  let valueWithNoSpaces = value.replace(/ /g, '');
   if (valueWithNoSpaces.indexOf(',') === -1) return valueWithNoSpaces;
   if (valueWithNoSpaces.indexOf(',') < valueWithNoSpaces.indexOf('.')) return valueWithNoSpaces.replace(',', '');
   if (valueWithNoSpaces.indexOf('.') < valueWithNoSpaces.indexOf(','))

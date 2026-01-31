@@ -4,13 +4,13 @@
 {%- endcomment -%}
 
 <section class="product-testimonials">
-  <h2 class="product-testimonials__title">{{ section.settings.heading }}</h2>
+  <h2 class="product-testimonials__title">{{ section.settings.heading | escape }}</h2>
 
   <div class="product-testimonials__grid">
     {%- for block in section.blocks -%}
       <blockquote class="product-testimonials__card" {{ block.shopify_attributes }}>
-        <p class="product-testimonials__quote">"{{ block.settings.quote }}"</p>
-        <cite class="product-testimonials__author">&mdash; {{ block.settings.author }}</cite>
+        <p class="product-testimonials__quote">"{{ block.settings.quote | escape }}"</p>
+        <cite class="product-testimonials__author">&mdash; {{ block.settings.author | escape }}</cite>
       </blockquote>
     {%- endfor -%}
   </div>
