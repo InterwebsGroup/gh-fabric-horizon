@@ -16,7 +16,7 @@
           "type": "text",
           "name": "Headline",
           "settings": {
-            "text": "<h1>Your New Favorite Oversized Hoodie</h1>",
+            "text": "<h1>Your New Favorite<br>Oversized Hoodie</h1>",
             "width": "100%",
             "max_width": "normal",
             "alignment": "center",
