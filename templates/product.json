@@ -6,16 +6,35 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "product-main": {
       "type": "product-main",
       "settings": {
+        "gallery_image_1": "shopify://shop_images/giant-hoodies-different.jpg",
+        "gallery_image_2": "shopify://shop_images/soft-cozy-giant.jpg",
+        "gallery_image_3": "shopify://shop_images/225k-happy-customers.jpg",
+        "gallery_image_4": "shopify://shop_images/giant-hoodies-for-everyone.jpg",
+        "gallery_image_5": "shopify://shop_images/giant-hoodie-guarantee.jpg",
         "benefit_1": "When a regular hoodie just isn't big enough",
-        "benefit_2": "These are oversized and \u201ctoo big\u201d on purpose",
+        "benefit_2": "These are oversized and “too big” on purpose",
         "benefit_3": "Try one and understand why 225,000 others love it",
         "tier_2_badge": "Most Popular",
-        "tier_3_badge": "Best Value"
+        "tier_3_badge": "Best Value",
+        "offer_banner_badge_text": "MIX AND MATCH",
+        "offer_banner_badge_color": "#ffffff",
+        "offer_banner_main_text": "UP TO 52% OFF",
+        "offer_banner_main_color": "#ffffff",
+        "offer_banner_bg": "#3d3028",
+        "stat_reviews_number": "2,400+",
+        "stat_reviews_label": "5-Star Reviews",
+        "stat_customers_label": "Happy Customers",
+        "stat_guarantee_number": "30-Day",
+        "stat_guarantee_label": "Guarantee",
+        "trust_item_1": "Free shipping $75+",
+        "trust_item_2": "30-Day Guarantee",
+        "trust_item_3": "Printed in USA"
       }
     },
     "testimonials": {
@@ -515,7 +534,6 @@
             "product_card_info": {
               "type": "_product-card-group",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
                 "horizontal_alignment": "flex-start",
@@ -543,6 +561,8 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 16,
