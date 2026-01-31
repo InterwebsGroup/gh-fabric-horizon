@@ -417,10 +417,15 @@
       "name": "Wear It Everywhere",
       "settings": {
         "image_main": "shopify://shop_images/gianthoodies-couch.jpg",
+        "label_main": "Couch",
         "image_2": "shopify://shop_images/gianthoodies-airport.jpg",
+        "label_2": "Airport",
         "image_3": "shopify://shop_images/gianthoodies-coffee.jpg",
+        "label_3": "Coffee Shop",
         "image_4": "shopify://shop_images/gianthoodies-errands.jpg",
+        "label_4": "Errands",
         "image_5": "shopify://shop_images/gianthoodies-movies.jpg",
+        "label_5": "Movie Night",
         "color_scheme": "scheme-2",
         "padding-block-start": 60,
         "padding-block-end": 60
@@ -1213,6 +1218,16 @@
       "type": "feature-guarantee",
       "name": "Guarantee",
       "settings": {
+        "stat_number": "< 1%",
+        "stat_label": "Return Rate",
+        "comparison_text": "The average apparel brand sees 21%",
+        "step_1_title": "Order",
+        "step_1_desc": "Typically ships next business day",
+        "step_2_title": "Try It",
+        "step_2_desc": "Take in all the coziness and relax",
+        "step_3_title": "Love It",
+        "step_3_desc": "Or we'll make it right",
+        "badge_text": "30-Day \"Best Hoodie Ever\" Guarantee",
         "color_scheme": "scheme-1",
         "padding-block-start": 60,
         "padding-block-end": 60
@@ -1220,14 +1235,15 @@
     },
     "comparison_table": {
       "type": "comparison-table",
-      "name": "Comparison",
       "blocks": {
         "row_oversized": {
           "type": "feature_row",
           "settings": {
             "feature": "Oversized, One Size Fits Most",
             "us_value": "check",
-            "them_value": "check"
+            "us_custom": "",
+            "them_value": "check",
+            "them_custom": ""
           }
         },
         "row_comfy": {
@@ -1235,7 +1251,9 @@
           "settings": {
             "feature": "Comfy & Relaxing at Home",
             "us_value": "check",
-            "them_value": "check"
+            "us_custom": "",
+            "them_value": "check",
+            "them_custom": ""
           }
         },
         "row_trendy": {
@@ -1243,7 +1261,9 @@
           "settings": {
             "feature": "Cute & Trendy in Public",
             "us_value": "check",
-            "them_value": "x"
+            "us_custom": "",
+            "them_value": "x",
+            "them_custom": ""
           }
         },
         "row_usa": {
@@ -1251,7 +1271,9 @@
           "settings": {
             "feature": "Printed by Hand in the USA",
             "us_value": "check",
-            "them_value": "x"
+            "us_custom": "",
+            "them_value": "x",
+            "them_custom": ""
           }
         },
         "row_designs": {
@@ -1259,7 +1281,9 @@
           "settings": {
             "feature": "7,000+ Design & Color Combos",
             "us_value": "check",
-            "them_value": "x"
+            "us_custom": "",
+            "them_value": "x",
+            "them_custom": ""
           }
         },
         "row_custom": {
@@ -1267,7 +1291,9 @@
           "settings": {
             "feature": "Customize Your Own",
             "us_value": "check",
-            "them_value": "x"
+            "us_custom": "",
+            "them_value": "x",
+            "them_custom": ""
           }
         },
         "row_price": {
@@ -1287,6 +1313,7 @@
         "row_custom",
         "row_price"
       ],
+      "name": "Comparison",
       "settings": {
         "heading": "Giant Hoodies vs. The Other Guys",
         "brand_us": "Giant Hoodies",
@@ -1854,7 +1881,7 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 60,
-        "padding-block-end": 60,
+        "padding-block-end": 30,
         "custom_class": "section-narrow"
       }
     }
