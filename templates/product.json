@@ -11,9 +11,9 @@
     "product-main": {
       "type": "product-main",
       "settings": {
-        "benefit_1": "When a regular hoodie just isn't big or comfy enough",
-        "benefit_2": "Giant Hoodies are intentionally oversized and too big on purpose",
-        "benefit_3": "Just try one, you'll understand why 225,000 others love it",
+        "benefit_1": "When a regular hoodie just isn't big enough",
+        "benefit_2": "These are oversized and \u201ctoo big\u201d on purpose",
+        "benefit_3": "Try one and understand why 225,000 others love it",
         "tier_2_badge": "Most Popular",
         "tier_3_badge": "Best Value"
       }

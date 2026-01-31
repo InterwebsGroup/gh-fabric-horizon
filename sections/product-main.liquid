@@ -93,19 +93,19 @@
       <ul class="product__benefits">
         {%- if section.settings.benefit_1 != blank -%}
           <li>
-            <svg class="product__benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 2 2 6v5h4v11h12V11h4V6l-4.5-4H14a2 2 0 1 1-4 0H6.5z"/></svg>
+            <svg class="product__benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             <span>{{ section.settings.benefit_1 }}</span>
           </li>
         {%- endif -%}
         {%- if section.settings.benefit_2 != blank -%}
           <li>
-            <svg class="product__benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            <svg class="product__benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c-2 0-3.5 1-4 2.5L4 8v5h3v9h10v-9h3V8l-4-4.5C15.5 3 14 2 12 2z"/><path d="M9 14h6v3H9z"/></svg>
             <span>{{ section.settings.benefit_2 }}</span>
           </li>
         {%- endif -%}
         {%- if section.settings.benefit_3 != blank -%}
           <li>
-            <svg class="product__benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            <svg class="product__benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
             <span>{{ section.settings.benefit_3 }}</span>
           </li>
         {%- endif -%}
@@ -737,6 +737,7 @@
     color: var(--color-espresso-light, #5a4a3d);
     margin-bottom: 8px;
     line-height: 1.4;
+    white-space: nowrap;
   }
 
   .product__benefit-icon {
@@ -744,6 +745,17 @@
     height: 20px;
     flex-shrink: 0;
     color: var(--color-terracotta, #c4704b);
+  }
+
+  @media screen and (max-width: 480px) {
+    .product__benefits li {
+      font-size: 0.8rem;
+      gap: 8px;
+    }
+    .product__benefit-icon {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   /* =========================================
@@ -1329,19 +1341,19 @@
       "type": "text",
       "id": "benefit_1",
       "label": "Benefit 1",
-      "default": "When a regular hoodie just isn't big or comfy enough"
+      "default": "When a regular hoodie just isn't big enough"
     },
     {
       "type": "text",
       "id": "benefit_2",
       "label": "Benefit 2",
-      "default": "Giant Hoodies are intentionally oversized and too big on purpose"
+      "default": "These are oversized and \u201ctoo big\u201d on purpose"
     },
     {
       "type": "text",
       "id": "benefit_3",
       "label": "Benefit 3",
-      "default": "Just try one, you'll understand why 225,000 others love it"
+      "default": "Try one and understand why 225,000 others love it"
     },
     {
       "type": "header",
