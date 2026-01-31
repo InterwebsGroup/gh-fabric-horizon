@@ -40,7 +40,7 @@
     "product-description": {
       "type": "product-description",
       "settings": {
-        "heading": ""
+        "heading": "What is it?"
       }
     },
     "faq": {

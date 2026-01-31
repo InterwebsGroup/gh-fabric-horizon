@@ -1,7 +1,13 @@
 {%- comment -%}
   Product description section.
   Renders the Shopify product description with themed typography.
+  Supports [[CUSTOMER_COUNT]] placeholder — replaced with the sitewide
+  happy-customers-count theme setting (e.g. "225,000+").
 {%- endcomment -%}
+
+{%- liquid
+  assign customer_count = settings.happy_customers_count | default: '225,000+'
+-%}
 
 {%- if product.description != blank -%}
   <section class="product-description">
@@ -9,35 +15,32 @@
       <h2 class="product-description__heading">{{ section.settings.heading | escape }}</h2>
     {%- endif -%}
     <div class="product-description__body rte">
-      {{ product.description }}
+      {{ product.description | replace: '[[CUSTOMER_COUNT]]', customer_count }}
     </div>
   </section>
 {%- endif -%}
 
 {% stylesheet %}
   .product-description {
-    max-width: var(--page-content-width, 1200px);
+    max-width: 900px;
     margin: 0 auto;
-    padding: 48px var(--page-margin, 16px);
-  }
-
-  .product-description__heading {
-    font-family: var(--gh-font-heading, 'Fraunces', serif);
-    font-size: 1.5rem;
-    font-weight: 900;
-    font-variation-settings: 'SOFT' 100, 'WONK' 1;
-    color: var(--color-espresso, #3d3028);
-    margin: 0 0 24px 0;
+    padding: 60px var(--page-margin, 16px);
   }
 
   @media (min-width: 768px) {
     .product-description {
       padding: 60px var(--page-margin, 40px);
     }
+  }
 
-    .product-description__heading {
-      font-size: 2rem;
-    }
+  .product-description__heading {
+    font-family: var(--gh-font-heading, 'Fraunces', serif);
+    font-size: var(--font-size--h1);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+    color: var(--color-espresso, #3d3028);
+    margin: 0 0 24px 0;
+    line-height: 1.2;
   }
 
   .product-description__body {
