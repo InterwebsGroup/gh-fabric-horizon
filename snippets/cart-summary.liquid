@@ -257,18 +257,14 @@
       assign total_price = display_total | money
     endif
 
-    comment
-      Compare-at price with +$20 fallback for testing display
-      TODO: Remove this fallback before launch
-      Always includes full shipping cost so savings reflects shipping discount too
-    endcomment
     assign total_compare_at = 0
     for item in cart.items
       assign gh_compare_at = item.variant.compare_at_price
-      if gh_compare_at == blank or gh_compare_at <= item.original_price
-        assign gh_compare_at = item.original_price | plus: 2000
+      if gh_compare_at != blank and gh_compare_at > item.original_price
+        assign item_compare = gh_compare_at | times: item.quantity
+      else
+        assign item_compare = item.original_price | times: item.quantity
       endif
-      assign item_compare = gh_compare_at | times: item.quantity
       assign total_compare_at = total_compare_at | plus: item_compare
     endfor
     assign total_compare_at = total_compare_at | plus: full_shipping_cents

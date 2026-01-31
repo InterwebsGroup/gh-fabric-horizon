@@ -23,9 +23,36 @@
       timestamp: new Date().toISOString()
     };
 
-    // TODO: Replace with Klaviyo API call when ready
-    // Example: fetch('https://a.klaviyo.com/api/v2/list/LIST_ID/subscribe', { ... })
-    console.log('[GH Back in Stock] Signup:', data);
+    fetch('https://a.klaviyo.com/client/back-in-stock-subscriptions/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'revision': '2024-10-15',
+        'X-Klaviyo-Company': 'PwepKm'
+      },
+      body: JSON.stringify({
+        data: {
+          type: 'back-in-stock-subscription',
+          attributes: {
+            channels: ['EMAIL'],
+            profile: {
+              data: {
+                type: 'profile',
+                attributes: { email: data.email }
+              }
+            }
+          },
+          relationships: {
+            variant: {
+              data: {
+                type: 'catalog-variant',
+                id: '$shopify:::$default:::' + data.variant_id
+              }
+            }
+          }
+        }
+      })
+    });
 
     // Show success, hide form
     var wrapper = form.closest('.gh-back-in-stock__form-wrapper');

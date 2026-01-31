@@ -297,6 +297,8 @@
   }
 {% endstylesheet %}
 
+<script src="{{ 'collection-filter-ajax.js' | asset_url }}" defer></script>
+
 {% schema %}
 {
   "name": "Collection Header Full",
@@ -384,43 +386,15 @@
         {
           "type": "filter_button",
           "settings": {
-            "label": "New Arrivals",
+            "label": "New Items",
             "url": "/collections/latest-products"
           }
         },
         {
           "type": "filter_button",
           "settings": {
-            "label": "Animals",
-            "url": "/collections/animals?filter.p.product_type=Hoodie"
-          }
-        },
-        {
-          "type": "filter_button",
-          "settings": {
-            "label": "Funny",
-            "url": "/collections/funny?filter.p.product_type=Hoodie"
-          }
-        },
-        {
-          "type": "filter_button",
-          "settings": {
-            "label": "Holidays",
-            "url": "/collections/holidays?filter.p.product_type=Hoodie"
-          }
-        },
-        {
-          "type": "filter_button",
-          "settings": {
-            "label": "Blanks",
-            "url": "/collections/blank-hoodies"
-          }
-        },
-        {
-          "type": "filter_button",
-          "settings": {
-            "label": "Custom",
-            "url": "/collections/customize-your-own"
+            "label": "Limited Drops",
+            "url": "/collections/limited-releases"
           }
         }
       ]

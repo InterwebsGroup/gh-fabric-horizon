@@ -233,14 +233,7 @@
                   {% endif %}
 
                   {%- liquid
-                    comment
-                      Compare-at price with +$20 fallback for testing display
-                      TODO: Remove this fallback before launch
-                    endcomment
                     assign gh_compare_at = item.variant.compare_at_price
-                    if gh_compare_at == blank or gh_compare_at <= item.original_price
-                      assign gh_compare_at = item.original_price | plus: 2000
-                    endif
                   -%}
                   <div>
                     <span class="visually-hidden">{{ 'content.price_sale' | t }}</span>

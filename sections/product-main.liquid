@@ -17,14 +17,7 @@
     endfor
   endfor
 
-  comment
-    Compare-at price with +$20 fallback for display testing.
-    TODO: Remove the fallback once real compare_at_price is set on products.
-  endcomment
   assign compare_at = selected_variant.compare_at_price
-  if compare_at == blank or compare_at == nil or compare_at == 0
-    assign compare_at = selected_variant.price | plus: 2000
-  endif
   assign savings_amount = compare_at | minus: selected_variant.price
 -%}
 
@@ -268,19 +261,37 @@
         {%- endif -%}
       {%- endunless -%}
 
-      {%- comment -%} Offer banner image (uploaded via theme editor, placeholder if empty) {%- endcomment -%}
-      <div class="product__offer-banner">
-        {%- if section.settings.offer_banner_image != blank -%}
-          <img
-            src="{{ section.settings.offer_banner_image | image_url: width: 800 }}"
-            alt="{{ section.settings.offer_banner_image.alt | default: 'Offer Banner' }}"
-            width="{{ section.settings.offer_banner_image.width }}"
-            height="{{ section.settings.offer_banner_image.height }}"
-            loading="lazy"
-          >
-        {%- else -%}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'product__offer-banner-placeholder' }}
-        {%- endif -%}
+      {%- comment -%} Offer banner – fully editable via theme customizer {%- endcomment -%}
+      {%- liquid
+        assign ob_top_text = section.settings.offer_banner_top_text | default: 'Mix Any Hoodies, Add to Cart for Discount'
+        assign ob_top_icon = section.settings.offer_banner_top_icon | default: '🔀'
+        assign ob_top_bg = section.settings.offer_banner_top_bg | default: 'var(--color-terracotta)'
+        assign ob_top_color = section.settings.offer_banner_top_color | default: '#ffffff'
+        assign ob_bg = section.settings.offer_banner_bg | default: 'var(--color-espresso)'
+        assign ob_badge_text = section.settings.offer_banner_badge_text | default: 'HOODIE SALE'
+        assign ob_badge_color = section.settings.offer_banner_badge_color | default: '#ffffff'
+        assign ob_main_text = section.settings.offer_banner_main_text | default: 'UP TO 52% OFF'
+        assign ob_main_color = section.settings.offer_banner_main_color | default: '#ffffff'
+      -%}
+      <div class="product__offer-banner"
+        style="
+          --ob-top-bg: {{ ob_top_bg }};
+          --ob-top-color: {{ ob_top_color }};
+          --ob-bg: {{ ob_bg }};
+          --ob-badge-color: {{ ob_badge_color }};
+          --ob-main-color: {{ ob_main_color }};
+        "
+      >
+        <div class="offer-banner__top-bar">
+          {%- if ob_top_icon != blank -%}
+            <span class="offer-banner__top-icon">{{ ob_top_icon }}</span>
+          {%- endif -%}
+          <span class="offer-banner__top-text">{{ ob_top_text }}</span>
+        </div>
+        <div class="offer-banner__body">
+          <span class="offer-banner__badge">{{ ob_badge_text }}</span>
+          <span class="offer-banner__main-text">{{ ob_main_text }}</span>
+        </div>
       </div>
 
     </div>
@@ -1006,19 +1017,63 @@
      ========================================= */
   .product__offer-banner {
     margin-bottom: 16px;
+    border-radius: 12px;
+    overflow: hidden;
   }
 
-  .product__offer-banner img,
-  .product__offer-banner .product__offer-banner-placeholder {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    display: block;
+  .offer-banner__top-bar {
+    background: var(--ob-top-bg);
+    color: var(--ob-top-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 
-  .product__offer-banner-placeholder {
-    background: var(--color-cream, #faf7f4);
-    border: 1px dashed var(--color-sand, #e8d5c4);
+  .offer-banner__top-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .offer-banner__body {
+    background: var(--ob-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 28px 20px 32px;
+  }
+
+  .offer-banner__badge {
+    display: inline-block;
+    color: var(--ob-badge-color);
+    border: 2px solid var(--ob-badge-color);
+    border-radius: 999px;
+    padding: 6px 20px;
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .offer-banner__main-text {
+    color: var(--ob-main-color);
+    font-family: var(--gh-font-heading, 'Fraunces', serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+    line-height: 1.1;
+    text-align: center;
+    letter-spacing: -0.01em;
   }
 
   /* =========================================
@@ -1381,10 +1436,58 @@
       "content": "Offer Banner"
     },
     {
-      "type": "image_picker",
-      "id": "offer_banner_image",
-      "label": "Offer banner image",
-      "info": "Full-width banner shown above the selling points strip. Recommended width: 800px."
+      "type": "text",
+      "id": "offer_banner_top_text",
+      "label": "Top bar text",
+      "default": "Mix Any Hoodies, Add to Cart for Discount"
+    },
+    {
+      "type": "text",
+      "id": "offer_banner_top_icon",
+      "label": "Top bar icon / emoji",
+      "default": "🔀"
+    },
+    {
+      "type": "color",
+      "id": "offer_banner_top_bg",
+      "label": "Top bar background",
+      "default": "#c4704b"
+    },
+    {
+      "type": "color",
+      "id": "offer_banner_top_color",
+      "label": "Top bar text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "offer_banner_badge_text",
+      "label": "Badge text",
+      "default": "HOODIE SALE"
+    },
+    {
+      "type": "color",
+      "id": "offer_banner_badge_color",
+      "label": "Badge text & border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "offer_banner_main_text",
+      "label": "Main text",
+      "default": "UP TO 52% OFF"
+    },
+    {
+      "type": "color",
+      "id": "offer_banner_main_color",
+      "label": "Main text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "offer_banner_bg",
+      "label": "Banner background",
+      "default": "#3d3028"
     },
     {
       "type": "header",

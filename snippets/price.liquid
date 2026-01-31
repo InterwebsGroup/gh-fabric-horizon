@@ -14,13 +14,6 @@
   assign price = selected_variant.price
   assign compare_at_price = selected_variant.compare_at_price
 
-  # TEMPORARY: If no compare_at_price, default to price + $20 (2000 cents)
-  # TODO: Remove this fallback before launch - search for "TEMP_COMPARE_AT_FALLBACK"
-  if compare_at_price == blank or compare_at_price == nil or compare_at_price == 0
-    assign compare_at_price = price | plus: 2000
-  endif
-  # END TEMP_COMPARE_AT_FALLBACK
-
   assign show_compare_price = false
   if compare_at_price > price
     assign show_compare_price = true

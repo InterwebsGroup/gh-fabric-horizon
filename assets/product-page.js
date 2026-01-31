@@ -269,13 +269,8 @@
     var stickyPriceEl = section.querySelector('[data-sticky-price]');
     var stickySavingsEl = section.querySelector('[data-sticky-savings]');
 
-    // Compare-at price with +$20 fallback for testing display
-    // TODO: Remove this fallback before launch
     var compareAt = variant.compare_at_price;
-    if (!compareAt || compareAt <= variant.price) {
-      compareAt = variant.price + 2000;
-    }
-    var savings = compareAt - variant.price;
+    var savings = compareAt && compareAt > variant.price ? compareAt - variant.price : 0;
 
     if (priceEl) {
       priceEl.textContent = formatMoney(variant.price, moneyFormat);
@@ -521,8 +516,36 @@
         timestamp: new Date().toISOString()
       };
 
-      // TODO: Replace with Klaviyo API call when ready
-      console.log('[GH Back in Stock] Signup:', data);
+      fetch('https://a.klaviyo.com/client/back-in-stock-subscriptions/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'revision': '2024-10-15',
+          'X-Klaviyo-Company': 'PwepKm'
+        },
+        body: JSON.stringify({
+          data: {
+            type: 'back-in-stock-subscription',
+            attributes: {
+              channels: ['EMAIL'],
+              profile: {
+                data: {
+                  type: 'profile',
+                  attributes: { email: data.email }
+                }
+              }
+            },
+            relationships: {
+              variant: {
+                data: {
+                  type: 'catalog-variant',
+                  id: '$shopify:::$default:::' + data.variant_id
+                }
+              }
+            }
+          }
+        })
+      });
 
       // Show success, hide form
       var wrapper = form.closest('.product__back-in-stock-wrapper');
