@@ -4102,7 +4102,8 @@ h1, h2, h3, h4, h5, h6,
   line-height: 1.5 !important;
 }
 
-/* JudgeMe Reviews — body text, author names, dates, controls */
+/* JudgeMe Reviews — body text, author names, dates, controls
+   NOTE: Do NOT include [class*="jdgm"] span — that breaks the star icon font */
 .jdgm-rev-widg,
 .jdgm-rev-widg__body,
 .jdgm-rev__text,
@@ -4115,7 +4116,6 @@ h1, h2, h3, h4, h5, h6,
 .jdgm-histogram,
 .jdgm-histogram__row,
 [class*="jdgm"] p,
-[class*="jdgm"] span,
 [class*="jdgm"] a,
 [class*="jdgm"] label,
 [class*="jdgm"] select,

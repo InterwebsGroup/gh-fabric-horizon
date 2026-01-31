@@ -37,6 +37,12 @@
         "trust_item_3": "Printed in USA"
       }
     },
+    "product-description": {
+      "type": "product-description",
+      "settings": {
+        "heading": ""
+      }
+    },
     "faq": {
       "type": "section",
       "blocks": {
@@ -473,6 +479,7 @@
   },
   "order": [
     "product-main",
+    "product-description",
     "faq",
     "176990038240a2df4c"
   ]
