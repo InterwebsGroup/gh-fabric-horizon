@@ -149,13 +149,12 @@
         {%- endif -%}
       {%- endfor -%}
 
-      {%- comment -%} Static gallery images 3–6: visible on both desktop and mobile {%- endcomment -%}
-      {%- for i in (3..6) -%}
+      {%- comment -%} Static gallery images 3–5: visible on both desktop and mobile {%- endcomment -%}
+      {%- for i in (3..5) -%}
         {%- case i -%}
           {%- when 3 -%}{%- assign gallery_img = section.settings.gallery_image_3 -%}
           {%- when 4 -%}{%- assign gallery_img = section.settings.gallery_image_4 -%}
           {%- when 5 -%}{%- assign gallery_img = section.settings.gallery_image_5 -%}
-          {%- when 6 -%}{%- assign gallery_img = section.settings.gallery_image_6 -%}
         {%- endcase -%}
         {%- if gallery_img != blank -%}
           <button

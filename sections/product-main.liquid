@@ -57,6 +57,36 @@
     {%- comment -%} ===== LEFT: Image Gallery ===== {%- endcomment -%}
     <div class="product-main__gallery">
       {% render 'product-gallery', product: product, section: section %}
+
+      {%- comment -%} Trust bar + press logos — desktop only (under photos) {%- endcomment -%}
+      <div class="product-main__gallery-footer">
+        <div class="product__trust-bar">
+          {%- if section.settings.trust_item_1 != blank -%}
+            <div class="product__trust-item">
+              <span class="product__trust-icon">&#10003;</span>
+              <span>{{ section.settings.trust_item_1 }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.trust_item_2 != blank -%}
+            <div class="product__trust-item">
+              <span class="product__trust-icon">&#8617;</span>
+              <span>{{ section.settings.trust_item_2 }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.trust_item_3 != blank -%}
+            <div class="product__trust-item">
+              <svg class="product__trust-flag" width="16" height="12" viewBox="0 0 16 12" aria-hidden="true">
+                <rect width="16" height="4" fill="#B22234"/>
+                <rect y="4" width="16" height="4" fill="#fff"/>
+                <rect y="8" width="16" height="4" fill="#B22234"/>
+                <rect width="6" height="7" fill="#3C3B6E"/>
+              </svg>
+              <span>{{ section.settings.trust_item_3 }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+        {% render 'press-logos-bar', loading: 'lazy' %}
+      </div>
     </div>
 
     {%- comment -%} ===== RIGHT: Product Info ===== {%- endcomment -%}
@@ -297,35 +327,35 @@
         </div>
       </div>
 
-      {%- comment -%} Trust badges {%- endcomment -%}
-      <div class="product__trust-bar">
-        {%- if section.settings.trust_item_1 != blank -%}
-          <div class="product__trust-item">
-            <span class="product__trust-icon">&#10003;</span>
-            <span>{{ section.settings.trust_item_1 }}</span>
-          </div>
-        {%- endif -%}
-        {%- if section.settings.trust_item_2 != blank -%}
-          <div class="product__trust-item">
-            <span class="product__trust-icon">&#8617;</span>
-            <span>{{ section.settings.trust_item_2 }}</span>
-          </div>
-        {%- endif -%}
-        {%- if section.settings.trust_item_3 != blank -%}
-          <div class="product__trust-item">
-            <svg class="product__trust-flag" width="16" height="12" viewBox="0 0 16 12" aria-hidden="true">
-              <rect width="16" height="4" fill="#B22234"/>
-              <rect y="4" width="16" height="4" fill="#fff"/>
-              <rect y="8" width="16" height="4" fill="#B22234"/>
-              <rect width="6" height="7" fill="#3C3B6E"/>
-            </svg>
-            <span>{{ section.settings.trust_item_3 }}</span>
-          </div>
-        {%- endif -%}
+      {%- comment -%} Trust badges + press logos — mobile only (desktop copy is in gallery column) {%- endcomment -%}
+      <div class="product-main__info-footer">
+        <div class="product__trust-bar">
+          {%- if section.settings.trust_item_1 != blank -%}
+            <div class="product__trust-item">
+              <span class="product__trust-icon">&#10003;</span>
+              <span>{{ section.settings.trust_item_1 }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.trust_item_2 != blank -%}
+            <div class="product__trust-item">
+              <span class="product__trust-icon">&#8617;</span>
+              <span>{{ section.settings.trust_item_2 }}</span>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.trust_item_3 != blank -%}
+            <div class="product__trust-item">
+              <svg class="product__trust-flag" width="16" height="12" viewBox="0 0 16 12" aria-hidden="true">
+                <rect width="16" height="4" fill="#B22234"/>
+                <rect y="4" width="16" height="4" fill="#fff"/>
+                <rect y="8" width="16" height="4" fill="#B22234"/>
+                <rect width="6" height="7" fill="#3C3B6E"/>
+              </svg>
+              <span>{{ section.settings.trust_item_3 }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+        {% render 'press-logos-bar', loading: 'lazy' %}
       </div>
-
-      {%- comment -%} "As Seen On" press logos — shared snippet, same as homepage {%- endcomment -%}
-      {% render 'press-logos-bar', loading: 'lazy' %}
 
     </div>
   </div>
@@ -549,14 +579,14 @@
     border-color: var(--color-espresso, #3d3028);
   }
 
-  /* Desktop: centre thumbnails and make them responsive (~50% of gallery) */
+  /* Desktop: centre thumbnails and make them responsive (~65% of gallery) */
   @media (min-width: 768px) {
     .product-gallery__thumbs {
       justify-content: center;
     }
 
     .product-gallery__thumb {
-      width: calc(12.5% - 6px);
+      width: calc(16.25% - 6px);
       height: auto;
       aspect-ratio: 1 / 1;
     }
@@ -1145,6 +1175,24 @@
     flex-shrink: 0;
   }
 
+  /* Gallery footer (trust + press) — desktop only */
+  .product-main__gallery-footer {
+    display: none;
+    margin-top: 20px;
+  }
+
+  @media (min-width: 768px) {
+    .product-main__gallery-footer {
+      display: block;
+    }
+  }
+
+  /* Info footer (trust + press) — mobile only */
+  @media (min-width: 768px) {
+    .product-main__info-footer {
+      display: none;
+    }
+  }
 
   /* =========================================
      Sticky ATC (Mobile)
@@ -1224,7 +1272,7 @@
     },
     {
       "type": "paragraph",
-      "content": "The variant image always fills the large left column. Images 1–2 appear as squares in the right column. Images 3–6 appear as thumbnails below."
+      "content": "The variant image always fills the large left column. Images 1–2 appear as squares in the right column. Images 3–5 appear as thumbnails below."
     },
     {
       "type": "image_picker",
@@ -1250,11 +1298,6 @@
       "type": "image_picker",
       "id": "gallery_image_5",
       "label": "Gallery image 5"
-    },
-    {
-      "type": "image_picker",
-      "id": "gallery_image_6",
-      "label": "Gallery image 6"
     },
     {
       "type": "header",

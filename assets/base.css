@@ -4089,8 +4089,44 @@ h1, h2, h3, h4, h5, h6,
 .jdgm-carousel-wrapper h2,
 .jdgm-rev-widg__header,
 [class*="jdgm"] h2 {
+  font-family: var(--gh-font-heading, 'Fraunces', serif);
+  font-weight: 900;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  color: var(--color-espresso, #3d3028);
   font-size: var(--font-size--h1);
   line-height: var(--line-height--display-tight);
+}
+
+/* JudgeMe Reviews - Body text, author names, dates */
+.jdgm-rev-widg,
+.jdgm-rev-widg__body,
+.jdgm-rev__text,
+.jdgm-rev__author,
+.jdgm-rev__timestamp,
+.jdgm-rev__location,
+.jdgm-rev-widg__summary-text,
+.jdgm-rev-widg__read-more,
+.jdgm-paginate,
+[class*="jdgm"] p,
+[class*="jdgm"] span,
+[class*="jdgm"] a,
+[class*="jdgm"] label,
+[class*="jdgm"] select,
+[class*="jdgm"] input,
+[class*="jdgm"] textarea,
+[class*="jdgm"] button {
+  font-family: var(--gh-font-body, 'DM Sans', sans-serif) !important;
+  color: var(--color-espresso, #3d3028);
+}
+
+.jdgm-rev__author {
+  font-weight: 600 !important;
+}
+
+.jdgm-rev__timestamp,
+.jdgm-rev__location {
+  color: var(--color-espresso-light, #5a4a3d) !important;
+  font-size: 0.85rem !important;
 }
 
 /* Product Grid - Mobile: 2-col 3px gap, Desktop: 4-col 20px gap */
