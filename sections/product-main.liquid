@@ -549,6 +549,19 @@
     border-color: var(--color-espresso, #3d3028);
   }
 
+  /* Desktop: centre thumbnails and make them responsive (~50% of gallery) */
+  @media (min-width: 768px) {
+    .product-gallery__thumbs {
+      justify-content: center;
+    }
+
+    .product-gallery__thumb {
+      width: calc(12.5% - 6px);
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
+  }
+
   /* ----- Lightbox overlay ----- */
   .product-gallery__lightbox {
     display: none;
