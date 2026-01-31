@@ -413,20 +413,24 @@ Go build.
 
 ---
 
-## Current Progress (Updated 2026-01-29)
+## Current Progress (Updated 2026-01-30)
 
-### Phase 1: Sitewide Dependencies -- MOSTLY DONE
+### Phase 1: Sitewide Dependencies -- DONE ✅
 - [x] CSS variables (colors, fonts) defined in theme-styles-variables, gh-collection-styles, base.css
+- [x] Design tokens consolidated and centralized (session 6 audit)
 - [x] Google Fonts (Fraunces + DM Sans) loaded via theme settings
 - [x] Header drop shadow added globally (base.css)
 - [x] Header sticky (using Fabric default sticky-always)
+- [x] Header menu mouse-intent detection (prevents accidental submenu triggers)
 - [x] Footer customization (espresso bg, cream text, Fraunces headings, payment icons, divider)
 - [x] Footer newsletter signup ("Join the Hoodie Fam" + email capture with "Subscribe & Save 10%")
 - [x] Footer menu columns (Shop, Customer Care, About Us, Connect) — menus need Shopify Admin navigation setup
+- [x] Footer social links cleaned up (removed YouTube/X)
 - [x] Global button styles (4 types in base.css: primary-dark, primary-warm, secondary-outline, secondary-soft)
-- [ ] Cart drawer customization (using Fabric default)
+- [x] Cart drawer fully customized (upsell messages, shipping progress, save pills, country-aware shipping)
+- [x] Password page optimized with section-narrow class
 
-### Phase 2: Homepage -- DONE
+### Phase 2: Homepage -- DONE ✅
 - [x] Hero section (Fabric default, customized with GH copy/styling, image via Shopify admin)
 - [x] Stats bar (custom section: 225,000+ customers, 4.9★, 30-day guarantee)
 - [x] Press logos bar (custom section: Oprah, GMA, Forbes, Cosmopolitan, Kelly & Mark, The View)
@@ -443,36 +447,42 @@ Go build.
 - [x] Testimonials (custom section: 4 quotes on dark background "What the Hoodie Fam Says")
 - [x] Newsletter signup (custom section: "Join the Hoodie Fam" with 10% discount incentive)
 - [x] Reviews section (JudgeMe stats + 6 customer review cards)
+- [x] FAQs updated with customer-driven questions in brand voice
+- [x] Section spacing normalized to consistent 60px rhythm
+- [x] Audit: performance, code quality, admin editability (session 6)
 
-### Phase 3: Collection Page -- DONE
+### Phase 3: Collection Page -- DONE ✅
 - [x] Collection header with hero banner, filter buttons, description
 - [x] Product grid: 4-col desktop, 2-col mobile, info below image
 - [x] Volume pricing banner (green, sticky below header, uses `settings.free_shipping_threshold`)
 - [x] Color swatches on product cards (20px desktop, 14px mobile, max 10/5 with "+N more")
 - [x] Pagination dots inside card gallery (hidden in side-scroller sections, shown in grids)
-- [x] Filtering and sorting
+- [x] Filtering and sorting (grid density and product type filter removed as unnecessary)
+- [x] Sort label font size reduced
 
-### Phase 4: Product Page -- DONE
+### Phase 4: Product Page -- DONE ✅
 - [x] Image gallery (hero + thumbnails)
 - [x] Price display with savings from compare-at (uses Shopify compare_at_price)
 - [x] Color swatches (42px, 62 colors mapped)
 - [x] Volume pricing tiers (Hollow Socks-inspired layout)
 - [x] Add to Cart button with dynamic price
 - [x] Stats bar (reviews, customers, guarantee)
-- [x] Trust bar
-- [x] FAQ accordions (5 sections)
+- [x] Trust bar (editable items via section settings)
+- [x] FAQ accordions (5 sections, full-width on desktop)
 - [x] Mobile sticky ATC
 - [x] Social proof section
 - [x] Testimonials section
 - [x] Product recommendations
-- [x] Back-in-stock email form
+- [x] Back-in-stock email form (Klaviyo integration)
 - [x] Mobile gallery swipe/dots
 - [x] Desktop gallery redesign: 2×2 grid with lightbox (replaces single tall hero)
-- [x] Desktop layout: selling-points, trust-bar, press-logos moved under gallery (left column)
+- [x] Selling-points strip (terracotta background), trust bar, press logos in info column
 - [x] Desktop layout: accordions full-width below both columns
-- [ ] Additional product templates (kids-hoodie, shirt, blanket) — deferred to post-build
+- [x] Offer banner (image_picker setting, placeholder SVG when empty)
+- [x] Audit: cart event bug fix, deferred JS, lazy-loaded logos, code cleanup (session 6)
+- [ ] Additional product templates (kids-hoodie, shirt, blanket) — deferred to final day
 
-### Phase 5: Cart (Drawer + Page) -- IN PROGRESS
+### Phase 5: Cart (Drawer + Page) -- DONE ✅
 - [x] Drawer slides from right (Fabric default)
 - [x] Opens on Add to Cart (Fabric default)
 - [x] Upsell messages by hoodie count (gh-cart-extras.liquid)
@@ -486,8 +496,17 @@ Go build.
 - [x] Shipping message ("You're $X away from free shipping") relocated to above shipping row — `cart-summary.liquid`
 - [x] Cart total includes shipping cost — `cart-summary.liquid`
 - [x] Shipping savings when free: strikethrough price, FREE label, SAVE pill, included in total savings — `cart-summary.liquid`
-- [ ] Hide PayPal/Google Pay, make Apple Pay first — **Must be done in Shopify Admin > Settings > Payments** (closed shadow DOM prevents CSS targeting)
-- [ ] Final visual QA and polish
+- [x] Hoodie counting logic simplified (session 7)
+- [x] Audit: bug fixes, duplication removal, performance improvements (session 6)
+- [ ] Hide PayPal/Google Pay, make Apple Pay first — **Matt: Shopify Admin > Settings > Payments**
+
+### Theme-Wide Audits -- DONE ✅ (2026-01-30, session 6)
+- [x] Homepage audit (performance, code quality, admin editability)
+- [x] Product page audit (cart event bug, deferred JS, lazy-load logos)
+- [x] Cart drawer audit (bug fixes, duplication, performance)
+- [x] JS audit (bug fixes, dead code removal, memory leak prevention)
+- [x] CSS cleanup (design tokens, !important removal, calc() fixes)
+- [x] Design token consolidation and tier pricing centralization
 
 ### Bugs Fixed (2026-01-29)
 - Fixed press logos scrolling on desktop (should be static) and resetting on mobile (should be infinite seamless marquee)
@@ -608,46 +627,176 @@ Go build.
 
 ---
 
-### Changes Made (2026-01-30)
+### Changes Made (2026-01-30, session 5 — morning)
 
 **Footer completion:**
 - Added newsletter signup to footer: "Join the Hoodie Fam" heading + "Get exclusive deals, new drops, and cozy content. No spam, just good stuff." body + email form with "Subscribe & Save 10%" button
 - Newsletter renders as a full-width centered row above the 4 menu columns, separated by a subtle divider
 - Set menu handles for empty columns: `customer-care`, `about`, `connect` — Matt needs to create these navigation menus in Shopify Admin
+- Removed YouTube and X (Twitter) from footer social links (Giant Hoodies doesn't use them)
 - Added CSS in `footer.liquid` for newsletter group layout: `grid-column: 1 / -1`, centered text, max-width 480px email form, opacity 0.7 body text
 - Added CSS to ensure payment icons always span full width as the last child in the footer grid
 - Files changed: `sections/footer.liquid` (CSS), `sections/footer-group.json` (config)
 
+**Homepage spacing:**
+- Added spacing to `feature-oversized` and `stats-bar` sections
+- Updated homepage FAQs with customer-driven questions written in brand voice
+
 ---
 
-### TODOs — Before Launch
-- [ ] **Shopify Admin: Change money format** — Go to Settings → General → Store currency → Change formatting from `${{amount_no_decimals}}` to `${{amount}}` (and same for "with currency" format). This is why all `| money` output rounds to whole dollars. Do this alongside the other two Shopify Admin tasks below.
-- [ ] **Remove +$20 compare-at price fallback** — Search for `TEMP_COMPARE_AT_FALLBACK` in `cart-products.liquid` and `cart-summary.liquid`. Also in `product-page.js` (`updatePriceDisplay` function, line ~197). This adds a fake $20 savings when no compare-at price is set on a product. Must be removed once all products have real compare-at prices set in Shopify Admin.
-- [ ] **Shopify Admin: Configure accelerated checkout buttons** — Hide PayPal and Google Pay, prioritize Apple Pay. Go to Settings > Payments in Shopify Admin.
-- [ ] **Shopify Admin: Create footer navigation menus** — Go to Online Store → Navigation and create these menus with the exact handles:
-  - `customer-care` — Suggested links: Contact Us, Shipping & Returns, FAQ, Track My Order
-  - `about` — Suggested links: Our Story, Made in USA, Press, Hoodie Fam
-  - `connect` — Suggested links: Contact Us, Instagram, TikTok, Facebook
-  - The `footer` menu (for the "Shop" column) already exists
-- [ ] **Shopify Admin: Update social media URLs** — The footer utilities social links currently have placeholder URLs (facebook.com, instagram.com, etc.). Update these to the real Giant Hoodies social profiles in the theme editor under Footer → Policies & Links → Social Media Links.
-- [ ] **Additional product templates** — `product.kids-hoodie.json`, `product.shirt.json`, `product.blanket.json` (deferred to post-build)
-- [ ] **Final QA pass** — Test all cart flows (US below threshold, US above threshold, international customer)
+### Changes Made (2026-01-30, session 6 — comprehensive audits)
 
-### TODOs — Next Session
-- [ ] **Upload offer banner image** — Go to Customize > Products > GH Product Main > Offer Banner and upload a promotional banner (placeholder SVG is showing currently)
-- [ ] **Verify selling-points terracotta background** — Previous `!important` fix should override color scheme; confirm it renders terracotta not espresso after deploy
-- [ ] **Test trust bar single-line on mobile** — Confirm all 3 items fit on one line without overflow on small screens (320px+)
-- [ ] **Test press logos on homepage** — Verify full-width (no side padding), smooth infinite scroll on mobile, static centered on desktop
-- [ ] **Test press logos on product page** — Same behavior as homepage, edge-to-edge on mobile
-- [ ] **Collection filter buttons → AJAX navigation** — Filter buttons in `collection-header-full.liquid` (lines 61-68) use plain `<a href>` links causing full page reloads. Convert to AJAX-based filtering using the existing facets system to avoid re-downloading all assets when switching categories (e.g. Animals, Funny, Holidays).
+**Homepage audit:**
+- Performance improvements, code quality cleanup, admin editability enhancements
+- Consolidated design tokens and centralized tier pricing settings in `settings_schema.json`
+- Normalized all homepage section spacing to consistent 60px rhythm
 
-### TODOs — Visual QA
-- [ ] **Test desktop gallery redesign** — Verify 2×2 grid renders correctly, lightbox opens/closes, swatch changes update position 1 only
-- [ ] **Test gallery on mobile** — Verify single hero + all thumbnails, lightbox works, swatch changes update hero
-- [ ] **Test below-gallery layout** — Verify selling-points/trust/press appear under gallery on desktop, after info on mobile
-- [ ] **Test full-width accordions** — Verify accordions span full page width on desktop, proper padding and centering
-- [ ] **Test sticky info column** — Verify right column (title/price/ATC) still sticks correctly with the new grid-row spanning
-- [ ] **General desktop/mobile responsive check** — All breakpoints (768px, 1024px) transition cleanly
+**Product page audit:**
+- Fixed cart event bug, deferred JS loading, lazy-loaded press logos
+- General code cleanup and dead code removal
+
+**Cart drawer audit:**
+- Fixed bugs, removed code duplication, improved performance
+- Restored cart drawer upsell banner and shipping progress bar (accidentally broken during audit)
+
+**JS audit (theme-wide):**
+- Fixed bugs across multiple JS files
+- Removed dead code paths
+- Fixed memory leak prevention
+
+**CSS cleanup (theme-wide):**
+- Migrated hardcoded values to design tokens
+- Removed unnecessary `!important` overrides
+- Fixed `calc()` expressions
+
+**Volume pricing banner fix:**
+- Moved `{% stylesheet %}` tag to root level (was nested incorrectly)
+- Moved styles from section to `base.css` for proper cascade
+
+---
+
+### Changes Made (2026-01-30, session 7 — refinements & polish)
+
+**Footer & i18n improvements:**
+- Styling improvements across footer
+- i18n locale updates for consistency
+
+**Password page optimization:**
+- Optimized password page layout
+- Applied `section-narrow` class for proper width constraint
+
+**Cart simplification:**
+- Simplified cart hoodie counting logic (cleaner Liquid)
+
+**Homepage copy & styling:**
+- Updated hero line break positioning
+- Adjusted eyebrow font size
+- Updated guarantee copy for consistency
+
+**Product page — new features:**
+- Added product offer banner (`image_picker` setting, renders above selling-points)
+- Added Klaviyo back-in-stock email form for out-of-stock variants
+- Removed compare-at price fallbacks from collection filters
+
+**Collection page cleanup:**
+- Updated collection filter options
+- Reduced sort label font size
+- Removed grid density toggle (unnecessary complexity)
+- Removed product type filter (not useful for this store)
+
+**Header UX improvement:**
+- Added mouse-intent detection to header menu dropdowns — prevents accidental submenu triggers when mouse moves diagonally across menu items
+
+**Settings cleanup:**
+- Removed invalid `default` from `upsell_cta_url` URL setting (Shopify URL settings don't support defaults)
+
+**Product page layout:**
+- Reverted layout: selling points, trust bar, press logos moved **back into info column** (right side) — previous below-gallery placement didn't work as well visually
+- Changed selling-points strip background from espresso to terracotta
+
+---
+
+### Pre-Launch Code Audit (2026-01-31) -- DONE ✅
+
+Comprehensive audit of the entire codebase (12 parallel agents, ~195 findings). 27 fixes applied across 4 phases:
+
+**Phase 1 — Critical (commit `2ddfa80` + `217abbf`):**
+- Fixed trailing space in `_media-without-appearance.liquid` schema (broke "contain" image mode)
+- Fixed hardcoded "Giant Hoodies" in `404.liquid` → `shop.name`
+- Fixed color option labels "colors" → "color" in `product.liquid`
+- Fixed header announcements division-by-zero on speed=0
+- Fixed `morph.js` missing querySelector on wrongNode
+- Removed `blocking="render"` from view-transitions script (render-blocking)
+
+**Phase 2 — High Priority (commit `a47e198`):**
+- Fixed OG image HTTP → HTTPS in `meta-tags.liquid`
+- Fixed `morph.js` wrongNode querySelector
+- Fixed product inventory variant ID (`product.id` → `closest.product.id`)
+- Fixed header logo hardcoded name → `shop.name`
+- Fixed `section.liquid` custom_class XSS (added `| escape`)
+- Fixed slideshow duplicate `<style>` tag
+- Fixed `card-gallery.liquid` Liquid operator precedence + `aria-hidden`
+- Fixed `media.js` postMessage wildcard origin → proper origin check
+- Fixed multiple `<h1>` → `<h2>` on homepage
+- Fixed product-main focus outline
+- Fixed hero section `aria-label`
+
+**Phase 3 — Medium Priority (commit `c201648`):**
+- Added `| escape` to 21 unescaped settings across 4 GH sections (feature-guarantee, product-testimonials, stats-bar, comparison-table)
+- Added `super.disconnectedCallback()` to `results-list.js`
+- Added null guards to `gh-back-in-stock.js`
+- Fixed Schema.org `@context` HTTP → HTTPS in `header.liquid`
+- Fixed `formatMoney` string `.replace()` → regex `/g` in `utilities.js`
+- Fixed missing `]` in header-menu.js selector (caused DOMException on "More" hover)
+- Fixed slideshow `pause()` → `suspend()` in visibility handler
+
+**Phase 4 — Final Review (commit `a3f265a`):**
+- Fixed press-logos alt text mismatch (`Forbes` → `ABC News` for `ABC.svg`)
+- Added `scope="col"` to comparison table `<th>` elements
+
+**Remaining items reviewed and denied (not bugs or too risky):**
+- innerHTML "XSS" vectors in collection-filter-ajax, localization, price-per-item → data from Shopify's own server, not user input
+- Fabric base theme code quality items (event listener leaks, async patterns, CSS compat) → modifying upstream code risks breaking core
+- Hardcoded English strings, missing locale keys → single-language store
+- Design decisions (colors, spacing, autoplay, padding) → intentional choices
+- False positives found: slideshow-slide duplicate attributes (doesn't exist), blog empty block_order (populated), cachePageSections early return bug (no bug)
+
+---
+
+### TODOs — REMAINING 🏁
+
+#### Claude Code Tasks (code changes)
+- [ ] **Remove +$20 compare-at price fallback** — Search for `TEMP_COMPARE_AT_FALLBACK` in `cart-products.liquid`, `cart-summary.liquid`, and `product-page.js` (`updatePriceDisplay` function). Remove once Matt has set real compare-at prices in Shopify Admin.
+- [ ] **Additional product templates** — `product.kids-hoodie.json`, `product.shirt.json`, `product.blanket.json`
+
+#### Matt Tasks (Shopify Admin — no code)
+- [ ] **Change money format** — Settings → General → Store currency → Change formatting from `${{amount_no_decimals}}` to `${{amount}}` (and same for "with currency" format). This is why all prices show as whole dollars.
+- [ ] **Set compare-at prices on all products** — Required for savings display to work correctly. Once done, the `TEMP_COMPARE_AT_FALLBACK` code can be removed.
+- [ ] **Configure accelerated checkout buttons** — Settings → Payments → hide PayPal and Google Pay, prioritize Apple Pay.
+- [ ] **Create footer navigation menus** — Online Store → Navigation:
+  - `customer-care` — Contact Us, Shipping & Returns, FAQ, Track My Order
+  - `about` — Our Story, Made in USA, Press, Hoodie Fam
+  - `connect` — Contact Us, Instagram, TikTok, Facebook
+  - The `footer` menu (Shop column) already exists
+- [ ] **Update social media URLs** — Theme editor → Footer → Policies & Links → Social Media Links → replace placeholder URLs with real Giant Hoodies profiles
+- [ ] **Upload offer banner image** — Customize → Products → GH Product Main → Offer Banner → upload promotional banner image (placeholder SVG showing currently)
+
+#### Content Maintenance
+- [ ] **Keep comparison table prices accurate** — Hardcoded `$55` / `$129` in comparison table and FAQ pricing. Update in theme editor if prices change.
+
+#### Visual QA Checklist
+- [ ] **Desktop gallery** — 2×2 grid renders correctly, lightbox opens/closes, swatch changes update position 1 only
+- [ ] **Mobile gallery** — Single hero + all thumbnails, lightbox works, swatch changes update hero
+- [ ] **Product page info column** — Selling-points (terracotta bg), trust bar, press logos all render correctly in info column
+- [ ] **Full-width accordions** — Span full page width on desktop, proper padding and centering
+- [ ] **Sticky info column** — Right column (title/price/ATC) sticks correctly on scroll
+- [ ] **Trust bar on mobile** — All 3 items fit on one line without overflow (320px+)
+- [ ] **Press logos homepage** — Full-width, smooth infinite scroll on mobile, static centered on desktop
+- [ ] **Press logos product page** — Same behavior as homepage, edge-to-edge on mobile
+- [ ] **Header menu dropdowns** — Mouse-intent detection prevents accidental submenu triggers
+- [ ] **Collection page** — Sort/filter working, grid density removed, product type filter removed
+- [ ] **Cart drawer** — Upsell messages, shipping progress bar, save pills, shipping total all correct
+- [ ] **General responsive check** — All breakpoints (768px, 1024px) transition cleanly
 
 ---
 
@@ -665,7 +814,7 @@ Go build.
 - Press logos marquee uses **`margin-right` instead of CSS `gap`** on mobile — `gap` creates n-1 gaps which breaks the -50% translateX loop; `margin-right` ensures each item contributes equal space
 - Cart save pills use **`.gh-cart-save-pill`** class (terracotta bg, white text, pill shape) matching the product card `.price-savings` styling
 - Product gallery uses **two separate hero img elements** (`data-gallery-hero` for desktop grid, `data-gallery-hero-mobile` for mobile) — both synced by `__ghGalleryUpdateVariant()` on swatch change. Avoids CSS complexity of moving a single element between layouts.
-- Desktop gallery grid uses **`grid-row: 1 / 3`** on the info column so it spans both the gallery row and below-gallery row, keeping `position: sticky` working correctly
+- Desktop product page layout: **selling-points, trust bar, press logos in info column** (right side, with the product details) — previously tried below-gallery placement but reverted for better visual flow
 - Accordions sit **outside `.product-main__grid`** — they're a direct child of `.product-main` section, rendered full width with their own `max-width` and `padding-inline` matching the grid
 - Lightbox uses **`data-lightbox-trigger`** attribute on any clickable image element — grid items, mobile hero, and thumbnails all share the same trigger mechanism
 - Offer banner uses **`image_picker` schema setting** (`offer_banner_image`) — Shopify's `image_picker` doesn't support a `default` value, so a placeholder SVG renders when empty
@@ -698,3 +847,4 @@ Go build.
 | `snippets/header-actions.liquid` | Header icons (cart, search), cart drawer wrapper, cart badge styling |
 | `snippets/quick-add.liquid` | Quick-add button on product cards (hover-guarded for mobile) |
 | `templates/product.json` | Product page template (product-main, testimonials, recommendations) |
+| `assets/header-menu.js` | Header menu dropdown with mouse-intent detection |
