@@ -4,6 +4,8 @@ import { MegaMenuHoverEvent } from '@theme/events';
 
 const ACTIVATE_DELAY = 0;
 const DEACTIVATE_DELAY = 350;
+const INTENT_DELAY = 150;
+const SLOPE_THRESHOLD = 0.4;
 
 /**
  * A custom element that manages a header menu.
@@ -21,6 +23,8 @@ class HeaderMenu extends Component {
   requiredRefs = ['overflowMenu'];
 
   #abortController = new AbortController();
+  #lastMousePos = { x: 0, y: 0 };
+  #intentTimer = /** @type {number | undefined} */ (undefined);
 
   connectedCallback() {
     super.connectedCallback();
@@ -29,11 +33,16 @@ class HeaderMenu extends Component {
       signal: this.#abortController.signal,
     });
 
+    this.addEventListener('pointermove', this.#trackMouse, {
+      signal: this.#abortController.signal,
+    });
+
     onDocumentLoaded(this.#preloadImages);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    clearTimeout(this.#intentTimer);
     this.#abortController.abort();
   }
 
@@ -69,12 +78,61 @@ class HeaderMenu extends Component {
   }
 
   /**
+   * Track mouse position for intent detection.
+   * @param {PointerEvent} event
+   */
+  #trackMouse = (event) => {
+    this.#lastMousePos = { x: event.clientX, y: event.clientY };
+  };
+
+  /**
+   * Check if the mouse is moving toward the currently open submenu.
+   * If the mouse has a significant downward component, the user is
+   * likely aiming for the dropdown content rather than switching items.
+   * @param {PointerEvent} event
+   * @returns {boolean}
+   */
+  #isMovingTowardSubmenu(event) {
+    const dx = event.clientX - this.#lastMousePos.x;
+    const dy = event.clientY - this.#lastMousePos.y;
+    return dy > 0 && Math.abs(dy) > Math.abs(dx) * SLOPE_THRESHOLD;
+  }
+
+  /**
    * Activate the selected menu item immediately
    * @param {PointerEvent | FocusEvent} event
    */
   activate = (event) => {
     this.#debouncedDeactivate.cancel();
     this.#debouncedActivateHandler.cancel();
+    clearTimeout(this.#intentTimer);
+
+    // When switching between items with pointer, check if the user
+    // is moving toward the currently open submenu (diagonal movement).
+    if (
+      this.#state.activeItem &&
+      event instanceof PointerEvent &&
+      this.#isMovingTowardSubmenu(event)
+    ) {
+      const targetElement = event.target;
+
+      this.#intentTimer = setTimeout(() => {
+        const targetLi =
+          targetElement instanceof Element ? targetElement.closest('.menu-list__list-item') || targetElement : null;
+
+        if (targetLi && targetLi.matches(':hover')) {
+          // Mouse settled on the new item — switch to it
+          this.#activateHandler(event);
+        } else if (!this.matches(':hover')) {
+          // Mouse left the header menu entirely — close the submenu
+          this.#debouncedDeactivate();
+        }
+        // Otherwise the mouse is elsewhere in the menu (e.g. the active
+        // submenu) — do nothing and let other handlers take over.
+      }, INTENT_DELAY);
+
+      return;
+    }
 
     this.#debouncedActivateHandler(event);
   };
