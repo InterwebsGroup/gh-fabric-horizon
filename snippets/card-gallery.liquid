@@ -128,6 +128,11 @@
         assign max_visible_slide_count = 2
       endif
 
+      assign is_above_fold_section = false
+      if section.index == null or section.index < 5
+        assign is_above_fold_section = true
+      endif
+
       capture slides
         for media in media_list_to_show
           assign loading = 'lazy'
@@ -164,7 +169,7 @@
           endif
 
           # Eager-load first 2 images for above-fold cards (first for display, second for hover)
-          if forloop.index <= 2 and section.index == null or section.index < 5
+          if forloop.index <= 2 and is_above_fold_section
             assign loading = 'eager'
             assign sizes = image_sizes
           endif
@@ -208,7 +213,6 @@
         class="contents"
         ref="productTitleLink"
         href="{{ product.selected_or_first_available_variant.url }}"
-        aria-hidden="true"
       >
         <span class="title-text">{{- product.title -}}</span>
       </a>

@@ -199,7 +199,7 @@
               "type": "text",
               "name": "Heading",
               "settings": {
-                "text": "<h1>Best Sellers</h1>",
+                "text": "<h2>Best Sellers</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -466,7 +466,7 @@
               "type": "text",
               "name": "Heading",
               "settings": {
-                "text": "<h1>New Drops</h1>",
+                "text": "<h2>New Drops</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",

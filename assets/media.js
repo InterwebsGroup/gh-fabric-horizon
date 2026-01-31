@@ -96,11 +96,12 @@ class DeferredMedia extends Component {
     /** @type {HTMLIFrameElement | null} */
     const iframe = this.querySelector('iframe[data-video-type]');
     if (iframe) {
+      const origin = iframe.src ? new URL(iframe.src).origin : '*';
       iframe.contentWindow?.postMessage(
         iframe.dataset.videoType === 'youtube'
           ? '{"event":"command","func":"playVideo","args":""}'
           : '{"method":"play"}',
-        '*'
+        origin
       );
     } else {
       this.querySelector('video')?.play();
@@ -117,11 +118,12 @@ class DeferredMedia extends Component {
     const iframe = this.querySelector('iframe[data-video-type]');
 
     if (iframe) {
+      const origin = iframe.src ? new URL(iframe.src).origin : '*';
       iframe.contentWindow?.postMessage(
         iframe.dataset.videoType === 'youtube'
           ? '{"event":"command","func":"' + 'pauseVideo' + '","args":""}'
           : '{"method":"pause"}',
-        '*'
+        origin
       );
     } else {
       this.querySelector('video')?.pause();

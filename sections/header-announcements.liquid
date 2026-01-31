@@ -51,7 +51,7 @@
   <announcement-bar-component
     class="announcement-bar__slider"
     {% if autoplay == true %}
-      autoplay="4" aria-live="polite"
+      autoplay="{{ section.settings.speed }}" aria-live="polite"
     {% endif %}
   >
     {% if show_arrows %}

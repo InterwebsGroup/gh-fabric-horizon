@@ -157,7 +157,7 @@ function walk(newNode, oldNode, options) {
     updateChildren(newNode, oldNode, options);
   }
 
-  options.onAfterUpdate?.(newNode);
+  options.onAfterUpdate?.(oldNode);
 
   return oldNode;
 }
