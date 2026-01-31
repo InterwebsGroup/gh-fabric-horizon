@@ -57,23 +57,31 @@
   }
 
   .press-logos__grid {
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;          /* Firefox */
   }
 
-  /* ── Desktop: static centered row ── */
+  .press-logos__grid::-webkit-scrollbar {
+    display: none;                  /* Chrome / Safari */
+  }
+
+  /* ── Desktop: static centered row, shrinks then scrolls ── */
   .press-logos__track {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 40px;
+    gap: clamp(20px, 3vw, 40px);
   }
 
   .press-logos__item {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 0 0 auto;
+    flex: 0 1 auto;
+    min-width: 0;
     height: clamp(34px, 3.2vw, 44px);
   }
 
@@ -130,6 +138,10 @@
       display: flex;
     }
 
+    .press-logos__grid {
+      overflow: hidden;
+    }
+
     /* Use margin instead of gap so -50% perfectly equals one set of logos */
     .press-logos__track {
       justify-content: flex-start;
@@ -140,6 +152,7 @@
     }
 
     .press-logos__item {
+      flex: 0 0 auto;
       height: 28px;
       margin-right: 32px;
     }
