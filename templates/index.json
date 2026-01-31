@@ -1459,7 +1459,7 @@
                   "settings": {
                     "text": "<p>If you want to feel like you're wrapped in a cozy blanket, yes. Our hoodies are intentionally oversized with custom cut and sew measurements to be wearable blankets, not fitted clothing. Customers from size XS to 3XL love the fit. It's giant on purpose.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1498,7 +1498,7 @@
                   "settings": {
                     "text": "<p>Super soft, lightweight sponge fleece \u2014 the kind you never want to take off. It's plush and cozy without being heavy or bulky. Our customers describe it as \"wearing a hug.\" Once you feel it, you'll get it.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1537,7 +1537,7 @@
                   "settings": {
                     "text": "<p>With love! Our sponge fleece is super soft but delicate. Here's the deal: tie little knots in the drawstring ends so they don't pull out, wash alone or with soft clothes only, cold water on the gentle cycle, and always air dry \u2014 no dryer. Treat it right and you'll stay in love for years.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1576,7 +1576,7 @@
                   "settings": {
                     "text": "<p>Really, really fast. Most orders ship same or next business day and arrive in 3-4 days within the US. Every hoodie is printed and packed by hand at our facility in Northwest Arkansas. Oh, and we include a handwritten thank-you card in every box.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1615,7 +1615,7 @@
                   "settings": {
                     "text": "<p>Absolutely. Our sponge fleece is lightweight and breathable \u2014 not heavy or bulky at all. Customers wear them year-round: in blasting AC, on summer movie nights, and even outside in warm weather. It's cozy without the sweat.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1654,7 +1654,7 @@
                   "settings": {
                     "text": "<p>We're confident you will, but we've got you covered. Our 30-day \"Best Hoodie Ever\" Guarantee means if something isn't right, just reach out and we'll make it right. Fun fact: less than 1% of our orders are returned. The average apparel brand sees 21%. We'll let that speak for itself.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1714,7 +1714,7 @@
                   "settings": {
                     "text": "<p>Every single hoodie is printed and packed by hand at our facility in Fayetteville, Arkansas, in the USA. We're a small team of 5 who genuinely love what we do \u2014 and we put a handwritten thank-you card in every order. You're supporting a real small business, not a faceless warehouse.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",

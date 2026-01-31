@@ -1468,10 +1468,16 @@
         "content": "t:settings.colors"
       },
       {
-        "type": "color_scheme",
-        "id": "badge_sale_color_scheme",
-        "label": "t:settings.badge_sale_color_scheme",
-        "default": "scheme-4"
+        "type": "color",
+        "id": "badge_tag_background",
+        "label": "Tag badge background",
+        "default": "#e53935"
+      },
+      {
+        "type": "color",
+        "id": "badge_tag_text_color",
+        "label": "Tag badge text",
+        "default": "#ffffff"
       },
       {
         "type": "color_scheme",
