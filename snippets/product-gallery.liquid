@@ -1,8 +1,8 @@
 {%- comment -%}
-  Product image gallery — desktop 2×2 grid + lightbox, mobile hero + thumbnails.
-  Position 1 (top-left) = selected variant image (updates on swatch change only).
-  Positions 2–4 = first 3 static gallery images from section settings.
-  Thumbnails = remaining gallery images (desktop: slots 4–6, mobile: all).
+  Product image gallery — desktop 1+2 asymmetric grid + lightbox, mobile hero + thumbnails.
+  Left column (spans 2 rows) = selected variant image (updates on swatch change only).
+  Right column = first 2 static gallery images (square, stacked).
+  Thumbnails = remaining gallery images (desktop: slots 3–6, mobile: all).
   Clicking any image opens a lightbox at full size.
   Usage: {% render 'product-gallery', product: product, section: section %}
 {%- endcomment -%}
@@ -15,7 +15,7 @@
 <div class="product-gallery" data-product-gallery>
   {%- if hero_media -%}
 
-    {%- comment -%} ===== DESKTOP: 2×2 image grid (hidden on mobile) ===== {%- endcomment -%}
+    {%- comment -%} ===== DESKTOP: 1+2 asymmetric grid (hidden on mobile) ===== {%- endcomment -%}
     <div class="product-gallery__grid">
       {%- comment -%} Position 1 — variant image, locked to swatch selection {%- endcomment -%}
       <div
@@ -32,7 +32,7 @@
           data-gallery-hero
           src="{{ hero_media | image_url: width: 900 }}"
           srcset="{{ hero_media | image_url: width: 400 }} 400w, {{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w"
-          sizes="(min-width: 768px) 25vw, 100vw"
+          sizes="(min-width: 768px) 30vw, 100vw"
           alt="{{ hero_media.alt | escape | default: product.title }}"
           width="{{ hero_media.preview_image.width }}"
           height="{{ hero_media.preview_image.height }}"
@@ -41,12 +41,11 @@
         >
       </div>
 
-      {%- comment -%} Positions 2–4 — first 3 static gallery images {%- endcomment -%}
-      {%- for i in (1..3) -%}
+      {%- comment -%} Positions 2–3 — first 2 static gallery images (right column) {%- endcomment -%}
+      {%- for i in (1..2) -%}
         {%- case i -%}
           {%- when 1 -%}{%- assign grid_img = section.settings.gallery_image_1 -%}
           {%- when 2 -%}{%- assign grid_img = section.settings.gallery_image_2 -%}
-          {%- when 3 -%}{%- assign grid_img = section.settings.gallery_image_3 -%}
         {%- endcase -%}
         {%- if grid_img != blank -%}
           <div
@@ -62,7 +61,7 @@
             <img
               src="{{ grid_img | image_url: width: 600 }}"
               srcset="{{ grid_img | image_url: width: 300 }} 300w, {{ grid_img | image_url: width: 600 }} 600w"
-              sizes="(min-width: 768px) 25vw, 100vw"
+              sizes="(min-width: 768px) 20vw, 100vw"
               alt="{{ grid_img.alt | escape | default: product.title }}"
               width="{{ grid_img.preview_image.width }}"
               height="{{ grid_img.preview_image.height }}"
@@ -121,12 +120,11 @@
         >
       </button>
 
-      {%- comment -%} Static gallery images 1–3: mobile only (desktop shows in grid) {%- endcomment -%}
-      {%- for i in (1..3) -%}
+      {%- comment -%} Static gallery images 1–2: mobile only (desktop shows in grid) {%- endcomment -%}
+      {%- for i in (1..2) -%}
         {%- case i -%}
           {%- when 1 -%}{%- assign gallery_img = section.settings.gallery_image_1 -%}
           {%- when 2 -%}{%- assign gallery_img = section.settings.gallery_image_2 -%}
-          {%- when 3 -%}{%- assign gallery_img = section.settings.gallery_image_3 -%}
         {%- endcase -%}
         {%- if gallery_img != blank -%}
           <button
@@ -151,9 +149,10 @@
         {%- endif -%}
       {%- endfor -%}
 
-      {%- comment -%} Static gallery images 4–6: visible on both desktop and mobile {%- endcomment -%}
-      {%- for i in (4..6) -%}
+      {%- comment -%} Static gallery images 3–6: visible on both desktop and mobile {%- endcomment -%}
+      {%- for i in (3..6) -%}
         {%- case i -%}
+          {%- when 3 -%}{%- assign gallery_img = section.settings.gallery_image_3 -%}
           {%- when 4 -%}{%- assign gallery_img = section.settings.gallery_image_4 -%}
           {%- when 5 -%}{%- assign gallery_img = section.settings.gallery_image_5 -%}
           {%- when 6 -%}{%- assign gallery_img = section.settings.gallery_image_6 -%}
