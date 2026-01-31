@@ -1,0 +1,50 @@
+{% comment %}
+  Dynamic pricing FAQ answer block.
+  Reads product price + tier pricing from theme settings to render
+  an always-accurate FAQ answer about volume discounts.
+
+  Place inside an accordion row as a @theme block.
+{% endcomment %}
+
+{%- liquid
+  assign gh_product = block.settings.product
+  if gh_product == blank
+    assign gh_product = all_products['blank-giant-hoodie']
+  endif
+
+  assign retail_cents = settings.tier_retail_price | default: 75 | times: 100
+  assign tier2_cents  = settings.tier_2_price | default: 45 | times: 100
+  assign tier3_cents  = settings.tier_3_price | default: 39 | times: 100
+  assign ship_cents   = settings.free_shipping_threshold | default: 75 | times: 100
+
+  assign single_price = gh_product.price
+  assign single_savings = retail_cents | minus: single_price
+  assign tier2_savings_total = retail_cents | minus: tier2_cents | times: 2
+  assign tier3_savings_total = retail_cents | minus: tier3_cents | times: 3
+-%}
+
+{%- if gh_product != blank -%}
+  <div class="spacing-style text-block rte" style="--width: 100%; --max-width: var(--max-width--body-normal);" {{ block.shopify_attributes }}>
+    <p>You bet. One hoodie is {{ single_price | money_without_trailing_zeros }} (already {{ single_savings | money_without_trailing_zeros }} off). Grab two and they drop to {{ tier2_cents | money_without_trailing_zeros }} each — that's {{ tier2_savings_total | money_without_trailing_zeros }} saved total. Three or more? Just {{ tier3_cents | money_without_trailing_zeros }} each, saving you {{ tier3_savings_total | money_without_trailing_zeros }}+. Plus, orders over {{ ship_cents | money_without_trailing_zeros }} ship free. Fair warning: once you own one, you'll be back for more.<br/><br/><em>*prices may change based on costs and current sales*</em></p>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Pricing FAQ Answer",
+  "tag": null,
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product",
+      "info": "Leave blank to default to the Blank Giant Hoodie."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pricing FAQ Answer"
+    }
+  ]
+}
+{% endschema %}

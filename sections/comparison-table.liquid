@@ -50,7 +50,13 @@
               <tr class="comparison-table__row--price" {{ block.shopify_attributes }}>
                 <td class="comparison-table__feature">Price</td>
                 <td class="comparison-table__price comparison-table__price--us">
-                  <span class="comparison-table__price-value">{{ block.settings.us_price | escape }}</span>
+                  <span class="comparison-table__price-value">
+                    {%- if section.settings.pricing_product != blank -%}
+                      {{ section.settings.pricing_product.price | money_without_trailing_zeros }}
+                    {%- else -%}
+                      {{ block.settings.us_price | escape }}
+                    {%- endif -%}
+                  </span>
                 </td>
                 <td class="comparison-table__price comparison-table__price--them">
                   <span class="comparison-table__price-value">{{ block.settings.them_price | escape }}</span>
@@ -229,6 +235,16 @@
       "id": "brand_them",
       "label": "Competitor brand name",
       "default": "Oodie"
+    },
+    {
+      "type": "header",
+      "content": "Dynamic Pricing"
+    },
+    {
+      "type": "product",
+      "id": "pricing_product",
+      "label": "Product for our price",
+      "info": "When set, the price row automatically shows this product's current price."
     },
     {
       "type": "header",

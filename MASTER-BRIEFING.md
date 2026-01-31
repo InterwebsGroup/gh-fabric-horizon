@@ -766,23 +766,21 @@ Comprehensive audit of the entire codebase (12 parallel agents, ~195 findings). 
 ### TODOs — REMAINING 🏁
 
 #### Claude Code Tasks (code changes)
-- [ ] **Remove +$20 compare-at price fallback** — Search for `TEMP_COMPARE_AT_FALLBACK` in `cart-products.liquid`, `cart-summary.liquid`, and `product-page.js` (`updatePriceDisplay` function). Remove once Matt has set real compare-at prices in Shopify Admin.
+- [x] ~~**Remove +$20 compare-at price fallback**~~ — `TEMP_COMPARE_AT_FALLBACK` code removed from all source files (cart-products.liquid, cart-summary.liquid, product-page.js).
+- [x] ~~**Dynamic pricing for comparison table & FAQ**~~ — Comparison table "our price" now reads from `blank-giant-hoodie` product via `pricing_product` setting. FAQ pricing answer uses new `gh-pricing-answer` block with dynamic tier calculations from theme settings.
 - [ ] **Additional product templates** — `product.kids-hoodie.json`, `product.shirt.json`, `product.blanket.json`
 
 #### Matt Tasks (Shopify Admin — no code)
 - [ ] **Change money format** — Settings → General → Store currency → Change formatting from `${{amount_no_decimals}}` to `${{amount}}` (and same for "with currency" format). This is why all prices show as whole dollars.
-- [ ] **Set compare-at prices on all products** — Required for savings display to work correctly. Once done, the `TEMP_COMPARE_AT_FALLBACK` code can be removed.
+- [x] ~~**Set compare-at prices on all products**~~ — Done.
 - [ ] **Configure accelerated checkout buttons** — Settings → Payments → hide PayPal and Google Pay, prioritize Apple Pay.
 - [ ] **Create footer navigation menus** — Online Store → Navigation:
   - `customer-care` — Contact Us, Shipping & Returns, FAQ, Track My Order
   - `about` — Our Story, Made in USA, Press, Hoodie Fam
   - `connect` — Contact Us, Instagram, TikTok, Facebook
   - The `footer` menu (Shop column) already exists
-- [ ] **Update social media URLs** — Theme editor → Footer → Policies & Links → Social Media Links → replace placeholder URLs with real Giant Hoodies profiles
-- [ ] **Upload offer banner image** — Customize → Products → GH Product Main → Offer Banner → upload promotional banner image (placeholder SVG showing currently)
-
-#### Content Maintenance
-- [ ] **Keep comparison table prices accurate** — Hardcoded `$55` / `$129` in comparison table and FAQ pricing. Update in theme editor if prices change.
+- [x] ~~**Update social media URLs**~~ — Done.
+- [x] ~~**Upload offer banner image**~~ — Done.
 
 #### Visual QA Checklist
 - [ ] **Desktop gallery** — 2×2 grid renders correctly, lightbox opens/closes, swatch changes update position 1 only
@@ -803,7 +801,8 @@ Comprehensive audit of the entire codebase (12 parallel agents, ~195 findings). 
 ### Key Architecture Decisions
 - Volume pricing is **informational only** on PDP -- actual discounts applied via Shopify automatic discounts at cart level
 - Swatch colors managed via **settings textarea** (editable in Shopify admin) with hardcoded fallback in swatch-color.liquid
-- Compare-at price has **+$20 fallback** when not set on a product (temporary for testing — TODO: remove before launch, search `TEMP_COMPARE_AT_FALLBACK`)
+- Compare-at price uses **`variant.compare_at_price` directly** — no fallback; prices come from Shopify product data
+- Comparison table "our price" and FAQ pricing are **dynamically rendered** from `all_products['blank-giant-hoodie']` and theme tier pricing settings — no hardcoded dollar amounts in templates
 - CSS uses **overflow-x: clip** (not hidden) on .content-for-layout to avoid breaking sticky positioning on collection page
 - Header shadow is in **base.css** (global) not in section stylesheet
 - Button styles use `.gh-button` class system in base.css; product-main migrated from section-scoped `.btn-primary`
