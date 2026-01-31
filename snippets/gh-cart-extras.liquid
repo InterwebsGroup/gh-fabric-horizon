@@ -1,8 +1,8 @@
 {% comment %}
   Giant Hoodies Cart Extras
-  Renders upsell messaging and shipping progress bar.
+  Renders upsell messaging based on hoodie count in cart.
   Usage:
-    {% render 'gh-cart-extras', part: 'top' %}  — upsell banner + shipping bar
+    {% render 'gh-cart-extras', part: 'top' %}  — upsell banner
 {% endcomment %}
 
 {% case part %}
@@ -10,7 +10,6 @@
 
   {%- comment -%} ——— Hoodie Count ——— {%- endcomment -%}
   {%- liquid
-    assign tier_handles = settings.tier_collection_handles | split: ','
     assign hoodie_count = 0
 
     for item in cart.items
@@ -24,21 +23,8 @@
       endfor
 
       unless is_excluded
-        assign matched_tier = false
-        for collection in item.product.collections
-          for handle in tier_handles
-            assign handle_trimmed = handle | strip
-            if collection.handle == handle_trimmed
-              assign matched_tier = true
-              break
-            endif
-          endfor
-          if matched_tier
-            break
-          endif
-        endfor
-
-        if matched_tier
+        assign item_type = item.product.type | downcase
+        if item_type == 'hoodie'
           assign hoodie_count = hoodie_count | plus: item.quantity
         endif
       endunless
@@ -74,41 +60,6 @@
           <a href="{{ settings.upsell_cta_url | default: '/collections/hoodies' }}" class="gh-cart-upsell__cta">{{ settings.upsell_cta_text | default: 'Browse Hoodies →' }}</a>
         {%- endif -%}
       </p>
-    </div>
-  {%- endif -%}
-
-  {%- comment -%} ——— Shipping Progress Bar ——— {%- endcomment -%}
-  {%- if settings.show_shipping_progress_bar and localization.country.iso_code == 'US' -%}
-    {%- liquid
-      assign threshold_cents = settings.free_shipping_threshold | times: 100
-      assign remaining_cents = threshold_cents | minus: cart.total_price
-      assign progress = cart.total_price | times: 100 | divided_by: threshold_cents
-      if progress > 100
-        assign progress = 100
-      endif
-
-      assign is_free = false
-      if remaining_cents <= 0
-        assign is_free = true
-      endif
-    -%}
-
-    <div class="gh-shipping-progress{% if is_free %} gh-shipping-progress--complete{% endif %}">
-      <div class="gh-shipping-progress__header">
-        {%- if is_free -%}
-          <p class="gh-shipping-progress__msg">{{ settings.shipping_free_msg }}</p>
-        {%- else -%}
-          {%- assign remaining_formatted = remaining_cents | money -%}
-          {%- assign shipping_msg = settings.shipping_progress_msg | replace: '[amount]', remaining_formatted -%}
-          <p class="gh-shipping-progress__msg">{{ shipping_msg }}</p>
-        {%- endif -%}
-        <span class="gh-shipping-progress__icon" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        </span>
-      </div>
-      <div class="gh-shipping-progress__bar">
-        <div class="gh-shipping-progress__fill" style="width: {{ progress }}%;"></div>
-      </div>
     </div>
   {%- endif -%}
 

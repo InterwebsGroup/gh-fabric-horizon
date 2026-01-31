@@ -1772,7 +1772,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 60,
-        "padding-block-end": 60
+        "padding-block-end": 60,
+        "custom_class": "section-narrow"
       }
     },
     "section_DUGh9D": {
@@ -1853,7 +1854,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 60,
-        "padding-block-end": 60
+        "padding-block-end": 60,
+        "custom_class": "section-narrow"
       }
     }
   },
