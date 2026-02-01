@@ -104,6 +104,7 @@
     "back_in_stock_button_text": "Notify Me",
     "back_in_stock_placeholder": "Enter your email",
     "back_in_stock_success_msg": "We'll email you when it's back!",
+    "quick_add": false,
     "happy_customers_count": "225,000+",
     "content_for_index": [],
     "blocks": {
