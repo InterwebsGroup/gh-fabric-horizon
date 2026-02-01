@@ -29,6 +29,7 @@
         var base = v.featured_image.src.replace(/[?&]width=\d+/g, '');
         var s = base.indexOf('?') !== -1 ? '&' : '?';
         new Image().src = base + s + 'width=900';
+        new Image().src = base + s + 'width=1200';
       }
     });
 
