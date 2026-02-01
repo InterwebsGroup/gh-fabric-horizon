@@ -1,6 +1,6 @@
 /**
  * Giant Hoodies — Product Page
- * Handles image gallery, color swatches,
+ * Handles image gallery, mobile swipe, color swatches,
  * sticky ATC bar, and AJAX add-to-cart with cart drawer integration.
  */
 (function () {
@@ -24,6 +24,7 @@
     var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
 
     initGallery(section);
+    initMobileSwipe(section);
     initLightbox(section);
     initSwatches(section, variants);
     initStickyATC(section);
@@ -48,14 +49,69 @@
   }
 
   /* =========================================
-     1. Image Gallery — variant image sync
-     Desktop: 2×2 grid, Mobile: hero + thumbs
-     No image swapping — all clicks open lightbox
+     1. Image Gallery — variant image sync + mobile carousel
+     Desktop: 1+2 grid, Mobile: hero + thumbs + swipe
      ========================================= */
   function initGallery(section) {
     var desktopHero = section.querySelector('[data-gallery-hero]');
     var mobileHero = section.querySelector('[data-gallery-hero-mobile]');
     var variantGridItem = section.querySelector('.product-gallery__grid-item--variant');
+
+    // Parse gallery images JSON for mobile swipe carousel
+    var imagesEl = section.querySelector('[data-gallery-images]');
+    var images = [];
+    if (imagesEl) {
+      try {
+        images = JSON.parse(imagesEl.textContent);
+      } catch (e) {
+        console.warn('[GH] Could not parse gallery images');
+      }
+    }
+    section.__ghGalleryImages = images;
+    section.__ghGalleryIndex = 0;
+
+    // Set the mobile hero to a specific slide index
+    section.__ghGallerySetIndex = function (index) {
+      if (!images.length) return;
+      if (index < 0) index = images.length - 1;
+      if (index >= images.length) index = 0;
+      section.__ghGalleryIndex = index;
+      var img = images[index];
+      if (!img || !mobileHero) return;
+
+      // Crossfade: briefly reduce opacity, swap src, restore
+      mobileHero.classList.add('product-gallery__hero-img--fading');
+      setTimeout(function () {
+        mobileHero.src = img.src;
+        mobileHero.srcset = img.srcset;
+        mobileHero.alt = img.alt;
+        mobileHero.dataset.fullSrc = img.fullSrc;
+        mobileHero.dataset.fullSrcset = img.fullSrcset;
+        mobileHero.dataset.fullAlt = img.alt;
+        mobileHero.classList.remove('product-gallery__hero-img--fading');
+      }, 75);
+
+      // Update active thumbnail
+      var thumbs = section.querySelectorAll('[data-gallery-thumb]');
+      thumbs.forEach(function (t) {
+        t.classList.remove('product-gallery__thumb--active');
+        if (parseInt(t.dataset.slideIndex, 10) === index) {
+          t.classList.add('product-gallery__thumb--active');
+        }
+      });
+
+      // Update pagination dots
+      var dots = section.querySelectorAll('.product-gallery__dot');
+      dots.forEach(function (d, i) {
+        d.classList.toggle('product-gallery__dot--active', i === index);
+      });
+
+      // Preload adjacent images
+      var prev = images[(index - 1 + images.length) % images.length];
+      var next = images[(index + 1) % images.length];
+      if (prev) new Image().src = prev.src;
+      if (next) new Image().src = next.src;
+    };
 
     // Expose method for swatch integration — updates variant image (pos 1)
     section.__ghGalleryUpdateVariant = function (src, alt) {
@@ -110,11 +166,121 @@
           thumbImg.alt = alt || '';
         }
       }
+
+      // Update index 0 in images array (variant is always first)
+      if (images.length > 0) {
+        images[0] = {
+          src: heroSrc,
+          srcset: srcset,
+          fullSrc: largeSrc,
+          fullSrcset: largeSrcset,
+          alt: alt || ''
+        };
+      }
+
+      // Reset mobile carousel to variant image (index 0)
+      section.__ghGalleryIndex = 0;
+      var thumbs = section.querySelectorAll('[data-gallery-thumb]');
+      thumbs.forEach(function (t) {
+        t.classList.toggle('product-gallery__thumb--active',
+          parseInt(t.dataset.slideIndex, 10) === 0);
+      });
+      var dots = section.querySelectorAll('.product-gallery__dot');
+      dots.forEach(function (d, i) {
+        d.classList.toggle('product-gallery__dot--active', i === 0);
+      });
     };
   }
 
   /* =========================================
-     1b. Lightbox — opens full-size image
+     1b. Mobile Swipe — thumb tap + swipe gestures
+     ========================================= */
+  function initMobileSwipe(section) {
+    var images = section.__ghGalleryImages;
+    if (!images || images.length < 2) return;
+
+    var swipeArea = section.querySelector('[data-mobile-swipe-area]');
+    var dotsContainer = section.querySelector('[data-gallery-dots]');
+
+    // Generate pagination dots
+    if (dotsContainer) {
+      for (var i = 0; i < images.length; i++) {
+        var dot = document.createElement('span');
+        dot.className = 'product-gallery__dot' + (i === 0 ? ' product-gallery__dot--active' : '');
+        dot.dataset.index = i;
+        dotsContainer.appendChild(dot);
+      }
+
+      dotsContainer.addEventListener('click', function (e) {
+        var dot = e.target.closest('.product-gallery__dot');
+        if (dot && window.innerWidth < 768) {
+          section.__ghGallerySetIndex(parseInt(dot.dataset.index, 10));
+        }
+      });
+    }
+
+    // Thumb tap — on mobile, changes hero instead of opening lightbox
+    var thumbs = section.querySelectorAll('[data-gallery-thumb]');
+    thumbs.forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        if (window.innerWidth >= 768) return;
+        var idx = parseInt(this.dataset.slideIndex, 10);
+        if (!isNaN(idx)) {
+          section.__ghGallerySetIndex(idx);
+        }
+      });
+    });
+
+    // Touch swipe on mobile hero
+    if (swipeArea) {
+      var startX = 0;
+      var startY = 0;
+      var tracking = false;
+
+      swipeArea.addEventListener('touchstart', function (e) {
+        if (window.innerWidth >= 768) return;
+        var touch = e.touches[0];
+        startX = touch.clientX;
+        startY = touch.clientY;
+        tracking = true;
+      }, { passive: true });
+
+      swipeArea.addEventListener('touchmove', function (e) {
+        if (!tracking || window.innerWidth >= 768) return;
+        var touch = e.touches[0];
+        var dx = touch.clientX - startX;
+        var dy = touch.clientY - startY;
+        // If horizontal swipe detected, prevent vertical scroll
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      swipeArea.addEventListener('touchend', function (e) {
+        if (!tracking || window.innerWidth >= 768) return;
+        tracking = false;
+        var touch = e.changedTouches[0];
+        var dx = touch.clientX - startX;
+        var dy = touch.clientY - startY;
+        var absDx = Math.abs(dx);
+        var absDy = Math.abs(dy);
+
+        // Require minimum 30px horizontal, and angle < 30° from horizontal
+        if (absDx > 30 && absDx > absDy * 1.73) {
+          if (dx < 0) {
+            // Swipe left → next image
+            section.__ghGallerySetIndex(section.__ghGalleryIndex + 1);
+          } else {
+            // Swipe right → previous image
+            section.__ghGallerySetIndex(section.__ghGalleryIndex - 1);
+          }
+        }
+      }, { passive: true });
+    }
+  }
+
+  /* =========================================
+     1c. Lightbox — opens full-size image
      ========================================= */
   function initLightbox(section) {
     var lightbox = section.querySelector('[data-gallery-lightbox]');
@@ -152,6 +318,10 @@
     // Bind all triggers (grid items, mobile hero, thumbnails)
     triggers.forEach(function (trigger) {
       trigger.addEventListener('click', function (e) {
+        // Mobile guard: thumb taps change hero, don't open lightbox
+        if (window.innerWidth < 768 && this.hasAttribute('data-gallery-thumb')) {
+          return;
+        }
         e.preventDefault();
         var el = this.closest('[data-full-src]') || this;
         openLightbox(
