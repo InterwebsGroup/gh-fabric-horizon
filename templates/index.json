@@ -131,7 +131,7 @@
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "4.9 \u2605",
+            "number": "4.9 ★",
             "label": "Average Rating"
           }
         },
@@ -707,6 +707,7 @@
           "name": "Oversized",
           "settings": {
             "media_type_1": "image",
+            "image_1": "shopify://shop_images/hf_20260131_215113_4696c543-8145-42df-8e01-fa182bdd5683.png",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
@@ -804,6 +805,7 @@
           "name": "Comfy",
           "settings": {
             "media_type_1": "image",
+            "image_1": "shopify://shop_images/hf_20260131_214830_739d34be-e4d0-4128-ac39-dcba8ad879c5.jpg",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
@@ -901,6 +903,7 @@
           "name": "Trendy",
           "settings": {
             "media_type_1": "image",
+            "image_1": "shopify://shop_images/hf_20260131_214445_db912037-76f3-4d8b-b0d6-696c838034f8.jpg",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
@@ -998,6 +1001,7 @@
           "name": "Guaranteed",
           "settings": {
             "media_type_1": "image",
+            "image_1": "shopify://shop_images/hf_20260131_214825_b108ec21-29c9-43bb-9cf5-faf9c7f4eb07.jpg",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
@@ -1095,6 +1099,7 @@
           "name": "Free Shipping",
           "settings": {
             "media_type_1": "image",
+            "image_1": "shopify://shop_images/hf_20260131_214039_58d03645-38bc-42e4-9245-cf64be0a3832.jpg",
             "content_direction": "column",
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
@@ -1496,7 +1501,7 @@
                 "text_fab02": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Super soft, lightweight sponge fleece \u2014 the kind you never want to take off. It's plush and cozy without being heavy or bulky. Our customers describe it as \"wearing a hug.\" Once you feel it, you'll get it.</p>",
+                    "text": "<p>Super soft, lightweight sponge fleece — the kind you never want to take off. It's plush and cozy without being heavy or bulky. Our customers describe it as \"wearing a hug.\" Once you feel it, you'll get it.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1535,7 +1540,7 @@
                 "text_wash03": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>With love! Our sponge fleece is super soft but delicate. Here's the deal: tie little knots in the drawstring ends so they don't pull out, wash alone or with soft clothes only, cold water on the gentle cycle, and always air dry \u2014 no dryer. Treat it right and you'll stay in love for years.</p>",
+                    "text": "<p>With love! Our sponge fleece is super soft but delicate. Here's the deal: tie little knots in the drawstring ends so they don't pull out, wash alone or with soft clothes only, cold water on the gentle cycle, and always air dry — no dryer. Treat it right and you'll stay in love for years.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1613,7 +1618,7 @@
                 "text_summ05": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Absolutely. Our sponge fleece is lightweight and breathable \u2014 not heavy or bulky at all. Customers wear them year-round: in blasting AC, on summer movie nights, and even outside in warm weather. It's cozy without the sweat.</p>",
+                    "text": "<p>Absolutely. Our sponge fleece is lightweight and breathable — not heavy or bulky at all. Customers wear them year-round: in blasting AC, on summer movie nights, and even outside in warm weather. It's cozy without the sweat.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1712,7 +1717,7 @@
                 "text_made08": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Every single hoodie is printed and packed by hand at our facility in Fayetteville, Arkansas, in the USA. We're a small team of 5 who genuinely love what we do \u2014 and we put a handwritten thank-you card in every order. You're supporting a real small business, not a faceless warehouse.</p>",
+                    "text": "<p>Every single hoodie is printed and packed by hand at our facility in Fayetteville, Arkansas, in the USA. We're a small team of 5 who genuinely love what we do — and we put a handwritten thank-you card in every order. You're supporting a real small business, not a faceless warehouse.</p>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
