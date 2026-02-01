@@ -57,9 +57,14 @@
 
         // Update the product grid section
         if (sections[gridSectionId] && gridEl) {
-          gridEl.innerHTML = sections[gridSectionId];
-          gridEl.style.opacity = '';
-          gridEl.style.transition = '';
+          var gridParser = new DOMParser();
+          var gridDoc = gridParser.parseFromString(sections[gridSectionId], 'text/html');
+          var newContent = gridDoc.body.children;
+          gridEl.replaceChildren.apply(gridEl, Array.from(newContent));
+          requestAnimationFrame(function () {
+            gridEl.style.opacity = '';
+            gridEl.style.transition = '';
+          });
         }
 
         // Update browser URL
