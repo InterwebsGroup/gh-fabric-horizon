@@ -83,9 +83,11 @@
   {%- endif -%}
 
   {%- comment -%} ========== COLLECTION DESCRIPTION ========== {%- endcomment -%}
-  <div class="collection-description">
-    <p>{{ section.settings.collection_description | default: "Giant Hoodies are intentionally oversized, made with super-soft sponge fleece, and printed by hand right here in the USA. They're as soft as cashmere, cozy as your favorite blanket, and designed to wrap you in comfort wherever life takes you." }}</p>
-  </div>
+  {%- if collection.description != blank -%}
+    <div class="collection-description">
+      {{ collection.description }}
+    </div>
+  {%- endif -%}
 
   {%- comment -%} ========== SECTION HEADER ========== {%- endcomment -%}
   <div class="collection-section-header">
@@ -342,16 +344,6 @@
       "label": "Subheadline",
       "info": "Used in Flat pricing mode"
     },
-    {
-      "type": "header",
-      "content": "Collection Description"
-    },
-    {
-      "type": "textarea",
-      "id": "collection_description",
-      "label": "Description Text",
-      "default": "Giant Hoodies are intentionally oversized, made with super-soft sponge fleece, and printed by hand right here in the USA. They're as soft as cashmere, cozy as your favorite blanket, and designed to wrap you in comfort wherever life takes you."
-    }
   ],
   "blocks": [
     {
