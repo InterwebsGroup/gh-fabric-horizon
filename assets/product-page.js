@@ -23,6 +23,15 @@
 
     var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
 
+    // Preload all variant images so swatch clicks are instant
+    variants.forEach(function (v) {
+      if (v.featured_image && v.featured_image.src) {
+        var base = v.featured_image.src.replace(/[?&]width=\d+/g, '');
+        var s = base.indexOf('?') !== -1 ? '&' : '?';
+        new Image().src = base + s + 'width=900';
+      }
+    });
+
     initGallery(section);
     initMobileSwipe(section);
     initLightbox(section);
@@ -116,7 +125,6 @@
       var baseSrc = src.replace(/[?&]width=\d+/g, '');
       var sep = baseSrc.indexOf('?') !== -1 ? '&' : '?';
       var heroSrc = baseSrc + sep + 'width=900';
-      var thumbSrc = baseSrc + sep + 'width=100';
       var largeSrc = baseSrc + sep + 'width=1200';
       var srcset = [400, 600, 900, 1200].map(function (w) {
         return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
@@ -153,7 +161,7 @@
         variantThumb.dataset.fullAlt = alt || '';
         var thumbImg = variantThumb.querySelector('img');
         if (thumbImg) {
-          thumbImg.src = thumbSrc;
+          thumbImg.src = heroSrc;
           thumbImg.alt = alt || '';
         }
       }
