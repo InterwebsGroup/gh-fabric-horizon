@@ -79,17 +79,17 @@
       var img = images[index];
       if (!img || !mobileHero) return;
 
-      // Crossfade: briefly reduce opacity, swap src, restore
-      mobileHero.classList.add('product-gallery__hero-img--fading');
-      setTimeout(function () {
+      // Preload then swap to avoid white flash
+      var preload = new Image();
+      preload.onload = function () {
         mobileHero.src = img.src;
         mobileHero.srcset = img.srcset;
         mobileHero.alt = img.alt;
         mobileHero.dataset.fullSrc = img.fullSrc;
         mobileHero.dataset.fullSrcset = img.fullSrcset;
         mobileHero.dataset.fullAlt = img.alt;
-        mobileHero.classList.remove('product-gallery__hero-img--fading');
-      }, 75);
+      };
+      preload.src = img.src;
 
       // Update active thumbnail
       var thumbs = section.querySelectorAll('[data-gallery-thumb]');
@@ -130,29 +130,33 @@
         return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
       }).join(', ');
 
-      // Update desktop grid position 1
-      if (desktopHero) {
-        desktopHero.src = heroSrc;
-        desktopHero.srcset = srcset;
-        desktopHero.alt = alt || '';
-      }
-
-      // Update desktop grid-item lightbox data
+      // Update lightbox data immediately (no visible change)
       if (variantGridItem) {
         variantGridItem.dataset.fullSrc = largeSrc;
         variantGridItem.dataset.fullSrcset = largeSrcset;
         variantGridItem.dataset.fullAlt = alt || '';
       }
-
-      // Update mobile hero
       if (mobileHero) {
-        mobileHero.src = heroSrc;
-        mobileHero.srcset = srcset;
-        mobileHero.alt = alt || '';
         mobileHero.dataset.fullSrc = largeSrc;
         mobileHero.dataset.fullSrcset = largeSrcset;
         mobileHero.dataset.fullAlt = alt || '';
       }
+
+      // Preload then swap visible heroes to avoid white flash
+      var preload = new Image();
+      preload.onload = function () {
+        if (desktopHero) {
+          desktopHero.src = heroSrc;
+          desktopHero.srcset = srcset;
+          desktopHero.alt = alt || '';
+        }
+        if (mobileHero) {
+          mobileHero.src = heroSrc;
+          mobileHero.srcset = srcset;
+          mobileHero.alt = alt || '';
+        }
+      };
+      preload.src = heroSrc;
 
       // Update mobile variant thumbnail
       var variantThumb = section.querySelector('[data-variant-thumb]');
