@@ -171,7 +171,7 @@
       </form>
 
       {%- comment -%} Volume pricing banner (sitewide mix & match — informational only) {%- endcomment -%}
-      {%- if settings.pricing_mode == 'tiered' and is_tier_eligible -%}
+      {%- if section.settings.show_tier_pricing and settings.pricing_mode == 'tiered' and is_tier_eligible -%}
         {%- liquid
           assign tier_2_price = settings.tier_2_price | times: 100
           assign tier_3_price = settings.tier_3_price | times: 100
@@ -1359,6 +1359,12 @@
     {
       "type": "paragraph",
       "content": "Informational table shown when pricing mode is Tiered and the product is tier-eligible. Discounts apply sitewide (mix & match)."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tier_pricing",
+      "label": "Show volume pricing tiers",
+      "default": true
     },
     {
       "type": "text",
