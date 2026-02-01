@@ -79,17 +79,12 @@
       var img = images[index];
       if (!img || !mobileHero) return;
 
-      // Preload then swap to avoid white flash
-      var preload = new Image();
-      preload.onload = function () {
-        mobileHero.src = img.src;
-        mobileHero.srcset = img.srcset;
-        mobileHero.alt = img.alt;
-        mobileHero.dataset.fullSrc = img.fullSrc;
-        mobileHero.dataset.fullSrcset = img.fullSrcset;
-        mobileHero.dataset.fullAlt = img.alt;
-      };
-      preload.src = img.src;
+      mobileHero.src = img.src;
+      mobileHero.srcset = img.srcset;
+      mobileHero.alt = img.alt;
+      mobileHero.dataset.fullSrc = img.fullSrc;
+      mobileHero.dataset.fullSrcset = img.fullSrcset;
+      mobileHero.dataset.fullAlt = img.alt;
 
       // Update active thumbnail
       var thumbs = section.querySelectorAll('[data-gallery-thumb]');
@@ -130,33 +125,25 @@
         return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
       }).join(', ');
 
-      // Update lightbox data immediately (no visible change)
+      // Update all images synchronously so everything changes together
+      if (desktopHero) {
+        desktopHero.src = heroSrc;
+        desktopHero.srcset = srcset;
+        desktopHero.alt = alt || '';
+      }
       if (variantGridItem) {
         variantGridItem.dataset.fullSrc = largeSrc;
         variantGridItem.dataset.fullSrcset = largeSrcset;
         variantGridItem.dataset.fullAlt = alt || '';
       }
       if (mobileHero) {
+        mobileHero.src = heroSrc;
+        mobileHero.srcset = srcset;
+        mobileHero.alt = alt || '';
         mobileHero.dataset.fullSrc = largeSrc;
         mobileHero.dataset.fullSrcset = largeSrcset;
         mobileHero.dataset.fullAlt = alt || '';
       }
-
-      // Preload then swap visible heroes to avoid white flash
-      var preload = new Image();
-      preload.onload = function () {
-        if (desktopHero) {
-          desktopHero.src = heroSrc;
-          desktopHero.srcset = srcset;
-          desktopHero.alt = alt || '';
-        }
-        if (mobileHero) {
-          mobileHero.src = heroSrc;
-          mobileHero.srcset = srcset;
-          mobileHero.alt = alt || '';
-        }
-      };
-      preload.src = heroSrc;
 
       // Update mobile variant thumbnail
       var variantThumb = section.querySelector('[data-variant-thumb]');
