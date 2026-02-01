@@ -4588,7 +4588,7 @@ h1, h2, h3, h4, h5, h6,
 .volume-pricing-banner-section {
   position: sticky;
   top: calc(var(--header-height, 60px) - 1px);
-  z-index: 99; /* Below header (100) but above content */
+  z-index: calc(var(--layer-sticky) - 1); /* Below header but above content */
 }
 
 .volume-pricing-banner {
