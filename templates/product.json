@@ -12,11 +12,11 @@
     "product-main": {
       "type": "product-main",
       "settings": {
-        "gallery_image_1": "shopify://shop_images/giant-hoodies-different.jpg",
-        "gallery_image_2": "shopify://shop_images/soft-cozy-giant.jpg",
-        "gallery_image_3": "shopify://shop_images/225k-happy-customers.jpg",
-        "gallery_image_4": "shopify://shop_images/giant-hoodies-for-everyone.jpg",
-        "gallery_image_5": "shopify://shop_images/giant-hoodie-guarantee.jpg",
+        "gallery_image_1": "shopify://shop_images/gh-different.jpg",
+        "gallery_image_2": "shopify://shop_images/gh-live-in-it.jpg",
+        "gallery_image_3": "shopify://shop_images/gh-different.jpg",
+        "gallery_image_4": "shopify://shop_images/gh-for-everyone.jpg",
+        "gallery_image_5": "shopify://shop_images/gh-guarantee.jpg",
         "benefit_1": "When a regular hoodie just isn't big enough",
         "benefit_2": "These are oversized and “too big” on purpose",
         "benefit_3": "Try one and understand why 225,000 others love it",
