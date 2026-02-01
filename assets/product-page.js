@@ -23,10 +23,13 @@
 
     var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
 
-    // Preload all variant images so swatch clicks are instant
+    // Preload all unique variant images so swatch clicks are instant
+    var preloaded = {};
     variants.forEach(function (v) {
       if (v.featured_image && v.featured_image.src) {
         var base = v.featured_image.src.replace(/[?&]width=\d+/g, '');
+        if (preloaded[base]) return;
+        preloaded[base] = true;
         var s = base.indexOf('?') !== -1 ? '&' : '?';
         new Image().src = base + s + 'width=900';
         new Image().src = base + s + 'width=1200';
