@@ -6,3 +6,10 @@
     width: 100%;
   }
 }
+
+/* FAQ accordion content font size */
+.accordion .details-content,
+.accordion .text-block,
+.accordion .rte {
+  font-size: 1rem;
+}

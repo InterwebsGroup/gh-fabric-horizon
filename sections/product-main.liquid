@@ -196,11 +196,16 @@
                     <span class="product__volume-discount">{{ discount_pct_1 }}% off</span>
                   {%- endif -%}
                 </div>
-                <span class="product__volume-per">{{ selected_variant.price | money_without_trailing_zeros }}/each</span>
-              </div>
-              <div class="product__volume-right">
                 <div class="product__volume-price-row">
                   <span class="product__volume-price">{{ selected_variant.price | money_without_trailing_zeros }}</span>
+                  {%- if savings_amount > 0 -%}
+                    <s class="product__volume-compare">{{ compare_at | money_without_trailing_zeros }}</s>
+                  {%- endif -%}
+                </div>
+              </div>
+              <div class="product__volume-right">
+                <div class="product__volume-per-row">
+                  <span class="product__volume-per">{{ selected_variant.price | money_without_trailing_zeros }}/ea</span>
                   {%- if savings_amount > 0 -%}
                     <s class="product__volume-compare">{{ compare_at | money_without_trailing_zeros }}</s>
                   {%- endif -%}
@@ -221,12 +226,15 @@
                     <span class="product__volume-discount">{{ discount_pct_2 }}% off</span>
                   {%- endif -%}
                 </div>
-                <span class="product__volume-per">{{ tier_2_price | money_without_trailing_zeros }}/each</span>
-              </div>
-              <div class="product__volume-right">
                 <div class="product__volume-price-row">
                   <span class="product__volume-price">{{ tier_2_total | money_without_trailing_zeros }}</span>
                   <s class="product__volume-compare">{{ compare_total_2 | money_without_trailing_zeros }}</s>
+                </div>
+              </div>
+              <div class="product__volume-right">
+                <div class="product__volume-per-row">
+                  <span class="product__volume-per">{{ tier_2_price | money_without_trailing_zeros }}/ea</span>
+                  <s class="product__volume-compare">{{ compare_at | money_without_trailing_zeros }}</s>
                 </div>
                 {%- if savings_tier_2 > 0 -%}
                   <span class="product__volume-save">Save {{ savings_tier_2 | money_without_trailing_zeros }}</span>
@@ -244,12 +252,15 @@
                     <span class="product__volume-discount">{{ discount_pct_3 }}% off</span>
                   {%- endif -%}
                 </div>
-                <span class="product__volume-per">{{ tier_3_price | money_without_trailing_zeros }}/each</span>
-              </div>
-              <div class="product__volume-right">
                 <div class="product__volume-price-row">
                   <span class="product__volume-price">{{ tier_3_total | money_without_trailing_zeros }}</span>
                   <s class="product__volume-compare">{{ compare_total_3 | money_without_trailing_zeros }}</s>
+                </div>
+              </div>
+              <div class="product__volume-right">
+                <div class="product__volume-per-row">
+                  <span class="product__volume-per">{{ tier_3_price | money_without_trailing_zeros }}/ea</span>
+                  <s class="product__volume-compare">{{ compare_at | money_without_trailing_zeros }}</s>
                 </div>
                 {%- if savings_tier_3 > 0 -%}
                   <span class="product__volume-save">Save {{ savings_tier_3 | money_without_trailing_zeros }} or more!</span>
@@ -710,12 +721,10 @@
     white-space: nowrap;
   }
 
-  .product__volume-per {
-    display: block;
-    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: var(--color-espresso-light, #5a4a3d);
+  .product__volume-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
     margin-top: 2px;
   }
 
@@ -725,11 +734,18 @@
     padding-left: 16px;
   }
 
-  .product__volume-price-row {
+  .product__volume-per-row {
     display: flex;
     align-items: baseline;
     justify-content: flex-end;
     gap: 6px;
+  }
+
+  .product__volume-per {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-espresso, #3d3028);
   }
 
   .product__volume-price {
