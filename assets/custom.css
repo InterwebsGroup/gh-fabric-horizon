@@ -11,5 +11,5 @@
 .accordion .details-content,
 .accordion .text-block,
 .accordion .rte {
-  font-size: 1rem;
+  font-size: var(--font-size--md);
 }
