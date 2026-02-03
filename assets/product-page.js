@@ -72,14 +72,9 @@
       return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
     }).join(', ');
 
-    // Preload the image before swapping to prevent white flash
-    var preloader = new Image();
-    preloader.onload = function () {
-      productImage.src = heroSrc;
-      productImage.srcset = srcset;
-      productImage.alt = alt || '';
-    };
-    preloader.src = heroSrc;
+    productImage.src = heroSrc;
+    productImage.srcset = srcset;
+    productImage.alt = alt || '';
   }
 
   /* =========================================
