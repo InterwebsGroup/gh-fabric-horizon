@@ -47,7 +47,8 @@
           when 2
             assign upsell_msg = settings.upsell_2_hoodies
           else
-            assign upsell_msg = settings.upsell_3_plus
+            assign tier_savings = settings.tier_retail_price | minus: settings.tier_3_price
+            assign upsell_msg = 'Save $' | append: tier_savings | append: ' more by adding another hoodie :)'
             assign show_cta = false
         endcase
       endif

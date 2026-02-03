@@ -4306,7 +4306,7 @@ h1, h2, h3, h4, h5, h6,
 /* ── Cart Upsell Banner ── */
 .gh-cart-upsell {
   background: var(--color-espresso);
-  padding: 0.625rem 1rem;
+  padding: 1rem 1.25rem;
   text-align: center;
 }
 
@@ -4584,11 +4584,16 @@ h1, h2, h3, h4, h5, h6,
   text-align: center;
 }
 
-/* ── Volume Pricing Banner (collection pages) ── */
-.volume-pricing-banner-section {
+/* ── Volume Pricing Banner (global) ── */
+.volume-pricing-banner--global {
   position: sticky;
   top: calc(var(--header-height, 60px) - 1px);
-  z-index: calc(var(--layer-sticky) - 1); /* Below header but above content */
+  z-index: calc(var(--layer-sticky) - 1);
+}
+
+/* Hide section version since global banner is now in layout */
+.volume-pricing-banner-section {
+  display: none;
 }
 
 .volume-pricing-banner {
