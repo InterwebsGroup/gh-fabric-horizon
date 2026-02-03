@@ -1,6 +1,6 @@
 /**
  * Giant Hoodies — Product Page
- * Handles image gallery, mobile swipe, color swatches,
+ * Handles variant image display, color swatches,
  * sticky ATC bar, and AJAX add-to-cart with cart drawer integration.
  */
 (function () {
@@ -21,8 +21,6 @@
       }
     }
 
-    var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
-
     // Preload all unique variant images so swatch clicks are instant
     var preloaded = {};
     variants.forEach(function (v) {
@@ -36,9 +34,6 @@
       }
     });
 
-    initGallery(section);
-    initMobileSwipe(section);
-    initLightbox(section);
     initSwatches(section, variants);
     initStickyATC(section);
     initAddToCart(section, variants);
@@ -52,7 +47,6 @@
     var amount = (cents / 100).toFixed(2);
     var amountNoDecimals = Math.round(cents / 100);
     var amountWithComma = amount.replace('.', ',');
-    // Normalize spaces inside {{ }} so formats like ${{ amount_no_decimals }} work
     var f = format.replace(/\{\{\s*(\w+)\s*\}\}/g, '{{$1}}');
     return f
       .replace('{{amount_with_comma_separator}}', amountWithComma)
@@ -62,308 +56,29 @@
   }
 
   /* =========================================
-     1. Image Gallery — variant image sync + mobile carousel
-     Desktop: 1+2 grid, Mobile: hero + thumbs + swipe
+     Update Product Image — called on variant change
      ========================================= */
-  function initGallery(section) {
-    var desktopHero = section.querySelector('[data-gallery-hero]');
-    var mobileHero = section.querySelector('[data-gallery-hero-mobile]');
-    var variantGridItem = section.querySelector('.product-gallery__grid-item--variant');
+  function updateProductImage(section, src, alt) {
+    if (!src) return;
 
-    // Parse gallery images JSON for mobile swipe carousel
-    var imagesEl = section.querySelector('[data-gallery-images]');
-    var images = [];
-    if (imagesEl) {
-      try {
-        images = JSON.parse(imagesEl.textContent);
-      } catch (e) {
-        console.warn('[GH] Could not parse gallery images');
-      }
-    }
-    section.__ghGalleryImages = images;
-    section.__ghGalleryIndex = 0;
+    var productImage = section.querySelector('[data-product-image]');
+    if (!productImage) return;
 
-    // Set the mobile hero to a specific slide index
-    section.__ghGallerySetIndex = function (index) {
-      if (!images.length) return;
-      if (index < 0) index = images.length - 1;
-      if (index >= images.length) index = 0;
-      section.__ghGalleryIndex = index;
-      var img = images[index];
-      if (!img || !mobileHero) return;
+    // Build sized URLs from base src
+    var baseSrc = src.replace(/[?&]width=\d+/g, '');
+    var sep = baseSrc.indexOf('?') !== -1 ? '&' : '?';
+    var heroSrc = baseSrc + sep + 'width=900';
+    var srcset = [400, 600, 900, 1200].map(function (w) {
+      return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
+    }).join(', ');
 
-      mobileHero.src = img.src;
-      mobileHero.srcset = img.srcset;
-      mobileHero.alt = img.alt;
-      mobileHero.dataset.fullSrc = img.fullSrc;
-      mobileHero.dataset.fullSrcset = img.fullSrcset;
-      mobileHero.dataset.fullAlt = img.alt;
-
-      // Update active thumbnail
-      var thumbs = section.querySelectorAll('[data-gallery-thumb]');
-      thumbs.forEach(function (t) {
-        t.classList.remove('product-gallery__thumb--active');
-        if (parseInt(t.dataset.slideIndex, 10) === index) {
-          t.classList.add('product-gallery__thumb--active');
-        }
-      });
-
-      // Update pagination dots
-      var dots = section.querySelectorAll('.product-gallery__dot');
-      dots.forEach(function (d, i) {
-        d.classList.toggle('product-gallery__dot--active', i === index);
-      });
-
-      // Preload adjacent images
-      var prev = images[(index - 1 + images.length) % images.length];
-      var next = images[(index + 1) % images.length];
-      if (prev) new Image().src = prev.src;
-      if (next) new Image().src = next.src;
-    };
-
-    // Expose method for swatch integration — updates variant image (pos 1)
-    section.__ghGalleryUpdateVariant = function (src, alt) {
-      if (!src) return;
-
-      // Build sized URLs from base src
-      var baseSrc = src.replace(/[?&]width=\d+/g, '');
-      var sep = baseSrc.indexOf('?') !== -1 ? '&' : '?';
-      var heroSrc = baseSrc + sep + 'width=900';
-      var largeSrc = baseSrc + sep + 'width=1200';
-      var srcset = [400, 600, 900, 1200].map(function (w) {
-        return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
-      }).join(', ');
-      var largeSrcset = [600, 900, 1200].map(function (w) {
-        return baseSrc + sep + 'width=' + w + ' ' + w + 'w';
-      }).join(', ');
-
-      // Update all images synchronously so everything changes together
-      if (desktopHero) {
-        desktopHero.src = heroSrc;
-        desktopHero.srcset = srcset;
-        desktopHero.alt = alt || '';
-      }
-      if (variantGridItem) {
-        variantGridItem.dataset.fullSrc = largeSrc;
-        variantGridItem.dataset.fullSrcset = largeSrcset;
-        variantGridItem.dataset.fullAlt = alt || '';
-      }
-      if (mobileHero) {
-        mobileHero.src = heroSrc;
-        mobileHero.srcset = srcset;
-        mobileHero.alt = alt || '';
-        mobileHero.dataset.fullSrc = largeSrc;
-        mobileHero.dataset.fullSrcset = largeSrcset;
-        mobileHero.dataset.fullAlt = alt || '';
-      }
-
-      // Update mobile variant thumbnail
-      var variantThumb = section.querySelector('[data-variant-thumb]');
-      if (variantThumb) {
-        variantThumb.dataset.fullSrc = largeSrc;
-        variantThumb.dataset.fullSrcset = largeSrcset;
-        variantThumb.dataset.fullAlt = alt || '';
-        var thumbImg = variantThumb.querySelector('img');
-        if (thumbImg) {
-          thumbImg.src = heroSrc;
-          thumbImg.alt = alt || '';
-        }
-      }
-
-      // Update index 0 in images array (variant is always first)
-      if (images.length > 0) {
-        images[0] = {
-          src: heroSrc,
-          srcset: srcset,
-          fullSrc: largeSrc,
-          fullSrcset: largeSrcset,
-          alt: alt || ''
-        };
-      }
-
-      // Reset mobile carousel to variant image (index 0)
-      section.__ghGalleryIndex = 0;
-      var thumbs = section.querySelectorAll('[data-gallery-thumb]');
-      thumbs.forEach(function (t) {
-        t.classList.toggle('product-gallery__thumb--active',
-          parseInt(t.dataset.slideIndex, 10) === 0);
-      });
-      var dots = section.querySelectorAll('.product-gallery__dot');
-      dots.forEach(function (d, i) {
-        d.classList.toggle('product-gallery__dot--active', i === 0);
-      });
-    };
+    productImage.src = heroSrc;
+    productImage.srcset = srcset;
+    productImage.alt = alt || '';
   }
 
   /* =========================================
-     1b. Mobile Swipe — thumb tap + swipe gestures
-     ========================================= */
-  function initMobileSwipe(section) {
-    var images = section.__ghGalleryImages;
-    if (!images || images.length < 2) return;
-
-    var swipeArea = section.querySelector('[data-mobile-swipe-area]');
-    var dotsContainer = section.querySelector('[data-gallery-dots]');
-
-    // Generate pagination dots
-    if (dotsContainer) {
-      for (var i = 0; i < images.length; i++) {
-        var dot = document.createElement('span');
-        dot.className = 'product-gallery__dot' + (i === 0 ? ' product-gallery__dot--active' : '');
-        dot.dataset.index = i;
-        dotsContainer.appendChild(dot);
-      }
-
-      dotsContainer.addEventListener('click', function (e) {
-        var dot = e.target.closest('.product-gallery__dot');
-        if (dot && window.innerWidth < 768) {
-          section.__ghGallerySetIndex(parseInt(dot.dataset.index, 10));
-        }
-      });
-    }
-
-    // Thumb tap — on mobile, changes hero instead of opening lightbox
-    var thumbs = section.querySelectorAll('[data-gallery-thumb]');
-    thumbs.forEach(function (thumb) {
-      thumb.addEventListener('click', function () {
-        if (window.innerWidth >= 768) return;
-        var idx = parseInt(this.dataset.slideIndex, 10);
-        if (!isNaN(idx)) {
-          section.__ghGallerySetIndex(idx);
-        }
-      });
-    });
-
-    // Touch swipe on mobile hero
-    if (swipeArea) {
-      var startX = 0;
-      var startY = 0;
-      var tracking = false;
-
-      swipeArea.addEventListener('touchstart', function (e) {
-        if (window.innerWidth >= 768) return;
-        var touch = e.touches[0];
-        startX = touch.clientX;
-        startY = touch.clientY;
-        tracking = true;
-      }, { passive: true });
-
-      swipeArea.addEventListener('touchmove', function (e) {
-        if (!tracking || window.innerWidth >= 768) return;
-        var touch = e.touches[0];
-        var dx = touch.clientX - startX;
-        var dy = touch.clientY - startY;
-        // If horizontal swipe detected, prevent vertical scroll
-        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 10) {
-          e.preventDefault();
-        }
-      }, { passive: false });
-
-      swipeArea.addEventListener('touchend', function (e) {
-        if (!tracking || window.innerWidth >= 768) return;
-        tracking = false;
-        var touch = e.changedTouches[0];
-        var dx = touch.clientX - startX;
-        var dy = touch.clientY - startY;
-        var absDx = Math.abs(dx);
-        var absDy = Math.abs(dy);
-
-        // Require minimum 30px horizontal, and angle < 30° from horizontal
-        if (absDx > 30 && absDx > absDy * 1.73) {
-          if (dx < 0) {
-            // Swipe left → next image
-            section.__ghGallerySetIndex(section.__ghGalleryIndex + 1);
-          } else {
-            // Swipe right → previous image
-            section.__ghGallerySetIndex(section.__ghGalleryIndex - 1);
-          }
-        }
-      }, { passive: true });
-    }
-  }
-
-  /* =========================================
-     1c. Lightbox — opens full-size image
-     ========================================= */
-  function initLightbox(section) {
-    var lightbox = section.querySelector('[data-gallery-lightbox]');
-    var lightboxImg = section.querySelector('[data-lightbox-img]');
-    var closeBtn = section.querySelector('[data-lightbox-close]');
-    if (!lightbox || !lightboxImg) return;
-
-    var triggers = section.querySelectorAll('[data-lightbox-trigger]');
-
-    function handleEscape(e) {
-      if (e.key === 'Escape') closeLightbox();
-    }
-
-    function openLightbox(src, srcset, alt) {
-      lightboxImg.src = src || '';
-      if (srcset) {
-        lightboxImg.srcset = srcset;
-      } else {
-        lightboxImg.removeAttribute('srcset');
-      }
-      lightboxImg.alt = alt || '';
-      lightbox.classList.add('product-gallery__lightbox--open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      document.addEventListener('keydown', handleEscape);
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove('product-gallery__lightbox--open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      document.removeEventListener('keydown', handleEscape);
-    }
-
-    // Bind all triggers (grid items, mobile hero, thumbnails)
-    triggers.forEach(function (trigger) {
-      trigger.addEventListener('click', function (e) {
-        // Mobile guard: thumb taps change hero, don't open lightbox
-        if (window.innerWidth < 768 && this.hasAttribute('data-gallery-thumb')) {
-          return;
-        }
-        e.preventDefault();
-        var el = this.closest('[data-full-src]') || this;
-        openLightbox(
-          el.dataset.fullSrc,
-          el.dataset.fullSrcset,
-          el.dataset.fullAlt
-        );
-      });
-
-      // Keyboard support for div[role=button] triggers
-      if (trigger.getAttribute('role') === 'button') {
-        trigger.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            this.click();
-          }
-        });
-      }
-    });
-
-    // Close on button click
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        closeLightbox();
-      });
-    }
-
-    // Close on overlay click (not on image)
-    lightbox.addEventListener('click', function (e) {
-      if (e.target === lightbox) {
-        closeLightbox();
-      }
-    });
-
-  }
-
-  /* =========================================
-     2. Color Swatches
+     Color Swatches
      ========================================= */
   function initSwatches(section, variants) {
     var swatches = section.querySelectorAll('[data-swatch]');
@@ -411,16 +126,15 @@
         // Update ATC button state
         updateATCState(section, matchedVariant, moneyFormat);
 
-        // Update gallery to show variant image
-        if (matchedVariant.featured_image && section.__ghGalleryUpdateVariant) {
-          section.__ghGalleryUpdateVariant(matchedVariant.featured_image.src, matchedVariant.featured_image.alt);
+        // Update product image to show variant image
+        if (matchedVariant.featured_image) {
+          updateProductImage(section, matchedVariant.featured_image.src, matchedVariant.featured_image.alt);
         }
       });
     });
   }
 
   function findVariantByOption(variants, optionIndex, optionValue) {
-    // Find first available variant matching the selected option
     var available = null;
     var any = null;
     for (var i = 0; i < variants.length; i++) {
@@ -506,7 +220,7 @@
   }
 
   /* =========================================
-     3. Sticky Add to Cart (Mobile)
+     Sticky Add to Cart (Mobile)
      ========================================= */
   function initStickyATC(section) {
     var mainATC = section.querySelector('[data-add-to-cart]');
@@ -529,7 +243,6 @@
 
     observer.observe(mainATC);
 
-    // Sticky button clicks the main ATC button to trigger form submission
     var stickyBtn = stickyBar.querySelector('[data-sticky-atc-btn]');
     if (stickyBtn) {
       stickyBtn.addEventListener('click', function () {
@@ -542,7 +255,7 @@
   }
 
   /* =========================================
-     4. AJAX Add to Cart
+     AJAX Add to Cart
      ========================================= */
   function initAddToCart(section, variants) {
     var form = section.querySelector('[data-product-form]');
@@ -557,7 +270,6 @@
       var qtyInput = form.querySelector('[data-quantity-input]');
       var quantity = qtyInput ? qtyInput.value : '1';
 
-      // Disable buttons during request
       if (atcBtn) {
         atcBtn.disabled = true;
         var priceSpan = atcBtn.querySelector('[data-cart-price]');
@@ -572,7 +284,6 @@
       formData.set('id', variantId);
       formData.set('quantity', quantity);
 
-      // Include cart section IDs for live updating
       var cartSectionIds = [];
       document.querySelectorAll('cart-items-component').forEach(function (el) {
         if (el.dataset.sectionId) {
@@ -595,14 +306,12 @@
         })
         .then(function (data) {
           if (data.status) {
-            // Error from Shopify
             var msg = data.description || data.message || 'Could not add to cart';
             showATCError(section, msg);
             restoreATCButton(section, atcBtn, stickyBtn);
             return;
           }
 
-          // Dispatch event to update cart drawer + count
           document.dispatchEvent(new CustomEvent('cart:update', {
             bubbles: true,
             detail: {
@@ -617,7 +326,6 @@
             }
           }));
 
-          // Restore button after brief delay
           setTimeout(function () {
             restoreATCButton(section, atcBtn, stickyBtn);
           }, 1000);
@@ -648,7 +356,6 @@
   }
 
   function showATCError(section, message) {
-    // Remove existing error
     var existing = section.querySelector('.product__atc-error');
     if (existing) existing.remove();
 
@@ -669,7 +376,7 @@
   }
 
   /* =========================================
-     5. Back in Stock Form
+     Back in Stock Form
      ========================================= */
   function initBackInStock(section) {
     var form = section.querySelector('[data-back-in-stock-form]');
@@ -721,7 +428,6 @@
       })
         .then(function (response) {
           if (!response.ok) throw new Error('Subscription request failed');
-          // Show success, hide form
           var wrapper = form.closest('.product__back-in-stock-wrapper');
           if (wrapper) {
             var successEl = wrapper.querySelector('.product__back-in-stock-success');

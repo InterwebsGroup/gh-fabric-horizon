@@ -1,12 +1,7 @@
 {%- comment -%}
-  Product image gallery — desktop 1+2 asymmetric grid + lightbox, mobile hero + thumbnails.
-  Left column (spans 2 rows) = selected variant image (updates on swatch change only).
-  Right column = first 2 static gallery images (square, stacked).
-  Thumbnails = remaining gallery images (desktop: slots 3–5, mobile: all).
-  Mobile: thumbnails change the hero image; swipe left/right to cycle.
-  Clicking any image opens a lightbox at full size.
-  Unused gallery slots are hidden automatically (no placeholders).
-  Usage: {% render 'product-gallery', product: product, section: section %}
+  Product Single Image — displays only the currently selected variant's image.
+  Updates instantly on variant selection via JavaScript.
+  Usage: {% render 'product-gallery', product: product %}
 {%- endcomment -%}
 
 {%- liquid
@@ -14,218 +9,22 @@
   assign hero_media = selected_variant.featured_media | default: product.featured_media
 -%}
 
-<div class="product-gallery" data-product-gallery>
+<div class="product-image" data-product-image-container>
   {%- if hero_media -%}
-
-    {%- comment -%} ===== DESKTOP: 1+2 asymmetric grid (hidden on mobile) ===== {%- endcomment -%}
-    <div class="product-gallery__grid">
-      {%- comment -%} Position 1 — variant image, locked to swatch selection {%- endcomment -%}
-      <div
-        class="product-gallery__grid-item product-gallery__grid-item--variant"
-        data-lightbox-trigger
-        data-full-src="{{ hero_media | image_url: width: 1200 }}"
-        data-full-srcset="{{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w"
-        data-full-alt="{{ hero_media.alt | escape | default: product.title }}"
-        role="button"
-        tabindex="0"
-        aria-label="View variant image full size"
-      >
-        <img
-          data-gallery-hero
-          src="{{ hero_media | image_url: width: 900 }}"
-          srcset="{{ hero_media | image_url: width: 400 }} 400w, {{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w"
-          sizes="(min-width: 768px) 30vw, 100vw"
-          alt="{{ hero_media.alt | escape | default: product.title }}"
-          width="{{ hero_media.preview_image.width }}"
-          height="{{ hero_media.preview_image.height }}"
-          loading="eager"
-          fetchpriority="high"
-          decoding="async"
-          draggable="false"
-        >
-      </div>
-
-      {%- comment -%} Positions 2–3 — first 2 static gallery images (right column, hidden if blank) {%- endcomment -%}
-      {%- for i in (1..2) -%}
-        {%- case i -%}
-          {%- when 1 -%}{%- assign grid_img = section.settings.gallery_image_1 -%}
-          {%- when 2 -%}{%- assign grid_img = section.settings.gallery_image_2 -%}
-        {%- endcase -%}
-        {%- if grid_img != blank -%}
-          <div
-            class="product-gallery__grid-item"
-            data-lightbox-trigger
-            data-full-src="{{ grid_img | image_url: width: 1200 }}"
-            data-full-srcset="{{ grid_img | image_url: width: 600 }} 600w, {{ grid_img | image_url: width: 900 }} 900w, {{ grid_img | image_url: width: 1200 }} 1200w"
-            data-full-alt="{{ grid_img.alt | escape | default: product.title }}"
-            role="button"
-            tabindex="0"
-            aria-label="Gallery image {{ i }}"
-          >
-            <img
-              src="{{ grid_img | image_url: width: 600 }}"
-              srcset="{{ grid_img | image_url: width: 300 }} 300w, {{ grid_img | image_url: width: 600 }} 600w"
-              sizes="(min-width: 768px) 20vw, 100vw"
-              alt="{{ grid_img.alt | escape | default: product.title }}"
-              width="{{ grid_img.preview_image.width }}"
-              height="{{ grid_img.preview_image.height }}"
-              loading="{% if i == 1 %}eager{% else %}lazy{% endif %}"
-              draggable="false"
-            >
-          </div>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
-
-    {%- comment -%} ===== MOBILE: single hero image (hidden on desktop) ===== {%- endcomment -%}
-    <div class="product-gallery__hero product-gallery__mobile-only" data-mobile-swipe-area>
-      <img
-        data-gallery-hero-mobile
-        data-lightbox-trigger
-        data-full-src="{{ hero_media | image_url: width: 1200 }}"
-        data-full-srcset="{{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w"
-        data-full-alt="{{ hero_media.alt | escape | default: product.title }}"
-        src="{{ hero_media | image_url: width: 900 }}"
-        srcset="{{ hero_media | image_url: width: 400 }} 400w, {{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w"
-        sizes="100vw"
-        alt="{{ hero_media.alt | escape | default: product.title }}"
-        width="{{ hero_media.preview_image.width }}"
-        height="{{ hero_media.preview_image.height }}"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        draggable="false"
-      >
-    </div>
-
-    {%- comment -%} ===== MOBILE: pagination dots (hidden on desktop) ===== {%- endcomment -%}
-    <div class="product-gallery__dots product-gallery__mobile-only" data-gallery-dots></div>
-
-    {%- comment -%} ===== THUMBNAILS ===== {%- endcomment -%}
-    {%- assign slide_idx = 0 -%}
-    <div class="product-gallery__thumbs" data-gallery-thumbs>
-      {%- comment -%} Variant thumbnail — mobile only (desktop shows it in grid pos 1) {%- endcomment -%}
-      <button
-        type="button"
-        class="product-gallery__thumb product-gallery__thumb--variant product-gallery__thumb--mobile-only product-gallery__thumb--active"
-        data-gallery-thumb
-        data-variant-thumb
-        data-slide-index="{{ slide_idx }}"
-        data-lightbox-trigger
-        data-full-src="{{ hero_media | image_url: width: 1200 }}"
-        data-full-srcset="{{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w"
-        data-full-alt="{{ hero_media.alt | escape | default: product.title }}"
-        aria-label="Variant image"
-      >
-        <img
-          src="{{ hero_media | image_url: width: 100 }}"
-          alt="{{ hero_media.alt | escape | default: product.title }}"
-          width="80"
-          height="80"
-          loading="eager"
-          draggable="false"
-        >
-      </button>
-      {%- assign slide_idx = slide_idx | plus: 1 -%}
-
-      {%- comment -%} Static gallery images 1–2: mobile only (desktop shows in grid) {%- endcomment -%}
-      {%- for i in (1..2) -%}
-        {%- case i -%}
-          {%- when 1 -%}{%- assign gallery_img = section.settings.gallery_image_1 -%}
-          {%- when 2 -%}{%- assign gallery_img = section.settings.gallery_image_2 -%}
-        {%- endcase -%}
-        {%- if gallery_img != blank -%}
-          <button
-            type="button"
-            class="product-gallery__thumb product-gallery__thumb--mobile-only"
-            data-gallery-thumb
-            data-slide-index="{{ slide_idx }}"
-            data-lightbox-trigger
-            data-full-src="{{ gallery_img | image_url: width: 1200 }}"
-            data-full-srcset="{{ gallery_img | image_url: width: 600 }} 600w, {{ gallery_img | image_url: width: 900 }} 900w, {{ gallery_img | image_url: width: 1200 }} 1200w"
-            data-full-alt="{{ gallery_img.alt | escape | default: product.title }}"
-            aria-label="Gallery image {{ i }}"
-          >
-            <img
-              src="{{ gallery_img | image_url: width: 100 }}"
-              alt="{{ gallery_img.alt | escape | default: product.title }}"
-              width="80"
-              height="80"
-              loading="lazy"
-              draggable="false"
-            >
-          </button>
-          {%- assign slide_idx = slide_idx | plus: 1 -%}
-        {%- endif -%}
-      {%- endfor -%}
-
-      {%- comment -%} Static gallery images 3–5: visible on both desktop and mobile {%- endcomment -%}
-      {%- for i in (3..5) -%}
-        {%- case i -%}
-          {%- when 3 -%}{%- assign gallery_img = section.settings.gallery_image_3 -%}
-          {%- when 4 -%}{%- assign gallery_img = section.settings.gallery_image_4 -%}
-          {%- when 5 -%}{%- assign gallery_img = section.settings.gallery_image_5 -%}
-        {%- endcase -%}
-        {%- if gallery_img != blank -%}
-          <button
-            type="button"
-            class="product-gallery__thumb"
-            data-gallery-thumb
-            data-slide-index="{{ slide_idx }}"
-            data-lightbox-trigger
-            data-full-src="{{ gallery_img | image_url: width: 1200 }}"
-            data-full-srcset="{{ gallery_img | image_url: width: 600 }} 600w, {{ gallery_img | image_url: width: 900 }} 900w, {{ gallery_img | image_url: width: 1200 }} 1200w"
-            data-full-alt="{{ gallery_img.alt | escape | default: product.title }}"
-            aria-label="Gallery image {{ i }}"
-          >
-            <img
-              src="{{ gallery_img | image_url: width: 100 }}"
-              alt="{{ gallery_img.alt | escape | default: product.title }}"
-              width="80"
-              height="80"
-              loading="lazy"
-              draggable="false"
-            >
-          </button>
-          {%- assign slide_idx = slide_idx | plus: 1 -%}
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
-
-    {%- comment -%} ===== IMAGE DATA FOR MOBILE GALLERY ===== {%- endcomment -%}
-    <script type="application/json" data-gallery-images>
-      [{"src": {{ hero_media | image_url: width: 900 | json }},
-        "srcset": "{{ hero_media | image_url: width: 400 }} 400w, {{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w",
-        "fullSrc": {{ hero_media | image_url: width: 1200 | json }},
-        "fullSrcset": "{{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w",
-        "alt": {{ hero_media.alt | default: product.title | json }}}
-      {%- for i in (1..5) -%}
-        {%- case i -%}
-          {%- when 1 -%}{%- assign g_img = section.settings.gallery_image_1 -%}
-          {%- when 2 -%}{%- assign g_img = section.settings.gallery_image_2 -%}
-          {%- when 3 -%}{%- assign g_img = section.settings.gallery_image_3 -%}
-          {%- when 4 -%}{%- assign g_img = section.settings.gallery_image_4 -%}
-          {%- when 5 -%}{%- assign g_img = section.settings.gallery_image_5 -%}
-        {%- endcase -%}
-        {%- if g_img != blank -%}
-        ,{"src": {{ g_img | image_url: width: 900 | json }},
-          "srcset": "{{ g_img | image_url: width: 400 }} 400w, {{ g_img | image_url: width: 600 }} 600w, {{ g_img | image_url: width: 900 }} 900w, {{ g_img | image_url: width: 1200 }} 1200w",
-          "fullSrc": {{ g_img | image_url: width: 1200 | json }},
-          "fullSrcset": "{{ g_img | image_url: width: 600 }} 600w, {{ g_img | image_url: width: 900 }} 900w, {{ g_img | image_url: width: 1200 }} 1200w",
-          "alt": {{ g_img.alt | default: product.title | json }}}
-        {%- endif -%}
-      {%- endfor -%}]
-    </script>
-
-    {%- comment -%} ===== LIGHTBOX OVERLAY ===== {%- endcomment -%}
-    <div class="product-gallery__lightbox" data-gallery-lightbox aria-hidden="true" role="dialog" aria-label="Image viewer">
-      <button class="product-gallery__lightbox-close" data-lightbox-close aria-label="Close image viewer">&times;</button>
-      <img class="product-gallery__lightbox-img" data-lightbox-img alt="" />
-    </div>
-
+    <img
+      data-product-image
+      src="{{ hero_media | image_url: width: 900 }}"
+      srcset="{{ hero_media | image_url: width: 400 }} 400w, {{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w"
+      sizes="(min-width: 768px) 50vw, 100vw"
+      alt="{{ hero_media.alt | escape | default: product.title }}"
+      width="{{ hero_media.preview_image.width }}"
+      height="{{ hero_media.preview_image.height }}"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      draggable="false"
+    >
   {%- else -%}
-    <div class="product-gallery__hero">
-      {{ 'product-1' | placeholder_svg_tag: 'product-gallery__placeholder' }}
-    </div>
+    {{ 'product-1' | placeholder_svg_tag: 'product-image__placeholder' }}
   {%- endif -%}
 </div>

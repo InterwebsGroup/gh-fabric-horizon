@@ -451,220 +451,24 @@
   }
 
   /* =========================================
-     Gallery
+     Product Image
      ========================================= */
-  .product-gallery {
+  .product-image {
     position: relative;
-  }
-
-  /* ----- Desktop: 1+2 asymmetric image grid ----- */
-  .product-gallery__grid {
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    .product-gallery__grid {
-      display: grid;
-      grid-template-columns: 3fr 2fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 8px;
-    }
-  }
-
-  .product-gallery__grid-item {
-    aspect-ratio: 1 / 1;
     border-radius: var(--gh-card-radius, 16px);
     overflow: hidden;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .product-gallery__grid-item--variant {
-    grid-row: 1 / 3;
-    aspect-ratio: auto;
-  }
-
-  .product-gallery__grid-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.2s ease;
-  }
-
-  .product-gallery__grid-item:hover img {
-    transform: scale(1.03);
-  }
-
-  .product-gallery__grid-item--placeholder {
     background: var(--color-cream, #faf7f4);
-    cursor: default;
   }
 
-  .product-gallery__grid-item--placeholder:hover img {
-    transform: none;
-  }
-
-  /* ----- Mobile: single hero image ----- */
-  .product-gallery__hero {
-    aspect-ratio: 1 / 1.25;
-    overflow: hidden;
-    border-radius: 12px;
-  }
-
-  .product-gallery__hero img {
+  .product-image img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    cursor: pointer;
+    height: auto;
+    display: block;
   }
 
-  /* Hide mobile hero on desktop, hide desktop grid on mobile */
-  @media (min-width: 768px) {
-    .product-gallery__mobile-only {
-      display: none !important;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .product-gallery__grid {
-      display: none !important;
-    }
-  }
-
-  /* Mobile-only thumbnails hidden on desktop */
-  @media (min-width: 768px) {
-    .product-gallery__thumb--mobile-only {
-      display: none !important;
-    }
-  }
-
-  .product-gallery__placeholder {
+  .product-image__placeholder {
     width: 100%;
-    height: 100%;
-  }
-
-  /* ----- Thumbnails ----- */
-  .product-gallery__thumbs {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .product-gallery__thumbs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .product-gallery__thumb {
-    width: 64px;
-    height: 64px;
-    border-radius: var(--radius-sm, 8px);
-    overflow: hidden;
-    border: 2px solid transparent;
-    cursor: pointer;
-    flex-shrink: 0;
-    padding: 0;
-    background: none;
-    transition: border-color 150ms ease;
-  }
-
-  .product-gallery__thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .product-gallery__thumb:hover {
-    border-color: var(--color-espresso, #3d3028);
-  }
-
-  .product-gallery__thumb--active {
-    border-color: var(--color-espresso, #3d3028);
-  }
-
-  /* Pagination dots — mobile only */
-  .product-gallery__dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 12px;
-  }
-
-  .product-gallery__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--color-sand, #e8d5c4);
-    cursor: pointer;
-    transition: background-color 150ms ease;
-  }
-
-  .product-gallery__dot--active {
-    background: var(--color-espresso, #3d3028);
-  }
-
-  @media (min-width: 768px) {
-    .product-gallery__dots {
-      display: none;
-    }
-  }
-
-  /* Desktop: centre thumbnails and make them responsive (~75% of gallery) */
-  @media (min-width: 768px) {
-    .product-gallery__thumbs {
-      justify-content: center;
-    }
-
-    .product-gallery__thumb {
-      width: calc(18.75% - 6px);
-      height: auto;
-      aspect-ratio: 1 / 1;
-    }
-  }
-
-  /* ----- Lightbox overlay ----- */
-  .product-gallery__lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.92);
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .product-gallery__lightbox--open {
-    display: flex;
-  }
-
-  .product-gallery__lightbox-img {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
-    border-radius: 4px;
-    cursor: default;
-  }
-
-  .product-gallery__lightbox-close {
-    position: absolute;
-    top: 16px;
-    right: 20px;
-    color: #fff;
-    font-size: 2.5rem;
-    line-height: 1;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px;
-    opacity: 0.8;
-    transition: opacity 150ms ease;
-    z-index: 1;
-  }
-
-  .product-gallery__lightbox-close:hover {
-    opacity: 1;
+    aspect-ratio: 1 / 1;
   }
 
   /* =========================================
@@ -1297,39 +1101,6 @@
 {
   "name": "GH Product Main",
   "settings": [
-    {
-      "type": "header",
-      "content": "Gallery Images"
-    },
-    {
-      "type": "paragraph",
-      "content": "The variant image always fills the large left column. Images 1–2 appear as squares in the right column. Images 3–5 appear as thumbnails below."
-    },
-    {
-      "type": "image_picker",
-      "id": "gallery_image_1",
-      "label": "Gallery image 1"
-    },
-    {
-      "type": "image_picker",
-      "id": "gallery_image_2",
-      "label": "Gallery image 2"
-    },
-    {
-      "type": "image_picker",
-      "id": "gallery_image_3",
-      "label": "Gallery image 3"
-    },
-    {
-      "type": "image_picker",
-      "id": "gallery_image_4",
-      "label": "Gallery image 4"
-    },
-    {
-      "type": "image_picker",
-      "id": "gallery_image_5",
-      "label": "Gallery image 5"
-    },
     {
       "type": "header",
       "content": "Value Prop Bullets"
