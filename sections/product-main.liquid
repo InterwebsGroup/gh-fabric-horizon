@@ -160,10 +160,11 @@
             <fieldset class="product__option" data-option-position="{{ option.position }}">
               <legend class="product__option-label">{{ option.name }}</legend>
               <div class="product__option-values">
+                {%- assign option_index = option.position | minus: 1 -%}
                 {%- for value in option.values -%}
                   {%- assign variant_available = false -%}
                   {%- for variant in product.variants -%}
-                    {%- if variant.options[forloop.parentloop.parentloop.index0] == value and variant.available -%}
+                    {%- if variant.options[option_index] == value and variant.available -%}
                       {%- assign variant_available = true -%}
                       {%- break -%}
                     {%- endif -%}
@@ -176,7 +177,7 @@
                     class="product__option-input visually-hidden"
                     data-option-input
                     data-option-position="{{ option.position }}"
-                    {% if product.selected_or_first_available_variant.options[forloop.parentloop.index0] == value %}checked{% endif %}
+                    {% if product.selected_or_first_available_variant.options[option_index] == value %}checked{% endif %}
                   >
                   <label
                     for="Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
