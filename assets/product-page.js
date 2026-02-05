@@ -131,7 +131,41 @@
         if (matchedVariant.featured_image) {
           updateProductImage(section, matchedVariant.featured_image.src, matchedVariant.featured_image.alt);
         }
+
+        // Update size option availability based on new color
+        updateOptionAvailability(section, variants, optionIndex, colorName);
       });
+    });
+  }
+
+  function updateOptionAvailability(section, variants, colorOptionIndex, selectedColor) {
+    var optionLabels = section.querySelectorAll('[data-option-value]');
+    optionLabels.forEach(function (label) {
+      var input = document.getElementById(label.getAttribute('for'));
+      if (!input) return;
+
+      var optionPosition = parseInt(input.dataset.optionPosition, 10);
+      var optionIndex = optionPosition - 1;
+      var optionValue = label.dataset.optionValue;
+
+      // Check if any variant with this option value + selected color is available
+      var isAvailable = false;
+      for (var i = 0; i < variants.length; i++) {
+        var v = variants[i];
+        var optionKey = 'option' + optionPosition;
+        var colorKey = 'option' + (colorOptionIndex + 1);
+
+        if (v[optionKey] === optionValue && v[colorKey] === selectedColor && v.available) {
+          isAvailable = true;
+          break;
+        }
+      }
+
+      if (isAvailable) {
+        label.classList.remove('product__option-btn--unavailable');
+      } else {
+        label.classList.add('product__option-btn--unavailable');
+      }
     });
   }
 

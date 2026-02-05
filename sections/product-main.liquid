@@ -154,17 +154,40 @@
         {% render 'product-swatches', product: product %}
 
         {%- comment -%} Other variant options (Size, etc.) — Shopify standard variant picker {%- endcomment -%}
+        {%- liquid
+          assign color_option_index = nil
+          for opt in product.options_with_values
+            assign opt_name_down = opt.name | downcase
+            if opt_name_down == 'color' or opt_name_down == 'colour'
+              assign color_option_index = opt.position | minus: 1
+              break
+            endif
+          endfor
+          assign selected_color = product.selected_or_first_available_variant.options[color_option_index]
+        -%}
         {%- for option in product.options_with_values -%}
           {%- assign option_name_down = option.name | downcase -%}
           {%- unless option_name_down == 'color' or option_name_down == 'colour' -%}
+            {%- assign option_index = option.position | minus: 1 -%}
             <fieldset class="product__option" data-option-position="{{ option.position }}">
               <legend class="product__option-label">{{ option.name }}</legend>
-              <div class="product__option-values">
-                {%- assign option_index = option.position | minus: 1 -%}
+              <div class="product__option-values" data-option-values>
                 {%- for value in option.values -%}
                   {%- assign variant_available = false -%}
                   {%- for variant in product.variants -%}
-                    {%- if variant.options[option_index] == value and variant.available -%}
+                    {%- liquid
+                      assign size_matches = false
+                      assign color_matches = false
+                      if variant.options[option_index] == value
+                        assign size_matches = true
+                      endif
+                      if color_option_index == nil
+                        assign color_matches = true
+                      elsif variant.options[color_option_index] == selected_color
+                        assign color_matches = true
+                      endif
+                    -%}
+                    {%- if size_matches and color_matches and variant.available -%}
                       {%- assign variant_available = true -%}
                       {%- break -%}
                     {%- endif -%}
@@ -182,6 +205,7 @@
                   <label
                     for="Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
                     class="product__option-btn{% unless variant_available %} product__option-btn--unavailable{% endunless %}"
+                    data-option-value="{{ value | escape }}"
                   >
                     {{ value }}
                   </label>
