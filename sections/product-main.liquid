@@ -153,31 +153,40 @@
         {%- comment -%} Color swatches {%- endcomment -%}
         {% render 'product-swatches', product: product %}
 
-        {%- comment -%} Other variant options (Size, etc.) — native Shopify select {%- endcomment -%}
+        {%- comment -%} Other variant options (Size, etc.) — Shopify standard variant picker {%- endcomment -%}
         {%- for option in product.options_with_values -%}
           {%- assign option_name_down = option.name | downcase -%}
           {%- unless option_name_down == 'color' or option_name_down == 'colour' -%}
-            <div class="product__option">
-              <label class="product__option-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-                {{ option.name }}
-              </label>
-              <select
-                id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                class="product__option-select"
-                name="options[{{ option.name | escape }}]"
-                data-option-select
-                data-option-index="{{ forloop.index0 }}"
-              >
+            <fieldset class="product__option" data-option-position="{{ option.position }}">
+              <legend class="product__option-label">{{ option.name }}</legend>
+              <div class="product__option-values">
                 {%- for value in option.values -%}
-                  <option
+                  {%- assign option_disabled = true -%}
+                  {%- for variant in product.variants -%}
+                    {%- if variant.options[forloop.parentloop.parentloop.index0] == value and variant.available -%}
+                      {%- assign option_disabled = false -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <input
+                    type="radio"
+                    id="Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                    name="Option-{{ option.position }}"
                     value="{{ value | escape }}"
-                    {% if product.selected_or_first_available_variant.options[forloop.index0] == value %}selected{% endif %}
+                    class="product__option-input visually-hidden"
+                    data-option-input
+                    data-option-position="{{ option.position }}"
+                    {% if product.selected_or_first_available_variant.options[forloop.parentloop.index0] == value %}checked{% endif %}
+                  >
+                  <label
+                    for="Option-{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                    class="product__option-btn{% if option_disabled %} product__option-btn--disabled{% endif %}"
                   >
                     {{ value }}
-                  </option>
+                  </label>
                 {%- endfor -%}
-              </select>
-            </div>
+              </div>
+            </fieldset>
           {%- endunless -%}
         {%- endfor -%}
 
@@ -683,29 +692,41 @@
   }
 
   /* =========================================
-     Option Select (Size, etc.)
+     Option Buttons (Size, etc.)
      ========================================= */
-  .product__option-select {
-    width: 100%;
-    padding: 12px 16px;
+  .product__option-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .product__option-btn {
+    display: inline-block;
+    padding: 10px 20px;
     border: 2px solid var(--color-sand, #e8d5c4);
     border-radius: 8px;
     background: white;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 600;
     color: var(--color-espresso, #3d3028);
     cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233d3028' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 40px;
+    transition: border-color 150ms ease, background-color 150ms ease;
   }
 
-  .product__option-select:focus {
-    outline: none;
+  .product__option-btn:hover {
     border-color: var(--color-espresso, #3d3028);
+  }
+
+  .product__option-input:checked + .product__option-btn {
+    border-color: var(--color-espresso, #3d3028);
+    background: var(--color-espresso, #3d3028);
+    color: white;
+  }
+
+  .product__option-btn--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 
   /* =========================================

@@ -136,17 +136,17 @@
   }
 
   /* =========================================
-     Option Selects (Size, etc.)
+     Option Buttons (Size, etc.)
      ========================================= */
   function initOptionButtons(section, variants) {
-    var optionSelects = section.querySelectorAll('[data-option-select]');
-    if (optionSelects.length === 0) return;
+    var optionInputs = section.querySelectorAll('[data-option-input]');
+    if (optionInputs.length === 0) return;
 
     var variantIdInput = section.querySelector('[data-variant-id-input]');
     var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
 
-    optionSelects.forEach(function (select) {
-      select.addEventListener('change', function () {
+    optionInputs.forEach(function (input) {
+      input.addEventListener('change', function () {
         // Find matching variant based on all selected options
         var matchedVariant = findVariantByAllOptions(section, variants);
         if (!matchedVariant) return;
@@ -186,11 +186,11 @@
       selectedOptions[colorIndex] = activeSwatch.dataset.color;
     }
 
-    // Get selected values from option selects
-    var optionSelects = section.querySelectorAll('[data-option-select]');
-    optionSelects.forEach(function (select) {
-      var idx = parseInt(select.dataset.optionIndex, 10);
-      selectedOptions[idx] = select.value;
+    // Get selected values from option radio buttons
+    var checkedInputs = section.querySelectorAll('[data-option-input]:checked');
+    checkedInputs.forEach(function (input) {
+      var position = parseInt(input.dataset.optionPosition, 10);
+      selectedOptions[position - 1] = input.value;
     });
 
     // Find variant that matches all selected options
