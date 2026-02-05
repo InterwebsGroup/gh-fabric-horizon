@@ -100,9 +100,16 @@
       </span>
     {% endif %}
 
-    {% comment %} Display savings amount {% endcomment %}
+    {% comment %} Display savings amount - show "+" only for hoodies (volume pricing eligible) {% endcomment %}
     {% if show_compare_price and savings_amount > 0 %}
-      <span class="price-savings">Save {{ savings_formatted }}+</span>
+      {%- liquid
+        assign show_plus = false
+        assign product_type_lower = product_resource.type | downcase
+        if product_type_lower == 'hoodie' or product_type_lower == 'kids hoodie'
+          assign show_plus = true
+        endif
+      -%}
+      <span class="price-savings">Save {{ savings_formatted }}{% if show_plus %}+{% endif %}</span>
     {% endif %}
   {% endif %}
   {%- if selected_variant.unit_price and show_unit_price %}

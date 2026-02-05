@@ -302,41 +302,43 @@
         {%- endif -%}
       {%- endunless -%}
 
-      {%- comment -%} Offer banner + selling points – one unified block {%- endcomment -%}
-      {%- liquid
-        assign ob_bg = section.settings.offer_banner_bg | default: 'var(--color-espresso)'
-        assign ob_badge_text = section.settings.offer_banner_badge_text | default: 'MIX AND MATCH'
-        assign ob_badge_color = section.settings.offer_banner_badge_color | default: '#ffffff'
-        assign ob_main_text = section.settings.offer_banner_main_text | default: 'UP TO 52% OFF'
-        assign ob_main_color = section.settings.offer_banner_main_color | default: '#ffffff'
-        assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
-      -%}
-      <div class="product__offer-banner"
-        style="
-          --ob-bg: {{ ob_bg }};
-          --ob-badge-color: {{ ob_badge_color }};
-          --ob-main-color: {{ ob_main_color }};
-        "
-      >
-        <div class="offer-banner__body">
-          <span class="offer-banner__badge">{{ ob_badge_text }}</span>
-          <span class="offer-banner__main-text">{{ ob_main_text }}</span>
+      {%- comment -%} Offer banner + selling points – one unified block (hoodie template only) {%- endcomment -%}
+      {%- if template.suffix == 'hoodie' -%}
+        {%- liquid
+          assign ob_bg = section.settings.offer_banner_bg | default: 'var(--color-espresso)'
+          assign ob_badge_text = section.settings.offer_banner_badge_text | default: 'MIX AND MATCH'
+          assign ob_badge_color = section.settings.offer_banner_badge_color | default: '#ffffff'
+          assign ob_main_text = section.settings.offer_banner_main_text | default: 'UP TO 52% OFF'
+          assign ob_main_color = section.settings.offer_banner_main_color | default: '#ffffff'
+          assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
+        -%}
+        <div class="product__offer-banner"
+          style="
+            --ob-bg: {{ ob_bg }};
+            --ob-badge-color: {{ ob_badge_color }};
+            --ob-main-color: {{ ob_main_color }};
+          "
+        >
+          <div class="offer-banner__body">
+            <span class="offer-banner__badge">{{ ob_badge_text }}</span>
+            <span class="offer-banner__main-text">{{ ob_main_text }}</span>
+          </div>
+          <div class="product__selling-points">
+            <div class="product__selling-point">
+              <span class="product__selling-point-number">{{ review_count_display }}</span>
+              <span class="product__selling-point-label">{{ section.settings.stat_reviews_label | default: '5-Star Reviews' }}</span>
+            </div>
+            <div class="product__selling-point">
+              <span class="product__selling-point-number">{{ settings.happy_customers_count | default: '225,000+' }}</span>
+              <span class="product__selling-point-label">{{ section.settings.stat_customers_label | default: 'Happy Customers' }}</span>
+            </div>
+            <div class="product__selling-point">
+              <span class="product__selling-point-number">{{ section.settings.stat_guarantee_number | default: '30-Day' }}</span>
+              <span class="product__selling-point-label">{{ section.settings.stat_guarantee_label | default: 'Guarantee' }}</span>
+            </div>
+          </div>
         </div>
-        <div class="product__selling-points">
-          <div class="product__selling-point">
-            <span class="product__selling-point-number">{{ review_count_display }}</span>
-            <span class="product__selling-point-label">{{ section.settings.stat_reviews_label | default: '5-Star Reviews' }}</span>
-          </div>
-          <div class="product__selling-point">
-            <span class="product__selling-point-number">{{ settings.happy_customers_count | default: '225,000+' }}</span>
-            <span class="product__selling-point-label">{{ section.settings.stat_customers_label | default: 'Happy Customers' }}</span>
-          </div>
-          <div class="product__selling-point">
-            <span class="product__selling-point-number">{{ section.settings.stat_guarantee_number | default: '30-Day' }}</span>
-            <span class="product__selling-point-label">{{ section.settings.stat_guarantee_label | default: 'Guarantee' }}</span>
-          </div>
-        </div>
-      </div>
+      {%- endif -%}
 
       {%- comment -%} Trust badges + press logos — mobile only (desktop copy is in gallery column) {%- endcomment -%}
       <div class="product-main__info-footer">

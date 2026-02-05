@@ -95,8 +95,6 @@
               <label
                 data-media-id="{{ featured_media.id }}"
                 class="variant-option__button-label variant-option__button-label--has-swatch swatch-rounded"
-                on:pointerenter="product-card/previewVariant/{{ featured_media.id }}"
-                on:pointerleave="product-card/resetVariant"
               >
                 <input
                   type="radio"
@@ -113,6 +111,7 @@
                   {% endif %}
                   data-variant-id="{{ first_available_variant.id | default: product_option_value.variant.id }}"
                   data-first-available-or-first-variant-id="{{ first_available_variant.id | default: product_option_value.variant.id }}"
+                  disabled
                 >
                 {% render 'swatch',
                   swatch: product_option_value.swatch,

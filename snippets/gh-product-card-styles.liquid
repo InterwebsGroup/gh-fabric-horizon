@@ -143,6 +143,7 @@
     height: 20px;
     border: 2px solid rgba(61, 48, 40, 0.25);
     border-radius: 50%;
+    cursor: default;
   }
 
   /* Tighter gap between swatches */
@@ -150,8 +151,10 @@
     gap: 4px;
   }
 
-  :is(.product-grid, .resource-list) .swatch:hover {
-    border-color: var(--color-espresso, #3d3028);
+  /* Swatches are view-only on collection pages */
+  :is(.product-grid, .resource-list) .variant-option__button-label {
+    cursor: default;
+    pointer-events: none;
   }
 
   /* "+X" overflow count - dark text */

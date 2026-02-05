@@ -243,13 +243,9 @@
     endif
 
     comment
-      Display total includes shipping when not free
+      Display total never includes shipping - savings shown in SAVE pill instead
     endcomment
-    assign shipping_cost_cents = 0
-    if is_us and shipping_is_free == false
-      assign shipping_cost_cents = full_shipping_cents
-    endif
-    assign display_total = cart.total_price | plus: shipping_cost_cents
+    assign display_total = cart.total_price
 
     if settings.currency_code_enabled_cart_total
       assign total_price = display_total | money_with_currency
@@ -302,8 +298,6 @@
           <s class="gh-cart-shipping-row__was">${{ settings.shipping_cost }}</s>
           {{ 'content.cart_shipping_free' | t }}
         </span>
-        {%- assign shipping_save_amount = full_shipping_cents | money -%}
-        <span class="gh-cart-save-pill gh-cart-save-pill--shipping">{{ 'content.cart_save' | t: amount: shipping_save_amount }}</span>
       {%- else -%}
         <span class="gh-cart-shipping-row__value gh-cart-shipping-row__value--flat">${{ settings.shipping_cost }}</span>
       {%- endif -%}
@@ -362,6 +356,8 @@
     <span class="svg-wrapper gh-checkout-button__lock" aria-hidden="true">{{- 'icon-lock.svg' | inline_asset_content -}}</span>
     {{ 'content.cart_secure_checkout' | t }}
   </button>
+
+  <a href="{{ settings.empty_cart_button_link | default: '/collections/hoodies' }}" class="gh-continue-shopping-link">{{ 'actions.continue_shopping' | t }}</a>
 
   {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}
     <div class="gh-checkout-divider">
@@ -584,5 +580,16 @@
       transition-duration: var(--surface-transition-duration);
       transition-timing-function: var(--surface-transition-timing);
     }
+  }
+
+  .gh-continue-shopping-link {
+    display: block;
+    text-align: center;
+    font-family: var(--gh-font-body);
+    font-size: 0.75rem;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    margin-top: 0.75rem;
   }
 {% endstylesheet %}
