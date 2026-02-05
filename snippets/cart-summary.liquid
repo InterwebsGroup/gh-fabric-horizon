@@ -419,6 +419,11 @@
     flex-grow: 1;
     min-width: 0;
     font-size: var(--cart-font-size--sm);
+
+    /* Prevent iOS zoom on focus by ensuring font-size is at least 16px on mobile */
+    @media screen and (max-width: 749px) {
+      font-size: max(16px, var(--cart-font-size--sm));
+    }
   }
 
   .cart-discount__input::placeholder {

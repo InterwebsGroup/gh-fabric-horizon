@@ -282,7 +282,7 @@ p:empty {
 /* view transitions */
 @media (prefers-reduced-motion: no-preference) {
   @view-transition {
-    navigation: auto;
+    navigation: none;
   }
 
   /* Keep page interactive while view transitions are running */
@@ -4305,9 +4305,10 @@ h1, h2, h3, h4, h5, h6,
 
 /* ── Cart Upsell Banner ── */
 .gh-cart-upsell {
-  background: var(--color-espresso);
-  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-light) 100%);
+  padding: 1.25rem 1.5rem;
   text-align: center;
+  border-radius: 0.5rem;
 }
 
 .gh-cart-upsell__msg {

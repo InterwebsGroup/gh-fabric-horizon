@@ -241,7 +241,7 @@
                     {% if gh_compare_at > item.final_price %}
                       <span class="visually-hidden">{{ 'content.price_regular' | t }}</span>
                       <s class="compare-at-price">{{ gh_compare_at | money }}</s>
-                      {% assign gh_item_savings = gh_compare_at | minus: item.final_price %}
+                      {% assign gh_item_savings = gh_compare_at | minus: item.final_price | times: item.quantity %}
                       <span class="gh-cart-save-pill">SAVE {{ gh_item_savings | money }}</span>
                     {% endif %}
                   </div>

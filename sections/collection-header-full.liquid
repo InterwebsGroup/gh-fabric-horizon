@@ -52,46 +52,12 @@
     </div>
   </div>
 
-  {%- comment -%} ========== FILTER BUTTONS ========== {%- endcomment -%}
-  {%- if section.blocks.size > 0 -%}
-    <nav class="filter-buttons" aria-label="Collection filters">
-      <p class="filter-buttons__label">Filter:</p>
-
-      <div class="filter-buttons__list">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'filter_button' -%}
-            {%- assign url = block.settings.url -%}
-            {%- assign url_path = url | split: "?" | first -%}
-
-            {%- assign is_active = false -%}
-            {%- if current_path == url_path -%}
-              {%- assign is_active = true -%}
-            {%- endif -%}
-
-            <a
-              href="{{ url }}"
-              class="filter-buttons__btn{% if is_active %} filter-buttons__btn--active{% endif %}"
-              {% if is_active %}aria-current="page"{% endif %}
-              {{ block.shopify_attributes }}
-            >
-              {{- block.settings.label -}}
-            </a>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    </nav>
-  {%- endif -%}
-
-  {%- comment -%} ========== COLLECTION DESCRIPTION ========== {%- endcomment -%}
-  {%- if collection.description != blank -%}
-    <div class="collection-description">
-      {{ collection.description }}
-    </div>
-  {%- endif -%}
-
   {%- comment -%} ========== SECTION HEADER ========== {%- endcomment -%}
   <div class="collection-section-header">
     <h2>{{ collection.title | default: 'Giant Hoodies' }}</h2>
+    {%- if collection.description != blank -%}
+      <p class="collection-section-header__subtitle">{{ collection.description | strip_html }}</p>
+    {%- endif -%}
   </div>
 
 </div>
@@ -184,98 +150,6 @@
     opacity: 0.9;
   }
 
-  /* ========== FILTER BUTTONS ========== */
-  .filter-buttons {
-    padding: 28px 0 20px;
-    background: var(--color-cream, #faf7f4);
-  }
-
-  @media (min-width: 768px) {
-    .filter-buttons {
-      padding: 28px 16px 20px;
-    }
-  }
-
-  .filter-buttons__label {
-    text-align: center;
-    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-espresso, #3d3028);
-    margin: 0 0 16px 0;
-  }
-
-  .filter-buttons__list {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 4px 16px 8px;
-  }
-
-  .filter-buttons__list::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    .filter-buttons__list {
-      flex-wrap: wrap;
-      justify-content: center;
-      overflow-x: visible;
-      max-width: 900px;
-      margin: 0 auto;
-      gap: 12px;
-      padding: 4px 4px 8px;
-    }
-  }
-
-  .filter-buttons__btn {
-    flex-shrink: 0;
-    padding: 12px 24px;
-    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.95rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 9999px;
-    border: 2px solid var(--color-espresso, #3d3028);
-    background: transparent;
-    color: var(--color-espresso, #3d3028);
-    white-space: nowrap;
-    transition: background-color 150ms ease, color 150ms ease;
-  }
-
-  .filter-buttons__btn:hover {
-    background: var(--color-sand, #e8d5c4);
-  }
-
-  .filter-buttons__btn--active,
-  .filter-buttons__btn--active:hover {
-    background: var(--color-espresso, #3d3028);
-    color: var(--color-cream, #faf7f4);
-  }
-
-  /* ========== COLLECTION DESCRIPTION ========== */
-  .collection-description {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 8px 24px 24px;
-    text-align: center;
-    background: var(--color-cream, #faf7f4);
-  }
-
-  .collection-description p {
-    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--color-espresso-light, #5a4a3d);
-    margin: 0;
-  }
-
   /* ========== SECTION HEADER ========== */
   .collection-section-header {
     text-align: center;
@@ -296,6 +170,15 @@
     .collection-section-header h2 {
       font-size: 2.25rem;
     }
+  }
+
+  .collection-section-header__subtitle {
+    font-family: var(--gh-font-body, 'DM Sans', sans-serif);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-espresso-light, #5a4a3d);
+    margin: 8px auto 0;
+    max-width: 600px;
   }
 {% endstylesheet %}
 
@@ -366,30 +249,7 @@
   ],
   "presets": [
     {
-      "name": "Collection Header Full",
-      "blocks": [
-        {
-          "type": "filter_button",
-          "settings": {
-            "label": "Best Sellers",
-            "url": "/collections/best-sellers"
-          }
-        },
-        {
-          "type": "filter_button",
-          "settings": {
-            "label": "New Items",
-            "url": "/collections/latest-products"
-          }
-        },
-        {
-          "type": "filter_button",
-          "settings": {
-            "label": "Limited Drops",
-            "url": "/collections/limited-releases"
-          }
-        }
-      ]
+      "name": "Collection Header Full"
     }
   ]
 }
