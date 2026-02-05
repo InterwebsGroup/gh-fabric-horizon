@@ -35,6 +35,7 @@
     });
 
     initSwatches(section, variants);
+    initOptionButtons(section, variants);
     initStickyATC(section);
     initAddToCart(section, variants);
     initBackInStock(section);
@@ -106,8 +107,8 @@
           selectedColorLabel.textContent = colorName;
         }
 
-        // Find matching variant
-        var matchedVariant = findVariantByOption(variants, optionIndex, colorName);
+        // Find matching variant based on all selected options (color + size, etc.)
+        var matchedVariant = findVariantByAllOptions(section, variants);
         if (!matchedVariant) return;
 
         // Update form
@@ -132,6 +133,107 @@
         }
       });
     });
+  }
+
+  /* =========================================
+     Option Buttons (Size, etc.)
+     ========================================= */
+  function initOptionButtons(section, variants) {
+    var optionBtns = section.querySelectorAll('[data-option-btn]');
+    if (optionBtns.length === 0) return;
+
+    var variantIdInput = section.querySelector('[data-variant-id-input]');
+    var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
+
+    optionBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var optionValue = this.dataset.value;
+        var optionIndex = parseInt(this.dataset.optionIndex, 10);
+
+        // Update active state for buttons in same option group
+        var siblingBtns = section.querySelectorAll('[data-option-btn][data-option-index="' + optionIndex + '"]');
+        siblingBtns.forEach(function (s) {
+          s.classList.remove('product__option-btn--active');
+          s.setAttribute('aria-pressed', 'false');
+        });
+        this.classList.add('product__option-btn--active');
+        this.setAttribute('aria-pressed', 'true');
+
+        // Update the option value label
+        var labelSpan = section.querySelector('[data-selected-option="' + optionIndex + '"]');
+        if (labelSpan) {
+          labelSpan.textContent = optionValue;
+        }
+
+        // Find matching variant based on all selected options
+        var matchedVariant = findVariantByAllOptions(section, variants);
+        if (!matchedVariant) return;
+
+        // Update form
+        if (variantIdInput) {
+          variantIdInput.value = matchedVariant.id;
+        }
+
+        // Update URL
+        var url = new URL(window.location.href);
+        url.searchParams.set('variant', matchedVariant.id);
+        history.replaceState({}, '', url.toString());
+
+        // Update price display
+        updatePriceDisplay(section, matchedVariant, moneyFormat);
+
+        // Update ATC button state
+        updateATCState(section, matchedVariant, moneyFormat);
+
+        // Update product image if variant has one
+        if (matchedVariant.featured_image) {
+          updateProductImage(section, matchedVariant.featured_image.src, matchedVariant.featured_image.alt);
+        }
+      });
+    });
+  }
+
+  function findVariantByAllOptions(section, variants) {
+    // Gather all selected option values
+    var selectedOptions = {};
+
+    // Get selected color from swatches
+    var activeSwatch = section.querySelector('[data-swatch].product__swatch--active');
+    if (activeSwatch) {
+      var colorIndex = parseInt(activeSwatch.dataset.optionIndex, 10);
+      selectedOptions[colorIndex] = activeSwatch.dataset.color;
+    }
+
+    // Get selected values from option buttons
+    var activeOptionBtns = section.querySelectorAll('[data-option-btn].product__option-btn--active');
+    activeOptionBtns.forEach(function (btn) {
+      var idx = parseInt(btn.dataset.optionIndex, 10);
+      selectedOptions[idx] = btn.dataset.value;
+    });
+
+    // Find variant that matches all selected options
+    var available = null;
+    var any = null;
+
+    for (var i = 0; i < variants.length; i++) {
+      var v = variants[i];
+      var matches = true;
+
+      for (var optIdx in selectedOptions) {
+        var optionKey = 'option' + (parseInt(optIdx, 10) + 1);
+        if (v[optionKey] !== selectedOptions[optIdx]) {
+          matches = false;
+          break;
+        }
+      }
+
+      if (matches) {
+        if (!any) any = v;
+        if (v.available && !available) available = v;
+      }
+    }
+
+    return available || any;
   }
 
   function findVariantByOption(variants, optionIndex, optionValue) {
