@@ -136,35 +136,17 @@
   }
 
   /* =========================================
-     Option Buttons (Size, etc.)
+     Option Selects (Size, etc.)
      ========================================= */
   function initOptionButtons(section, variants) {
-    var optionBtns = section.querySelectorAll('[data-option-btn]');
-    if (optionBtns.length === 0) return;
+    var optionSelects = section.querySelectorAll('[data-option-select]');
+    if (optionSelects.length === 0) return;
 
     var variantIdInput = section.querySelector('[data-variant-id-input]');
     var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
 
-    optionBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var optionValue = this.dataset.value;
-        var optionIndex = parseInt(this.dataset.optionIndex, 10);
-
-        // Update active state for buttons in same option group
-        var siblingBtns = section.querySelectorAll('[data-option-btn][data-option-index="' + optionIndex + '"]');
-        siblingBtns.forEach(function (s) {
-          s.classList.remove('product__option-btn--active');
-          s.setAttribute('aria-pressed', 'false');
-        });
-        this.classList.add('product__option-btn--active');
-        this.setAttribute('aria-pressed', 'true');
-
-        // Update the option value label
-        var labelSpan = section.querySelector('[data-selected-option="' + optionIndex + '"]');
-        if (labelSpan) {
-          labelSpan.textContent = optionValue;
-        }
-
+    optionSelects.forEach(function (select) {
+      select.addEventListener('change', function () {
         // Find matching variant based on all selected options
         var matchedVariant = findVariantByAllOptions(section, variants);
         if (!matchedVariant) return;
@@ -204,11 +186,11 @@
       selectedOptions[colorIndex] = activeSwatch.dataset.color;
     }
 
-    // Get selected values from option buttons
-    var activeOptionBtns = section.querySelectorAll('[data-option-btn].product__option-btn--active');
-    activeOptionBtns.forEach(function (btn) {
-      var idx = parseInt(btn.dataset.optionIndex, 10);
-      selectedOptions[idx] = btn.dataset.value;
+    // Get selected values from option selects
+    var optionSelects = section.querySelectorAll('[data-option-select]');
+    optionSelects.forEach(function (select) {
+      var idx = parseInt(select.dataset.optionIndex, 10);
+      selectedOptions[idx] = select.value;
     });
 
     // Find variant that matches all selected options

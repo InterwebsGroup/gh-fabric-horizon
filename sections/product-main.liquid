@@ -153,35 +153,30 @@
         {%- comment -%} Color swatches {%- endcomment -%}
         {% render 'product-swatches', product: product %}
 
-        {%- comment -%} Other variant options (Size, etc.) {%- endcomment -%}
+        {%- comment -%} Other variant options (Size, etc.) — native Shopify select {%- endcomment -%}
         {%- for option in product.options_with_values -%}
           {%- assign option_name_down = option.name | downcase -%}
           {%- unless option_name_down == 'color' or option_name_down == 'colour' -%}
-            <div class="product__option" data-option-index="{{ forloop.index0 }}">
-              <label class="product__option-label">
-                {{ option.name }}: <span class="product__option-value" data-selected-option="{{ forloop.index0 }}">{{ product.selected_or_first_available_variant.options[forloop.index0] }}</span>
+            <div class="product__option">
+              <label class="product__option-label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                {{ option.name }}
               </label>
-              <div class="product__option-buttons" data-option-buttons>
+              <select
+                id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                class="product__option-select"
+                name="options[{{ option.name | escape }}]"
+                data-option-select
+                data-option-index="{{ forloop.index0 }}"
+              >
                 {%- for value in option.values -%}
-                  {%- liquid
-                    assign is_selected = false
-                    assign selected_option_value = product.selected_or_first_available_variant.options[forloop.index0]
-                    if selected_option_value == value
-                      assign is_selected = true
-                    endif
-                  -%}
-                  <button
-                    type="button"
-                    class="product__option-btn{% if is_selected %} product__option-btn--active{% endif %}"
-                    data-option-btn
-                    data-value="{{ value }}"
-                    data-option-index="{{ forloop.index0 }}"
-                    aria-pressed="{{ is_selected }}"
+                  <option
+                    value="{{ value | escape }}"
+                    {% if product.selected_or_first_available_variant.options[forloop.index0] == value %}selected{% endif %}
                   >
                     {{ value }}
-                  </button>
+                  </option>
                 {%- endfor -%}
-              </div>
+              </select>
             </div>
           {%- endunless -%}
         {%- endfor -%}
@@ -688,35 +683,29 @@
   }
 
   /* =========================================
-     Option Buttons (Size, etc.)
+     Option Select (Size, etc.)
      ========================================= */
-  .product__option-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .product__option-btn {
-    padding: 10px 20px;
+  .product__option-select {
+    width: 100%;
+    padding: 12px 16px;
     border: 2px solid var(--color-sand, #e8d5c4);
     border-radius: 8px;
     background: white;
     font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--color-espresso, #3d3028);
     cursor: pointer;
-    transition: border-color 150ms ease, background-color 150ms ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233d3028' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
   }
 
-  .product__option-btn:hover {
+  .product__option-select:focus {
+    outline: none;
     border-color: var(--color-espresso, #3d3028);
-  }
-
-  .product__option-btn--active {
-    border-color: var(--color-espresso, #3d3028);
-    background: var(--color-espresso, #3d3028);
-    color: white;
   }
 
   /* =========================================
