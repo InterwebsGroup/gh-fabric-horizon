@@ -21,19 +21,6 @@
       }
     }
 
-    // Preload all unique variant images so swatch clicks are instant
-    var preloaded = {};
-    variants.forEach(function (v) {
-      if (v.featured_image && v.featured_image.src) {
-        var base = v.featured_image.src.replace(/[?&]width=\d+/g, '');
-        if (preloaded[base]) return;
-        preloaded[base] = true;
-        var s = base.indexOf('?') !== -1 ? '&' : '?';
-        new Image().src = base + s + 'width=900';
-        new Image().src = base + s + 'width=1200';
-      }
-    });
-
     initSwatches(section, variants);
     initOptionButtons(section, variants);
     initStickyATC(section);
@@ -81,6 +68,17 @@
   /* =========================================
      Color Swatches
      ========================================= */
+  var preloaded = {};
+  function preloadVariantImage(src) {
+    if (!src) return;
+    var base = src.replace(/[?&]width=\d+/g, '');
+    if (preloaded[base]) return;
+    preloaded[base] = true;
+    var s = base.indexOf('?') !== -1 ? '&' : '?';
+    new Image().src = base + s + 'width=900';
+    new Image().src = base + s + 'width=1200';
+  }
+
   function initSwatches(section, variants) {
     var swatches = section.querySelectorAll('[data-swatch]');
     if (swatches.length === 0) return;
@@ -90,6 +88,22 @@
     var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
 
     swatches.forEach(function (swatch) {
+      // Preload variant image on hover so the click is instant
+      swatch.addEventListener('pointerenter', function () {
+        var colorName = this.dataset.color;
+        for (var i = 0; i < variants.length; i++) {
+          var v = variants[i];
+          if (v.featured_image && v.featured_image.src) {
+            var colorOptionIndex = parseInt(this.dataset.optionIndex, 10);
+            var colorKey = 'option' + (colorOptionIndex + 1);
+            if (v[colorKey] === colorName) {
+              preloadVariantImage(v.featured_image.src);
+              break;
+            }
+          }
+        }
+      }, { once: true });
+
       swatch.addEventListener('click', function () {
         var colorName = this.dataset.color;
         var optionIndex = parseInt(this.dataset.optionIndex, 10);

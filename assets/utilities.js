@@ -707,6 +707,60 @@ export class ResizeNotifier extends ResizeObserver {
   }
 }
 
+/**
+ * A single shared ResizeObserver that dispatches to per-element callbacks.
+ * Use instead of creating one ResizeObserver per element (e.g. 24 product cards
+ * on a collection page each with their own observer).
+ */
+export const SharedResizeNotifier = (() => {
+  /** @type {WeakMap<Element, { callback: ResizeObserverCallback, initialized: boolean }>} */
+  const entries = new WeakMap();
+
+  const observer = new ResizeObserver((resizeEntries) => {
+    /** @type {Map<ResizeObserverCallback, ResizeObserverEntry[]>} */
+    const grouped = new Map();
+
+    for (const entry of resizeEntries) {
+      const record = entries.get(entry.target);
+      if (!record) continue;
+
+      // Skip the initial observation (matches ResizeNotifier behaviour)
+      if (!record.initialized) {
+        record.initialized = true;
+        continue;
+      }
+
+      let list = grouped.get(record.callback);
+      if (!list) {
+        list = [];
+        grouped.set(record.callback, list);
+      }
+      list.push(entry);
+    }
+
+    for (const [callback, cbEntries] of grouped) {
+      callback(cbEntries, observer);
+    }
+  });
+
+  return {
+    /**
+     * @param {Element} element
+     * @param {ResizeObserverCallback} callback
+     */
+    observe(element, callback) {
+      entries.set(element, { callback, initialized: false });
+      observer.observe(element);
+    },
+
+    /** @param {Element} element */
+    unobserve(element) {
+      entries.delete(element);
+      observer.unobserve(element);
+    },
+  };
+})();
+
 // Header calculation functions for maintaining CSS variables
 export function calculateHeaderGroupHeight(
   header = document.querySelector('#header-component'),

@@ -1,4 +1,4 @@
-import { ResizeNotifier } from '@theme/utilities';
+import { SharedResizeNotifier } from '@theme/utilities';
 import { DeclarativeShadowElement } from '@theme/component';
 
 /**
@@ -132,7 +132,7 @@ export class OverflowList extends DeclarativeShadowElement {
   }
 
   disconnectedCallback() {
-    this.#resizeObserver.disconnect();
+    SharedResizeNotifier.unobserve(this);
     this.#mutationObserver.disconnect();
     this.#intersectionObserver.disconnect();
   }
@@ -359,12 +359,12 @@ export class OverflowList extends DeclarativeShadowElement {
   };
 
   #observeChanges() {
-    this.#resizeObserver.observe(this);
+    SharedResizeNotifier.observe(this, this.#handleChange);
     this.#mutationObserver.observe(this, { childList: true });
   }
 
   #unobserveChanges() {
-    this.#resizeObserver.disconnect();
+    SharedResizeNotifier.unobserve(this);
     this.#mutationObserver.disconnect();
   }
 
@@ -379,11 +379,6 @@ export class OverflowList extends DeclarativeShadowElement {
    * }}
    */
   #refs;
-
-  /**
-   * @type {ResizeObserver}
-   */
-  #resizeObserver = new ResizeNotifier(this.#handleChange);
 
   /**
    * @type {MutationObserver}
