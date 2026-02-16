@@ -363,6 +363,7 @@ p:empty {
 /* Layout */
 .content-for-layout {
   flex: 1;
+  position: relative;
 }
 
 /* Set up page widths & margins */
