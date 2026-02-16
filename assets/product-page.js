@@ -316,10 +316,11 @@
     if (atcBtn) {
       if (variant.available) {
         atcBtn.disabled = false;
-        var cartPriceSpan = atcBtn.querySelector('[data-cart-price]');
-        if (cartPriceSpan) {
-          cartPriceSpan.textContent = formatMoney(variant.price, moneyFormat);
-        }
+        atcBtn.textContent = 'Add to Cart \u2014 ';
+        var span = document.createElement('span');
+        span.setAttribute('data-cart-price', '');
+        span.textContent = formatMoney(variant.price, moneyFormat);
+        atcBtn.appendChild(span);
       } else {
         atcBtn.disabled = true;
         atcBtn.textContent = 'Sold Out';
@@ -444,9 +445,12 @@
             }
           }));
 
+          if (atcBtn) atcBtn.textContent = 'Added!';
+          if (stickyBtn) stickyBtn.textContent = 'Added!';
+
           setTimeout(function () {
             restoreATCButton(section, atcBtn, stickyBtn);
-          }, 1000);
+          }, 1500);
         })
         .catch(function (err) {
           console.error('[GH] Add to cart error:', err);
@@ -457,19 +461,42 @@
   }
 
   function restoreATCButton(section, atcBtn, stickyBtn) {
+    var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
+    var variantIdInput = section.querySelector('[data-variant-id-input]');
+    var variantsEl = section.querySelector('[data-product-variants]');
+    var variants = [];
+    if (variantsEl) {
+      try { variants = JSON.parse(variantsEl.textContent); } catch (e) {}
+    }
+    var currentId = variantIdInput ? variantIdInput.value : null;
+    var currentVariant = null;
+    for (var i = 0; i < variants.length; i++) {
+      if (String(variants[i].id) === String(currentId)) {
+        currentVariant = variants[i];
+        break;
+      }
+    }
+
     if (atcBtn) {
-      atcBtn.disabled = false;
-      if (atcBtn.dataset.originalPrice) {
+      if (currentVariant && !currentVariant.available) {
+        atcBtn.disabled = true;
+        atcBtn.textContent = 'Sold Out';
+      } else {
+        atcBtn.disabled = false;
+        var price = currentVariant
+          ? formatMoney(currentVariant.price, moneyFormat)
+          : atcBtn.dataset.originalPrice || '';
         atcBtn.textContent = 'Add to Cart \u2014 ';
         var span = document.createElement('span');
         span.setAttribute('data-cart-price', '');
-        span.textContent = atcBtn.dataset.originalPrice;
+        span.textContent = price;
         atcBtn.appendChild(span);
-        delete atcBtn.dataset.originalPrice;
       }
+      delete atcBtn.dataset.originalPrice;
     }
     if (stickyBtn) {
       stickyBtn.disabled = false;
+      stickyBtn.textContent = 'Add to Cart';
     }
   }
 
