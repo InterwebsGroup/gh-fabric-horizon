@@ -79,6 +79,11 @@
 
           if (!addedItem) addedItem = cart.items[cart.items.length - 1];
 
+          var cartPermalink = cart.items.map(function (item) {
+            return item.variant_id + ':' + item.quantity;
+          }).join(',');
+          var checkoutURL = window.location.origin + '/cart/' + cartPermalink;
+
           _learnq.push(['track', 'Added to Cart', {
             $value: (totalValue / 100).toFixed(2),
             AddedItemProductName: addedItem.product_title,
@@ -90,7 +95,7 @@
             AddedItemPrice: (addedItem.final_price / 100).toFixed(2),
             AddedItemQuantity: addedQuantity,
             ItemNames: itemNames,
-            CheckoutURL: window.location.origin + '/checkout',
+            CheckoutURL: checkoutURL,
             Items: items
           }]);
         })
