@@ -1,0 +1,100 @@
+{% comment %}
+  Klaviyo Onsite Event Tracking
+  Fires Viewed Product, trackViewedItem, and Added to Cart events
+  explicitly so Klaviyo abandonment flows trigger reliably.
+{% endcomment %}
+
+{%- if template.name == 'product' -%}
+  <script>
+    var _learnq = window._learnq || [];
+
+    _learnq.push(['track', 'Viewed Product', {
+      ProductName: {{ product.title | json }},
+      ProductID: {{ product.id }},
+      SKU: {{ product.selected_or_first_available_variant.sku | json }},
+      Categories: {{ product.collections | map: 'title' | json }},
+      ImageURL: {{ product.featured_image | image_url: width: 1024 | json }},
+      URL: {{ product.url | prepend: shop.url | json }},
+      Brand: {{ product.vendor | json }},
+      Price: {{ product.selected_or_first_available_variant.price | divided_by: 100.0 }},
+      CompareAtPrice: {{ product.selected_or_first_available_variant.compare_at_price | default: product.selected_or_first_available_variant.price | divided_by: 100.0 }}
+    }]);
+
+    _learnq.push(['trackViewedItem', {
+      Title: {{ product.title | json }},
+      ItemId: {{ product.id }},
+      Categories: {{ product.collections | map: 'title' | json }},
+      ImageUrl: {{ product.featured_image | image_url: width: 1024 | json }},
+      Url: {{ product.url | prepend: shop.url | json }},
+      Metadata: {
+        Brand: {{ product.vendor | json }},
+        Price: {{ product.selected_or_first_available_variant.price | divided_by: 100.0 }},
+        CompareAtPrice: {{ product.selected_or_first_available_variant.compare_at_price | default: product.selected_or_first_available_variant.price | divided_by: 100.0 }}
+      }
+    }]);
+  </script>
+{%- endif -%}
+
+<script>
+  (function () {
+    var _learnq = window._learnq || [];
+
+    document.addEventListener('cart:update', function (e) {
+      if (!e.detail || !e.detail.data) return;
+      if (!e.detail.data.itemCount || e.detail.data.didError) return;
+
+      var addedProductId = e.detail.data.productId;
+      var addedQuantity = e.detail.data.itemCount || 1;
+
+      fetch('/cart.js', { credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (cart) {
+          if (!cart || !cart.items || cart.items.length === 0) return;
+
+          var items = [];
+          var itemNames = [];
+          var totalValue = 0;
+          var addedItem = null;
+
+          for (var i = 0; i < cart.items.length; i++) {
+            var item = cart.items[i];
+            itemNames.push(item.product_title);
+            totalValue += item.final_line_price;
+            items.push({
+              ProductID: item.product_id,
+              SKU: item.sku || '',
+              ProductName: item.product_title,
+              Quantity: item.quantity,
+              ItemPrice: (item.final_price / 100).toFixed(2),
+              RowTotal: (item.final_line_price / 100).toFixed(2),
+              ProductURL: window.location.origin + item.url,
+              ImageURL: item.featured_image ? item.featured_image.url : '',
+              ProductCategories: []
+            });
+
+            if (addedProductId && String(item.product_id) === String(addedProductId)) {
+              addedItem = item;
+            }
+          }
+
+          if (!addedItem) addedItem = cart.items[cart.items.length - 1];
+
+          _learnq.push(['track', 'Added to Cart', {
+            $value: (totalValue / 100).toFixed(2),
+            AddedItemProductName: addedItem.product_title,
+            AddedItemProductID: addedItem.product_id,
+            AddedItemSKU: addedItem.sku || '',
+            AddedItemCategories: [],
+            AddedItemImageURL: addedItem.featured_image ? addedItem.featured_image.url : '',
+            AddedItemURL: window.location.origin + addedItem.url,
+            AddedItemPrice: (addedItem.final_price / 100).toFixed(2),
+            AddedItemQuantity: addedQuantity,
+            ItemNames: itemNames,
+            CheckoutURL: window.location.origin + '/checkout',
+            Items: items
+          }]);
+        })
+        .catch(function () {});
+    });
+  })();
+</script>
