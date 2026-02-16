@@ -2,6 +2,10 @@
   Klaviyo Onsite Event Tracking
   Fires Viewed Product, trackViewedItem, and Added to Cart events
   explicitly so Klaviyo abandonment flows trigger reliably.
+
+  Also handles cart recovery from Klaviyo abandon cart emails:
+  landing the customer on the site with their cart rebuilt
+  and the cart drawer open.
 {% endcomment %}
 
 {%- if template.name == 'product' -%}
@@ -39,9 +43,13 @@
   (function () {
     var _learnq = window._learnq || [];
 
+    /* =========================================
+       Track: Added to Cart
+       ========================================= */
     document.addEventListener('cart:update', function (e) {
       if (!e.detail || !e.detail.data) return;
       if (!e.detail.data.itemCount || e.detail.data.didError) return;
+      if (e.detail.data.source === 'klaviyo-recovery') return;
 
       var addedProductId = e.detail.data.productId;
       var addedQuantity = e.detail.data.itemCount || 1;
@@ -79,10 +87,10 @@
 
           if (!addedItem) addedItem = cart.items[cart.items.length - 1];
 
-          var cartPermalink = cart.items.map(function (item) {
+          var cartParam = cart.items.map(function (item) {
             return item.variant_id + ':' + item.quantity;
           }).join(',');
-          var checkoutURL = window.location.origin + '/cart/' + cartPermalink;
+          var checkoutURL = window.location.origin + '/?recover_cart=' + cartParam;
 
           _learnq.push(['track', 'Added to Cart', {
             $value: (totalValue / 100).toFixed(2),
@@ -101,5 +109,70 @@
         })
         .catch(function () {});
     });
+
+    /* =========================================
+       Cart Recovery from Klaviyo Emails
+       Reads ?recover_cart=variantId:qty,variantId:qty
+       Rebuilds the cart via AJAX, then opens the
+       cart drawer so the customer lands on the site
+       with their items visible and ready to check out.
+       ========================================= */
+    var params = new URLSearchParams(window.location.search);
+    var recoverParam = params.get('recover_cart');
+
+    if (recoverParam) {
+      var recoverItems = [];
+      recoverParam.split(',').forEach(function (pair) {
+        var parts = pair.split(':');
+        if (parts.length === 2) {
+          recoverItems.push({ id: parseInt(parts[0], 10), quantity: parseInt(parts[1], 10) });
+        }
+      });
+
+      if (recoverItems.length > 0) {
+        var cleanUrl = new URL(window.location.href);
+        cleanUrl.searchParams.delete('recover_cart');
+        history.replaceState({}, '', cleanUrl.toString());
+
+        function doRecover() {
+          fetch('/cart/clear.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+          })
+          .then(function () {
+            return fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ items: recoverItems })
+            });
+          })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            document.dispatchEvent(new CustomEvent('cart:update', {
+              bubbles: true,
+              detail: {
+                resource: data,
+                sourceId: 'klaviyo-recovery',
+                data: { source: 'klaviyo-recovery' }
+              }
+            }));
+
+            var cartDrawer = document.querySelector('cart-drawer-component');
+            if (cartDrawer && typeof cartDrawer.open === 'function') {
+              cartDrawer.open();
+            }
+          })
+          .catch(function () {
+            window.location.href = '/cart';
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', doRecover);
+        } else {
+          doRecover();
+        }
+      }
+    }
   })();
 </script>
