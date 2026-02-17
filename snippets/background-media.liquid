@@ -31,7 +31,7 @@
       {{
         background_video.preview_image
         | image_url: width: 3840
-        | image_tag: width: 1100, widths: widths, sizes: sizes
+        | image_tag: width: 1100, widths: widths, sizes: sizes, alt: ''
       }}
       <video
         playsinline
@@ -106,7 +106,7 @@
       {{
         background_image
         | image_url: width: 3840
-        | image_tag: sizes: sizes, widths: widths, loading: loading, fetchpriority: fetch_priority
+        | image_tag: sizes: sizes, widths: widths, loading: loading, fetchpriority: fetch_priority, alt: background_image.alt | default: ''
       }}
     {%- else -%}
       {%- assign placeholder_name = placeholder | default: 'hero-apparel-2' -%}

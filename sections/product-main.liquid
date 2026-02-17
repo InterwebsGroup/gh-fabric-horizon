@@ -22,18 +22,36 @@
 -%}
 
 {%- comment -%} Structured data for SEO {%- endcomment -%}
+{%- liquid
+  assign rating_value = product.metafields.reviews.rating.value.rating
+  assign rating_max = product.metafields.reviews.rating.value.scale_max
+  assign review_count = product.metafields.reviews.rating_count
+-%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Product",
   "name": {{ product.title | json }},
   "url": "{{ shop.url }}{{ product.url }}",
-  "image": [{{ product.featured_image | image_url: width: 1200 | json }}],
+  "image": [
+    {%- for image in product.images -%}
+      {{ image | image_url: width: 1200 | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ],
   "description": {{ product.description | strip_html | truncate: 500 | json }},
+  "sku": {{ selected_variant.sku | json }},
   "brand": {
     "@type": "Brand",
     "name": {{ shop.name | json }}
   },
+  {%- if rating_value != blank and review_count != blank and review_count > 0 %}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ rating_value }},
+    "bestRating": {{ rating_max | default: 5 }},
+    "ratingCount": {{ review_count }}
+  },
+  {%- endif %}
   "offers": {
     "@type": "Offer",
     "url": "{{ shop.url }}{{ product.url }}",
@@ -43,6 +61,82 @@
   }
 }
 </script>
+
+{%- comment -%} FAQPage schema — hardcoded from product FAQ accordion {%- endcomment -%}
+{%- if template.suffix == 'hoodie' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Will it fit me?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If you want to feel like you're wrapped in a cozy blanket, yes. Our hoodies are intentionally oversized with custom cut and sew measurements, not fitted clothing. Customers from size XS to 3XL love the fit. It's giant on purpose."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does the fabric feel like?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Super soft, lightweight sponge fleece — the kind you never want to take off. It's plush and cozy without being heavy or bulky. Our customers describe it as \"wearing a hug.\" Once you feel it, you'll get it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I wash my Giant Hoodie?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "With love! Our sponge fleece is super soft but delicate. Tie little knots in the drawstring ends so they don't pull out, wash alone or with soft clothes only, cold water on the gentle cycle, and always air dry — no dryer. Treat it right and you'll stay in love for years."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How fast will I get my order?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Really, really fast. Most orders ship same or next business day and arrive in 3-4 days within the US. Every hoodie is printed and packed by hand at our facility in Northwest Arkansas. We include a handwritten thank-you card in every box."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I wear it in summer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Our sponge fleece is lightweight and breathable — not heavy or bulky at all. Customers wear them year-round: in blasting AC, on summer movie nights, and even outside in warm weather. It's cozy without the sweat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I don't love it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We're confident you will, but we've got you covered. Our 30-day \"Best Hoodie Ever\" Guarantee means if something isn't right, just reach out and we'll make it right. Less than 1% of our orders are returned. The average apparel brand sees 21%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I save more if I buy multiple?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Buy 2 hoodies and save $20 on each. Buy 3 or more and save $32 on each — that's as low as $39 per hoodie. The more you buy, the more you save. Mix and match any designs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where are you located?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every single hoodie is printed and packed by hand at our facility in Fayetteville, Arkansas, in the USA. We're a small team of 5 who genuinely love what we do — and we put a handwritten thank-you card in every order."
+      }
+    }
+  ]
+}
+</script>
+{%- endif -%}
 
 <section
   class="product-main"
@@ -95,8 +189,43 @@
       {%- comment -%} Title {%- endcomment -%}
       <h1 class="product__title">{{ product.title }}</h1>
 
-      {%- comment -%} Reviews badge placeholder (Judge.me injects here) {%- endcomment -%}
-      <div class="product__reviews" data-reviews-badge>
+      {%- comment -%} Review stars — server-rendered, falls back to global store rating {%- endcomment -%}
+      {%- liquid
+        assign has_product_reviews = false
+        if rating_value != blank and review_count != blank and review_count > 0
+          assign has_product_reviews = true
+          assign display_rating = rating_value
+          assign display_count = review_count | append: ' reviews'
+        elsif section.settings.global_rating_value != blank and section.settings.global_reviews_count != blank
+          assign display_rating = section.settings.global_rating_value
+          assign display_count = section.settings.global_reviews_count | append: ' reviews'
+        endif
+      -%}
+      {%- if display_rating != blank -%}
+        <a href="#judgeme_product_reviews" class="product__reviews-summary" data-reviews-badge>
+          {%- assign rating_decimal = display_rating | times: 1.0 -%}
+          {%- assign rating_whole = rating_decimal | floor -%}
+          {%- assign rating_remainder = rating_decimal | minus: rating_whole -%}
+          <span class="product__stars" aria-hidden="true">
+            {%- for i in (1..5) -%}
+              {%- if i <= rating_whole -%}
+                <svg class="product__star product__star--full" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/></svg>
+              {%- elsif i == rating_whole | plus: 1 and rating_remainder >= 0.25 -%}
+                <svg class="product__star product__star--half" width="16" height="16" viewBox="0 0 24 24">
+                  <defs><linearGradient id="half-star"><stop offset="50%" stop-color="currentColor"/><stop offset="50%" stop-color="none" stop-opacity="0"/></linearGradient></defs>
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="url(#half-star)" stroke="currentColor" stroke-width="1"/>
+                </svg>
+              {%- else -%}
+                <svg class="product__star product__star--empty" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+              {%- endif -%}
+            {%- endfor -%}
+          </span>
+          <span class="product__reviews-text">{{ display_rating }} ({{ display_count }})</span>
+        </a>
+      {%- endif -%}
+
+      {%- comment -%} Judge.me widget (hidden — kept for scroll-to-reviews functionality) {%- endcomment -%}
+      <div class="product__reviews-judgeme visually-hidden">
         <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
           {{ product.metafields.judgeme.badge }}
         </div>
@@ -490,6 +619,26 @@
       "id": "benefit_3",
       "label": "Benefit 3",
       "default": "Try one and understand why 225,000 others love it"
+    },
+    {
+      "type": "header",
+      "content": "Global Review Stars"
+    },
+    {
+      "type": "paragraph",
+      "content": "Shown near the product title when a product has no individual reviews. Uses the store-wide rating as a fallback."
+    },
+    {
+      "type": "text",
+      "id": "global_rating_value",
+      "label": "Global rating (e.g. 4.9)",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "global_reviews_count",
+      "label": "Global review count (e.g. 2,400+)",
+      "default": "2,400+"
     },
     {
       "type": "header",

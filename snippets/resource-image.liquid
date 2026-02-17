@@ -149,10 +149,19 @@
       {% render 'overlay', settings: block_settings %}
     {%- endif -%}
 
+    {% liquid
+      if content_type == 'articles'
+        assign image_alt = image_resource.alt | default: block_settings.title | default: 'Blog post image'
+      elsif content_type == 'collections'
+        assign image_alt = image_resource.alt | default: collection.title | default: 'Collection image'
+      else
+        assign image_alt = image_resource.alt | default: 'Image'
+      endif
+    %}
     {{
       image_resource
       | image_url: width: 3840
-      | image_tag: widths: widths, class: 'image-block__image', sizes: sizes, loading: loading
+      | image_tag: widths: widths, class: 'image-block__image', sizes: sizes, loading: loading, alt: image_alt
     }}
   </div>
 {% else %}

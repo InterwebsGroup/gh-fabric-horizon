@@ -1202,6 +1202,7 @@
       ],
       "name": "What's a Giant Hoodie?",
       "settings": {
+        "heading": "What's a Giant Hoodie?",
         "display_mode": "with_hints",
         "section_width": "full-width",
         "full_frame_on_mobile": false,
@@ -1328,6 +1329,56 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 60,
         "padding-block-end": 60
+      }
+    },
+    "cta_after_comparison": {
+      "type": "_blocks",
+      "blocks": {
+        "cta_button": {
+          "type": "button",
+          "settings": {
+            "label": "Shop All Hoodies",
+            "link": "shopify://collections/hoodies",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "cta_button"
+      ],
+      "name": "CTA After Comparison",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "center",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 20,
+        "padding-block-end": 40
       }
     },
     "176974364261417f41": {
@@ -1797,7 +1848,7 @@
         "text_wDGhzf": {
           "type": "text",
           "settings": {
-            "text": "<p>We're a small team of dreamers passionate about creating the softest, most comfortable oversized hoodies in the world. </p><p>All of our products are printed and fulfilled from Fayetteville, Arkansas with by our incredible team of 5. </p><p>Thank you for your support, we're so happy you're a part of our journey :)</p>",
+            "text": "<p>We're a small team of dreamers passionate about creating the softest, most comfortable oversized hoodies in the world. </p><p>All of our products are printed and fulfilled from Fayetteville, Arkansas by our incredible team of 5. </p><p>Thank you for your support, we're so happy you're a part of our journey :)</p>",
             "width": "100%",
             "max_width": "none",
             "alignment": "left",
@@ -1872,6 +1923,106 @@
         "padding-block-end": 30,
         "custom_class": "section-narrow"
       }
+    },
+    "cta_mid_best_sellers": {
+      "type": "_blocks",
+      "blocks": {
+        "cta_button": {
+          "type": "button",
+          "settings": {
+            "label": "Shop by Category",
+            "link": "shopify://collections",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "cta_button"
+      ],
+      "name": "CTA After Best Sellers",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "center",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 20,
+        "padding-block-end": 40
+      }
+    },
+    "cta_mid_new_drops": {
+      "type": "_blocks",
+      "blocks": {
+        "cta_button": {
+          "type": "button",
+          "settings": {
+            "label": "Find Your Perfect Hoodie",
+            "link": "shopify://collections/hoodies",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "cta_button"
+      ],
+      "name": "CTA After New Drops",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "center",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 20,
+        "padding-block-end": 40
+      }
     }
   },
   "order": [
@@ -1879,12 +2030,15 @@
     "stats_bar",
     "press_logos",
     "best_sellers",
+    "cta_mid_best_sellers",
     "feature_trendy",
     "product_list_jDCfUL",
+    "cta_mid_new_drops",
     "feature_oversized",
     "slideshow_3eCk7e",
     "feature_guarantee",
     "comparison_table",
+    "cta_after_comparison",
     "176974364261417f41",
     "section_GFiYp7",
     "section_DUGh9D"
