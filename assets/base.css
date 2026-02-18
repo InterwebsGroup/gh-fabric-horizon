@@ -4086,9 +4086,20 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 400;
 }
 
-/* JudgeMe Reviews — heading only (h2 text, not the wrapper) */
-.jdgm-carousel-wrapper h2,
-[class*="jdgm"] h2 {
+/* Judge.me Reviews (new widget) — container padding */
+.jm-review-widget {
+  padding-inline: 16px;
+}
+
+@media screen and (min-width: 750px) {
+  .jm-review-widget {
+    padding-inline: 40px;
+  }
+}
+
+/* Judge.me Reviews — heading ("Customer Reviews") */
+.jm-review-widget h2,
+[class*="jm-review-widget"] h2 {
   font-family: var(--gh-font-heading, 'Fraunces', serif) !important;
   font-weight: 900 !important;
   font-variation-settings: 'SOFT' 100, 'WONK' 1;
@@ -4097,62 +4108,25 @@ h1, h2, h3, h4, h5, h6,
   line-height: var(--line-height--display-tight) !important;
 }
 
-/* JudgeMe Reviews — reset the header wrapper so children don't inherit h1 size */
-.jdgm-rev-widg__header {
+/* Judge.me Reviews — reset header wrapper so children don't inherit h1 size */
+.jm-review-widget-header,
+.jm-review-widget__header-and-body {
   font-size: 1rem !important;
   line-height: 1.5 !important;
 }
 
-/* JudgeMe Reviews — body text, author names, dates, controls
-   NOTE: Do NOT include [class*="jdgm"] span — that breaks the star icon font */
-.jdgm-rev-widg,
-.jdgm-rev-widg__body,
-.jdgm-rev__text,
-.jdgm-rev__author,
-.jdgm-rev__timestamp,
-.jdgm-rev__location,
-.jdgm-rev-widg__summary-text,
-.jdgm-rev-widg__read-more,
-.jdgm-paginate,
-.jdgm-histogram,
-.jdgm-histogram__row,
-[class*="jdgm"] p,
-[class*="jdgm"] a,
-[class*="jdgm"] label,
-[class*="jdgm"] select,
-[class*="jdgm"] input,
-[class*="jdgm"] textarea,
-[class*="jdgm"] button {
+/* Judge.me Reviews — body text, author names, dates, controls */
+.jm-review-widget,
+.jm-review-widget__body,
+[class*="jm-review-widget"] p,
+[class*="jm-review-widget"] a,
+[class*="jm-review-widget"] label,
+[class*="jm-review-widget"] select,
+[class*="jm-review-widget"] input,
+[class*="jm-review-widget"] textarea,
+[class*="jm-review-widget"] button {
   font-family: var(--gh-font-body, 'DM Sans', sans-serif) !important;
   color: var(--color-espresso, #3d3028);
-  font-size: inherit;
-}
-
-/* Summary rating number */
-.jdgm-rev-widg__summary-average,
-.jdgm-rev-widg__summary-text {
-  font-size: 1rem !important;
-}
-
-/* Histogram bar counts */
-.jdgm-histogram__count {
-  font-size: 0.85rem !important;
-}
-
-.jdgm-rev__author {
-  font-weight: 600 !important;
-}
-
-.jdgm-rev__timestamp,
-.jdgm-rev__location {
-  color: var(--color-espresso-light, #5a4a3d) !important;
-  font-size: 0.85rem !important;
-}
-
-/* Write a review button */
-[class*="jdgm"] .jdgm-write-rev-link,
-.jdgm-write-rev-link {
-  font-size: 1rem !important;
 }
 
 /* Product Grid - Mobile: 2-col 3px gap, Desktop: 4-col 20px gap */

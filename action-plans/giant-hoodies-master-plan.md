@@ -10,18 +10,46 @@ Each item references the source document where full details, rationale, and exac
 
 55 items, one sequential list, top to bottom.
 
-- **#1-4** — Quick fixes (tier pricing is OFF, typo, bloated title tags, banned copy). Under 15 minutes total, massive impact.
-- **#5-11** — Schema markup. One coding session, all the JSON-LD. Starts the clock on rich results in Google.
-- **#12-18** — Homepage copy. Everything visitors see first from Meta ads.
-- **#19-21** — Homepage structure. Section reordering, mid-page CTAs.
-- **#22-24** — Product page. Review stars near ATC, description placement, mobile sticky savings.
-- **#25-30** — Collection page + SEO meta content. Trust bar, infinite scroll, meta descriptions.
+- **#0-4** — Do next: hero subheadline, risk reducer, value props reorder, collection description, collection meta descriptions.
+- **#5-9** — Quick fixes (social profiles, tier pricing, typo, title tags, banned copy). Under 15 minutes total, massive impact.
+- **#10-16** — Schema markup. One coding session, all the JSON-LD. Starts the clock on rich results in Google.
+- **#17-21** — Homepage copy. Above-the-fold and high-visibility sections.
+- **#22-23** — Homepage structure. Mid-page CTAs, bottom section.
+- **#24-26** — Product page. Review stars near ATC, description placement, mobile sticky savings.
+- **#27-28** — Collection page. Trust bar, infinite scroll.
+- **#29-30** — SEO meta content. Homepage meta description, remaining copy.
 - **#31-35** — Existing 54 collection SEO (batched by ~15 collections).
 - **#36-38** — New themed, persona, and gift collections.
 - **#39-51** — Blog posts, individually listed in impact order.
 - **#52-55** — Ongoing maintenance.
 
-Every item references its source doc so you can open a new tab with the full details. Each item has a time estimate. You start at #1, work as far as you can, and pick up exactly where you left off next time.
+Every item references its source doc so you can open a new tab with the full details. Each item has a time estimate. You start at #0, work as far as you can, and pick up exactly where you left off next time.
+
+---
+
+### Do Next
+
+These changes have the highest immediate impact. Do them before anything else.
+
+- [x] **0. Fix hero subheadline** — ~10 min
+  `templates/index.json` → hero section. Replace "Prices just dropped. This is your sign to get cozy." — it's ambiguous (is this a sale?), unproven, and temporary-sounding for what is actually everyday pricing. Replace with a specific, evergreen value prop.
+  *Source: Copy Edit, Issues #2 + #13; Page CRO, Homepage Quick Win A*
+
+- [x] **1. Add risk reducer below hero CTA** — ~10 min
+  `templates/index.json` → hero section. The "Shop All Hoodies" button stands alone with no reassurance. Add a line below it: "Free shipping $75+ · 30-Day Guarantee · Made in USA"
+  *Source: Copy Edit, Issue #18; Page CRO, Homepage Quick Win B*
+
+- [ ] **2. Move value props section higher on homepage** — ~20 min
+  `templates/index.json` → reorder sections. The 4 value prop cards (8oz Sponge Fleece, Hand-Printed USA, 200+ Designs, etc.) are buried at position 7 below two product grids. Cold Meta traffic needs to understand *what this is* before browsing products. Move to after stats bar/press logos.
+  *Source: Page CRO, Homepage Quick Win C*
+
+- [ ] **3. Write main collection description** — ~15 min
+  Shopify Admin → Collections → Hoodies → Description field. Currently empty. Write something like: "Intentionally oversized. Impossibly soft. Made in the USA. Starting at $39 when you buy 3+." This serves both visitors (context) and Google (indexable content).
+  *Source: Page CRO, Collection Quick Win A; SEO Audit, Issue #3*
+
+- [ ] **4. Write meta descriptions for top 10 collections** — ~45 min
+  Shopify Admin → each collection → SEO section. Prioritize the most-visited: hoodies, best-sellers, kids-giant-hoodies, funny, animals, cats, dogs, christmas, latest-products, limited-releases. 150-160 characters each with the collection's unique angle + a reason to click.
+  *Source: SEO Audit, Issue #3*
 
 ---
 
@@ -29,24 +57,24 @@ Every item references its source doc so you can open a new tab with the full det
 
 These are broken, turned off, or embarrassing. Each takes minutes and has outsized impact.
 
-- [ ] **0. Add social profile URLs in Shopify Admin** — ~2 min
-  Shopify Admin → Settings → Brand → Social media accounts. Add URLs for Facebook, Instagram, TikTok, and any other active profiles. This populates the `sameAs` array in the Organization schema (#10) so Google associates your social accounts with your brand.
+- [x] **5. Add social profile URLs in Shopify Admin** — ~2 min
+  Shopify Admin → Settings → Brand → Social media accounts. Add URLs for Facebook, Instagram, TikTok, and any other active profiles. This populates the `sameAs` array in the Organization schema (#15) so Google associates your social accounts with your brand.
 
-- [x] **1. Turn on volume tier pricing on product page** — ~5 min
+- [x] **6. Turn on volume tier pricing on product page** — ~5 min
   Already live. `product.hoodie.json` (the template hoodies actually use) omits `show_tier_pricing`, so it defaults to `true` per the schema. The `product.json` default template has it `false`, but that's not used by hoodies.
   *Source: Page CRO, Product Quick Win A*
 
-- [x] **2. Fix "with by" typo in bottom section** — ~2 min
+- [x] **7. Fix "with by" typo in bottom section** — ~2 min
   `templates/index.json` → bottom section text. Remove the extra word so it reads "...from Fayetteville, Arkansas by our incredible team of 5."
   *Source: Copy Edit, Issue #4*
 
-- [x] **3. Shorten shop.name in title tags** — ~2 min
+- [x] **8. Shorten shop.name in title tags** — ~2 min
   Shopify Admin store name is locked (Shopify Capital balance). Fixed in theme code instead: `snippets/meta-tags.liquid` line 130 — hardcoded "Giant Hoodies" in the title tag suffix instead of `{{ shop.name }}`. Same result, no truncation.
   *Source: SEO Audit, Issue #1*
 
-- [x] **4. Remove banned copy from slideshow slide 1** — ~5 min
+- [x] **9. Remove banned copy from slideshow slide 1** — ~5 min
   `templates/index.json` → slideshow section, slide 1. Replace "One size fits most, there's only one size! Maximum comfort, maximum relaxation." — the exact phrase is listed under Language to AVOID in the copy spec.
-  Quick swap only. Full slideshow rewrite comes at #16.
+  Quick swap only. Full slideshow rewrite comes at #19.
   *Source: Copy Edit, Issue #1*
 
 ---
@@ -57,31 +85,31 @@ One-time code changes. Once deployed, they passively improve how the site appear
 
 Full Liquid code for every item below is in the Schema Markup doc.
 
-- [x] **5. Add AggregateRating to Product schema** — ~15 min
+- [x] **10. Add AggregateRating to Product schema** — ~15 min
   `sections/product-main.liquid` → expand existing Product JSON-LD. Adds star ratings pulled from Judge.me metafields (`product.metafields.reviews.rating`). Also adds `sku` and all product images instead of just the featured image. Judge.me does not inject its own JSON-LD, so no duplication risk.
   *Source: Schema Markup, #1*
 
-- [x] **6. Add FAQPage schema to product pages** — ~15 min
+- [x] **11. Add FAQPage schema to product pages** — ~15 min
   `sections/product-main.liquid` → add a second `<script type="application/ld+json">` block after the Product schema. Pulls from the 8 FAQ accordion questions on the hoodie template. Enables expandable Q&A rich results in Google.
   *Source: Schema Markup, #2*
 
-- [x] **7. Add twitter:image meta tag** — ~5 min
+- [x] **12. Add twitter:image meta tag** — ~5 min
   Done. Added `twitter:image` meta tag after `twitter:description` in `snippets/meta-tags.liquid`.
   *Source: Schema Markup, #7*
 
-- [x] **8. Add WebSite schema with SearchAction** — ~10 min
+- [x] **13. Add WebSite schema with SearchAction** — ~10 min
   Done. Added WebSite JSON-LD with SearchAction to `snippets/meta-tags.liquid`, homepage only.
   *Source: Schema Markup, #4*
 
-- [x] **9. Add BreadcrumbList schema** — ~15 min
+- [x] **14. Add BreadcrumbList schema** — ~15 min
   Done. Created `snippets/breadcrumb-schema.liquid` and rendered from `layout/theme.liquid`. Outputs Home → Collection → Product breadcrumb trail.
   *Source: Schema Markup, #3*
 
-- [x] **10. Enhance Organization schema** — ~15 min
+- [x] **15. Enhance Organization schema** — ~15 min
   Done. Expanded Organization JSON-LD in `sections/header.liquid` with `sameAs` (social profiles), `contactPoint`, and `address` (Fayetteville, AR). Social links render dynamically — if none are set in Shopify Admin, the `sameAs` array is simply omitted.
   *Source: Schema Markup, #5*
 
-- [x] **11. Add CollectionPage/ItemList schema** — ~15 min
+- [x] **16. Add CollectionPage/ItemList schema** — ~15 min
   Create new `snippets/collection-schema.liquid` and render from `layout/theme.liquid` on collection pages. Lists first 12 products as an ItemList.
   *Source: Schema Markup, #6*
 
@@ -91,31 +119,23 @@ Full Liquid code for every item below is in the Schema Markup doc.
 
 The homepage is what every Meta ad visitor sees. These fixes affect above-the-fold and high-visibility sections. Full replacement copy for each is in the Copy Edit doc.
 
-- [ ] **12. Fix hero subheadline** — ~10 min
-  `templates/index.json` → hero section. Replace "Prices just dropped. This is your sign to get cozy." — it's ambiguous (is this a sale?), unproven, and temporary-sounding for what is actually everyday pricing. Replace with a specific, evergreen value prop.
-  *Source: Copy Edit, Issues #2 + #13; Page CRO, Homepage Quick Win A*
-
-- [ ] **13. Add risk reducer below hero CTA** — ~10 min
-  `templates/index.json` → hero section. The "Shop All Hoodies" button stands alone with no reassurance. Add a line below it: "Free shipping $75+ · 30-Day Guarantee · Made in USA"
-  *Source: Copy Edit, Issue #18; Page CRO, Homepage Quick Win B*
-
-- [x] **14. Add "What's a Giant Hoodie?" as visible heading above slideshow** — ~10 min
+- [x] **17. Add "What's a Giant Hoodie?" as visible heading above slideshow** — ~10 min
   `templates/index.json` → slideshow section. The section is named "What's a Giant Hoodie?" in the editor but the question never appears on the page. Add it as a visible heading. This is exactly the question cold Meta ad traffic is asking themselves.
   *Source: Copy Edit, Issue #5*
 
-- [x] **15. Change "Hear from Others!" to "What the Hoodie Fam Says"** — skipped
+- [x] **18. Change "Hear from Others!" to "What the Hoodie Fam Says"** — skipped
   Keeping "Hear from Others!" — it's better than the suggested "What the Hoodie Fam Says." Current copy works, no change needed.
   *Source: Copy Edit, Issue #8*
 
-- [x] **16. Rewrite all 5 slideshow slides** — skipped
+- [x] **19. Rewrite all 5 slideshow slides** — skipped
   Reviewed all 5 slides against suggested rewrites. Current copy is stronger. No changes needed.
   *Source: Copy Edit, Issues #6, #7, #10, #11, #16, #17 (Sweeps 2, 3, 5, 6)*
 
-- [x] **17. Add CTA after comparison table** — ~10 min
+- [x] **20. Add CTA after comparison table** — ~10 min
   Done. Added a centered "Shop All Hoodies" button section (`cta_after_comparison`) in `templates/index.json` between the comparison table and reviews.
   *Source: Copy Edit, Issues #12 + #19*
 
-- [x] **18. Fix collection page banner copy** — skipped
+- [x] **21. Fix collection page banner copy** — skipped
   Current banner copy is fine. No change needed.
   *Source: Copy Edit, Collection Page Copy section*
 
@@ -125,15 +145,11 @@ The homepage is what every Meta ad visitor sees. These fixes affect above-the-fo
 
 These are section reordering and structural changes that affect how visitors flow through the page.
 
-- [ ] **19. Move value props section higher on homepage** — ~20 min
-  `templates/index.json` → reorder sections. The 4 value prop cards (8oz Sponge Fleece, Hand-Printed USA, 200+ Designs, etc.) are buried at position 7 below two product grids. Cold Meta traffic needs to understand *what this is* before browsing products. Move to after stats bar/press logos.
-  *Source: Page CRO, Homepage Quick Win C*
-
-- [x] **20. Add mid-page CTAs between product grids** — ~20 min
+- [x] **22. Add mid-page CTAs between product grids** — ~20 min
   Done. Added two CTA sections in `templates/index.json`: "Shop by Category" after Best Sellers, "Find Your Perfect Hoodie" after New Drops.
   *Source: Page CRO, Homepage High-Impact D*
 
-- [x] **21. Rewrite bottom section** — skipped
+- [x] **23. Rewrite bottom section** — skipped
   Keeping current copy — it's better than the suggested replacement.
   *Source: Copy Edit, Issues #9 + #14*
 
@@ -143,15 +159,15 @@ These are section reordering and structural changes that affect how visitors flo
 
 These affect the product page where the actual purchase decision happens.
 
-- [x] **22. Add review stars/summary near product title** — ~20 min
+- [x] **24. Add review stars/summary near product title** — ~20 min
   `sections/product-main.liquid` or `templates/product.hoodie.json`. Add a compact Judge.me review summary (stars + count) near the product title or just above Add to Cart. Currently the social proof (stats bar, testimonials) is far below the ATC button — at the moment of decision, the customer doesn't see "4.9 stars."
   *Source: Page CRO, Product High-Impact E*
 
-- [x] **23. Move product description above FAQs and reviews** — already done
+- [x] **25. Move product description above FAQs and reviews** — already done
   Product description is already above FAQs and reviews in the current template. No change needed.
   *Source: Page CRO, Product Quick Win C*
 
-- [x] **24. Add savings messaging to mobile sticky ATC** — already done
+- [x] **26. Add savings messaging to mobile sticky ATC** — already done
   Already implemented. `sections/product-main.liquid` line 536-539 shows dynamic "Save {{ savings_amount | money }}" in the sticky ATC when a compare-at price exists.
   *Source: Page CRO, Product High-Impact F*
 
@@ -161,15 +177,11 @@ These affect the product page where the actual purchase decision happens.
 
 These improve the page where visitors browse products after leaving the homepage.
 
-- [ ] **25. Write main collection description** — ~15 min
-  Shopify Admin → Collections → Hoodies → Description field. Currently empty. Write something like: "Intentionally oversized. Impossibly soft. Made in the USA. Starting at $39 when you buy 3+." This serves both visitors (context) and Google (indexable content).
-  *Source: Page CRO, Collection Quick Win A; SEO Audit, Issue #3*
-
-- [x] **26. Add trust bar to collection page** — skipped
+- [x] **27. Add trust bar to collection page** — skipped
   Volume pricing banner already serves this role on collection pages. Sale messaging is stronger than social proof here.
   *Source: Page CRO, Collection Quick Win B*
 
-- [x] **27. Enable infinite scroll or increase products per page** — skipped
+- [x] **28. Enable infinite scroll or increase products per page** — skipped
   Keeping pagination. Better for SEO (paginated URLs get indexed), and with a large catalog, pages help customers remember where a design was.
   *Source: Page CRO, Collection High-Impact E*
 
@@ -179,12 +191,8 @@ These improve the page where visitors browse products after leaving the homepage
 
 Writing meta descriptions and collection page content. This is content that Google shows in search results and affects click-through rate.
 
-- [ ] **28. Write homepage meta description** — ~10 min
+- [x] **29. Write homepage meta description** — ~10 min
   Shopify Admin → Online Store → Preferences → Meta description. Currently may be blank — if so, Google auto-generates a snippet from page content. Write a compelling 150-160 character description with key selling points.
-  *Source: SEO Audit, Issue #3*
-
-- [ ] **29. Write meta descriptions for top 10 collections** — ~45 min
-  Shopify Admin → each collection → SEO section. Prioritize the most-visited: hoodies, best-sellers, kids-giant-hoodies, funny, animals, cats, dogs, christmas, latest-products, limited-releases. 150-160 characters each with the collection's unique angle + a reason to click.
   *Source: SEO Audit, Issue #3*
 
 - [x] **30. Fix remaining low-priority copy issues** — skipped
@@ -610,7 +618,7 @@ No specific order — do these when you have spare time or as part of regular ma
   Done. Audited all sections, snippets, and blocks. Fixed missing alt text in 6 files: `snippets/link-featured-image.liquid` (4 menu images → collection/product title), `snippets/resource-image.liquid` (blog/collection card images → content title), `snippets/resource-card.liquid` (3 product/collection card images → resource title), `blocks/_slide.liquid` (slide images + video posters), `snippets/background-media.liquid` (decorative images → empty alt per WCAG), `snippets/video.liquid` (poster images → video alt text). Already good: hero.liquid, feature-oversized.liquid, feature-trendy.liquid, collection-header-full.liquid, logo.liquid, product-gallery.liquid, press-logos-bar.liquid, slideshow-controls.liquid.
   *Source: SEO Audit, Good Stuff table note*
 
-- [ ] **54. Verify cart drawer upsell messages are working** — ~15 min
+- [x] **54. Verify cart drawer upsell messages are working** — ~15 min
   Add 1 hoodie, check the upsell message. Add a 2nd, check again. Add a 3rd, check again. The dynamic messages depend on hoodie counting logic — make sure they change correctly.
   *Source: Page CRO, Cross-Page Observation #2*
 
