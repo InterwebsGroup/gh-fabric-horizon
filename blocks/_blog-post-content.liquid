@@ -11,6 +11,34 @@
     max-width: var(--normal-content-width);
     margin: 0 auto;
   }
+
+  .blog-post-content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  .blog-post-content table thead,
+  .blog-post-content table tbody {
+    display: table;
+    width: 100%;
+    min-width: 600px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .blog-post-content table {
+      background:
+        linear-gradient(to right, var(--color-background, #fff) 30%, transparent),
+        linear-gradient(to left, var(--color-background, #fff) 30%, transparent),
+        linear-gradient(to right, rgba(0,0,0,0.15), transparent 80%),
+        linear-gradient(to left, rgba(0,0,0,0.15), transparent 80%);
+      background-position: left center, right center, left center, right center;
+      background-repeat: no-repeat;
+      background-size: 20px 100%, 20px 100%, 12px 100%, 12px 100%;
+      background-attachment: local, local, scroll, scroll;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
