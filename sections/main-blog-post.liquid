@@ -29,9 +29,10 @@
     <header>
       {%- content_for 'block', id: 'blog-post-title', type: 'text' %}
       {%- content_for 'block', id: 'blog-post-details', type: '_blog-post-info-text' %}
-      {%- comment -%} 4b. Reading time {%- endcomment -%}
-      <div class="article-reading-time">
-        {{ 'blogs.article.reading_time' | t: minutes: reading_minutes }}
+      {%- comment -%} 4b. Reading time — styled to match blog-post-details row {%- endcomment -%}
+      <div class="blog-post-details justify-center article-reading-time">
+        <span>{{ 'content.blog_details_separator' | t }}</span>
+        <span>{{ 'blogs.article.reading_time' | t: minutes: reading_minutes }}</span>
       </div>
     </header>
 
@@ -203,12 +204,12 @@
   .article-breadcrumb {
     width: 100%;
     max-width: var(--normal-content-width);
-    margin: 0 auto var(--margin-md);
+    margin: 0 auto;
     text-align: center;
   }
 
   .article-breadcrumb a {
-    font-size: var(--font-size--body-sm);
+    font-size: var(--font-paragraph-size);
     color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
     text-decoration: none;
   }
@@ -218,10 +219,8 @@
   }
 
   .article-reading-time {
-    font-size: var(--font-size--body-sm);
-    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
-    margin-top: var(--margin-xs);
-    text-align: center;
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .article-tags {
