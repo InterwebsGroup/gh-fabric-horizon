@@ -1,4 +1,10 @@
-
+{%- liquid
+  assign word_count = article.content | strip_html | split: ' ' | size
+  assign reading_minutes = word_count | divided_by: 200
+  if reading_minutes < 1
+    assign reading_minutes = 1
+  endif
+-%}
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <div class="section color-{{ section.settings.color_scheme }}">
@@ -15,15 +21,59 @@
       {% render 'spacing-style', settings: section.settings %}
     "
   >
+    {%- comment -%} 4a. Back-to-blog breadcrumb navigation {%- endcomment -%}
+    <nav class="article-breadcrumb" aria-label="Breadcrumb">
+      <a href="{{ blog.url }}">{{ 'blogs.article.back_to_blog' | t: blog_title: blog.title }}</a>
+    </nav>
+
     <header>
       {%- content_for 'block', id: 'blog-post-title', type: 'text' %}
       {%- content_for 'block', id: 'blog-post-details', type: '_blog-post-info-text' %}
+      {%- comment -%} 4b. Reading time {%- endcomment -%}
+      <div class="article-reading-time">
+        {{ 'blogs.article.reading_time' | t: minutes: reading_minutes }}
+      </div>
     </header>
 
     {%- if article.image -%}
       {%- content_for 'block', id: 'blog-post-image', type: '_blog-post-featured-image' %}
     {%- endif -%}
     {%- content_for 'block', id: 'blog-post-content', type: '_blog-post-content' %}
+
+    {%- comment -%} 4c. Tag navigation {%- endcomment -%}
+    {%- if article.tags.size > 0 -%}
+      <div class="article-tags">
+        <span class="article-tags__label">{{ 'blogs.article.tags_label' | t }}:</span>
+        <div class="article-tags__list">
+          {%- for tag in article.tags -%}
+            <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="article-tags__pill">{{ tag }}</a>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} 4d. Social sharing {%- endcomment -%}
+    {% render 'article-share-buttons', article: article %}
+
+    {%- comment -%} 4f. Author bio (renders only when metafields exist) {%- endcomment -%}
+    {%- if article.metafields.custom.author_bio != blank -%}
+      <div class="article-author-bio">
+        {%- if article.metafields.custom.author_image != blank -%}
+          <img
+            src="{{ article.metafields.custom.author_image | image_url: width: 120 }}"
+            alt="{{ article.author }}"
+            class="article-author-bio__image"
+            width="60"
+            height="60"
+            loading="lazy"
+          >
+        {%- endif -%}
+        <div class="article-author-bio__info">
+          <span class="article-author-bio__name">{{ article.author }}</span>
+          <p class="article-author-bio__text">{{ article.metafields.custom.author_bio }}</p>
+        </div>
+      </div>
+    {%- endif -%}
 
     {% comment %} Dynamic area for @app blocks only, at the bottom {% endcomment %}
     {% content_for 'blocks' %}
@@ -56,14 +106,268 @@
         {% render 'blog-comment-form', article: article, section_id: section.id %}
       </div>
     {% endif %}
+
+    {%- comment -%} 4e. Related posts {%- endcomment -%}
+    {%- assign related_count = 0 -%}
+    {%- for post in blog.articles -%}
+      {%- if post.id != article.id -%}
+        {%- assign related_count = related_count | plus: 1 -%}
+      {%- endif -%}
+      {%- if related_count >= 3 -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if related_count > 0 -%}
+      <div class="article-related-posts">
+        <h2 class="h3">{{ 'blogs.article.related_posts_heading' | t }}</h2>
+        <div class="article-related-posts__grid">
+          {%- assign shown = 0 -%}
+          {%- for post in blog.articles -%}
+            {%- if post.id != article.id -%}
+              <a href="{{ post.url }}" class="article-related-posts__item">
+                {%- if post.image -%}
+                  <img
+                    src="{{ post.image | image_url: width: 600 }}"
+                    alt="{{ post.title | escape }}"
+                    class="article-related-posts__image"
+                    width="300"
+                    height="200"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+                <span class="article-related-posts__title">{{ post.title }}</span>
+              </a>
+              {%- assign shown = shown | plus: 1 -%}
+              {%- if shown >= 3 -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
   </div>
 </div>
 
+{%- comment -%} 3. Enhanced Article JSON-LD schema {%- endcomment -%}
 <script type="application/ld+json">
-  {{ article | structured_data }}
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ shop.url }}{{ article.url }}"
+  },
+  "headline": {{ article.title | json }},
+  "description": {{ article.excerpt_or_content | strip_html | truncate: 160 | json }},
+  {%- if article.image -%}
+  "image": {
+    "@type": "ImageObject",
+    "url": "{{ article.image | image_url: width: 1200 }}",
+    "width": {{ article.image.width }},
+    "height": {{ article.image.height }}
+  },
+  {%- endif -%}
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | json }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    "url": "{{ shop.url }}"
+    {%- if shop.brand.logo -%}
+    ,"logo": {
+      "@type": "ImageObject",
+      "url": "{{ shop.brand.logo | image_url: width: 600 }}"
+    }
+    {%- endif -%}
+  },
+  "datePublished": "{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+  "dateModified": "{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+  "articleSection": {{ blog.title | json }},
+  {%- if article.tags.size > 0 -%}
+  "keywords": {{ article.tags | json }},
+  {%- endif -%}
+  "wordCount": {{ word_count }},
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".blog-post-content h1", ".blog-post-content h2", ".blog-post-content p:first-of-type"]
+  },
+  "isAccessibleForFree": true
+}
 </script>
 
 {% stylesheet %}
+  .article-breadcrumb {
+    width: 100%;
+    max-width: var(--normal-content-width);
+    margin: 0 auto var(--margin-md);
+  }
+
+  .article-breadcrumb a {
+    font-size: var(--font-size--body-sm);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    text-decoration: none;
+  }
+
+  .article-breadcrumb a:hover {
+    color: var(--color-foreground);
+  }
+
+  .article-reading-time {
+    font-size: var(--font-size--body-sm);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    margin-top: var(--margin-xs);
+  }
+
+  .article-tags {
+    width: 100%;
+    max-width: var(--normal-content-width);
+    margin: var(--margin-lg) auto 0;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xs);
+    flex-wrap: wrap;
+  }
+
+  .article-tags__label {
+    font-size: var(--font-size--body-sm);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+  }
+
+  .article-tags__list {
+    display: flex;
+    gap: var(--gap-2xs);
+    flex-wrap: wrap;
+  }
+
+  .article-tags__pill {
+    display: inline-block;
+    padding: var(--padding-2xs) var(--padding-sm);
+    border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20));
+    border-radius: 9999px;
+    font-size: var(--font-size--body-sm);
+    color: var(--color-foreground);
+    text-decoration: none;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .article-tags__pill:hover {
+    background-color: rgb(var(--color-foreground-rgb) / 0.05);
+    border-color: var(--color-foreground);
+  }
+
+  .article-share {
+    width: 100%;
+    max-width: var(--normal-content-width);
+    margin: var(--margin-lg) auto 0;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+  }
+
+  .article-share__label {
+    font-size: var(--font-size--body-sm);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+  }
+
+  .article-share__buttons {
+    display: flex;
+    gap: var(--gap-xs);
+  }
+
+  .article-share__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20));
+    color: var(--color-foreground);
+    text-decoration: none;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .article-share__button:hover {
+    background-color: rgb(var(--color-foreground-rgb) / 0.05);
+    border-color: var(--color-foreground);
+  }
+
+  .article-author-bio {
+    width: 100%;
+    max-width: var(--normal-content-width);
+    margin: var(--margin-xl) auto 0;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap-md);
+    padding: var(--padding-md);
+    border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20));
+    border-radius: 8px;
+  }
+
+  .article-author-bio__image {
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .article-author-bio__name {
+    font-weight: 600;
+    display: block;
+    margin-bottom: var(--margin-2xs);
+  }
+
+  .article-author-bio__text {
+    font-size: var(--font-size--body-sm);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    margin: 0;
+  }
+
+  .article-related-posts {
+    width: 100%;
+    max-width: var(--normal-content-width);
+    margin: var(--margin-2xl) auto 0;
+  }
+
+  .article-related-posts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap-lg);
+    margin-top: var(--margin-md);
+  }
+
+  @media screen and (max-width: 749px) {
+    .article-related-posts__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .article-related-posts__item {
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
+
+  .article-related-posts__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .article-related-posts__title {
+    display: block;
+    margin-top: var(--margin-xs);
+    font-weight: 600;
+  }
+
+  .article-related-posts__item:hover .article-related-posts__title {
+    text-decoration: underline;
+  }
+
   .blog-post-comments-container {
     width: 100%;
     max-width: var(--normal-content-width);

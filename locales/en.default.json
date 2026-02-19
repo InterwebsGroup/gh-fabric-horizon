@@ -130,6 +130,11 @@
   },
   "blogs": {
     "article": {
+      "back_to_blog": "← {{ blog_title }}",
+      "reading_time": "{{ minutes }} min read",
+      "share_label": "Share this article",
+      "related_posts_heading": "Related Posts",
+      "tags_label": "Tagged",
       "comments_heading": {
         "one": "{{ count }} comment",
         "other": "{{ count }} comments"

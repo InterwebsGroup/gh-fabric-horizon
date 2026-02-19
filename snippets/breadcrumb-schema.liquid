@@ -1,9 +1,9 @@
 {%- comment -%}
   BreadcrumbList JSON-LD schema.
-  Renders on product and collection pages.
+  Renders on product, collection, blog, and article pages.
 {%- endcomment -%}
 
-{%- if request.page_type == 'product' or request.page_type == 'collection' -%}
+{%- if request.page_type == 'product' or request.page_type == 'collection' or request.page_type == 'blog' or request.page_type == 'article' -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -37,6 +37,26 @@
       "position": {% if product.collections.size > 0 %}3{% else %}2{% endif %},
       "name": {{ product.title | json }},
       "item": "{{ shop.url }}{{ product.url }}"
+    }
+    {%- elsif request.page_type == 'blog' -%}
+    ,{
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ blog.title | json }},
+      "item": "{{ shop.url }}{{ blog.url }}"
+    }
+    {%- elsif request.page_type == 'article' -%}
+    ,{
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ blog.title | json }},
+      "item": "{{ shop.url }}{{ blog.url }}"
+    }
+    ,{
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ article.title | json }},
+      "item": "{{ shop.url }}{{ article.url }}"
     }
     {%- endif -%}
   ]
