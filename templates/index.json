@@ -1374,10 +1374,36 @@
             "custom_width_mobile": 100
           },
           "blocks": {}
+        },
+        "comparison_blog_link": {
+          "type": "text",
+          "settings": {
+            "text": "<p><a href=\"/blogs/the-hoodie-blog/best-oversized-hoodies-2026-tested-compared\">Read the full comparison →</a></p>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "paragraph",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "cta_button"
+        "cta_button",
+        "comparison_blog_link"
       ],
       "name": "CTA After Comparison",
       "settings": {
