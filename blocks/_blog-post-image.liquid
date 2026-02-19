@@ -49,6 +49,13 @@
   .blog-post-card__image--large {
     --blog-post-card-img-height: 400px;
   }
+
+  @media screen and (max-width: 749px) {
+    .blog-post-card__image {
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}
