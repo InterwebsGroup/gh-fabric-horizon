@@ -1346,25 +1346,6 @@
         "padding-block-end": 60
       }
     },
-    "feature_guarantee": {
-      "type": "feature-guarantee",
-      "name": "Guarantee",
-      "settings": {
-        "stat_number": "Less Than 1%",
-        "stat_label": "Return Rate",
-        "comparison_text": "The average apparel brand sees 21%",
-        "step_1_title": "Order",
-        "step_1_desc": "Typically ships next business day",
-        "step_2_title": "Try It",
-        "step_2_desc": "Take in all the coziness and relax",
-        "step_3_title": "Love It",
-        "step_3_desc": "Or we'll make it right",
-        "badge_text": "30-Day \"Best Hoodie Ever\" Guarantee",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 60,
-        "padding-block-end": 60
-      }
-    },
     "featured_blog_posts_9cHrmJ": {
       "type": "featured-blog-posts",
       "blocks": {
@@ -1506,6 +1487,25 @@
         "color_scheme": "",
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "feature_guarantee": {
+      "type": "feature-guarantee",
+      "name": "Guarantee",
+      "settings": {
+        "stat_number": "Less Than 1%",
+        "stat_label": "Return Rate",
+        "comparison_text": "The average apparel brand sees 21%",
+        "step_1_title": "Order",
+        "step_1_desc": "Typically ships next business day",
+        "step_2_title": "Try It",
+        "step_2_desc": "Take in all the coziness and relax",
+        "step_3_title": "Love It",
+        "step_3_desc": "Or we'll make it right",
+        "badge_text": "30-Day \"Best Hoodie Ever\" Guarantee",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "comparison_table": {
@@ -2231,8 +2231,8 @@
     "cta_mid_new_drops",
     "feature_oversized",
     "slideshow_3eCk7e",
-    "feature_guarantee",
     "featured_blog_posts_9cHrmJ",
+    "feature_guarantee",
     "comparison_table",
     "cta_after_comparison",
     "176974364261417f41",
