@@ -23,9 +23,9 @@
 
 {%- comment -%} Structured data for SEO {%- endcomment -%}
 {%- liquid
-  assign rating_value = product.metafields.reviews.rating.value.rating
-  assign rating_max = product.metafields.reviews.rating.value.scale_max
-  assign review_count = product.metafields.reviews.rating_count
+  assign rating_value = product.metafields.reviews.rating.value.rating | plus: 0.0
+  assign rating_max = product.metafields.reviews.rating.value.scale_max | plus: 0.0
+  assign review_count = product.metafields.reviews.rating_count | plus: 0
 -%}
 <script type="application/ld+json">
 {
@@ -44,7 +44,7 @@
     "@type": "Brand",
     "name": {{ shop.name | json }}
   },
-  {%- if rating_value != blank and review_count != blank and review_count > 0 %}
+  {%- if rating_value > 0 and review_count > 0 %}
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": {{ rating_value }},
@@ -57,85 +57,19 @@
     "url": "{{ shop.url }}{{ product.url }}",
     "priceCurrency": {{ cart.currency.iso_code | json }},
     "price": {{ selected_variant.price | divided_by: 100.0 }},
-    "availability": "https://schema.org/{% if selected_variant.available %}InStock{% else %}OutOfStock{% endif %}"
+    "availability": "https://schema.org/{% if selected_variant.available %}InStock{% else %}OutOfStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }}
+    }
   }
 }
 </script>
 
-{%- comment -%} FAQPage schema — hardcoded from product FAQ accordion {%- endcomment -%}
-{%- if template.suffix == 'hoodie' -%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Will it fit me?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "If you want to feel like you're wrapped in a cozy blanket, yes. Our hoodies are intentionally oversized with custom cut and sew measurements, not fitted clothing. Customers from size XS to 3XL love the fit. It's giant on purpose."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does the fabric feel like?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Super soft, lightweight sponge fleece — the kind you never want to take off. It's plush and cozy without being heavy or bulky. Our customers describe it as \"wearing a hug.\" Once you feel it, you'll get it."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I wash my Giant Hoodie?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "With love! Our sponge fleece is super soft but delicate. Tie little knots in the drawstring ends so they don't pull out, wash alone or with soft clothes only, cold water on the gentle cycle, and always air dry — no dryer. Treat it right and you'll stay in love for years."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How fast will I get my order?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Really, really fast. Most orders ship same or next business day and arrive in 3-4 days within the US. Every hoodie is printed and packed by hand at our facility in Northwest Arkansas. We include a handwritten thank-you card in every box."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I wear it in summer?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Absolutely. Our sponge fleece is lightweight and breathable — not heavy or bulky at all. Customers wear them year-round: in blasting AC, on summer movie nights, and even outside in warm weather. It's cozy without the sweat."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What if I don't love it?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "We're confident you will, but we've got you covered. Our 30-day \"Best Hoodie Ever\" Guarantee means if something isn't right, just reach out and we'll make it right. Less than 1% of our orders are returned. The average apparel brand sees 21%."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I save more if I buy multiple?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes! Buy 2 hoodies and save $20 on each. Buy 3 or more and save $32 on each — that's as low as $39 per hoodie. The more you buy, the more you save. Mix and match any designs."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Where are you located?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Every single hoodie is printed and packed by hand at our facility in Fayetteville, Arkansas, in the USA. We're a small team of 5 who genuinely love what we do — and we put a handwritten thank-you card in every order."
-      }
-    }
-  ]
-}
-</script>
+{%- comment -%} FAQPage schema — renders shared FAQ snippet for product templates with FAQ accordion {%- endcomment -%}
+{%- if template.suffix == 'hoodie' or template.suffix == 'blanket' or template.suffix == 'shirt' or template.suffix == 'messup' -%}
+  {%- render 'faq-schema' -%}
 {%- endif -%}
 
 <section

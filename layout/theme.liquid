@@ -30,6 +30,9 @@
 
     {%- render 'meta-tags' -%}
     {%- render 'breadcrumb-schema' -%}
+    {%- if request.page_type == 'index' -%}
+      {%- render 'faq-schema' -%}
+    {%- endif -%}
     {%- if request.page_type == 'collection' -%}
       {%- render 'collection-schema' -%}
     {%- endif -%}
