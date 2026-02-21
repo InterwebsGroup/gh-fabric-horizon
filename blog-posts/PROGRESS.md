@@ -22,7 +22,7 @@
 - Fabric: 8oz sponge fleece — soft, plush, lightweight
 - Sizing: One size fits most (similar to 3XL/4XL, designed to be giant)
 - Designs: 7,000+ printed by hand
-- Made in: USA, Fayetteville, Arkansas, team of 5
+- Printed & packed in: USA, Fayetteville, Arkansas, team of 5
 - Customers: 225,000+
 - Rating: 4.9 stars
 - Return rate: <1% (industry avg 21%)

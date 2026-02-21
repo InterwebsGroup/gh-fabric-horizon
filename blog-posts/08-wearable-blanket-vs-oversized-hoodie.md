@@ -186,7 +186,7 @@ Here's what we bring to the table:
 - **Classic hoodie silhouette** — hood, kangaroo pocket, ribbed cuffs
 - **7,000+ designs** — from tie-dye to [cats](https://gianthoodies.com/collections/cats) to [custom uploads](https://gianthoodies.com/products/customize-your-own-giant-hoodie)
 - **$55 each ($39 at 3+)** — less than half the price of most wearable blankets
-- **[Made in the USA](https://gianthoodies.com/pages/our-story)** — printed and packed by hand in Fayetteville, Arkansas
+- **[Printed & packed in the USA](https://gianthoodies.com/pages/our-story)** — by hand in Fayetteville, Arkansas
 - **225K+ happy customers** — 4.9-star average, less than 1% return rate
 
 We're not trying to replace wearable blankets. We're offering something different — and for most people, something better suited to how they actually live.
@@ -214,7 +214,7 @@ No. We're an oversized hoodie brand. Our hoodies are soft, roomy, and cozy, but 
 A Giant Hoodie is cozy and warm — customers wear them through fall and winter comfortably. But it's not "sitting still in a 55-degree room" warm the way a thick sherpa blanket hoodie is. The trade-off is that you can wear a Giant Hoodie year-round without overheating. For most people and most situations, that's the better deal.
 
 **What's the best oversized hoodie to buy?**
-We're biased, but we'd say ours. 225K+ customers, 4.9-star rating, 7,000+ designs, $55 each, made in the USA. Check out our full guide to the [best oversized hoodies in 2026](/blogs/the-hoodie-blog/best-oversized-hoodies-2026) for a deeper look.
+We're biased, but we'd say ours. 225K+ customers, 4.9-star rating, 7,000+ designs, $55 each, printed and packed in the USA. Check out our full guide to the [best oversized hoodies in 2026](/blogs/the-hoodie-blog/best-oversized-hoodies-2026) for a deeper look.
 
 ---
 
@@ -226,7 +226,7 @@ A wearable blanket is a thick, warm, indoor lounging product. It's great for col
 
 An oversized hoodie is a soft, lightweight, everyday piece you can wear anywhere — at home, out running errands, on a plane, at a bonfire, to class, to brunch. It's cozy without being bulky, and it actually looks like something you'd choose to wear.
 
-If you want blanket-level comfort in something you'll reach for every single day — not just on the couch — an oversized hoodie is the better pick. And if you want one with 7,000+ designs, made by hand in the USA, at a price that makes it easy to grab a few? That's exactly what Giant Hoodies is. Not sure where to start? [The Original Giant Hoodie](https://gianthoodies.com/products/blank-giant-hoodie) in a solid color is always a great first pick, or check out our [best sellers](https://gianthoodies.com/collections/best-sellers).
+If you want blanket-level comfort in something you'll reach for every single day — not just on the couch — an oversized hoodie is the better pick. And if you want one with 7,000+ designs, printed and packed by hand in the USA, at a price that makes it easy to grab a few? That's exactly what Giant Hoodies is. Not sure where to start? [The Original Giant Hoodie](https://gianthoodies.com/products/blank-giant-hoodie) in a solid color is always a great first pick, or check out our [best sellers](https://gianthoodies.com/collections/best-sellers).
 
 **Ready to see the difference for yourself?** [Shop Giant Hoodies →](https://gianthoodies.com/collections/giant-hoodies)
 
@@ -391,7 +391,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
   <li><strong>Classic hoodie silhouette</strong> — hood, kangaroo pocket, ribbed cuffs</li>
   <li><strong>7,000+ designs</strong> — from tie-dye to <a href="https://gianthoodies.com/collections/cats">cats</a> to <a href="https://gianthoodies.com/products/customize-your-own-giant-hoodie">custom uploads</a></li>
   <li><strong>$55 each ($39 at 3+)</strong> — less than half the price of most wearable blankets</li>
-  <li><strong><a href="https://gianthoodies.com/pages/our-story">Made in the USA</a></strong> — printed and packed by hand in Fayetteville, Arkansas</li>
+  <li><strong><a href="https://gianthoodies.com/pages/our-story">Printed &amp; packed in the USA</a></strong> — by hand in Fayetteville, Arkansas</li>
   <li><strong>225K+ happy customers</strong> — 4.9-star average, less than 1% return rate</li>
 </ul>
 <p>We're not trying to replace wearable blankets. We're offering something different — and for most people, something better suited to how they actually live.</p>
@@ -417,13 +417,13 @@ If you'd rather paste into Shopify's HTML view, use the code below.
 <p>A Giant Hoodie is cozy and warm — customers wear them through fall and winter comfortably. But it's not "sitting still in a 55-degree room" warm the way a thick sherpa blanket hoodie is. The trade-off is that you can wear a Giant Hoodie year-round without overheating. For most people and most situations, that's the better deal.</p>
 
 <h3>What's the best oversized hoodie to buy?</h3>
-<p>We're biased, but we'd say ours. 225K+ customers, 4.9-star rating, 7,000+ designs, $55 each, made in the USA. Check out our full guide to the <a href="/blogs/the-hoodie-blog/best-oversized-hoodies-2026">best oversized hoodies in 2026</a> for a deeper look.</p>
+<p>We're biased, but we'd say ours. 225K+ customers, 4.9-star rating, 7,000+ designs, $55 each, printed and packed in the USA. Check out our full guide to the <a href="/blogs/the-hoodie-blog/best-oversized-hoodies-2026">best oversized hoodies in 2026</a> for a deeper look.</p>
 
 <h2>The Bottom Line</h2>
 <p>Wearable blankets and oversized hoodies both exist to make you comfortable — they just do it in very different ways.</p>
 <p>A wearable blanket is a thick, warm, indoor lounging product. It's great for cold nights on the couch. It's not great for anything else.</p>
 <p>An oversized hoodie is a soft, lightweight, everyday piece you can wear anywhere — at home, out running errands, on a plane, at a bonfire, to class, to brunch. It's cozy without being bulky, and it actually looks like something you'd choose to wear.</p>
-<p>If you want blanket-level comfort in something you'll reach for every single day — not just on the couch — an oversized hoodie is the better pick. And if you want one with 7,000+ designs, made by hand in the USA, at a price that makes it easy to grab a few? That's exactly what Giant Hoodies is. Not sure where to start? <a href="https://gianthoodies.com/products/blank-giant-hoodie">The Original Giant Hoodie</a> in a solid color is always a great first pick, or check out our <a href="https://gianthoodies.com/collections/best-sellers">best sellers</a>.</p>
+<p>If you want blanket-level comfort in something you'll reach for every single day — not just on the couch — an oversized hoodie is the better pick. And if you want one with 7,000+ designs, printed and packed by hand in the USA, at a price that makes it easy to grab a few? That's exactly what Giant Hoodies is. Not sure where to start? <a href="https://gianthoodies.com/products/blank-giant-hoodie">The Original Giant Hoodie</a> in a solid color is always a great first pick, or check out our <a href="https://gianthoodies.com/collections/best-sellers">best sellers</a>.</p>
 <p><strong><a href="https://gianthoodies.com/collections/giant-hoodies">Shop Giant Hoodies →</a></strong></p>
 ```
 

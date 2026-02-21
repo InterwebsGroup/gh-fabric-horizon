@@ -118,7 +118,7 @@ We have a 30-day "Best Hoodie Ever" Guarantee. If something isn't right — wron
 
 Is this why our return rate is under 1%? Partly. But it's also because when the rare issue does come up, customers are more likely to reach out and let us fix it than to just return it and leave a bad review. That's what happens when you build trust.
 
-Buying from a small American-made brand should feel good, not risky. We work hard to make sure it does.
+Buying from a small American brand that prints and packs every order by hand should feel good, not risky. We work hard to make sure it does.
 
 ---
 
@@ -131,7 +131,7 @@ Sometimes you just want the facts. Here they are:
 - **Less than 1%** return rate (industry average: 21%)
 - **7,000+** designs and color combinations
 - **$55** per hoodie ($39 each when you buy 3+)
-- **Made in the USA** — printed and packed in Fayetteville, Arkansas
+- **Printed & packed in the USA** — Fayetteville, Arkansas
 - **Featured on** Oprah's Favorite Things, Good Morning America, Forbes, Cosmopolitan, Kelly & Mark, The View
 
 > "It's so big and comfy, I LIVE in it!"
@@ -147,7 +147,7 @@ If you're still researching, here's the short version of what sets Giant Hoodies
 1. **It's a real hoodie.** Not a wearable blanket, not a snuggie, not a poncho. A hoodie. You can wear it in public.
 2. **The fabric is different.** 8oz sponge fleece is soft and lightweight — cozy without overheating. Year-round comfortable.
 3. **7,000+ designs.** Nobody else is close. Plus custom options.
-4. **It's made in the USA.** Every order, by hand, by a team of 5 in Arkansas.
+4. **It's printed and packed in the USA.** Every order, by hand, by a team of 5 in Arkansas.
 5. **The price is fair.** $55, or $39 each at 3+. No inflated "retail" prices with fake discounts.
 6. **Real people, real support.** Small team, handwritten notes, and a guarantee that means something.
 
@@ -244,7 +244,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
 <p>Amara's review reflects something we take seriously. Giant Hoodies is a team of 5, working out of our facility in <a href="/blogs/the-hoodie-blog/made-in-usa-hoodies-arkansas">Fayetteville, Arkansas</a>. Every order is printed and packed by hand. Every box includes a handwritten thank-you card. And when someone reaches out with an issue, they get a real person — not a chatbot, not a 48-hour wait, not a form letter. You can always <a href="https://gianthoodies.com/pages/contact-us">reach our team directly</a>.</p>
 <p>We have a 30-day "Best Hoodie Ever" Guarantee. If something isn't right — wrong size, print issue, you just don't love it — we make it right. No hoops, no guilt trips.</p>
 <p>Is this why our return rate is under 1%? Partly. But it's also because when the rare issue does come up, customers are more likely to reach out and let us fix it than to just return it and leave a bad review. That's what happens when you build trust.</p>
-<p>Buying from a small American-made brand should feel good, not risky. We work hard to make sure it does.</p>
+<p>Buying from a small American brand that prints and packs every order by hand should feel good, not risky. We work hard to make sure it does.</p>
 
 <h2>The Numbers, All in One Place</h2>
 <p>Sometimes you just want the facts. Here they are:</p>
@@ -254,7 +254,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
   <li><strong>Less than 1%</strong> return rate (industry average: 21%)</li>
   <li><strong>7,000+</strong> designs and color combinations</li>
   <li><strong>$55</strong> per hoodie ($39 each when you buy 3+)</li>
-  <li><strong>Made in the USA</strong> — printed and packed in Fayetteville, Arkansas</li>
+  <li><strong>Printed &amp; packed in the USA</strong> — Fayetteville, Arkansas</li>
   <li><strong>Featured on</strong> Oprah's Favorite Things, Good Morning America, Forbes, Cosmopolitan, Kelly &amp; Mark, The View</li>
 </ul>
 <blockquote><p>"It's so big and comfy, I LIVE in it!"</p></blockquote>
@@ -266,7 +266,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
   <li><strong>It's a real hoodie.</strong> Not a wearable blanket, not a snuggie, not a poncho. A hoodie. You can wear it in public.</li>
   <li><strong>The fabric is different.</strong> 8oz sponge fleece is soft and lightweight — cozy without overheating. Year-round comfortable.</li>
   <li><strong>7,000+ designs.</strong> Nobody else is close. Plus custom options.</li>
-  <li><strong>It's made in the USA.</strong> Every order, by hand, by a team of 5 in Arkansas.</li>
+  <li><strong>It's printed and packed in the USA.</strong> Every order, by hand, by a team of 5 in Arkansas.</li>
   <li><strong>The price is fair.</strong> $55, or $39 each at 3+. No inflated "retail" prices with fake discounts.</li>
   <li><strong>Real people, real support.</strong> Small team, handwritten notes, and a guarantee that means something.</li>
 </ol>

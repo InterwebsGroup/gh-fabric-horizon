@@ -67,6 +67,20 @@ node publish-blog-posts.mjs
 
 The script automatically skips posts that already exist in Shopify (matched by URL handle), so it's safe to re-run.
 
+### Updating Existing Posts
+
+If you've edited a markdown file and want to push the changes to Shopify:
+
+```bash
+# 1. Preview — confirm everything parses correctly
+node publish-blog-posts.mjs --dry-run
+
+# 2. Push updates to all existing posts
+node publish-blog-posts.mjs --update
+```
+
+The `--update` flag pushes the current HTML, title, excerpt, and tags from your markdown files to any matching posts in Shopify (matched by URL handle). New posts that don't exist yet will be skipped — use `--draft` or a normal run to create those first.
+
 ### After Publishing
 
 1. Go to **Shopify Admin > Online Store > Blog posts > The Hoodie Blog**
@@ -85,7 +99,7 @@ SHOPIFY_CLIENT_ID=your_client_id SHOPIFY_CLIENT_SECRET=your_secret node publish-
 Find your Client ID and Secret in the Shopify Dev Dashboard > Blog Publisher > Settings.
 
 **Post already exists:**
-The script skips duplicates by URL handle. If you need to update an existing post, edit it directly in Shopify Admin.
+The script skips duplicates by URL handle. To push changes to existing posts, use `--update`.
 
 **API rate limit:**
 The script waits 500ms between requests and backs off automatically if rate-limited. No action needed.

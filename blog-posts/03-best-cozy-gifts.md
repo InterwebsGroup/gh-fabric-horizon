@@ -65,7 +65,7 @@ We'll be upfront — we make Giant Hoodies, so we're biased. But here's why we t
 
 **The price makes it easy to be generous.** A single Giant Hoodie is $55. But if you're buying for multiple people — family, friend group, office gift exchange — the price drops to $39 each when you buy 3 or more. That's three cozy, personalized gifts for $117. Try doing that with any other brand.
 
-**It ships fast and it's made in the USA.** Every Giant Hoodie is printed by hand at our facility in Fayetteville, Arkansas. Most orders ship same or next business day and arrive in 2-3 days within the US. Free shipping on orders over $75. And every box includes a handwritten thank-you card — a small detail, but it makes the unboxing feel special when it's a gift.
+**It ships fast and it's printed and packed in the USA.** Every Giant Hoodie is printed by hand at our facility in Fayetteville, Arkansas. Most orders ship same or next business day and arrive in 2-3 days within the US. Free shipping on orders over $75. And every box includes a handwritten thank-you card — a small detail, but it makes the unboxing feel special when it's a gift.
 
 **30-day guarantee, less than 1% return rate.** If the person you're gifting doesn't love it (unlikely — our return rate is under 1%, compared to the 21% industry average), we'll make it right. That's our "Best Hoodie Ever" Guarantee.
 
@@ -248,7 +248,7 @@ That depends on the person — that's the whole point of having 7,000+ designs. 
 
 ## The Bottom Line
 
-If you're buying a gift for someone who's always cold, you've got great options at every price point. But the gift that checks the most boxes — cozy, personal, no sizing anxiety, affordable, ships fast, made in the USA — is a [Giant Hoodie](https://gianthoodies.com/collections/giant-hoodies).
+If you're buying a gift for someone who's always cold, you've got great options at every price point. But the gift that checks the most boxes — cozy, personal, no sizing anxiety, affordable, ships fast, printed and packed in the USA — is a [Giant Hoodie](https://gianthoodies.com/collections/giant-hoodies).
 
 225,000+ customers. 4.9-star average. Less than 1% return rate. 7,000+ designs. $55 each, or $39 each when you buy 3+.
 
@@ -336,7 +336,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
 <p><strong>7,000+ designs mean you can match anyone's personality.</strong> <a href="https://gianthoodies.com/collections/cats">Cats</a>, <a href="https://gianthoodies.com/collections/dogs">dogs</a>, tie-dye, <a href="https://gianthoodies.com/collections/zodiac">zodiac signs</a>, <a href="https://gianthoodies.com/collections/food">food prints</a>, floral, <a href="https://gianthoodies.com/collections/retro">retro</a>, <a href="https://gianthoodies.com/collections/sarcasm">sarcasm</a>, space — we have over 7,000 designs. You're not stuck picking between three generic colors. Or if they just want a classic solid color, <a href="https://gianthoodies.com/products/blank-giant-hoodie">The Original Giant Hoodie</a> is the perfect starting point. You can find something that actually feels personal, which is what makes a gift great.</p>
 <p><strong>It's a gift they'll use every single day.</strong> This isn't a candle that sits on the shelf or a mug that ends up in the back of the cabinet. Our customers wear their Giant Hoodies to the couch, the grocery store, the airport, dog walks, brunch, and bed. <a href="/blogs/the-hoodie-blog/why-225000-people-bought-giant-hoodie">225,000+ customers</a> and a 4.9-star rating say this isn't an exaggeration.</p>
 <p><strong>The price makes it easy to be generous.</strong> A single Giant Hoodie is $55. But if you're buying for multiple people — family, friend group, office gift exchange — the price drops to $39 each when you buy 3 or more. That's three cozy, personalized gifts for $117. Try doing that with any other brand.</p>
-<p><strong>It ships fast and it's made in the USA.</strong> Every Giant Hoodie is printed by hand at our facility in Fayetteville, Arkansas. Most orders ship same or next business day and arrive in 2-3 days within the US. Free shipping on orders over $75. And every box includes a handwritten thank-you card — a small detail, but it makes the unboxing feel special when it's a gift.</p>
+<p><strong>It ships fast and it's printed and packed in the USA.</strong> Every Giant Hoodie is printed by hand at our facility in Fayetteville, Arkansas. Most orders ship same or next business day and arrive in 2-3 days within the US. Free shipping on orders over $75. And every box includes a handwritten thank-you card — a small detail, but it makes the unboxing feel special when it's a gift.</p>
 <p><strong>30-day guarantee, less than 1% return rate.</strong> If the person you're gifting doesn't love it (unlikely — our return rate is under 1%, compared to the 21% industry average), we'll make it right. That's our "Best Hoodie Ever" Guarantee.</p>
 <p><strong><a href="https://gianthoodies.com/collections/giant-hoodies">Browse 7,000+ Giant Hoodie designs →</a></strong></p>
 
@@ -477,7 +477,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
 <p>That depends on the person — that's the whole point of having 7,000+ designs. Animal prints (cats, dogs), tie-dye, and zodiac signs are consistently our <a href="https://gianthoodies.com/collections/best-sellers">best sellers</a>. You can also <a href="https://gianthoodies.com/products/customize-your-own-giant-hoodie">upload a custom design</a> if you want something truly one-of-a-kind. For more help choosing, see our <a href="/blogs/the-hoodie-blog/best-oversized-hoodies-2026">best oversized hoodies 2026</a> guide.</p>
 
 <h2>The Bottom Line</h2>
-<p>If you're buying a gift for someone who's always cold, you've got great options at every price point. But the gift that checks the most boxes — cozy, personal, no sizing anxiety, affordable, ships fast, made in the USA — is a <a href="https://gianthoodies.com/collections/giant-hoodies">Giant Hoodie</a>.</p>
+<p>If you're buying a gift for someone who's always cold, you've got great options at every price point. But the gift that checks the most boxes — cozy, personal, no sizing anxiety, affordable, ships fast, printed and packed in the USA — is a <a href="https://gianthoodies.com/collections/giant-hoodies">Giant Hoodie</a>.</p>
 <p>225,000+ customers. 4.9-star average. Less than 1% return rate. 7,000+ designs. $55 each, or $39 each when you buy 3+.</p>
 <p>It's the gift they'll actually wear. Every day. Everywhere.</p>
 <p><strong><a href="https://gianthoodies.com/collections/giant-hoodies">Shop Giant Hoodies →</a></strong></p>

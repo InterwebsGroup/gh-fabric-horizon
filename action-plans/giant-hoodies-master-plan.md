@@ -230,7 +230,7 @@ The Programmatic SEO doc has a description template and the full list of all 54 
 
 Creating net-new collection pages that target keywords people are actually searching for. These build on the existing product catalog — automated collections pull in matching products automatically.
 
-- [ ] **36. Create themed collections** — ~3 hrs
+- [x] **36. Create themed collections** — N/A, not doing
   Shopify Admin → Collections → Create automated collections. Use product title/type conditions. Write unique description + SEO title + meta description for each. Minimum 6 products per collection.
   *Source: Programmatic SEO, Playbook 1*
 
@@ -247,7 +247,7 @@ Creating net-new collection pages that target keywords people are actually searc
 
   Note: cats, dogs, funny, sarcasm, animals, travel, spring, christmas, blank-hoodies already exist. Music/butterfly/unicorn/space had weak or zero signal — skip unless products are added.
 
-- [ ] **37. Create persona collections** — ~3 hrs
+- [x] **37. Create persona collections** — N/A, not doing
   Shopify Admin → Collections → Manually curated. Each gets a tailored description speaking to that audience.
   *Source: Programmatic SEO, Playbook 2*
 
@@ -262,7 +262,7 @@ Creating net-new collection pages that target keywords people are actually searc
 
   Note: for-her, for-him, kids-giant-hoodies, mental-health, swifties, work already exist. Audience skews ~3:1 female, ages 25-64, nearly 100% US.
 
-- [ ] **38. Create gift collections** — ~2 hrs
+- [x] **38. Create gift collections** — N/A, not doing
   Shopify Admin → Collections → Manually curated. Gift intent = highest purchase intent. "One size fits most" removes sizing anxiety. Zero current organic visibility for gift keywords — biggest greenfield opportunity.
   *Source: Programmatic SEO, Playbook 3*
 
@@ -282,66 +282,66 @@ Creating net-new collection pages that target keywords people are actually searc
 
 Net-new pages targeting high-value keywords. Each post is a significant effort but creates a permanent traffic asset. Posts are listed in impact order from the Content Strategy doc. Cross-link to relevant collection pages and products in every post.
 
-- [ ] **39. Set up blog in Shopify** — ~15 min
+- [x] **39. Set up blog in Shopify** — done
   Shopify Admin → Online Store → Blog posts → Create a blog. Name it "Journal" or "The Hoodie Fam." This just creates the container — then you write posts into it.
   *Source: Content Strategy, Practical Execution Plan*
 
-- [ ] **40. Write: "Best Oversized Hoodies [2026]: The Only Guide You Need"** — ~3-4 hrs
+- [x] **40. Write: "Best Oversized Hoodies [2026]: The Only Guide You Need"** — done
   Listicle format. Include Giant Hoodies naturally among competitors. High-volume keyword, establishes authority.
   Target keyword: "best oversized hoodies" · Buyer stage: Consideration
   *Source: Content Strategy, Topic #1*
 
-- [ ] **41. Write: "Giant Hoodies vs Oodie: Honest Comparison"** — ~3-4 hrs
+- [x] **41. Write: "Giant Hoodies vs Oodie: Honest Comparison"** — done
   Expand from the comparison table already on the homepage. Captures competitor search traffic. Use real numbers (price, quality, return rates, shipping).
   Target keyword: "oodie alternative" / "giant hoodies vs oodie" · Buyer stage: Consideration
   *Source: Content Strategy, Topic #3*
 
-- [ ] **42. Write: "The Best Cozy Gifts for People Who Are Always Cold"** — ~3-4 hrs
+- [x] **42. Write: "The Best Cozy Gifts for People Who Are Always Cold"** — done
   Gift intent = high conversion. Cross-link to gift collections (#38). Create one comprehensive post, spin out variants later if it works.
   Target keyword: "cozy gifts" / "gifts for people who are always cold" · Buyer stage: Decision
   *Source: Content Strategy, Topic #4*
 
-- [ ] **43. Write: "How to Style an Oversized Hoodie (Without Looking Like You Just Woke Up)"** — ~3-4 hrs
+- [x] **43. Write: "How to Style an Oversized Hoodie (Without Looking Like You Just Woke Up)"** — done
   Addresses the #1 objection: "Can I wear this in public?" Directly supports the "trendy" positioning that differentiates from competitors. Use lifestyle photos.
   Target keyword: "how to style oversized hoodie" · Buyer stage: Awareness
   *Source: Content Strategy, Topic #5*
 
-- [ ] **44. Write: "One Size Fits Most: Here's What That Actually Means"** — ~3-4 hrs
+- [x] **44. Write: "One Size Fits Most: Here's What That Actually Means"** — done
   FAQ data shows this is the top question. Photos of different body types wearing it would crush. Directly reduces pre-purchase anxiety.
   Target keyword: "oversized hoodie sizing" / "one size fits most hoodie" · Buyer stage: Consideration
   *Source: Content Strategy, Topic #6*
 
-- [ ] **45. Write: "How to Wash an Oversized Hoodie (So It Stays Soft Forever)"** — ~2-3 hrs
+- [x] **45. Write: "How to Wash an Oversized Hoodie (So It Stays Soft Forever)"** — done
   Low competition, high utility, every customer needs this. Builds trust pre-purchase. FAQ answer already exists — expand into full post with visuals.
   Target keyword: "how to wash oversized hoodie" · Buyer stage: Post-purchase
   *Source: Content Strategy, Topic #7*
 
-- [ ] **46. Write: "What Is a Giant Hoodie? Everything You Need to Know"** — ~3-4 hrs
+- [x] **46. Write: "What Is a Giant Hoodie? Everything You Need to Know"** — done
   Brand-defining pillar page. Covers what it is, who it's for, how it fits, how it's made. Hub page for internal linking — every other post links back to this one.
   Target keyword: "giant hoodie" / "what is a giant hoodie" · Buyer stage: Awareness
   *Source: Content Strategy, Topic #8*
 
-- [ ] **47. Write: "Wearable Blanket vs. Oversized Hoodie: What's the Difference?"** — ~3-4 hrs
+- [x] **47. Write: "Wearable Blanket vs. Oversized Hoodie: What's the Difference?"** — done
   Category-defining post. Captures search traffic from both terms. Important: this post explains WHY an oversized hoodie is NOT a wearable blanket and positions Giant Hoodies firmly in the oversized hoodie category. Do not use "wearable blanket" as a descriptor for Giant Hoodies.
   Target keyword: "wearable blanket hoodie" / "blanket hoodie" · Buyer stage: Awareness
   *Source: Content Strategy, Topic #2*
 
-- [ ] **48. Write: "Made in USA: How We Print Every Hoodie by Hand in Arkansas"** — ~3-4 hrs
+- [x] **48. Write: "Made in USA: How We Print Every Hoodie by Hand in Arkansas"** — done
   Behind-the-scenes differentiator content. "Made in USA" has real search volume from conscious consumers. Use photos of the team, facility, process.
   Target keyword: "hoodies made in usa" · Buyer stage: Consideration
   *Source: Content Strategy, Topic #9*
 
-- [ ] **49. Write: "Best Oversized Hoodies for Kids"** — ~3-4 hrs
+- [x] **49. Write: "Best Oversized Hoodies for Kids"** — done
   You have a kids line. Capture that search. Parents searching = high intent.
   Target keyword: "oversized hoodies for kids" · Buyer stage: Consideration
   *Source: Content Strategy, Topic #10*
 
-- [ ] **50. Write: "Outfit Ideas with an Oversized Hoodie"** — ~3-4 hrs
+- [x] **50. Write: "Outfit Ideas with an Oversized Hoodie"** — done
   Seasonal refresh content — can publish quarterly with different angles. Lifestyle photos. Cross-link to style collections.
   Target keyword: "oversized hoodie outfit" · Buyer stage: Awareness
   *Source: Content Strategy, Topic #11*
 
-- [ ] **51. Write: "Why 225,000+ People Bought a Giant Hoodie (Real Customer Stories)"** — ~3-4 hrs
+- [x] **51. Write: "Why 225,000+ People Bought a Giant Hoodie (Real Customer Stories)"** — done
   Social proof longform. Pull from best reviews. Great for people Googling you before buying.
   Target keyword: "giant hoodies reviews" · Buyer stage: Decision
   *Source: Content Strategy, Topic #12*

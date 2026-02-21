@@ -1,6 +1,6 @@
 # Giant Hoodies — Meta Ads Strategy
 ### One document. Everything you need.
-*Built from your actual account data + 2026 best practices. Last updated: February 16, 2026.*
+*Built from your actual account data + 2026 best practices. Last updated: February 20, 2026.*
 
 ---
 
@@ -27,6 +27,33 @@ At $67 CPA with a $94 AOV and 63% contribution margin, you're spending $67 to ge
 
 ---
 
+# THE REAL PROBLEM: RETURNING CUSTOMER BLEED
+
+*Added February 20, 2026 — based on NC/RC custom conversion data from Feb 1–20.*
+
+The original diagnosis above identified creative starvation as the core issue. That's still true, but the first week of the new Test campaign (Feb 16–20) revealed a deeper structural problem: **returning customers are inflating every prospecting metric in the account.**
+
+**GH | Test campaign (Feb 16–20):** 26 purchases at $48.88 CPA and 1.65x ROAS. Looks great — until you see that only 5 were new customers and 19 were returning. That's a **19% NC rate** and a real NC CPA of ~$254. The campaign is converting people your email/SMS already warmed up, not finding new buyers.
+
+**Full account NC/RC breakdown (Feb 1–20):**
+
+| Campaign / Ad Set | Spend | Purchases | Blended CPA | NC | RC | NC % | NC CPA |
+|---|---|---|---|---|---|---|---|
+| Hoodies CBO / Ad Set 1 (heavy exclusions) | $8,049 | 106 | $75.94 | 76 | 30 | 72% | $106 |
+| Hoodies CBO / Ad Set 2 (light exclusions) | $8,043 | 143 | $56.24 | 58 | 87 | 41% | $139 |
+| Sales CBO / Sale Promo 1 | $1,863 | 15 | $124.22 | 7 | 10 | 47% | $266 |
+| GH \| Test / Creative Testing | $1,271 | 26 | $48.88 | 5 | 19 | 19% | $254 |
+
+The pattern is clear: **the strength of your exclusions determines your NC rate.** Ad Set 1 with heavy exclusions (180-day purchasers + Klaviyo purchasers + 90-day pixel purchasers) runs 72% NC. The Test campaign with only 90-day pixel exclusions runs 19% NC. Blended CPA is a vanity metric — NC CPA is the only honest measure of prospecting performance.
+
+**Why 90-day pixel exclusions aren't enough:** Pixel-only exclusions miss customers who bought via email/SMS on a different device, bought via direct traffic, had cookies cleared by Safari ITP, or purchased more than 90 days ago. You need list-based exclusions (Klaviyo) to close these gaps.
+
+**Why Advantage+ audience makes it worse:** With Advantage+ ON, Meta treats exclusions as suggestions, not hard walls. It will serve ads to excluded audiences if it predicts a conversion — and returning customers always convert easily. A+ on a prospecting test campaign defeats the purpose of the test.
+
+**What this means for the strategy:** The creative advice in this document is still sound. But the campaign structure, exclusion settings, and evaluation metrics needed significant correction. All sections below have been updated to reflect these findings.
+
+---
+
 # THE BROAD VS. TARGETED QUESTION — SETTLED
 
 You were told broad is the only way. That's *mostly* true.
@@ -44,9 +71,11 @@ You were told broad is the only way. That's *mostly* true.
 
 Your account hits #1 and #2. It fails on #3 (limited creative, all video, fatigued) and partially on #4 (inconsistent exclusions across ad sets).
 
-**Your exclusion strategy needs cleanup:** Ad Set 1 excludes 180-day purchasers + Klaviyo purchasers + 90-day pixel purchasers. Ad Set 2 only excludes 90-day pixel purchasers. In February, Ad Set 2's lighter exclusions delivered $55 CPA vs. Ad Set 1's $82 CPA — but 65% of Ad Set 2's purchases were returning customers. You need consistent exclusions across ad sets.
+**Your exclusion strategy is the single biggest structural problem.** Ad Set 1 excludes 180-day purchasers + Klaviyo purchasers + 90-day pixel purchasers — and runs 72% NC. Ad Set 2 and the Test campaign only exclude 90-day pixel purchasers — and run 41% and 19% NC respectively. The lighter your exclusions, the more returning customers inflate your metrics. Every prospecting campaign and ad set must use the full exclusion stack: 180-day purchasers + Klaviyo all-purchasers list + 90-day pixel purchasers. No exceptions.
 
-**Bottom line:** Keep broad. Stop worrying about targeting. Pour all that energy into creative.
+**Advantage+ audience undermines exclusions.** With A+ ON, Meta treats exclusions as suggestions and will serve to excluded audiences if it predicts a conversion. For prospecting campaigns where you need clean NC data, turn A+ OFF. You still get broad algorithmic targeting — you just close the back door to warm traffic.
+
+**Bottom line:** Keep broad. Stop worrying about targeting. Pour all that energy into creative. But **make your exclusions airtight first** — without them, you can't evaluate creative against cold audiences.
 
 ---
 
@@ -58,45 +87,61 @@ Everything in this section is actionable this week. In priority order.
 
 ## 1. New Account Structure
 
-### Current State
+### Current State (as of Feb 20)
 
 ```
 Campaign: Hoodies | Manual Sales Broad CBO (~$850/day)
-├── Ad Set 1 — Broad, heavy exclusions (58 NC / 21 RC in Feb) — $82 CPA
-├── Ad Set 2 — Broad, light exclusions (46 NC / 74 RC in Feb) — $56 CPA
-└── Ad Set 3 — Dead ($693 total spend, $99 CPA)
+├── Ad Set 1 — Broad, heavy exclusions (76 NC / 30 RC in Feb) — $76 CPA, 72% NC ← best prospecting
+├── Ad Set 2 — Broad, light exclusions (58 NC / 87 RC in Feb) — $56 CPA, 41% NC ← RC-inflated
+└── Ad Set 3 — Dead (killed)
+
+Campaign: Sales | Manual Broad CBO (dying, ~$100/day remnant)
+└── Sale Promo 1 — 7 NC / 10 RC — $124 CPA ← kill this
+
+Campaign: GH | Test — CBO ($200/day, launched Feb 16)
+└── Creative Testing — Broad, 90-day pixel exclusion only, A+ ON
+    └── 5 NC / 19 RC in 5 days — $49 blended CPA but $254 NC CPA ← broken
 ```
 
-### Target State
+### Target State (corrected Feb 20)
 
 ```
-EXISTING: Hoodies | Manual Sales Broad CBO (keep running, don't touch)
-├── Leave Kallie and current ads running
-├── Kill Ad Set 3 (dead weight)
-└── This campaign stays as-is while you build alongside it
+EXISTING: Hoodies | Manual Sales Broad CBO (keep running)
+├── Ad Set 1 — Keep as-is (heavy exclusions working, 72% NC)
+├── Ad Set 2 — FIX EXCLUSIONS: add 180-day purchasers + Klaviyo purchasers
+│   └── Expect CPA to spike temporarily as RC subsidy is removed — that's correct
+└── Leave Kallie and current ads running untouched
 
-NEW: GH | Test — CBO ($200/day)
+FIX: GH | Test — CBO ($200/day)
 └── Ad Set: Creative Testing — Broad, 18-65, US
-    ├── Exclusion: 90-day pixel purchasers
+    ├── Exclusion: 180-day purchasers + Klaviyo all-purchasers + 90-day pixel purchasers
+    ├── Advantage+ Audience OFF (exclusions must be hard walls, not suggestions)
     ├── 3-6 new ads per test batch
-    ├── Run 5-7 days or until $30-50 spend per ad
-    ├── Advantage+ Audience ON
-    └── Graduate winners to Scale campaign
+    ├── Run 7-10 days or until $30-50 spend per ad
+    ├── Evaluate on NC CPA, not blended CPA
+    └── Graduate winners to Scale campaign (when it exists)
 
-NEW: GH | Scale — CBO ($600-800/day, built over weeks 2-4)
-└── Ad Set: Scale Winners — Broad, 18-65, US
-    ├── Exclusion: 90-day pixel purchasers
-    ├── 4-8 proven winning ads graduated from Test
-    └── Advantage+ Audience ON
+KILL: Sales | Manual Broad CBO
+└── Spending ~$100/day at $124 CPA with 47% NC — dead weight, shut it down
 
-NEW: GH | Retargeting — CBO ($50-100/day, launch week 2)
-└── Ad Set: Past Purchasers 90-365 days
-    ├── Repeat purchase messaging
-    ├── Volume pricing hooks
-    └── 2-3 dedicated retargeting ads
+LATER: GH | Scale — CBO ($600-800/day)
+└── DO NOT BUILD YET — no validated cold-traffic winners to graduate
+    ├── Build only after Test produces ads with NC CPA < $85 over 7+ days
+    ├── Exclusion: 180-day purchasers + Klaviyo all-purchasers + 90-day pixel purchasers
+    └── Advantage+ Audience ON is fine here (some RC bleed acceptable at scale)
+
+LATER: GH | Retargeting — CBO ($50-100/day)
+└── DO NOT BUILD YET — RC is already converting freely in prospecting campaigns
+    ├── Build only after prospecting exclusions are airtight and RC stops leaking in
+    ├── Otherwise you're paying Meta to convert people email/SMS would convert for free
+    └── When ready: Past Purchasers 90-365 days, repeat purchase messaging
 ```
 
 **Why separate Test from Scale:** This is the single most important structural change. Your current setup mixes untested and proven creative in the same ad sets, which means the algorithm locks onto whatever has the most historical data (Kallie) and starves new creative of budget. A dedicated Test campaign gives new ads clean budget to prove themselves.
+
+**Why A+ OFF on Test but ON for Scale:** Advantage+ audience treats exclusions as suggestions — it will serve to excluded users when it predicts conversions. For testing, you need hard exclusions so you can evaluate creative against genuinely cold audiences. For Scale, some RC bleed is acceptable because you're optimizing for total volume with proven creative.
+
+**Why delay Retargeting:** Your prospecting campaigns are already converting returning customers at high rates (19-59% RC depending on exclusions). Adding a dedicated retargeting campaign before fixing exclusions means you'd be triple-serving returning customers: email/SMS + leaky prospecting + retargeting ads. Fix the leaks first.
 
 ---
 
@@ -238,71 +283,94 @@ The attached image shows the exact Giant Hoodie product. Match the hoodie's size
 
 ## 3. Testing Framework
 
-### Launch Protocol
+### Launch Protocol (corrected Feb 20)
 
 **Budget:** $200/day CBO in the Test campaign, one ad set
-**Targeting:** Broad, US, 18-65, exclude 90-day pixel purchasers, Advantage+ ON
+**Targeting:** Broad, US, 18-65, Advantage+ Audience OFF
+**Exclusions:** 180-day purchasers + Klaviyo all-purchasers list + 90-day pixel purchasers
 **Optimization:** Purchase conversions
-**Duration:** 5-7 days per batch before making decisions
+**Duration:** 7-10 days per batch before making decisions (longer window needed with A+ off — cold traffic converts slower)
 
-### Decision Criteria
+### Decision Criteria (NC-focused)
+
+**Primary metric: NC CPA.** Blended CPA is unreliable for creative evaluation — it's inflated by any RC that slips through. Use the NC Purchase custom conversion as the source of truth.
 
 | Metric | After $30-50/ad spend | Action |
 |--------|----------------------|--------|
-| CTR > 1.5% AND CPA < $55 | Winner | Graduate to Scale campaign |
-| CTR > 1.5% BUT CPA $55-75 | Promising | Run another 3-4 days |
+| NC CPA < $85 AND NC % > 60% | Winner | Graduate to Scale campaign |
+| NC CPA $85-110 AND CTR > 1.5% | Promising | Run another 5-7 days |
 | CTR < 1.0% | Weak hook | Kill and iterate on the angle |
-| CPA > $80 after $50 spend | Loser | Kill immediately |
-| CTR > 2.5% AND CPA < $40 | Home run | Graduate + create variations |
+| NC CPA > $130 after $50 spend | Loser | Kill immediately |
+| NC CPA < $65 AND NC % > 70% | Home run | Graduate + create variations |
 
-**Why $55 CPA as the target:** $94 AOV × 63% contribution margin = $59.22 contribution per order. A $55 CPA leaves $4.22 profit per order before fixed costs. Not great alone, but with 3-month LTV of $122 and 29.79% repeat rate, the customer becomes profitable fast. $55 is the first-purchase breakeven threshold.
+**Secondary signals to watch:**
+- **NC % per ad:** If an ad shows NC % below 50%, the exclusions may be leaking for that specific audience segment. Investigate before judging the creative.
+- **Cost per Add to Cart:** Still a useful early signal for creative resonance. < $8 is strong.
+- **CTR (link):** > 2.0% means the hook is stopping the scroll. But high CTR with low NC conversion means the creative attracts browsers, not buyers.
+
+**Why $85 NC CPA as the target:** $94 AOV × 63% contribution margin = $59.22 contribution per order. At $85 NC CPA, you lose ~$26 on first purchase. But with 3-month LTV of $122 and 29.79% repeat rate, the blended customer value recovers the acquisition cost. $85 is the maximum you can spend to acquire a new customer and still be profitable within one quarter. Getting NC CPA below $65 means first-purchase profitability with LTV factored in — that's the real goal.
 
 ### Scaling Winners
 
 When an ad graduates to Scale:
-1. Duplicate into Scale campaign ad set
+1. Duplicate into Scale campaign ad set (with same heavy exclusions)
 2. Don't touch budget — let CBO redistribute naturally
-3. Monitor 3-5 days to confirm CPA holds
-4. If CPA holds < $55, create 2-3 variations (same concept, different hoodie color, different overlay copy)
-5. Increase Scale campaign budget 15-20% every 3-4 days if blended CPA stays in range
+3. Monitor 7 days to confirm NC CPA holds (not blended CPA)
+4. If NC CPA holds < $85 with NC % > 60%, create 2-3 variations (same concept, different hoodie color, different overlay copy)
+5. Increase Scale campaign budget 15-20% every 3-4 days if NC CPA stays in range
+6. A+ Audience can be ON in Scale — some RC bleed is acceptable with proven creative
 
 ---
 
-## 4. Week-by-Week Transition Plan
+## 4. Week-by-Week Transition Plan (revised Feb 20)
 
-**Week 1:**
-- Kill Ad Set 3 in existing campaign (dead weight)
-- Leave Kallie and all other existing ads running untouched
-- Generate Statics 1-5 in Higgsfield, finish in Canva
-- Launch Test campaign with all 5 statics at $200/day
+**This week (Feb 20–26) — Fix the plumbing:**
+- Fix GH | Test exclusions: add 180-day purchasers + Klaviyo all-purchasers list
+- Turn OFF Advantage+ audience on GH | Test ad set
+- Fix Ad Set 2 exclusions in Hoodies CBO: add 180-day purchasers + Klaviyo purchasers to match Ad Set 1
+- Kill the Sales | Manual Broad CBO campaign entirely ($124 CPA, 47% NC — dead weight)
+- Continue running Statics 1-5 in the fixed Test campaign — the creative needs a clean re-test with proper exclusions
+- **Do not** launch Scale or Retargeting campaigns
 
-**Week 2:**
-- Launch Retargeting campaign ($50-75/day) with repeat-purchase creative (see Long Term section)
-- Evaluate Test results — graduate any winners
+**Week 2 (Feb 27–Mar 5) — First clean read:**
+- You now have 7-10 days of Test data with proper exclusions
+- Evaluate each ad on NC CPA and NC % — expect CPA to be higher than before (that's honest, not worse)
+- Kill ads with NC CPA > $130 after $50 spend
+- Keep running promising ads (NC CPA $85-110 with good CTR)
+- Load next batch of 3-5 new creatives into Test campaign
+- Monitor Ad Set 2 in old campaign — CPA will spike as RC subsidy is removed. That's expected.
 
-**Week 3:**
-- Build Scale campaign with graduated winners
-- Existing campaign continues in parallel — you now have a clean comparison point
+**Week 3 (Mar 6–12) — Evaluate and decide:**
+- If any Test ads show NC CPA < $85 with NC % > 60%, they're winners — build Scale campaign with these
+- If no winners yet, continue testing new creative batches. Do not build Scale with unproven ads.
+- Assess whether the old Hoodies CBO campaign (with corrected exclusions) is outperforming the Test campaign on NC metrics
+- If the old campaign's Ad Set 1 is still your best NC engine, that's fine — keep it running and focus Test on finding creative that can beat it
 
-**Week 4+:**
-- If Scale is spending consistently at target CPA, begin reducing budget on old campaign
-- Watch what happens to Scale performance — if Kallie was truly assisting, you'll see it
-- Phase old campaign down gradually, not off a cliff
-- Standardize all prospecting exclusions to 90-day pixel purchasers
+**Week 4+ — Scale or iterate:**
+- If Scale campaign exists and is spending at NC CPA < $85, begin reducing old campaign budget 15-20% every 3-4 days
+- If Scale doesn't exist yet because no creative has hit NC targets, that's a creative problem — increase testing velocity to 5+ ads/week
+- Only launch Retargeting campaign after prospecting exclusions are proven airtight (NC % consistently > 60% across all prospecting ad sets)
+- Phase old campaign down gradually, not off a cliff — watch for assist effects
 
 ---
 
-## 5. Key Metrics to Track Weekly
+## 5. Key Metrics to Track Weekly (revised Feb 20)
 
-| Metric | Current (Feb) | Target | Why |
+**NC CPA is now the primary metric.** Blended CPA is tracked for account-level health but is no longer used for creative or campaign decisions.
+
+| Metric | Current (Feb 1–20) | Target | Why |
 |--------|--------------|--------|-----|
-| Blended CPA | $67 | < $55 | First-purchase breakeven |
-| New Customer CPA | ~$85 (est.) | < $65 | Profitable with LTV factored |
-| Blended ROAS | 1.3x | > 1.7x | Minimum account health |
+| **NC CPA (primary)** | ~$132 blended across account | **< $85** | Max acquisition cost profitable within one quarter with LTV |
+| **NC % in prospecting** | 19-72% (varies by exclusion strength) | **> 60%** | Below this, your exclusions are leaking |
+| NC CPA (stretch goal) | — | < $65 | First-purchase profitability with LTV |
+| Blended CPA (secondary) | $67 | < $55 | First-purchase breakeven — track but don't optimize to it |
+| Blended ROAS (secondary) | 1.3x | > 1.5x | Account health floor |
 | CTR (link) | 2.5% (varies) | > 2.0% | Creative resonance signal |
 | Cost per Add to Cart | ~$10 | < $8 | Early creative quality signal |
 | Creative kill rate | Unknown | 60-70% | Most ads should fail — normal |
 | New ads launched/week | ~0 | 3-5 | The creative velocity target |
+
+**How to read the NC/RC custom conversions:** Your account has "NC Purchase" and "RC Purchase" custom conversions (likely from Wicked Reports or a similar attribution tool). These are the source of truth for evaluating prospecting performance. In Ads Manager, add these as columns alongside standard Website Purchases. If NC + RC doesn't equal total Website Purchases, the difference is unattributed — treat it conservatively as RC.
 
 ---
 
@@ -719,7 +787,11 @@ Your existing video creative is fatigued but the format works. New concepts:
 
 ---
 
-## Retargeting Creative (for Campaign 3)
+## Retargeting Creative (for Retargeting campaign — ON HOLD)
+
+*Do not build the Retargeting campaign until prospecting exclusions are airtight and NC % is consistently > 60% in all prospecting ad sets. Until then, returning customers are already converting through leaky prospecting campaigns + email/SMS. Adding a retargeting campaign would be paying Meta to convert people you're already reaching for free.*
+
+When you're ready to launch:
 
 **Retarget Static 1: "Time for another one?"** — Fabric texture close-up (Higgsfield) with overlay: "Time for another one?" + volume pricing breakdown. (Full brief in PP-03 above.)
 
@@ -845,12 +917,12 @@ Things you don't need to worry about:
 
 ---
 
-## The One Thing That Matters
+## The Two Things That Matter
 
-Every piece of this strategy ladders up to one insight: **in 2026, creative volume and diversity is the only lever that moves performance on Meta.**
+Every piece of this strategy ladders up to two insights:
 
-Your targeting is correct. Your structure will be correct once you separate test from scale. Your product-market fit is proven. Your economics work at a $55 CPA.
+**1. You can't evaluate creative without clean measurement.** If your exclusions leak returning customers into prospecting campaigns, every metric lies. Blended CPA looks good while NC CPA is catastrophic. You think your creative is working when it's actually your email list doing the heavy lifting and Meta taking credit. Fix exclusions first. Everything else is built on sand without them.
 
-The only thing between where you are ($67 CPA, declining ROAS) and where you need to be is feeding the algorithm more creative, faster, in more formats, testing more angles.
+**2. Creative volume and diversity is the only lever that moves prospecting performance on Meta.** Your targeting is correct. Your structure will be correct once exclusions are airtight and you separate test from scale. Your product-market fit is proven. Your economics work at an $85 NC CPA.
 
-That's it. Everything else is noise.
+The path forward: fix the plumbing (exclusions, A+ settings), get an honest read on which creative actually acquires new customers, then scale what works. The creative library in this document is still the playbook — but now you'll know which ads are actually doing the job.

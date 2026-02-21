@@ -13,6 +13,7 @@
  *   --setup    Run OAuth flow to get an access token (one-time)
  *   --dry-run  Preview what would happen without calling the API
  *   --draft    Create articles as drafts instead of publishing immediately
+ *   --update   Update existing articles (instead of skipping them)
  */
 
 import { readdir, readFile, writeFile } from "node:fs/promises";
@@ -38,6 +39,7 @@ const SCOPES = "read_content,write_content";
 const SETUP = process.argv.includes("--setup");
 const DRY_RUN = process.argv.includes("--dry-run");
 const DRAFT = process.argv.includes("--draft");
+const UPDATE = process.argv.includes("--update");
 
 // ---------------------------------------------------------------------------
 // OAuth setup flow
@@ -246,7 +248,7 @@ async function main() {
   }
 
   console.log(`\n📝 Shopify Blog Publisher`);
-  console.log(`   Mode: ${DRY_RUN ? "DRY RUN (no API calls)" : DRAFT ? "DRAFT" : "PUBLISH"}\n`);
+  console.log(`   Mode: ${DRY_RUN ? "DRY RUN (no API calls)" : DRAFT ? "DRAFT" : UPDATE ? "UPDATE existing" : "PUBLISH"}\n`);
 
   // 1. Read and parse all markdown files
   const files = (await readdir(POSTS_DIR))
@@ -295,9 +297,9 @@ async function main() {
   }
   console.log(`  Found blog id: ${blog.id}\n`);
 
-  // 3. Get existing articles to skip duplicates
+  // 3. Get existing articles (handle → id map)
   console.log("Checking existing articles...");
-  let existingHandles = new Set();
+  const existingArticles = new Map();
   let page = `/blogs/${blog.id}/articles.json?limit=250&fields=id,handle`;
   while (page) {
     const res = await fetch(`https://${SHOP}/admin/api/${API_VERSION}${page}`, {
@@ -308,7 +310,7 @@ async function main() {
     });
     const data = await res.json();
     for (const a of data.articles || []) {
-      existingHandles.add(a.handle);
+      existingArticles.set(a.handle, a.id);
     }
     // Pagination via Link header
     const link = res.headers.get("Link") || "";
@@ -319,63 +321,82 @@ async function main() {
       page = null;
     }
   }
-  console.log(`  Found ${existingHandles.size} existing article(s)\n`);
+  console.log(`  Found ${existingArticles.size} existing article(s)\n`);
 
-  // 4. Create articles
+  // 4. Create or update articles
   let created = 0;
+  let updated = 0;
   let skipped = 0;
   const errors = [];
 
   for (const post of posts) {
-    if (existingHandles.has(post.handle)) {
+    const existingId = existingArticles.get(post.handle);
+
+    if (existingId && !UPDATE) {
       console.log(`⏭️  Skipping "${post.title}" — already exists (handle: ${post.handle})`);
       skipped++;
       continue;
     }
 
-    console.log(`📤 Creating "${post.title}"...`);
-
-    const articlePayload = {
-      article: {
-        title: post.title,
-        handle: post.handle,
-        author: post.author || "Matt",
-        body_html: post.html,
-        summary_html: post.excerpt,
-        tags: post.tags,
-        published: !DRAFT,
-        metafields: [],
-      },
+    const articleData = {
+      title: post.title,
+      handle: post.handle,
+      author: post.author || "Matt",
+      body_html: post.html,
+      summary_html: post.excerpt,
+      tags: post.tags,
     };
 
-    // Add SEO metafields if present
-    if (post.seoTitle) {
-      articlePayload.article.metafields.push({
-        namespace: "global",
-        key: "title_tag",
-        value: post.seoTitle,
-        type: "single_line_text_field",
-      });
-    }
-    if (post.seoDescription) {
-      articlePayload.article.metafields.push({
-        namespace: "global",
-        key: "description_tag",
-        value: post.seoDescription,
-        type: "single_line_text_field",
-      });
-    }
+    if (existingId && UPDATE) {
+      // Update existing article
+      console.log(`🔄 Updating "${post.title}" (id: ${existingId})...`);
 
-    try {
-      const result = await shopifyFetch(`/blogs/${blog.id}/articles.json`, {
-        method: "POST",
-        body: JSON.stringify(articlePayload),
-      });
-      console.log(`   ✅ Created (id: ${result.article.id}, published: ${!DRAFT})`);
-      created++;
-    } catch (err) {
-      console.error(`   ❌ Failed: ${err.message}`);
-      errors.push({ post: post.title, error: err.message });
+      try {
+        await shopifyFetch(`/blogs/${blog.id}/articles/${existingId}.json`, {
+          method: "PUT",
+          body: JSON.stringify({ article: articleData }),
+        });
+        console.log(`   ✅ Updated`);
+        updated++;
+      } catch (err) {
+        console.error(`   ❌ Failed: ${err.message}`);
+        errors.push({ post: post.title, error: err.message });
+      }
+    } else {
+      // Create new article
+      console.log(`📤 Creating "${post.title}"...`);
+
+      articleData.published = !DRAFT;
+      articleData.metafields = [];
+
+      if (post.seoTitle) {
+        articleData.metafields.push({
+          namespace: "global",
+          key: "title_tag",
+          value: post.seoTitle,
+          type: "single_line_text_field",
+        });
+      }
+      if (post.seoDescription) {
+        articleData.metafields.push({
+          namespace: "global",
+          key: "description_tag",
+          value: post.seoDescription,
+          type: "single_line_text_field",
+        });
+      }
+
+      try {
+        const result = await shopifyFetch(`/blogs/${blog.id}/articles.json`, {
+          method: "POST",
+          body: JSON.stringify({ article: articleData }),
+        });
+        console.log(`   ✅ Created (id: ${result.article.id}, published: ${!DRAFT})`);
+        created++;
+      } catch (err) {
+        console.error(`   ❌ Failed: ${err.message}`);
+        errors.push({ post: post.title, error: err.message });
+      }
     }
 
     await sleep(DELAY_MS);
@@ -385,6 +406,7 @@ async function main() {
   console.log(`\n${"─".repeat(50)}`);
   console.log(`Summary:`);
   console.log(`  Created: ${created}`);
+  console.log(`  Updated: ${updated}`);
   console.log(`  Skipped: ${skipped} (already existed)`);
   console.log(`  Errors:  ${errors.length}`);
 

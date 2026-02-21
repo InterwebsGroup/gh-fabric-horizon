@@ -7,7 +7,7 @@
 **Blog:** The Hoodie Blog
 **Title:** What Is a Giant Hoodie? Everything You Need to Know
 **URL handle:** `what-is-a-giant-hoodie`
-**Excerpt:** A Giant Hoodie is an oversized hoodie designed from scratch to be giant on purpose. Made in the USA from soft sponge fleece, with 7,000+ designs and a 30-day guarantee. Here's the full story.
+**Excerpt:** A Giant Hoodie is an oversized hoodie designed from scratch to be giant on purpose. Printed and packed in the USA from soft sponge fleece, with 7,000+ designs and a 30-day guarantee. Here's the full story.
 **Featured image:** Use a lifestyle photo of someone wearing a Giant Hoodie — full body, standing or walking, showing the oversized drape and hoodie silhouette. Not a flat lay. Show it looking like a real hoodie, not a blanket.
 **Featured image alt text:** Person wearing a Giant Hoodie oversized hoodie showing the full oversized fit and hoodie silhouette
 **Author:** Matt
@@ -16,7 +16,7 @@
 ### SEO Settings (bottom of Shopify blog post editor)
 
 **SEO title:** What Is a Giant Hoodie? Everything You Need to Know
-**SEO description:** A Giant Hoodie is an oversized hoodie designed from scratch to be giant on purpose. 8oz sponge fleece, 7,000+ designs, made in the USA. Here's the full story.
+**SEO description:** A Giant Hoodie is an oversized hoodie designed from scratch to be giant on purpose. 8oz sponge fleece, 7,000+ designs, printed and packed in the USA. Here's the full story.
 
 ---
 
@@ -83,7 +83,7 @@ Our team is 5 people. That's not a humble brag — it's just the truth. A small 
 
 This is also why we can offer 7,000+ designs. We're not screen-printing bulk runs of 500 units per design. Every hoodie is printed when you order it, which means we can offer designs that big manufacturers can't. If you want a hoodie with your dog's face on it, we can do that. If you want a specific tie-dye pattern, a zodiac design, or a niche meme — it probably already exists in our collection.
 
-Made in the USA isn't just a label for us. It's the whole operation. Learn more about our journey on our [Our Story](https://gianthoodies.com/pages/our-story) page.
+Printed and packed in the USA isn't just a label for us. It's the whole operation. Learn more about our journey on our [Our Story](https://gianthoodies.com/pages/our-story) page.
 
 ---
 
@@ -205,7 +205,7 @@ Don't just take our word for it.
 ## Frequently Asked Questions
 
 **What is a Giant Hoodie?**
-A Giant Hoodie is an oversized hoodie made from 8oz sponge fleece with a custom cut-and-sew pattern designed to be giant on purpose. It's not a wearable blanket. It's not a scaled-up regular hoodie. It's a hoodie — hood, kangaroo pocket, ribbed cuffs — just intentionally, ridiculously oversized. Made in the USA with 7,000+ designs available.
+A Giant Hoodie is an oversized hoodie made from 8oz sponge fleece with a custom cut-and-sew pattern designed to be giant on purpose. It's not a wearable blanket. It's not a scaled-up regular hoodie. It's a hoodie — hood, kangaroo pocket, ribbed cuffs — just intentionally, ridiculously oversized. Printed and packed in the USA with 7,000+ designs available.
 
 **What size is a Giant Hoodie?**
 [One size fits most](/blogs/the-hoodie-blog/one-size-fits-most-explained). A Giant Hoodie is roughly equivalent to a 3XL/4XL, but it's designed from scratch as an oversized garment — not a regular hoodie made bigger. It fits a wide range of bodies and looks intentionally oversized on everyone, from petite to plus-size.
@@ -220,7 +220,7 @@ No. Wearable blankets (like the Oodie or The Comfy) are thick, sherpa-lined garm
 Cold water, gentle cycle, air dry. No dryer. Sponge fleece is soft because it's delicate, so it needs gentle care. Follow the instructions and it'll stay soft and vibrant for years. We wrote a full guide on [how to wash your oversized hoodie](/blogs/the-hoodie-blog/how-to-wash-oversized-hoodie).
 
 **Where are Giant Hoodies made?**
-Every Giant Hoodie is printed and packed by hand at our facility in Fayetteville, Arkansas, by a team of 5. Made in the USA, every order.
+Every Giant Hoodie is printed and packed by hand at our facility in Fayetteville, Arkansas, by a team of 5. Printed and packed in the USA, every order.
 
 **How much does a Giant Hoodie cost?**
 $55 each, or $39 each when you buy 3 or more. Free shipping on orders over $75. Most orders ship same or next business day.
@@ -290,7 +290,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
 </ol>
 <p>Our team is 5 people. That's not a humble brag — it's just the truth. A small team making a really good product, one hoodie at a time.</p>
 <p>This is also why we can offer 7,000+ designs. We're not screen-printing bulk runs of 500 units per design. Every hoodie is printed when you order it, which means we can offer designs that big manufacturers can't. If you want a hoodie with your dog's face on it, we can do that. If you want a specific tie-dye pattern, a zodiac design, or a niche meme — it probably already exists in our collection.</p>
-<p>Made in the USA isn't just a label for us. It's the whole operation. Learn more about our journey on our <a href="https://gianthoodies.com/pages/our-story">Our Story</a> page.</p>
+<p>Printed and packed in the USA isn't just a label for us. It's the whole operation. Learn more about our journey on our <a href="https://gianthoodies.com/pages/our-story">Our Story</a> page.</p>
 
 <h2>Who Wears Giant Hoodies?</h2>
 <p>The honest answer? Pretty much everyone.</p>
@@ -366,7 +366,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
 <h2>Frequently Asked Questions</h2>
 
 <h3>What is a Giant Hoodie?</h3>
-<p>A Giant Hoodie is an oversized hoodie made from 8oz sponge fleece with a custom cut-and-sew pattern designed to be giant on purpose. It's not a wearable blanket. It's not a scaled-up regular hoodie. It's a hoodie — hood, kangaroo pocket, ribbed cuffs — just intentionally, ridiculously oversized. Made in the USA with 7,000+ designs available.</p>
+<p>A Giant Hoodie is an oversized hoodie made from 8oz sponge fleece with a custom cut-and-sew pattern designed to be giant on purpose. It's not a wearable blanket. It's not a scaled-up regular hoodie. It's a hoodie — hood, kangaroo pocket, ribbed cuffs — just intentionally, ridiculously oversized. Printed and packed in the USA with 7,000+ designs available.</p>
 
 <h3>What size is a Giant Hoodie?</h3>
 <p><a href="/blogs/the-hoodie-blog/one-size-fits-most-explained">One size fits most</a>. A Giant Hoodie is roughly equivalent to a 3XL/4XL, but it's designed from scratch as an oversized garment — not a regular hoodie made bigger. It fits a wide range of bodies and looks intentionally oversized on everyone, from petite to plus-size.</p>
@@ -381,7 +381,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
 <p>Cold water, gentle cycle, air dry. No dryer. Sponge fleece is soft because it's delicate, so it needs gentle care. Follow the instructions and it'll stay soft and vibrant for years. We wrote a full guide on <a href="/blogs/the-hoodie-blog/how-to-wash-oversized-hoodie">how to wash your oversized hoodie</a>.</p>
 
 <h3>Where are Giant Hoodies made?</h3>
-<p>Every Giant Hoodie is printed and packed by hand at our facility in Fayetteville, Arkansas, by a team of 5. Made in the USA, every order.</p>
+<p>Every Giant Hoodie is printed and packed by hand at our facility in Fayetteville, Arkansas, by a team of 5. Printed and packed in the USA, every order.</p>
 
 <h3>How much does a Giant Hoodie cost?</h3>
 <p>$55 each, or $39 each when you buy 3 or more. Free shipping on orders over $75. Most orders ship same or next business day.</p>

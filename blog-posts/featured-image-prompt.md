@@ -183,7 +183,7 @@ Generate a photorealistic lifestyle photograph for a blog featured image. 16:9 l
 
 ## Post 07: What Is a Giant Hoodie
 
-**Image Filename:** `what-is-a-giant-hoodie`
+**Image Filename:** 
 **Attach: Blank Giant Hoodie product image as reference**
 
 Generate a photorealistic lifestyle photograph for a blog featured image. 16:9 landscape aspect ratio. Shot on a mirrorless camera with natural lighting, shallow depth of field, warm color grading. Not AI-looking, not illustrated, not 3D rendered.

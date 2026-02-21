@@ -44,7 +44,7 @@ If you're in a hurry, here's the summary:
 | **Sizing** | One size fits most | One size |
 | **Designs** | 7,000+ | 100+ |
 | **Custom Option** | Yes | No |
-| **Made In** | USA (Arkansas) | China |
+| **Printed & Packed In** | USA (Arkansas) | China |
 | **Wear Outside?** | Yes — looks like a normal hoodie | Not really — clearly loungewear |
 | **Best For** | Everyday wear, all seasons | Cold-weather couch sessions |
 
@@ -126,13 +126,13 @@ Both products are well-made, but they require different care.
 
 ---
 
-## Made in USA vs Imported
+## Printed & Packed in USA vs Imported
 
 **Giant Hoodies** are printed and packed by hand at our facility in Northwest Arkansas by a team of 5. Every order.
 
 **The Oodie** is manufactured in China and shipped globally from international warehouses.
 
-If buying American-made matters to you, Giant Hoodies is one of the few oversized hoodie brands that can say that honestly. Learn more about [our made-in-USA story](/blogs/the-hoodie-blog/made-in-usa-hoodies-arkansas).
+If buying American-printed and American-packed matters to you, Giant Hoodies is one of the few oversized hoodie brands that can say that honestly. Learn more about [our story](/blogs/the-hoodie-blog/made-in-usa-hoodies-arkansas).
 
 ---
 
@@ -140,7 +140,7 @@ If buying American-made matters to you, Giant Hoodies is one of the few oversize
 
 - You want an oversized hoodie you can wear anywhere — couch, errands, airport, brunch
 - You want a massive selection of designs (or a [custom one](https://gianthoodies.com/products/customize-your-own-giant-hoodie))
-- You care about supporting US-made, small-batch production
+- You care about supporting a US-based, small-batch operation that prints and packs every order by hand
 - You want to buy multiples without spending a fortune ($39 each at 3+)
 - You run warm or live somewhere without harsh winters
 - You want something soft and lightweight, not thick and heavy
@@ -196,7 +196,7 @@ Our everyday pricing is already competitive — $55 each, or $39 each when you b
 
 Giant Hoodies and the Oodie are both good products — but they're good at different things.
 
-If you want an oversized hoodie that's soft, lightweight, stylish enough to wear in public, available in thousands of designs, made in the USA, and costs less than half the price — **Giant Hoodies is the clear pick.**
+If you want an oversized hoodie that's soft, lightweight, stylish enough to wear in public, available in thousands of designs, printed and packed in the USA, and costs less than half the price — **Giant Hoodies is the clear pick.**
 
 If you want a thick, heavy, sherpa-lined wearable blanket strictly for cold indoor lounging and you're okay paying $129 for it — the Oodie does that well.
 
@@ -255,7 +255,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
       <td>No</td>
     </tr>
     <tr>
-      <td><strong>Made In</strong></td>
+      <td><strong>Printed &amp; Packed In</strong></td>
       <td>USA (Arkansas)</td>
       <td>China</td>
     </tr>
@@ -310,16 +310,16 @@ If you'd rather paste into Shopify's HTML view, use the code below.
 <p><strong>The Oodie</strong> offers a 30-day return policy with some conditions.</p>
 <p><strong>Our take:</strong> If you're in the US, Giant Hoodies wins on speed. A handwritten thank-you card doesn't affect the product, but it says something about the company behind it.</p>
 
-<h2>Made in USA vs Imported</h2>
+<h2>Printed &amp; Packed in USA vs Imported</h2>
 <p><strong>Giant Hoodies</strong> are printed and packed by hand at our facility in Northwest Arkansas by a team of 5. Every order.</p>
 <p><strong>The Oodie</strong> is manufactured in China and shipped globally from international warehouses.</p>
-<p>If buying American-made matters to you, Giant Hoodies is one of the few oversized hoodie brands that can say that honestly. Learn more about <a href="/blogs/the-hoodie-blog/made-in-usa-hoodies-arkansas">our made-in-USA story</a>.</p>
+<p>If buying American-printed and American-packed matters to you, Giant Hoodies is one of the few oversized hoodie brands that can say that honestly. Learn more about <a href="/blogs/the-hoodie-blog/made-in-usa-hoodies-arkansas">our story</a>.</p>
 
 <h2>Who Should Buy Giant Hoodies?</h2>
 <ul>
   <li>You want an oversized hoodie you can wear anywhere — couch, errands, airport, brunch</li>
   <li>You want a massive selection of designs (or a <a href="https://gianthoodies.com/products/customize-your-own-giant-hoodie">custom one</a>)</li>
-  <li>You care about supporting US-made, small-batch production</li>
+  <li>You care about supporting a US-based, small-batch operation that prints and packs every order by hand</li>
   <li>You want to buy multiples without spending a fortune ($39 each at 3+)</li>
   <li>You run warm or live somewhere without harsh winters</li>
   <li>You want something soft and lightweight, not thick and heavy</li>
@@ -361,7 +361,7 @@ If you'd rather paste into Shopify's HTML view, use the code below.
 
 <h2>The Bottom Line</h2>
 <p>Giant Hoodies and the Oodie are both good products — but they're good at different things.</p>
-<p>If you want an oversized hoodie that's soft, lightweight, stylish enough to wear in public, available in thousands of designs, made in the USA, and costs less than half the price — <strong>Giant Hoodies is the clear pick.</strong></p>
+<p>If you want an oversized hoodie that's soft, lightweight, stylish enough to wear in public, available in thousands of designs, printed and packed in the USA, and costs less than half the price — <strong>Giant Hoodies is the clear pick.</strong></p>
 <p>If you want a thick, heavy, sherpa-lined wearable blanket strictly for cold indoor lounging and you're okay paying $129 for it — the Oodie does that well.</p>
 <p>For most people? The hoodie you can actually wear every day, everywhere, is the one you'll get the most value from. Looking for a gift? Giant Hoodies are also one of the <a href="/blogs/the-hoodie-blog/best-cozy-gifts-always-cold">best cozy gifts</a> for someone who's always cold.</p>
 <p><strong><a href="https://gianthoodies.com/collections/best-sellers">Shop our best sellers →</a></strong></p>
