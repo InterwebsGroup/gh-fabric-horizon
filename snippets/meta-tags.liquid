@@ -17,8 +17,9 @@
 >
 
 {%- liquid
+  assign clean_canonical = canonical_url | split: '?' | first
   assign og_title = page_title | default: shop.name
-  assign og_url = canonical_url | default: request.origin
+  assign og_url = clean_canonical | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
 
@@ -153,8 +154,22 @@
 
 <link
   rel="canonical"
-  href="{{ canonical_url }}"
+  href="{{ clean_canonical }}"
 >
+
+{%- comment -%} Noindex pages that should not appear in search results {%- endcomment -%}
+{%- if template contains 'search' -%}
+  <meta name="robots" content="noindex, follow">
+{%- endif -%}
+{%- if template == 'cart' -%}
+  <meta name="robots" content="noindex, follow">
+{%- endif -%}
+{%- if template contains 'account' -%}
+  <meta name="robots" content="noindex, follow">
+{%- endif -%}
+{%- if current_page > 1 -%}
+  <meta name="robots" content="noindex, follow">
+{%- endif -%}
 
 {% if page_description %}
   <meta

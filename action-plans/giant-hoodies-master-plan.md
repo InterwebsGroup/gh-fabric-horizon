@@ -226,55 +226,8 @@ The Programmatic SEO doc has a description template and the full list of all 54 
 
 ---
 
-### New Collections
 
-Creating net-new collection pages that target keywords people are actually searching for. These build on the existing product catalog — automated collections pull in matching products automatically.
 
-- [x] **36. Create themed collections** — N/A, not doing
-  Shopify Admin → Collections → Create automated collections. Use product title/type conditions. Write unique description + SEO title + meta description for each. Minimum 6 products per collection.
-  *Source: Programmatic SEO, Playbook 1*
-
-  Priority order (data-backed first, then SEO plays):
-  1. **zip-up-hoodies** — Highest priority. 7.8k sessions, 1,856 ATCs, 36 GSC clicks. Currently only a tag, not a collection.
-  2. **tie-dye-hoodies** — 3.4k sessions across 3 products, 952 ATCs, 25-35% ATC rates.
-  3. **heart-hoodies** — 3.7k sessions across Heart/Paw Heart/Cute Hearts, 1,265 ATCs.
-  4. **polka-dot-hoodies** — 2.6k sessions, 484 ATCs. 9,799 GSC impressions but only 9 clicks = huge CTR opportunity.
-  5. **dinosaur-hoodies** — Dino Dan alone: 1,230 sessions, 201 ATCs.
-  6. **two-tone-hoodies** — Ocean + Smoke Two Tone combined: 1,790 sessions, 613 ATCs, ~34% ATC rate.
-  7. **floral-hoodies** — SEO keyword play, no strong site data.
-  8. **anime-hoodies** — SEO keyword play, no site data.
-  9. **patriotic-hoodies** — SEO keyword play, fits Made in USA angle.
-
-  Note: cats, dogs, funny, sarcasm, animals, travel, spring, christmas, blank-hoodies already exist. Music/butterfly/unicorn/space had weak or zero signal — skip unless products are added.
-
-- [x] **37. Create persona collections** — N/A, not doing
-  Shopify Admin → Collections → Manually curated. Each gets a tailored description speaking to that audience.
-  *Source: Programmatic SEO, Playbook 2*
-
-  Priority order (data-backed first, then SEO plays):
-  1. **hoodies-for-dog-lovers** — Dog Mom (297 ATCs, 32%) + Puppy Love (272 ATCs, 31%). Dogs collection gets 1,288 sessions.
-  2. **hoodies-for-cat-lovers** — Cat Mom (333 ATCs, 32%). Cats collection: 2,010 sessions.
-  3. **hoodies-for-bookworms** — Rather Be Reading: 1,133 sessions, 309 ATCs, 27% ATC rate.
-  4. **hoodies-for-gamers** — SEO keyword play, no site data.
-  5. **hoodies-for-nurses** — SEO keyword play ("gifts for nurses" has volume).
-  6. **hoodies-for-teachers** — SEO keyword play.
-  7. **hoodies-for-couples** — SEO keyword play.
-
-  Note: for-her, for-him, kids-giant-hoodies, mental-health, swifties, work already exist. Audience skews ~3:1 female, ages 25-64, nearly 100% US.
-
-- [x] **38. Create gift collections** — N/A, not doing
-  Shopify Admin → Collections → Manually curated. Gift intent = highest purchase intent. "One size fits most" removes sizing anxiety. Zero current organic visibility for gift keywords — biggest greenfield opportunity.
-  *Source: Programmatic SEO, Playbook 3*
-
-  Priority order:
-  1. **valentines-gifts** — 1,722 GSC impressions already, 0.06% CTR. Heart products: 3.7k sessions, 1,265 ATCs.
-  2. **gifts-under-50** — Evergreen. Blank Giant Hoodie ($39 at 3+) is the natural anchor.
-  3. **birthday-gifts** — Evergreen. Customize Your Own (4,910 sessions, 926 ATCs) is the anchor.
-  4. **christmas-gifts** — 1,533 GSC impressions, position 9. Year-round SEO value.
-  5. **mothers-day-gifts** — Coming up May. Strong "for her" signal.
-  6. **fathers-day-gifts** — Coming up June. Weaker signal but search volume exists.
-  7. **college-gifts** — Late summer spike. No current data.
-  8. **get-well-gifts** — Evergreen. Strong product-market fit, no current data.
 
 ---
 
