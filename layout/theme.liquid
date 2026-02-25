@@ -29,6 +29,11 @@
     {% endif %}
 
     {%- render 'meta-tags' -%}
+    <link rel="preconnect" href="https://prod2-cdn.upstackified.com" crossorigin>
+    <link rel="preconnect" href="https://sdk.postscript.io" crossorigin>
+    <link rel="preconnect" href="https://static.klaviyo.com" crossorigin>
+    <link rel="preconnect" href="https://cdnwidget.judge.me" crossorigin>
+    <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
     {%- render 'breadcrumb-schema' -%}
     {%- if request.page_type == 'index' -%}
       {%- render 'faq-schema' -%}

@@ -17,8 +17,7 @@
     {{ image | image_url }} {{ image.width }}w
   "
   src="{{ image | image_url: width: 1100 }}"
-  loading="eager"
-  fetchpriority="high"
+  loading="lazy"
   width="{{ image.width }}"
   height="{{ image.height }}"
   alt="{{ image.alt | escape }}"
