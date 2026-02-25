@@ -51,63 +51,72 @@
       if (!e.detail.data.itemCount || e.detail.data.didError) return;
       if (e.detail.data.source === 'klaviyo-recovery') return;
 
-      var addedProductId = e.detail.data.productId;
-      var addedQuantity = e.detail.data.itemCount || 1;
+      var detail = e.detail; // capture before async
+      var cb = function () {
+        var addedProductId = detail.data.productId;
+        var addedQuantity = detail.data.itemCount || 1;
 
-      fetch('/cart.js', { credentials: 'same-origin' })
-        .then(function (r) { return r.json(); })
-        .then(function (cart) {
-          if (!cart || !cart.items || cart.items.length === 0) return;
+        fetch('/cart.js', { credentials: 'same-origin' })
+          .then(function (r) { return r.json(); })
+          .then(function (cart) {
+            if (!cart || !cart.items || cart.items.length === 0) return;
 
-          var items = [];
-          var itemNames = [];
-          var totalValue = 0;
-          var addedItem = null;
+            var items = [];
+            var itemNames = [];
+            var totalValue = 0;
+            var addedItem = null;
 
-          for (var i = 0; i < cart.items.length; i++) {
-            var item = cart.items[i];
-            itemNames.push(item.product_title);
-            totalValue += item.final_line_price;
-            items.push({
-              ProductID: item.product_id,
-              SKU: item.sku || '',
-              ProductName: item.product_title,
-              Quantity: item.quantity,
-              ItemPrice: (item.final_price / 100).toFixed(2),
-              RowTotal: (item.final_line_price / 100).toFixed(2),
-              ProductURL: window.location.origin + item.url,
-              ImageURL: item.featured_image ? item.featured_image.url : '',
-              ProductCategories: []
-            });
+            for (var i = 0; i < cart.items.length; i++) {
+              var item = cart.items[i];
+              itemNames.push(item.product_title);
+              totalValue += item.final_line_price;
+              items.push({
+                ProductID: item.product_id,
+                SKU: item.sku || '',
+                ProductName: item.product_title,
+                Quantity: item.quantity,
+                ItemPrice: (item.final_price / 100).toFixed(2),
+                RowTotal: (item.final_line_price / 100).toFixed(2),
+                ProductURL: window.location.origin + item.url,
+                ImageURL: item.featured_image ? item.featured_image.url : '',
+                ProductCategories: []
+              });
 
-            if (addedProductId && String(item.product_id) === String(addedProductId)) {
-              addedItem = item;
+              if (addedProductId && String(item.product_id) === String(addedProductId)) {
+                addedItem = item;
+              }
             }
-          }
 
-          if (!addedItem) addedItem = cart.items[cart.items.length - 1];
+            if (!addedItem) addedItem = cart.items[cart.items.length - 1];
 
-          var cartParam = cart.items.map(function (item) {
-            return item.variant_id + ':' + item.quantity;
-          }).join(',');
-          var checkoutURL = window.location.origin + '/?recover_cart=' + cartParam;
+            var cartParam = cart.items.map(function (item) {
+              return item.variant_id + ':' + item.quantity;
+            }).join(',');
+            var checkoutURL = window.location.origin + '/?recover_cart=' + cartParam;
 
-          _learnq.push(['track', 'Added to Cart', {
-            $value: (totalValue / 100).toFixed(2),
-            AddedItemProductName: addedItem.product_title,
-            AddedItemProductID: addedItem.product_id,
-            AddedItemSKU: addedItem.sku || '',
-            AddedItemCategories: [],
-            AddedItemImageURL: addedItem.featured_image ? addedItem.featured_image.url : '',
-            AddedItemURL: window.location.origin + addedItem.url,
-            AddedItemPrice: (addedItem.final_price / 100).toFixed(2),
-            AddedItemQuantity: addedQuantity,
-            ItemNames: itemNames,
-            CheckoutURL: checkoutURL,
-            Items: items
-          }]);
-        })
-        .catch(function () {});
+            _learnq.push(['track', 'Added to Cart', {
+              $value: (totalValue / 100).toFixed(2),
+              AddedItemProductName: addedItem.product_title,
+              AddedItemProductID: addedItem.product_id,
+              AddedItemSKU: addedItem.sku || '',
+              AddedItemCategories: [],
+              AddedItemImageURL: addedItem.featured_image ? addedItem.featured_image.url : '',
+              AddedItemURL: window.location.origin + addedItem.url,
+              AddedItemPrice: (addedItem.final_price / 100).toFixed(2),
+              AddedItemQuantity: addedQuantity,
+              ItemNames: itemNames,
+              CheckoutURL: checkoutURL,
+              Items: items
+            }]);
+          })
+          .catch(function () {});
+      };
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(cb, { timeout: 3000 });
+      } else {
+        setTimeout(cb, 300);
+      }
     });
 
     /* =========================================

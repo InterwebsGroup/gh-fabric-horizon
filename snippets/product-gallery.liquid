@@ -15,7 +15,7 @@
       data-product-image
       src="{{ hero_media | image_url: width: 900 }}"
       srcset="{{ hero_media | image_url: width: 400 }} 400w, {{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w"
-      sizes="(min-width: 768px) 50vw, 100vw"
+      sizes="(min-width: 768px) min(50vw, 640px), 92vw"
       alt="{{ hero_media.alt | escape | default: product.title }}"
       width="{{ hero_media.preview_image.width }}"
       height="{{ hero_media.preview_image.height }}"

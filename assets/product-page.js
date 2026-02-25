@@ -21,10 +21,28 @@
       }
     }
 
-    initSwatches(section, variants);
-    initOptionButtons(section, variants);
-    initStickyATC(section);
-    initAddToCart(section, variants);
+    var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
+
+    // 5a: Cache DOM references at init time
+    var els = {
+      priceEl: section.querySelector('[data-product-price]'),
+      compareEl: section.querySelector('[data-compare-price]'),
+      savingsEl: section.querySelector('[data-savings-badge]'),
+      cartPriceEl: section.querySelector('[data-cart-price]'),
+      stickyPriceEl: section.querySelector('[data-sticky-price]'),
+      stickySavingsEl: section.querySelector('[data-sticky-savings]'),
+      atcBtn: section.querySelector('[data-add-to-cart]'),
+      stickyBtn: section.querySelector('[data-sticky-atc-btn]'),
+      stickyBar: section.querySelector('[data-sticky-atc]'),
+      variantIdInput: section.querySelector('[data-variant-id-input]'),
+      selectedColorLabel: section.querySelector('[data-selected-color]'),
+      productImage: section.querySelector('[data-product-image]')
+    };
+
+    initSwatches(section, variants, els, moneyFormat);
+    initOptionButtons(section, variants, els, moneyFormat);
+    initStickyATC(els);
+    initAddToCart(section, variants, els, moneyFormat);
     initBackInStock(section);
   });
 
@@ -46,11 +64,8 @@
   /* =========================================
      Update Product Image — called on variant change
      ========================================= */
-  function updateProductImage(section, src, alt) {
-    if (!src) return;
-
-    var productImage = section.querySelector('[data-product-image]');
-    if (!productImage) return;
+  function updateProductImage(productImage, src, alt) {
+    if (!src || !productImage) return;
 
     // Build sized URLs from base src
     var baseSrc = src.replace(/[?&]width=\d+/g, '');
@@ -79,13 +94,9 @@
     new Image().src = base + s + 'width=1200';
   }
 
-  function initSwatches(section, variants) {
+  function initSwatches(section, variants, els, moneyFormat) {
     var swatches = section.querySelectorAll('[data-swatch]');
     if (swatches.length === 0) return;
-
-    var variantIdInput = section.querySelector('[data-variant-id-input]');
-    var selectedColorLabel = section.querySelector('[data-selected-color]');
-    var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
 
     swatches.forEach(function (swatch) {
       // Preload variant image on hover so the click is instant
@@ -108,7 +119,7 @@
         var colorName = this.dataset.color;
         var optionIndex = parseInt(this.dataset.optionIndex, 10);
 
-        // Update active state
+        // IMMEDIATE: visual swatch feedback
         swatches.forEach(function (s) {
           s.classList.remove('product__swatch--active');
           s.setAttribute('aria-pressed', 'false');
@@ -116,38 +127,36 @@
         this.classList.add('product__swatch--active');
         this.setAttribute('aria-pressed', 'true');
 
-        // Update label
-        if (selectedColorLabel) {
-          selectedColorLabel.textContent = colorName;
+        // IMMEDIATE: Update label
+        if (els.selectedColorLabel) {
+          els.selectedColorLabel.textContent = colorName;
         }
 
-        // Find matching variant based on all selected options (color + size, etc.)
+        // Find matching variant based on all selected options
         var matchedVariant = findVariantByAllOptions(section, variants);
         if (!matchedVariant) return;
 
-        // Update form
-        if (variantIdInput) {
-          variantIdInput.value = matchedVariant.id;
+        // IMMEDIATE: Update form hidden input
+        if (els.variantIdInput) {
+          els.variantIdInput.value = matchedVariant.id;
         }
 
-        // Update URL
-        var url = new URL(window.location.href);
-        url.searchParams.set('variant', matchedVariant.id);
-        history.replaceState({}, '', url.toString());
+        // DEFERRED: heavy DOM updates
+        requestAnimationFrame(function () {
+          updatePriceDisplay(els, matchedVariant, moneyFormat);
+          updateATCState(els, matchedVariant, moneyFormat);
+          if (matchedVariant.featured_image) {
+            updateProductImage(els.productImage, matchedVariant.featured_image.src, matchedVariant.featured_image.alt);
+          }
+          updateOptionAvailability(section, variants, optionIndex, colorName);
+        });
 
-        // Update price display
-        updatePriceDisplay(section, matchedVariant, moneyFormat);
-
-        // Update ATC button state
-        updateATCState(section, matchedVariant, moneyFormat);
-
-        // Update product image to show variant image
-        if (matchedVariant.featured_image) {
-          updateProductImage(section, matchedVariant.featured_image.src, matchedVariant.featured_image.alt);
-        }
-
-        // Update size option availability based on new color
-        updateOptionAvailability(section, variants, optionIndex, colorName);
+        // LOWEST PRIORITY: URL update
+        setTimeout(function () {
+          var url = new URL(window.location.href);
+          url.searchParams.set('variant', matchedVariant.id);
+          history.replaceState({}, '', url.toString());
+        }, 0);
       });
     });
   }
@@ -159,7 +168,6 @@
       if (!input) return;
 
       var optionPosition = parseInt(input.dataset.optionPosition, 10);
-      var optionIndex = optionPosition - 1;
       var optionValue = label.dataset.optionValue;
 
       // Check if any variant with this option value + selected color is available
@@ -186,12 +194,9 @@
   /* =========================================
      Option Buttons (Size, etc.)
      ========================================= */
-  function initOptionButtons(section, variants) {
+  function initOptionButtons(section, variants, els, moneyFormat) {
     var optionInputs = section.querySelectorAll('[data-option-input]');
     if (optionInputs.length === 0) return;
-
-    var variantIdInput = section.querySelector('[data-variant-id-input]');
-    var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
 
     optionInputs.forEach(function (input) {
       input.addEventListener('change', function () {
@@ -199,26 +204,26 @@
         var matchedVariant = findVariantByAllOptions(section, variants);
         if (!matchedVariant) return;
 
-        // Update form
-        if (variantIdInput) {
-          variantIdInput.value = matchedVariant.id;
+        // IMMEDIATE: Update form hidden input
+        if (els.variantIdInput) {
+          els.variantIdInput.value = matchedVariant.id;
         }
 
-        // Update URL
-        var url = new URL(window.location.href);
-        url.searchParams.set('variant', matchedVariant.id);
-        history.replaceState({}, '', url.toString());
+        // DEFERRED: heavy DOM updates
+        requestAnimationFrame(function () {
+          updatePriceDisplay(els, matchedVariant, moneyFormat);
+          updateATCState(els, matchedVariant, moneyFormat);
+          if (matchedVariant.featured_image) {
+            updateProductImage(els.productImage, matchedVariant.featured_image.src, matchedVariant.featured_image.alt);
+          }
+        });
 
-        // Update price display
-        updatePriceDisplay(section, matchedVariant, moneyFormat);
-
-        // Update ATC button state
-        updateATCState(section, matchedVariant, moneyFormat);
-
-        // Update product image if variant has one
-        if (matchedVariant.featured_image) {
-          updateProductImage(section, matchedVariant.featured_image.src, matchedVariant.featured_image.alt);
-        }
+        // LOWEST PRIORITY: URL update
+        setTimeout(function () {
+          var url = new URL(window.location.href);
+          url.searchParams.set('variant', matchedVariant.id);
+          history.replaceState({}, '', url.toString());
+        }, 0);
       });
     });
   }
@@ -266,88 +271,73 @@
     return available || any;
   }
 
-  function findVariantByOption(variants, optionIndex, optionValue) {
-    var available = null;
-    var any = null;
-    for (var i = 0; i < variants.length; i++) {
-      var v = variants[i];
-      var optionKey = 'option' + (optionIndex + 1);
-      if (v[optionKey] === optionValue) {
-        if (!any) any = v;
-        if (v.available && !available) available = v;
-      }
-    }
-    return available || any;
-  }
-
-  function updatePriceDisplay(section, variant, moneyFormat) {
-    var priceEl = section.querySelector('[data-product-price]');
-    var compareEl = section.querySelector('[data-compare-price]');
-    var savingsEl = section.querySelector('[data-savings-badge]');
-    var cartPriceEl = section.querySelector('[data-cart-price]');
-    var stickyPriceEl = section.querySelector('[data-sticky-price]');
-    var stickySavingsEl = section.querySelector('[data-sticky-savings]');
-
+  // 5b: Use class toggles instead of style.display
+  function updatePriceDisplay(els, variant, moneyFormat) {
     var compareAt = variant.compare_at_price;
     var savings = compareAt && compareAt > variant.price ? compareAt - variant.price : 0;
 
-    if (priceEl) {
-      priceEl.textContent = formatMoney(variant.price, moneyFormat);
+    if (els.priceEl) {
+      els.priceEl.textContent = formatMoney(variant.price, moneyFormat);
     }
 
     if (savings > 0) {
-      if (compareEl) {
-        compareEl.textContent = formatMoney(compareAt, moneyFormat);
-        compareEl.style.display = '';
+      if (els.compareEl) {
+        els.compareEl.textContent = formatMoney(compareAt, moneyFormat);
+        els.compareEl.classList.remove('hidden');
       }
-      if (savingsEl) {
-        savingsEl.textContent = 'Save ' + formatMoney(savings, moneyFormat);
-        savingsEl.style.display = '';
+      if (els.savingsEl) {
+        els.savingsEl.textContent = 'Save ' + formatMoney(savings, moneyFormat);
+        els.savingsEl.classList.remove('hidden');
       }
-      if (stickySavingsEl) {
-        stickySavingsEl.textContent = 'Save ' + formatMoney(savings, moneyFormat);
-        stickySavingsEl.style.display = '';
+      if (els.stickySavingsEl) {
+        els.stickySavingsEl.textContent = 'Save ' + formatMoney(savings, moneyFormat);
+        els.stickySavingsEl.classList.remove('hidden');
       }
     } else {
-      if (compareEl) compareEl.style.display = 'none';
-      if (savingsEl) savingsEl.style.display = 'none';
-      if (stickySavingsEl) stickySavingsEl.style.display = 'none';
+      if (els.compareEl) els.compareEl.classList.add('hidden');
+      if (els.savingsEl) els.savingsEl.classList.add('hidden');
+      if (els.stickySavingsEl) els.stickySavingsEl.classList.add('hidden');
     }
 
-    if (cartPriceEl) {
-      cartPriceEl.textContent = formatMoney(variant.price, moneyFormat);
+    if (els.cartPriceEl) {
+      els.cartPriceEl.textContent = formatMoney(variant.price, moneyFormat);
     }
 
-    if (stickyPriceEl) {
-      stickyPriceEl.textContent = formatMoney(variant.price, moneyFormat);
+    if (els.stickyPriceEl) {
+      els.stickyPriceEl.textContent = formatMoney(variant.price, moneyFormat);
     }
   }
 
-  function updateATCState(section, variant, moneyFormat) {
-    var atcBtn = section.querySelector('[data-add-to-cart]');
-    var stickyBtn = section.querySelector('[data-sticky-atc-btn]');
-
-    if (atcBtn) {
+  // 5d: Fast-path price span update instead of recreating button DOM
+  function updateATCState(els, variant, moneyFormat) {
+    if (els.atcBtn) {
       if (variant.available) {
-        atcBtn.disabled = false;
-        atcBtn.textContent = 'Add to Cart \u2014 ';
-        var span = document.createElement('span');
-        span.setAttribute('data-cart-price', '');
-        span.textContent = formatMoney(variant.price, moneyFormat);
-        atcBtn.appendChild(span);
+        els.atcBtn.disabled = false;
+        var priceSpan = els.atcBtn.querySelector('[data-cart-price]');
+        if (priceSpan) {
+          // Fast path: just update the price text
+          priceSpan.textContent = formatMoney(variant.price, moneyFormat);
+        } else {
+          // Rebuild after sold-out state wiped the span
+          els.atcBtn.textContent = 'Add to Cart \u2014 ';
+          var span = document.createElement('span');
+          span.setAttribute('data-cart-price', '');
+          span.textContent = formatMoney(variant.price, moneyFormat);
+          els.atcBtn.appendChild(span);
+        }
       } else {
-        atcBtn.disabled = true;
-        atcBtn.textContent = 'Sold Out';
+        els.atcBtn.disabled = true;
+        els.atcBtn.textContent = 'Sold Out';
       }
     }
 
-    if (stickyBtn) {
+    if (els.stickyBtn) {
       if (variant.available) {
-        stickyBtn.disabled = false;
-        stickyBtn.textContent = 'Add to Cart';
+        els.stickyBtn.disabled = false;
+        els.stickyBtn.textContent = 'Add to Cart';
       } else {
-        stickyBtn.disabled = true;
-        stickyBtn.textContent = 'Sold Out';
+        els.stickyBtn.disabled = true;
+        els.stickyBtn.textContent = 'Sold Out';
       }
     }
   }
@@ -355,33 +345,28 @@
   /* =========================================
      Sticky Add to Cart (Mobile)
      ========================================= */
-  function initStickyATC(section) {
-    var mainATC = section.querySelector('[data-add-to-cart]');
-    var stickyBar = section.querySelector('[data-sticky-atc]');
-
-    if (!mainATC || !stickyBar) return;
+  function initStickyATC(els) {
+    if (!els.atcBtn || !els.stickyBar) return;
 
     var observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            stickyBar.classList.remove('product__sticky-atc--visible');
+            els.stickyBar.classList.remove('product__sticky-atc--visible');
           } else {
-            stickyBar.classList.add('product__sticky-atc--visible');
+            els.stickyBar.classList.add('product__sticky-atc--visible');
           }
         });
       },
       { threshold: 0 }
     );
 
-    observer.observe(mainATC);
+    observer.observe(els.atcBtn);
 
-    var stickyBtn = stickyBar.querySelector('[data-sticky-atc-btn]');
-    if (stickyBtn) {
-      stickyBtn.addEventListener('click', function () {
-        var submitBtn = section.querySelector('[data-add-to-cart]');
-        if (submitBtn && !submitBtn.disabled) {
-          submitBtn.click();
+    if (els.stickyBtn) {
+      els.stickyBtn.addEventListener('click', function () {
+        if (els.atcBtn && !els.atcBtn.disabled) {
+          els.atcBtn.click();
         }
       });
     }
@@ -390,27 +375,25 @@
   /* =========================================
      AJAX Add to Cart
      ========================================= */
-  function initAddToCart(section, variants) {
+  function initAddToCart(section, variants, els, moneyFormat) {
     var form = section.querySelector('[data-product-form]');
     if (!form) return;
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      var atcBtn = section.querySelector('[data-add-to-cart]');
-      var stickyBtn = section.querySelector('[data-sticky-atc-btn]');
-      var variantId = form.querySelector('[data-variant-id-input]').value;
+      var variantId = els.variantIdInput ? els.variantIdInput.value : '';
       var qtyInput = form.querySelector('[data-quantity-input]');
       var quantity = qtyInput ? qtyInput.value : '1';
 
-      if (atcBtn) {
-        atcBtn.disabled = true;
-        var priceSpan = atcBtn.querySelector('[data-cart-price]');
-        if (priceSpan) atcBtn.dataset.originalPrice = priceSpan.textContent;
-        atcBtn.textContent = 'Adding...';
+      if (els.atcBtn) {
+        els.atcBtn.disabled = true;
+        var priceSpan = els.atcBtn.querySelector('[data-cart-price]');
+        if (priceSpan) els.atcBtn.dataset.originalPrice = priceSpan.textContent;
+        els.atcBtn.textContent = 'Adding...';
       }
-      if (stickyBtn) {
-        stickyBtn.disabled = true;
+      if (els.stickyBtn) {
+        els.stickyBtn.disabled = true;
       }
 
       var formData = new FormData();
@@ -441,48 +424,46 @@
           if (data.status) {
             var msg = data.description || data.message || 'Could not add to cart';
             showATCError(section, msg);
-            restoreATCButton(section, atcBtn, stickyBtn);
+            restoreATCButton(els, variants, moneyFormat);
             return;
           }
 
-          document.dispatchEvent(new CustomEvent('cart:update', {
-            bubbles: true,
-            detail: {
-              resource: data,
-              sourceId: 'product-main',
-              data: {
-                source: 'product-main',
-                itemCount: parseInt(quantity, 10),
-                productId: section.dataset.productId,
-                sections: data.sections || {}
-              }
-            }
-          }));
+          // 5f: Show "Added!" FIRST for instant visual feedback
+          if (els.atcBtn) els.atcBtn.textContent = 'Added!';
+          if (els.stickyBtn) els.stickyBtn.textContent = 'Added!';
 
-          if (atcBtn) atcBtn.textContent = 'Added!';
-          if (stickyBtn) stickyBtn.textContent = 'Added!';
+          // Then dispatch cart:update in the next frame
+          requestAnimationFrame(function () {
+            document.dispatchEvent(new CustomEvent('cart:update', {
+              bubbles: true,
+              detail: {
+                resource: data,
+                sourceId: 'product-main',
+                data: {
+                  source: 'product-main',
+                  itemCount: parseInt(quantity, 10),
+                  productId: section.dataset.productId,
+                  sections: data.sections || {}
+                }
+              }
+            }));
+          });
 
           setTimeout(function () {
-            restoreATCButton(section, atcBtn, stickyBtn);
+            restoreATCButton(els, variants, moneyFormat);
           }, 1500);
         })
         .catch(function (err) {
           console.error('[GH] Add to cart error:', err);
           showATCError(section, 'Something went wrong. Please try again.');
-          restoreATCButton(section, atcBtn, stickyBtn);
+          restoreATCButton(els, variants, moneyFormat);
         });
     });
   }
 
-  function restoreATCButton(section, atcBtn, stickyBtn) {
-    var moneyFormat = section.dataset.moneyFormat || '${{amount}}';
-    var variantIdInput = section.querySelector('[data-variant-id-input]');
-    var variantsEl = section.querySelector('[data-product-variants]');
-    var variants = [];
-    if (variantsEl) {
-      try { variants = JSON.parse(variantsEl.textContent); } catch (e) {}
-    }
-    var currentId = variantIdInput ? variantIdInput.value : null;
+  // 5e: Use variants from closure instead of re-parsing JSON
+  function restoreATCButton(els, variants, moneyFormat) {
+    var currentId = els.variantIdInput ? els.variantIdInput.value : null;
     var currentVariant = null;
     for (var i = 0; i < variants.length; i++) {
       if (String(variants[i].id) === String(currentId)) {
@@ -491,26 +472,26 @@
       }
     }
 
-    if (atcBtn) {
+    if (els.atcBtn) {
       if (currentVariant && !currentVariant.available) {
-        atcBtn.disabled = true;
-        atcBtn.textContent = 'Sold Out';
+        els.atcBtn.disabled = true;
+        els.atcBtn.textContent = 'Sold Out';
       } else {
-        atcBtn.disabled = false;
+        els.atcBtn.disabled = false;
         var price = currentVariant
           ? formatMoney(currentVariant.price, moneyFormat)
-          : atcBtn.dataset.originalPrice || '';
-        atcBtn.textContent = 'Add to Cart \u2014 ';
+          : els.atcBtn.dataset.originalPrice || '';
+        els.atcBtn.textContent = 'Add to Cart \u2014 ';
         var span = document.createElement('span');
         span.setAttribute('data-cart-price', '');
         span.textContent = price;
-        atcBtn.appendChild(span);
+        els.atcBtn.appendChild(span);
       }
-      delete atcBtn.dataset.originalPrice;
+      delete els.atcBtn.dataset.originalPrice;
     }
-    if (stickyBtn) {
-      stickyBtn.disabled = false;
-      stickyBtn.textContent = 'Add to Cart';
+    if (els.stickyBtn) {
+      els.stickyBtn.disabled = false;
+      els.stickyBtn.textContent = 'Add to Cart';
     }
   }
 

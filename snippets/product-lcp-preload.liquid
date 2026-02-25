@@ -1,0 +1,16 @@
+{%- if template.name == 'product' -%}
+  {%- liquid
+    assign selected_variant = product.selected_or_first_available_variant
+    assign hero_media = selected_variant.featured_media | default: product.featured_media
+  -%}
+  {%- if hero_media -%}
+    <link
+      rel="preload"
+      as="image"
+      href="{{ hero_media | image_url: width: 600 }}"
+      imagesrcset="{{ hero_media | image_url: width: 400 }} 400w, {{ hero_media | image_url: width: 600 }} 600w, {{ hero_media | image_url: width: 900 }} 900w, {{ hero_media | image_url: width: 1200 }} 1200w"
+      imagesizes="(min-width: 768px) min(50vw, 640px), 92vw"
+      fetchpriority="high"
+    >
+  {%- endif -%}
+{%- endif -%}

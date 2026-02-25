@@ -55,28 +55,31 @@
           }
         }
 
-        // Update the product grid section
-        if (sections[gridSectionId] && gridEl) {
+        // Parse grid HTML synchronously so it's ready for the next frame
+        var newContent = null;
+        if (sections[gridSectionId]) {
           var gridParser = new DOMParser();
           var gridDoc = gridParser.parseFromString(sections[gridSectionId], 'text/html');
-          var newContent = gridDoc.body.children;
-          gridEl.replaceChildren.apply(gridEl, Array.from(newContent));
-          requestAnimationFrame(function () {
+          newContent = Array.from(gridDoc.body.children);
+        }
+
+        // Defer grid swap to next frame so button update paints first
+        requestAnimationFrame(function () {
+          if (newContent && gridEl) {
+            gridEl.replaceChildren.apply(gridEl, newContent);
             gridEl.style.opacity = '';
             gridEl.style.transition = '';
-          });
-        }
+          }
 
-        // Update browser URL
-        if (pushState) {
-          history.pushState({ ghFilterUrl: url }, '', url);
-        }
+          if (pushState) {
+            history.pushState({ ghFilterUrl: url }, '', url);
+          }
 
-        // Scroll to top of grid
-        var scrollTarget = headerWrapper.querySelector('.filter-buttons') || headerWrapper;
-        scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var scrollTarget = headerWrapper.querySelector('.filter-buttons') || headerWrapper;
+          scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        isLoading = false;
+          isLoading = false;
+        });
       })
       .catch(function () {
         // On error, fall back to normal navigation
