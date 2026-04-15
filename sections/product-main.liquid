@@ -297,7 +297,12 @@
       </form>
 
       {%- comment -%} Volume pricing banner (sitewide mix & match — informational only) {%- endcomment -%}
-      {%- if section.settings.show_tier_pricing and settings.pricing_mode == 'tiered' and is_tier_eligible -%}
+      {%- if section.settings.show_tier_pricing and settings.pricing_mode == 'flat' and is_tier_eligible -%}
+        <div class="product__volume-banner product__volume-banner--sale">
+          <p class="product__volume-heading">🔥 End of Season Sale</p>
+          <p class="product__volume-note">Every hoodie just $39 — no quantity minimums. Free shipping at ${{ settings.free_shipping_threshold }}+.</p>
+        </div>
+      {%- elsif section.settings.show_tier_pricing and settings.pricing_mode == 'tiered' and is_tier_eligible -%}
         {%- liquid
           assign tier_2_price = settings.tier_2_price | times: 100
           assign tier_3_price = settings.tier_3_price | times: 100
