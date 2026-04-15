@@ -140,11 +140,12 @@
           {%- assign rating_decimal = display_rating | times: 1.0 -%}
           {%- assign rating_whole = rating_decimal | floor -%}
           {%- assign rating_remainder = rating_decimal | minus: rating_whole -%}
+          {%- assign rating_half_index = rating_whole | plus: 1 -%}
           <span class="product__stars" aria-hidden="true">
             {%- for i in (1..5) -%}
               {%- if i <= rating_whole -%}
                 <svg class="product__star product__star--full" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/></svg>
-              {%- elsif i == rating_whole | plus: 1 and rating_remainder >= 0.25 -%}
+              {%- elsif i == rating_half_index and rating_remainder >= 0.25 -%}
                 <svg class="product__star product__star--half" width="16" height="16" viewBox="0 0 24 24">
                   <defs><linearGradient id="half-star"><stop offset="50%" stop-color="currentColor"/><stop offset="50%" stop-color="none" stop-opacity="0"/></linearGradient></defs>
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="url(#half-star)" stroke="currentColor" stroke-width="1"/>
