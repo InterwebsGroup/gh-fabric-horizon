@@ -297,12 +297,7 @@
       </form>
 
       {%- comment -%} Volume pricing banner (sitewide mix & match — informational only) {%- endcomment -%}
-      {%- if section.settings.show_tier_pricing and settings.pricing_mode == 'flat' and is_tier_eligible -%}
-        <div class="product__volume-banner product__volume-banner--sale">
-          <p class="product__volume-heading">🔥 End of Season Sale</p>
-          <p class="product__volume-note">Every hoodie just $39 — no quantity minimums. Free shipping at ${{ settings.free_shipping_threshold }}+.</p>
-        </div>
-      {%- elsif section.settings.show_tier_pricing and settings.pricing_mode == 'tiered' and is_tier_eligible -%}
+      {%- if section.settings.show_tier_pricing and settings.pricing_mode == 'tiered' and is_tier_eligible -%}
         {%- liquid
           assign tier_2_price = settings.tier_2_price | times: 100
           assign tier_3_price = settings.tier_3_price | times: 100
@@ -441,6 +436,10 @@
           assign ob_badge_color = section.settings.offer_banner_badge_color | default: '#ffffff'
           assign ob_main_text = section.settings.offer_banner_main_text | default: 'UP TO 52% OFF'
           assign ob_main_color = section.settings.offer_banner_main_color | default: '#ffffff'
+          if settings.pricing_mode == 'flat'
+            assign ob_badge_text = '🔥 END OF SEASON SALE'
+            assign ob_main_text = 'EVERY HOODIE $39'
+          endif
           assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
         -%}
         <div class="product__offer-banner"
