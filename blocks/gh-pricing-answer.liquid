@@ -25,7 +25,11 @@
 
 {%- if gh_product != blank -%}
   <div class="spacing-style text-block rte text-block--full-width" style="--width: 100%;" {{ block.shopify_attributes }}>
-    <p>You bet. One hoodie is {{ single_price | money_without_trailing_zeros }} (already {{ single_savings | money_without_trailing_zeros }} off). Grab two and they drop to {{ tier2_cents | money_without_trailing_zeros }} each — that's {{ tier2_savings_total | money_without_trailing_zeros }} saved total. Three or more? Just {{ tier3_cents | money_without_trailing_zeros }} each, saving you {{ tier3_savings_total | money_without_trailing_zeros }}+. Plus, orders over {{ ship_cents | money_without_trailing_zeros }} ship free. Fair warning: once you own one, you'll be back for more.<br/><br/><em>*prices may change based on costs and current sales*</em></p>
+    {%- if settings.pricing_mode == 'flat' -%}
+      <p>Right now, every hoodie is just {{ single_price | money_without_trailing_zeros }} during our End of Season Sale — no quantity minimums, no tiers. Grab one, grab five, same price per hoodie. Orders over {{ ship_cents | money_without_trailing_zeros }} ship free. Fair warning: once you own one, you'll be back for more.<br/><br/><em>*sale prices for a limited time*</em></p>
+    {%- else -%}
+      <p>You bet. One hoodie is {{ single_price | money_without_trailing_zeros }} (already {{ single_savings | money_without_trailing_zeros }} off). Grab two and they drop to {{ tier2_cents | money_without_trailing_zeros }} each — that's {{ tier2_savings_total | money_without_trailing_zeros }} saved total. Three or more? Just {{ tier3_cents | money_without_trailing_zeros }} each, saving you {{ tier3_savings_total | money_without_trailing_zeros }}+. Plus, orders over {{ ship_cents | money_without_trailing_zeros }} ship free. Fair warning: once you own one, you'll be back for more.<br/><br/><em>*prices may change based on costs and current sales*</em></p>
+    {%- endif -%}
   </div>
 {%- endif -%}
 
