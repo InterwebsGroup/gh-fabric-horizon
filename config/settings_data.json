@@ -87,6 +87,8 @@
     "tier_exclude_tag": "not-tier-eligible",
     "announcement_tiered": "🔥 End of Season Sale — Every hoodie $39",
     "announcement_flat": "",
+    "tiered_banner_enabled": true,
+    "sale_banner_enabled": false,
     "free_shipping_threshold": 75,
     "shipping_cost": "4.95",
     "cart_upsell_enabled": true,
