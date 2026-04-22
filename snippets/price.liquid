@@ -121,8 +121,8 @@
   <small class="volume-pricing-note">{{ 'content.volume_pricing_available' | t }}</small>
 {%- endif -%}
 
-{%- comment -%} Giant Hoodies pricing message for product cards (tiered or flat sale mode) {%- endcomment -%}
-{%- if is_product_card -%}
+{%- comment -%} Giant Hoodies tiered pricing message for product cards {%- endcomment -%}
+{%- if is_product_card and settings.pricing_mode == 'tiered' -%}
   {%- assign is_tier_eligible = false -%}
   {%- assign tier_handles = settings.tier_collection_handles | split: ',' -%}
   {%- for handle in tier_handles -%}
@@ -136,11 +136,7 @@
     {%- endfor -%}
   {%- endfor -%}
   {%- if is_tier_eligible -%}
-    {%- if settings.pricing_mode == 'tiered' -%}
-      {%- assign tier_max_discount = settings.tier_retail_price | minus: settings.tier_3_price | times: 100 | divided_by: settings.tier_retail_price -%}
-      <small class="gh-tiered-pricing-note">Buy 2+, save up to {{ tier_max_discount }}%</small>
-    {%- elsif settings.pricing_mode == 'flat' -%}
-      <small class="gh-tiered-pricing-note">🔥 End of Season Sale — $39</small>
-    {%- endif -%}
+    {%- assign tier_max_discount = settings.tier_retail_price | minus: settings.tier_3_price | times: 100 | divided_by: settings.tier_retail_price -%}
+    <small class="gh-tiered-pricing-note">Buy 2+, save up to {{ tier_max_discount }}%</small>
   {%- endif -%}
 {%- endif -%}

@@ -436,10 +436,6 @@
           assign ob_badge_color = section.settings.offer_banner_badge_color | default: '#ffffff'
           assign ob_main_text = section.settings.offer_banner_main_text | default: 'UP TO 52% OFF'
           assign ob_main_color = section.settings.offer_banner_main_color | default: '#ffffff'
-          if settings.pricing_mode == 'flat'
-            assign ob_badge_text = '🔥 END OF SEASON SALE'
-            assign ob_main_text = 'EVERY HOODIE $39'
-          endif
           assign review_count_display = section.settings.stat_reviews_number | default: '2,400+'
         -%}
         <div class="product__offer-banner"

@@ -1574,7 +1574,7 @@
         "row_price": {
           "type": "price_row",
           "settings": {
-            "us_price": "$39",
+            "us_price": "$55",
             "them_price": "$129"
           }
         }
