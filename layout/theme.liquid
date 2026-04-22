@@ -61,25 +61,24 @@
       {% sections 'header-group' %}
     </div>
 
-    {%- if settings.pricing_mode == 'tiered' and settings.tiered_banner_enabled -%}
+    {%- if settings.pricing_mode == 'tiered' -%}
       {%- liquid
         assign savings_2 = settings.tier_retail_price | minus: settings.tier_2_price | times: 2
         assign savings_3 = settings.tier_retail_price | minus: settings.tier_3_price | times: 3
-        assign tiered_text = settings.tiered_banner_text | replace: '[[savings_2]]', savings_2 | replace: '[[savings_3]]', savings_3
       -%}
       <div class="volume-pricing-banner volume-pricing-banner--global">
         <div class="volume-pricing-banner__content page-width">
           <span class="volume-pricing-banner__text">
-            <span class="volume-pricing-banner__line1">{{ tiered_text }}</span>
+            <span class="volume-pricing-banner__line1">💰 Buy 2 hoodies, save ${{ savings_2 }}. Buy 3+, save ${{ savings_3 }}+.</span>
             <span class="volume-pricing-banner__shipping">Free shipping at ${{ settings.free_shipping_threshold }}!</span>
           </span>
         </div>
       </div>
-    {%- elsif settings.pricing_mode == 'flat' and settings.sale_banner_enabled -%}
+    {%- elsif settings.pricing_mode == 'flat' -%}
       <div class="volume-pricing-banner volume-pricing-banner--global volume-pricing-banner--sale">
         <div class="volume-pricing-banner__content page-width">
           <span class="volume-pricing-banner__text">
-            <span class="volume-pricing-banner__line1">{{ settings.sale_banner_text }}</span>
+            <span class="volume-pricing-banner__line1">🔥 End of Season Sale — Every hoodie $39, no minimums.</span>
             <span class="volume-pricing-banner__shipping">Free shipping at ${{ settings.free_shipping_threshold }}!</span>
           </span>
         </div>
