@@ -2371,6 +2371,37 @@
       },
       {
         "type": "header",
+        "content": "Sticky Pricing Banner"
+      },
+      {
+        "type": "checkbox",
+        "id": "tiered_banner_enabled",
+        "label": "Show tiered-mode banner",
+        "default": true,
+        "info": "Only shown when Pricing Mode is Tiered."
+      },
+      {
+        "type": "text",
+        "id": "tiered_banner_text",
+        "label": "Tiered-mode banner text",
+        "default": "💰 Buy 2 hoodies, save $[[savings_2]]. Buy 3+, save $[[savings_3]]+.",
+        "info": "Use [[savings_2]] and [[savings_3]] as placeholders for calculated savings."
+      },
+      {
+        "type": "checkbox",
+        "id": "sale_banner_enabled",
+        "label": "Show sale banner (green)",
+        "default": false,
+        "info": "Only shown when Pricing Mode is Flat. Off by default."
+      },
+      {
+        "type": "text",
+        "id": "sale_banner_text",
+        "label": "Sale banner text",
+        "default": "🔥 End of Season Sale — Every hoodie $39, no minimums."
+      },
+      {
+        "type": "header",
         "content": "Shipping"
       },
       {
