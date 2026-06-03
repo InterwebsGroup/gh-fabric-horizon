@@ -226,7 +226,10 @@
 }
 
 .product__option-label {
-  display: block;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
   font-family: var(--gh-font-body, 'DM Sans', sans-serif);
   font-size: 0.85rem;
   font-weight: 600;
@@ -234,6 +237,22 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 10px;
+}
+
+.product__size-chart-link {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.product__size-chart-link:hover {
+  opacity: 0.7;
 }
 
 .product__option-value {

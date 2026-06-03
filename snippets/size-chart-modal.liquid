@@ -1,0 +1,81 @@
+{%- comment -%}
+  Size Chart modal — opened from PDP and footer triggers via [data-size-chart-trigger].
+  Renders /pages/size-chart content inline so visitors stay on the current page.
+{%- endcomment -%}
+
+{%- assign size_chart_page = pages['size-chart'] -%}
+
+<style>
+  .size-chart-modal { padding: 0; border: 0; background: transparent; max-width: 760px; width: calc(100vw - 32px); }
+  .size-chart-modal::backdrop { background: rgba(0,0,0,0.5); }
+  .size-chart-modal__inner { background: var(--color-background, #fff); color: var(--color-foreground, #111); border-radius: 12px; padding: 24px 28px 28px; max-height: calc(100vh - 64px); overflow-y: auto; position: relative; }
+  .size-chart-modal__close { position: absolute; top: 12px; right: 12px; background: transparent; border: 0; font-size: 28px; line-height: 1; cursor: pointer; padding: 4px 8px; color: inherit; }
+  .size-chart-modal__close:hover { opacity: 0.7; }
+  .size-chart-modal__title { font-family: var(--font-heading--family, inherit); margin: 0 36px 16px 0; font-size: 1.5rem; }
+  .size-chart-modal__body { font-size: 1rem; line-height: 1.5; }
+  .size-chart-modal__body table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .size-chart-modal__body th, .size-chart-modal__body td { border: 1px solid currentColor; padding: 8px 10px; text-align: left; }
+  .size-chart-modal__body img { max-width: 100%; height: auto; }
+  .size-chart-link { background: transparent; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; cursor: pointer; }
+  .size-chart-link:hover { opacity: 0.7; }
+</style>
+
+<dialog
+  id="size-chart-modal"
+  class="size-chart-modal"
+  aria-labelledby="size-chart-modal-title"
+>
+  <div class="size-chart-modal__inner">
+    <button type="button" class="size-chart-modal__close" aria-label="Close" data-size-chart-close>&times;</button>
+    <h2 id="size-chart-modal-title" class="size-chart-modal__title">
+      {% if size_chart_page.title != blank %}{{ size_chart_page.title }}{% else %}Size Chart{% endif %}
+    </h2>
+    <div class="size-chart-modal__body">
+      {% if size_chart_page.content != blank %}
+        {{ size_chart_page.content }}
+      {% else %}
+        <p>Sizing information is currently unavailable. Please <a href="/pages/contact-us">contact us</a> for help.</p>
+      {% endif %}
+    </div>
+  </div>
+</dialog>
+
+<script>
+  (function () {
+    var modal = document.getElementById('size-chart-modal');
+    if (!modal) return;
+
+    function open() {
+      if (typeof modal.showModal === 'function') {
+        modal.showModal();
+      } else {
+        modal.setAttribute('open', '');
+      }
+    }
+    function close() {
+      if (typeof modal.close === 'function') {
+        modal.close();
+      } else {
+        modal.removeAttribute('open');
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      var trigger = e.target.closest('[data-size-chart-trigger]');
+      if (trigger) {
+        e.preventDefault();
+        open();
+        return;
+      }
+      if (e.target.closest('[data-size-chart-close]')) {
+        e.preventDefault();
+        close();
+        return;
+      }
+      // Backdrop click — when click target is the dialog itself, not its inner content
+      if (e.target === modal) {
+        close();
+      }
+    });
+  })();
+</script>
