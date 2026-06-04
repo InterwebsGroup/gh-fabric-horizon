@@ -26,6 +26,22 @@
 <header-actions
   {{- block.shopify_attributes -}}
 >
+  {% if section.settings.show_search %}
+    <button
+      on:click="#search-modal/showDialog"
+      class="button button-unstyled header-actions__action desktop:hidden"
+      aria-label="{{ 'content.search_input_label' | t }}"
+      aria-haspopup="dialog"
+    >
+      <span
+        aria-hidden="true"
+        class="svg-wrapper"
+      >
+        {{ 'icon-search.svg' | inline_asset_content }}
+      </span>
+    </button>
+  {% endif %}
+
   {% if shop.customer_accounts_enabled %}
     <script
       src="{{ 'dialog.js' | asset_url }}"
