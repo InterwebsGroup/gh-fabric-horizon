@@ -242,16 +242,16 @@ fieldset.product__option > legend {
 
 .product__size-chart-link {
   position: absolute;
-  top: 0;
+  top: 12px;
   right: 14px;
-  transform: translateY(-50%);
-  padding: 0 6px;
-  background: var(--color-background, #faf7f4);
+  padding: 0;
+  background: transparent;
   border: 0;
   font: inherit;
+  font-family: var(--gh-font-body, 'DM Sans', sans-serif);
   font-size: 0.75rem;
   font-weight: 600;
-  color: inherit;
+  color: var(--color-espresso, #3d3028);
   text-decoration: underline;
   text-transform: uppercase;
   letter-spacing: 0.05em;
