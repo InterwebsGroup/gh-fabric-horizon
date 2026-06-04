@@ -240,22 +240,26 @@ fieldset.product__option > legend {
   margin-bottom: 0;
 }
 
+.product__option-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .product__size-chart-link {
-  position: absolute;
-  top: 12px;
-  right: 14px;
   padding: 0;
   background: transparent;
   border: 0;
-  font: inherit;
   font-family: var(--gh-font-body, 'DM Sans', sans-serif);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 500;
   color: var(--color-espresso, #3d3028);
   text-decoration: underline;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  text-underline-offset: 3px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .product__option-label {
