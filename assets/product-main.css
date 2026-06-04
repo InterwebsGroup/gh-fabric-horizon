@@ -227,6 +227,7 @@
 
 .product__option-label {
   display: flex;
+  width: 100%;
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
@@ -262,6 +263,7 @@
 
 .product__swatches {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   gap: 10px;
 }
