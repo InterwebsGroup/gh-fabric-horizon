@@ -226,9 +226,36 @@
 }
 
 fieldset.product__option {
-  border: 0;
-  padding: 0;
+  position: relative;
+  border: 1px solid var(--color-sand, #e8d5c4);
+  border-radius: 8px;
+  padding: 12px 14px 14px;
   margin: 0 0 20px;
+}
+
+fieldset.product__option > legend {
+  width: auto;
+  padding: 0 6px;
+  margin-left: 4px;
+  margin-bottom: 0;
+}
+
+.product__size-chart-link {
+  position: absolute;
+  top: 0;
+  right: 14px;
+  transform: translateY(-50%);
+  padding: 0 6px;
+  background: var(--color-background, #faf7f4);
+  border: 0;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: inherit;
+  text-decoration: underline;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
 }
 
 .product__option-label {
@@ -243,19 +270,6 @@ fieldset.product__option {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 10px;
-}
-
-.product__size-chart-link {
-  margin-left: auto;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  text-decoration: underline;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  cursor: pointer;
 }
 
 .product__size-chart-link:hover {

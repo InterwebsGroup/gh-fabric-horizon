@@ -234,12 +234,10 @@
           {%- unless option_name_down == 'color' or option_name_down == 'colour' -%}
             {%- assign option_index = option.position | minus: 1 -%}
             <fieldset class="product__option" data-option-position="{{ option.position }}">
-              <legend class="product__option-label">
-                <span>{{ option.name }}</span>
-                {%- if option_name_down contains 'size' -%}
-                  <button type="button" class="product__size-chart-link size-chart-link" data-size-chart-trigger>Size Chart</button>
-                {%- endif -%}
-              </legend>
+              <legend class="product__option-label">{{ option.name }}</legend>
+              {%- if option_name_down contains 'size' -%}
+                <button type="button" class="product__size-chart-link size-chart-link" data-size-chart-trigger>Size Chart</button>
+              {%- endif -%}
               <div class="product__option-values" data-option-values>
                 {%- for value in option.values -%}
                   {%- assign variant_available = false -%}
